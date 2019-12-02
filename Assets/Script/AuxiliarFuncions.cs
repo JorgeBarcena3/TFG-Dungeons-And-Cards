@@ -13,16 +13,21 @@ public class AuxiliarFuncions : MonoBehaviour
     /// <param name="obj">Objeto a desplazar</param>
     /// <param name="goal">Posicion meta</param>
     /// <param name="time">Tiempo de desplazamiento</param>
-   public static IEnumerator moveObjectTo(GameObject obj, Vector3 goal, float time = 1f)
+   public static IEnumerator moveObjectTo(RectTransform obj, Vector3 goal, float time = 1f)
     {
 
-        float distance = Vector3.Distance(obj.transform.position, goal);
+        float t = 0;
 
-        while (Vector3.Distance(obj.transform.position, goal) > 0.05f)
+        while (Vector3.Distance(obj.transform.position, goal) > 0.01f)
         {
-            obj.transform.position = Vector3.Lerp(obj.transform.position, goal, (distance/time) * Time.deltaTime);
+            t += Time.deltaTime / time;
+            obj.localPosition = Vector3.Lerp(obj.transform.localPosition, goal, t);
             yield return null;
         }
-      
+
+        obj.transform.position = goal;        
+
     }
+
+    //TODO MOVIMIENTO LOCAL
 }

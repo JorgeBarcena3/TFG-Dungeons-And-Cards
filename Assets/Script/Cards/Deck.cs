@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -55,7 +56,10 @@ public class Deck : MonoBehaviour
     /// </summary>
     void Start()
     {
+
         getCanvasGameobject();
+
+        setSizeOfDeck();
 
         setDeckBack();
 
@@ -63,7 +67,42 @@ public class Deck : MonoBehaviour
 
         suffleDeck();
 
+    }
 
+
+    /// <summary>
+    /// Determina el tamaño de la baraja según el tamaño del canvas
+    /// </summary>
+    private void setSizeOfDeck()
+    {
+
+        RectTransform canvasComponent = CanvasGameObject.GetComponent<RectTransform>();
+
+        float width = canvasComponent.sizeDelta.x;
+        float height = canvasComponent.sizeDelta.y;
+
+        float cardWidth = width / 6;
+
+        RectTransform transform = GetComponent<RectTransform>();
+
+        float newX = cardWidth;
+        float newY = transform.sizeDelta.y * cardWidth / transform.sizeDelta.x;
+
+        transform.sizeDelta = new Vector2(newX, newY);
+
+        resizePrefab(newX, newY);
+
+    }
+
+    /// <summary>
+    /// Crea un nuevo tamaño para el prefab
+    /// </summary>
+    /// <param name="newX">Nueva X</param>
+    /// <param name="newY">Nueva Y</param>
+    private void resizePrefab(float newX, float newY)
+    {
+        RectTransform prefabTransform = cardPrefab.GetComponent<RectTransform>();
+        prefabTransform.sizeDelta = new Vector2(newX, newY);
     }
 
     /// <summary>
@@ -125,27 +164,31 @@ public class Deck : MonoBehaviour
     /// <returns></returns>
     public void dealCards(int count)
     {
+        RectTransform canvasComponent = CanvasGameObject.GetComponent<RectTransform>();
+
+        float width = canvasComponent.sizeDelta.x * canvasComponent.localScale.x;
+        float height = canvasComponent.sizeDelta.y * canvasComponent.localScale.y;
+
+        RectTransform transform = (RectTransform)cardPrefab.transform;
+
+        float cardWidth = transform.sizeDelta.x * transform.localScale.x;
+        float cardHeight = transform.sizeDelta.y * transform.localScale.y;
+
+        float paddingX = cardWidth / 6;
+        // p C p C p C p C p C p
         for (int i = 0; i < count; ++i)
         {
             GameObject card = activeCards.First();
             activeCards.RemoveAt(0);
             handCards.Add(card);
-            Vector3 goal = Vector3.zero;
 
-            StartCoroutine(dealCard(card, goal, 5f));
+            Vector3 goal = new Vector3((- width / 2) + paddingX + i * cardWidth, -(height / 2) + cardHeight * 1.2f, 0);
+
+            StartCoroutine(AuxiliarFuncions.moveObjectTo(card.GetComponent<RectTransform>(), goal));
         }
-        
+
     }
 
-    /// <summary>
-    /// Se reparte una carta
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerator dealCard(GameObject card, Vector3 goal, float time)
-    {  
-        StartCoroutine(AuxiliarFuncions.moveObjectTo(card, goal, time));
-        yield return null;
-    }
 
     // Update is called once per frame
     void Update()
