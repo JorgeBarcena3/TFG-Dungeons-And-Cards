@@ -7,6 +7,17 @@ using UnityEngine;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+
+    /// <summary>
+    /// Controlador de la baraja
+    /// </summary>
+    public Deck Deck;
+
+    /// <summary>
+    /// Generador de mundo
+    /// </summary>
+    public WorldGenerator worldGenerator;
+
     /// <summary>
     /// Instancia del GameManager
     /// </summary>
@@ -24,6 +35,15 @@ public class GameManager : MonoBehaviour
         }
 
         return instance;
+    }
+
+    /// <summary>
+    /// Funcion de start
+    /// </summary>
+    private void Start()
+    {
+        worldGenerator.init();
+        Deck.init();
     }
 
 

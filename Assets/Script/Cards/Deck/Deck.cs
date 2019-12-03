@@ -48,20 +48,11 @@ public class Deck : MonoBehaviour
     /// </summary>
     private DeckCanvasInfo deckCanvasInfo;
 
-    /// <summary>
-    /// Funcion del start
-    /// </summary>
-    void Start()
-    {
-
-        init();
-
-    }
 
     /// <summary>
     /// Se inicializa la baraja
     /// </summary>
-    private void init()
+    public void init()
     {
         deckInfo = this.gameObject.AddComponent<DeckInfo>();
 
@@ -231,7 +222,6 @@ public class Deck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            dealCards();
+       
     }
 }

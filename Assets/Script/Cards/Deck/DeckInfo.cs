@@ -123,7 +123,7 @@ public class DeckInfo : MonoBehaviour
     {
         activeCards.Clear();
 
-        while(cementeryCards.Count >= 1)
+        while (cementeryCards.Count >= 1)
         {
             activeCards.Add(cementeryCards.First());
             cementeryCards.RemoveAt(0);
