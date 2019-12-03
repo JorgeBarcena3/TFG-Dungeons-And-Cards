@@ -40,6 +40,16 @@ public class Card : MonoBehaviour
     private Image ImageComponent;
 
     /// <summary>
+    /// Baraja a la que pertenece
+    /// </summary>
+    private Deck deck;
+
+    /// <summary>
+    /// Tamaño de la carta
+    /// </summary>
+    public static RectTransform CARD_RECT_TRANSFORM { get; set; }
+
+    /// <summary>
     /// Coloca un sprite en el gameobject de la carta
     /// </summary>
     public void setSprite(Sprite sprt)
@@ -52,10 +62,11 @@ public class Card : MonoBehaviour
     /// Instanciamos una carta en la posicion X
     /// </summary>
     /// <param name="position">Posicion donde vamos a instanciar la carta</param>
-    public static GameObject instantiateCard(GameObject prefab, RectTransform position, Transform _parent)
+    public static GameObject instantiateCard(GameObject prefab, RectTransform position, Transform _parent, Deck _deck)
     {
         GameObject cardGameobject = Instantiate(prefab, position.position, Quaternion.identity, _parent);
-        cardGameobject.AddComponent<Card>();
+        Card cardComponent = cardGameobject.AddComponent<Card>();
+        cardComponent.deck = _deck;
         return cardGameobject;
     }
 
