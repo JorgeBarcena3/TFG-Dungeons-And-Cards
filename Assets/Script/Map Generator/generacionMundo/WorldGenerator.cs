@@ -215,11 +215,12 @@ public class WorldGenerator : MonoBehaviour
 
         }
 
+        Vector3 size = sprites[0].GetComponent<SpriteRenderer>().bounds.size;
         for (int y = 0; y < this.board.world_cell.GetLength(0); y++)
         {
             for (int x = 0; x < this.board.world_cell.GetLength(1); x++)
             {
-                Vector3 size = sprites[0].GetComponent<SpriteRenderer>().bounds.size;
+               
                 Vector3 position = y % 2 == 0 ? this.transform.position + new Vector3(x * size.x, -(y * size.y * 23 / 40), -(y)) :
                     this.transform.position + new Vector3(x * size.x + size.x / 2, -(y * size.y * 23 / 40), -(y));
 

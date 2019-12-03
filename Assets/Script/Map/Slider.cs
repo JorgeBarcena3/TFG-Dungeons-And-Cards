@@ -54,13 +54,12 @@ public class Slider : MonoBehaviour
     /// </summary>
     private void adaptBoxCollider(SpriteRenderer spr, Vector2 mapSize)
     {
-
         float sizeX = spr.size.x * mapSize.x;
-        float sizeY = spr.size.y * mapSize.y - (spr.size.y * mapSize.y * 23 / 40);
+        float sizeY = mapSize.y * spr.size.y * 23 / 40;
 
         boxCollider.size = new Vector2(sizeX, sizeY);
 
-        boxCollider.offset = new Vector2(spr.size.x * (mapSize.x / 2), -spr.size.y * (mapSize.y / 23 / 40));
+        boxCollider.offset = new Vector2(spr.size.x * (mapSize.x / 2), -mapSize.y * spr.size.y * 23 / 40 / 2);
 
     }
 
@@ -91,6 +90,7 @@ public class Slider : MonoBehaviour
         Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Vector3 diference = mousePosition - currentMousePos;
+
 
         map.transform.position += new Vector3(diference.x, diference.y, map.transform.position.z);
 
