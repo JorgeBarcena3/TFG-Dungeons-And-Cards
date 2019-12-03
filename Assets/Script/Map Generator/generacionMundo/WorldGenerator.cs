@@ -260,7 +260,7 @@ public class WorldGenerator : MonoBehaviour
 
         if (slider)
         {
-            slider.activate(sprites[0].GetComponent<SpriteRenderer>(), new Vector2(tamanioX, tamanioY));
+            slider.activate(sprites[0].GetComponent<SpriteRenderer>(), new Vector2(tamanioX, tamanioY), this.gameObject);
         }
 
 
