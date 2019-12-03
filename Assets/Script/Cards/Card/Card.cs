@@ -83,4 +83,5 @@ public class Card : MonoBehaviour
         deck.goToCementery(this.gameObject);
     }
 
+
 }

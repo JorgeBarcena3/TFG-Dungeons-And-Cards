@@ -82,7 +82,7 @@ public class DeckInfo : MonoBehaviour
             anchorToCards.Add(new AnchorInfo(false, anchor.transform, i));
         }
 
-        cementaryPosition = new Vector3(10, 0, 0);
+        cementaryPosition = new Vector3(canvasComponent.sizeDelta.x, canvasComponent.sizeDelta.y, 0);
 
     }
 
@@ -109,7 +109,7 @@ public class DeckInfo : MonoBehaviour
 
                 cementeryCards.Add(card);
 
-                StartCoroutine(AuxiliarFuncions.moveObjectTo(card.GetComponent<RectTransform>(), cementaryPosition));
+                StartCoroutine(AuxiliarFuncions.moveObjectToLocal(card.GetComponent<RectTransform>(), cementaryPosition));
             }
         }
 

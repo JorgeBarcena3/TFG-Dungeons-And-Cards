@@ -600,6 +600,11 @@ PrefabInstance:
       propertyPath: m_PlaneDistance
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 5093986053229863618, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 1dfcff1489389fa458618f1640f86076, type: 2}
     - target: {fileID: 5093986053229863616, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
         type: 3}
       propertyPath: cardsInDeck
@@ -714,6 +719,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LoadingImageCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7754462414411117628, guid: 774f9d7a8d5508742b170ef7ce323aa1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4837459820498248997, guid: 774f9d7a8d5508742b170ef7ce323aa1,
         type: 3}

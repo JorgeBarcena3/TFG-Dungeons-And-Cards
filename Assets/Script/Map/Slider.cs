@@ -65,15 +65,7 @@ public class Slider : MonoBehaviour
     {
 
     }
-
-    /// <summary>
-    /// Cuando haces click por primera vez
-    /// </summary>
-    private void OnMouseDown()
-    {
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-    }
+    
 
     /// <summary>
     /// Determina cuando se esta arrastrando el raton
@@ -81,8 +73,10 @@ public class Slider : MonoBehaviour
     void OnMouseDrag()
     {
 
-        if (Input.touchCount == 1 )
+        if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
+            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
             Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             Vector3 diference = (mousePosition - currentMousePos);
@@ -93,7 +87,6 @@ public class Slider : MonoBehaviour
                 Camera.main.transform.position += new Vector3(diference.x, diference.y, 0) / 5;
             }
 
-            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         }
     }
