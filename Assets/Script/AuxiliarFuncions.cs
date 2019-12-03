@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Biblioteca de funciones auxiliares
@@ -13,7 +14,7 @@ public class AuxiliarFuncions : MonoBehaviour
     /// <param name="obj">Objeto a desplazar</param>
     /// <param name="goal">Posicion meta</param>
     /// <param name="time">Tiempo de desplazamiento</param>
-   public static IEnumerator moveObjectToLocal(RectTransform obj, Vector3 goal, float time = 1f)
+    public static IEnumerator moveObjectToLocal(RectTransform obj, Vector3 goal, float time = 1f)
     {
 
         float t = 0;
@@ -25,7 +26,7 @@ public class AuxiliarFuncions : MonoBehaviour
             yield return null;
         }
 
-        obj.transform.localPosition = goal;        
+        obj.transform.localPosition = goal;
 
     }
 
@@ -64,5 +65,56 @@ public class AuxiliarFuncions : MonoBehaviour
         return new Vector2(x, y);
     }
 
+
+    /// <summary>
+    /// Muestra en la consola el string deseado
+    /// </summary>
+    /// <param name="str">String a mostrar</param>
+    public static void debugString(string str)
+    {
+        Debug.Log(str);
+    }
+
+
+    /// <summary>
+    /// Efecto de FadeOut
+    /// </summary>
+    /// <param name="image">Imagen a la que se le aplicara el efecto</param>
+    /// <returns></returns>
+    public static IEnumerator FadeOut(Image image, GameObject toDescativate)
+    {
+
+        while (image.color.a > 0)
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a - 0.01f);
+            yield return null;
+        }
+
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
+
+        toDescativate.SetActive(false);
+
+    }
+
+
+    /// <summary>
+    /// Efecto de FadeOut
+    /// </summary>
+    /// <param name="image">Imagen a la que se le aplicara el efecto</param>
+    /// <returns></returns>
+    public static IEnumerator FadeIn(Image image, GameObject toDescativate)
+    {
+        toDescativate.SetActive(true);
+
+        while (image.color.a > 0)
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + 0.01f);
+            yield return null;
+        }
+
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
+
+
+    }
 
 }

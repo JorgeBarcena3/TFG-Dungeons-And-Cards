@@ -82,7 +82,7 @@ public class DeckInfo : MonoBehaviour
             anchorToCards.Add(new AnchorInfo(false, anchor.transform, i));
         }
 
-        cementaryPosition = new Vector3(width, height, 0);
+        cementaryPosition = new Vector3(10, 0, 0);
 
     }
 

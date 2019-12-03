@@ -10,10 +10,6 @@ using UnityEngine;
 public class Slider : MonoBehaviour
 {
 
-    /// <summary>
-    /// Gameobject del mapa
-    /// </summary>
-    private GameObject map;
 
     /// <summary>
     /// Componente BoxCollider2D
@@ -26,9 +22,10 @@ public class Slider : MonoBehaviour
     private Vector3 mousePosition;
 
     /// <summary>
-    /// Posicion del mapa
+    /// Cada cuanto se movera o no
     /// </summary>
-    private Vector3 mapPosition;
+    public int sliderOffset;
+
 
     /// <summary>
     /// Funcion que inicializa el componente
@@ -41,11 +38,9 @@ public class Slider : MonoBehaviour
     /// <summary>
     /// Activa la funcion de scroll
     /// </summary>
-    public void activate(SpriteRenderer sprite, Vector2 mapSize, GameObject _map)
+    public void activate(SpriteRenderer sprite, Vector2 mapSize)
     {
         init();
-        map = _map;
-        mapPosition = map.transform.position;
         adaptBoxCollider(sprite, mapSize);
     }
 
@@ -76,10 +71,8 @@ public class Slider : MonoBehaviour
     /// </summary>
     private void OnMouseDown()
     {
-        mousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        mapPosition = map.transform.position;
-        
     }
 
     /// <summary>
@@ -87,16 +80,22 @@ public class Slider : MonoBehaviour
     /// </summary>
     void OnMouseDrag()
     {
-        Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector3 diference = mousePosition - currentMousePos;
+        if (Input.touchCount == 1 )
+        {
+            Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+            Vector3 diference = (mousePosition - currentMousePos);
 
-        map.transform.position += new Vector3(diference.x, diference.y, map.transform.position.z);
+            if (diference.magnitude > sliderOffset)
+            {
+                diference = diference.normalized;
+                Camera.main.transform.position += new Vector3(diference.x, diference.y, 0) / 5;
+            }
 
-        mousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Debug.Log(diference);
+        }
     }
 
 

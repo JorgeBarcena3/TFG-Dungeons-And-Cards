@@ -95,7 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileRender: {fileID: 8252586325214786372}
+  tileTransform: {fileID: 0}
   sprites:
-  - {fileID: -487297665234144747, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
+  - {fileID: 741675249598512173, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
   - {fileID: 4414030660562809939, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
   tileType: 0
