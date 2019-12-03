@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -25,6 +27,11 @@ public class DeckInfo : MonoBehaviour
     /// Cartas que han salido, van al cementerio
     /// </summary>
     public List<GameObject> cementeryCards = new List<GameObject>();
+
+    /// <summary>
+    /// Posicion del cementerio de cartas
+    /// </summary>
+    public Vector3 cementaryPosition;
 
     /// <summary>
     /// Numero de cartas que tendrá en la mano
@@ -72,9 +79,57 @@ public class DeckInfo : MonoBehaviour
         {
             Vector3 position = new Vector3((-width / 2) + (x / 2) + (x * i) + ((i + 1) * xOffset), (-height / 2) + (height * 0.05f) + (y / 2), 0);
             GameObject anchor = Instantiate(anchorPrefab, position, Quaternion.identity, CanvasGameObject.transform);
-            anchorToCards.Add(new AnchorInfo(false, anchor.transform));
+            anchorToCards.Add(new AnchorInfo(false, anchor.transform, i));
+        }
+
+        cementaryPosition = new Vector3(width, height, 0);
+
+    }
+
+    /// <summary>
+    /// Manda una carta al cementerio
+    /// </summary>
+    /// <param name="card"></param>
+    public void goToCementery(GameObject card, ref List<AnchorInfo> anchorToCards)
+    {
+        if (!handCards.Contains(card))
+            throw new Exception("La carta debe esta en la mano del jugado para poder ser enviada al cementerio");
+
+        Card cardGameobject = card.GetComponent<Card>();
+
+
+        foreach (AnchorInfo info in anchorToCards)
+        {
+            if (info.position == cardGameobject.indexPosition)
+            {
+                info.state = false;
+                cardGameobject.indexPosition = null;
+
+                handCards.Remove(card);
+
+                cementeryCards.Add(card);
+
+                StartCoroutine(AuxiliarFuncions.moveObjectTo(card.GetComponent<RectTransform>(), cementaryPosition));
+            }
         }
 
     }
 
+    /// <summary>
+    /// Mueve todas las cartas del cementerio a las cartas activas
+    /// </summary>
+    /// <param name="position"></param>
+    public void moveCementaryToActive(RectTransform position)
+    {
+        activeCards.Clear();
+
+        while(cementeryCards.Count >= 1)
+        {
+            activeCards.Add(cementeryCards.First());
+            cementeryCards.RemoveAt(0);
+            StartCoroutine(AuxiliarFuncions.moveObjectTo(activeCards.Last().transform, position.position));
+            //TODO: ESPERAR A QUE TODAS LAS CASRTAS HAYAN LLEGADO A SU DESTINO
+        }
+
+    }
 }

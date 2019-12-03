@@ -403,7 +403,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 56.231064, y: -69.5876}
+  m_AnchoredPosition: {x: 65, y: -71}
   m_SizeDelta: {x: 71, y: 94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1281114005
@@ -460,7 +460,7 @@ MonoBehaviour:
   anchorPrefab: {fileID: 2707506033679947539, guid: ca8bb956921ab2f4891eaf8ffed9716c,
     type: 3}
   cardsInHand: 5
-  cardsInDeck: 30
+  cardsInDeck: 10
 --- !u!1 &1702840337
 GameObject:
   m_ObjectHideFlags: 0

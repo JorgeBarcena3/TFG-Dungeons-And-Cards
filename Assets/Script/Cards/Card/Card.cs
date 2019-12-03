@@ -45,6 +45,11 @@ public class Card : MonoBehaviour
     private Deck deck;
 
     /// <summary>
+    /// En caso de que esté en la mano del jugador, en que posicion está
+    /// </summary>
+    public int? indexPosition = null;
+
+    /// <summary>
     /// Tamaño de la carta
     /// </summary>
     public static RectTransform CARD_RECT_TRANSFORM { get; set; }
@@ -68,6 +73,14 @@ public class Card : MonoBehaviour
         Card cardComponent = cardGameobject.AddComponent<Card>();
         cardComponent.deck = _deck;
         return cardGameobject;
+    }
+
+    /// <summary>
+    /// Detectamos si hemos hecho click en una carta
+    /// </summary>
+    void OnMouseDown()
+    {
+        deck.goToCementery(this.gameObject);
     }
 
 }

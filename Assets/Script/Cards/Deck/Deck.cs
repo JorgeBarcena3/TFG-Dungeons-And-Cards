@@ -92,6 +92,14 @@ public class Deck : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Manda una carta al cementerio
+    /// </summary>
+    public void goToCementery(GameObject card)
+    {
+        deckInfo.goToCementery(card, ref deckCanvasInfo.anchorToCards);
+    }
+
 
     /// <summary>
     /// Determina el tamaño de la baraja según el tamaño del canvas
@@ -183,7 +191,17 @@ public class Deck : MonoBehaviour
             {
                 position.state = true;
 
-                GameObject card = deckInfo.activeCards.First();
+                GameObject card = deckInfo.activeCards.FirstOrDefault();
+
+                if (!card)
+                {
+                    deckInfo.moveCementaryToActive(GetComponent<RectTransform>());
+                    suffleDeck();
+                    card = deckInfo.activeCards.FirstOrDefault();
+
+                }
+
+                card.GetComponent<Card>().indexPosition = position.position;
                 deckInfo.activeCards.RemoveAt(0);
                 deckInfo.handCards.Add(card);
 
@@ -192,7 +210,21 @@ public class Deck : MonoBehaviour
             }
         }
 
+        checkIfCards();
 
+    }
+
+    /// <summary>
+    /// Determina si hay cartas en la baraja activa
+    /// </summary>
+    private void checkIfCards()
+    {
+        if (!deckInfo.activeCards.FirstOrDefault())
+        {
+            deckInfo.moveCementaryToActive(GetComponent<RectTransform>());
+            suffleDeck();
+
+        }
     }
 
 
