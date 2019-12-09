@@ -21,23 +21,23 @@ public class InfoModel
     /// <summary>
     /// Tipo de carta
     /// </summary>
-    private CardKind card_kind;
+    public CardKind card_kind { get ; private set; }
     /// <summary>
     /// Precio de la carta
     /// </summary>
-    private int cost;
+    public int cost { get; private set; }
     /// <summary>
     /// Distancia que alcanza
     /// </summary>
-    private int distance;
+    public int distance { get; private set; }
     /// <summary>
     /// radio del area en el que afecta 
     /// </summary>
-    private int area_radius;
+    public int area_radius { get; private set; }
     /// <summary>
     /// Turnos que dura el efecto
     /// </summary>
-    private int turn;
+    public int turn { get; private set; }
 
 
     /// <summary>
