@@ -19,6 +19,10 @@ public enum CardKind
 public class InfoModel
 {
     /// <summary>
+    /// Identificador de la carta
+    /// </summary>
+    public int id { get; private set; }
+    /// <summary>
     /// Tipo de carta
     /// </summary>
     public CardKind card_kind { get ; private set; }
@@ -26,6 +30,10 @@ public class InfoModel
     /// Precio de la carta
     /// </summary>
     public int cost { get; private set; }
+    /// <summary>
+    /// Indica la fuerza de la carta, si es de daño indicaria cuanto daño, si es de defensa cuanta defensa, etc
+    /// </summary>
+    public int power { get; private set; }
     /// <summary>
     /// Distancia que alcanza
     /// </summary>
@@ -48,10 +56,13 @@ public class InfoModel
     /// <param name="_distance">distancia de accion</param>
     /// <param name="_area_radius">area de accion</param>
     /// <param name="_turn">turnos de accion</param>
-    public InfoModel(CardKind _card_kind, int _cost = 0, int _distance = 1, int _area_radius = 0, int _turn = 1 ) 
+    public InfoModel(CardKind _card_kind, int _id, int _cost = 0, int _power = 1, int _distance = 1, int _area_radius = 0, int _turn = 1 ) 
     {
         card_kind = _card_kind;
+        //los primeros numeros del id indican el tipo de carta, los ultimos 5 numeros indican las variables de esta
+        id = ((((_id * 10 + _cost) * 10 + _power) * 10 + _distance) * 10 + _area_radius) * 10 + _turn;
         cost = _cost;
+        power = _power;
         distance = _distance;
         area_radius = _area_radius;
         turn = _turn;
