@@ -20,6 +20,10 @@ public class InfoCard
     /// </summary>
     public int id { get; private set; }
     /// <summary>
+    /// Descripcion del funcionamiento o uso de la carta
+    /// </summary>
+    public string description { get; private set; }
+    /// <summary>
     /// Tipo de carta
     /// </summary>
     public CardKind card_kind { get; private set; }
@@ -53,11 +57,12 @@ public class InfoCard
     /// <param name="_distance">distancia de accion</param>
     /// <param name="_area_radius">area de accion</param>
     /// <param name="_turn">turnos de accion</param>
-    public InfoCard(CardKind _card_kind, int _id, int _cost = 0, int _power = 1, int _distance = 1, int _area_radius = 0, int _turn = 1)
+    public InfoCard(CardKind _card_kind, int _id, string _description ,int _cost = 0, int _power = 1, int _distance = 1, int _area_radius = 0, int _turn = 1)
     {
         card_kind = _card_kind;
         //los primeros numeros del id indican el tipo de carta, los ultimos 5 numeros indican las variables de esta
         id = ((((_id * 10 + _cost) * 10 + _power) * 10 + _distance) * 10 + _area_radius) * 10 + _turn;
+        description = _description;
         cost = _cost;
         power = _power;
         distance = _distance;
