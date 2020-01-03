@@ -39,7 +39,7 @@ public class Nodo
     {
 
         List<Nodo> result = new List<Nodo>();
-        List<Cell> vecinos = estado.getVecinosWalkables(board);
+        List<Cell> vecinos = estado.GetWalkableNeighbours(board);
 
         for (int i = 0; i < vecinos.Count; i++)
         {
@@ -71,6 +71,6 @@ public class Nodo
     /// <returns></returns>
     public bool esMeta(Nodo nodo, Cell to)
     {
-        return nodo.estado.cellInfo.x == to.cellInfo.x && nodo.estado.cellInfo.y == to.cellInfo.y;
+        return nodo.estado.CellInfo.x == to.CellInfo.x && nodo.estado.CellInfo.y == to.CellInfo.y;
     }
 }

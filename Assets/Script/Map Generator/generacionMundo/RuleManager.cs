@@ -11,7 +11,7 @@ public class RuleManager
     /// <summary>
     /// Radio por el que se calcularan los vecinos
     /// </summary>
-    public string ruleGeneration { get; private set; }
+    public string RuleGeneration { get; private set; }
 
     /// <summary>
     /// Survive char
@@ -26,22 +26,22 @@ public class RuleManager
     /// <summary>
     /// Reglas para las celulas vivas
     /// </summary>
-    List<int> survive_rules { get; set; }
+    List<int> SurviveRules { get; set; }
 
     /// <summary>
     /// Reglas para las celulas que deben nacer
     /// </summary>
-    List<int> born_rules { get; set; }
+    List<int> BornRules { get; set; }
 
     public RuleManager(string _ruleGeneration, char _S_prefix, char _B_prefix)
     {
 
-        this.ruleGeneration = _ruleGeneration;
+        this.RuleGeneration = _ruleGeneration;
         this.S_prefix = _S_prefix;
         this.B_prefix = _B_prefix;
 
-        survive_rules = getRules(S_prefix); //Las matamos
-        born_rules = getRules(B_prefix); //Las crecemos
+        SurviveRules = GetRules(S_prefix); //Las matamos
+        BornRules = GetRules(B_prefix); //Las crecemos
     }
 
     /// <summary>
@@ -50,9 +50,9 @@ public class RuleManager
     /// <param name="index">Prefijo de cada zona</param>
     /// <param name="separator">Separador de reglas</param>
     /// <returns></returns>
-    private List<int> getRules(char index, char separator = '/')
+    private List<int> GetRules(char index, char separator = '/')
     {
-        List<string> rules = this.ruleGeneration.Split(separator).OfType<string>().ToList();
+        List<string> rules = this.RuleGeneration.Split(separator).OfType<string>().ToList();
 
         string surviveRules = rules.Where(m => m.Contains(index)).FirstOrDefault();
 
@@ -92,30 +92,30 @@ public class RuleManager
     /// <param name="parent_board">Tablero de referencia</param>
     /// <param name="cell">Celda actual</param>
     /// <returns></returns>
-    public Cell applyRules(Cell cell)
+    public Cell ApplyRules(Cell cell)
     {
         Cell next_cell = new Cell (cell);
-        next_cell.color = next_cell.value == CellsType.dead ? Color.black : Color.white;
+        next_cell.Color = next_cell.Value == CELLSTYPE.DEAD ? Color.black : Color.white;
 
-        if (next_cell.value == CellsType.dead)
+        if (next_cell.Value == CELLSTYPE.DEAD)
         {
-            if (born_rules.Contains(next_cell.countNeighborsAlive))
+            if (BornRules.Contains(next_cell.CountNeighborsAlive))
             {
-                next_cell = new Cell(next_cell.cellInfo.x, next_cell.cellInfo.y, CellsType.alive);
-                next_cell.color = Color.blue;
+                next_cell = new Cell(next_cell.CellInfo.x, next_cell.CellInfo.y, CELLSTYPE.ALIVE);
+                next_cell.Color = Color.blue;
 
             }
         }
-        else if (next_cell.value == CellsType.alive)
+        else if (next_cell.Value == CELLSTYPE.ALIVE)
         {
-            if (survive_rules.Contains(next_cell.countNeighborsAlive))
+            if (SurviveRules.Contains(next_cell.CountNeighborsAlive))
             {
-                next_cell = new Cell(next_cell.cellInfo.x, next_cell.cellInfo.y, CellsType.alive);
+                next_cell = new Cell(next_cell.CellInfo.x, next_cell.CellInfo.y, CELLSTYPE.ALIVE);
             }
             else
             {
-                next_cell = new Cell(next_cell.cellInfo.x, next_cell.cellInfo.y, CellsType.dead);
-                next_cell.color = Color.red;
+                next_cell = new Cell(next_cell.CellInfo.x, next_cell.CellInfo.y, CELLSTYPE.DEAD);
+                next_cell.Color = Color.red;
 
             }
 

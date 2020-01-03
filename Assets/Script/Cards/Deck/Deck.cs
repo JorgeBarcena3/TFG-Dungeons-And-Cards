@@ -62,31 +62,31 @@ public class Deck : MonoBehaviour
 
         deckCanvasInfo.getCanvasGameobject();
 
-        setSizeOfDeck();
+        SetSizeOfDeck();
 
-        setCardsAnchor();
+        SetCardsAnchor();
 
         deckCanvasInfo.setDeckBack(cardPrefab.GetComponent<Image>(), back, ref cardPrefab);
 
-        instantiateCards();
+        InstantiateCards();
 
-        suffleDeck();
+        SuffleDeck();
     }
 
     /// <summary>
     /// Crea y posiciona los anchors donde se van a parar las cartas
     /// </summary>
-    private void setCardsAnchor()
+    private void SetCardsAnchor()
     {
 
-        deckInfo.setCardsAnchor(ref deckCanvasInfo.anchorToCards, ref deckCanvasInfo.CanvasGameObject, ref anchorPrefab);
+        deckInfo.setCardsAnchor(ref deckCanvasInfo.anchorToCards, ref deckCanvasInfo.canvasGameObject, ref anchorPrefab);
 
     }
 
     /// <summary>
     /// Manda una carta al cementerio
     /// </summary>
-    public void goToCementery(GameObject card)
+    public void GoToCementery(GameObject card)
     {
         deckInfo.goToCementery(card, ref deckCanvasInfo.anchorToCards);
     }
@@ -95,10 +95,10 @@ public class Deck : MonoBehaviour
     /// <summary>
     /// Determina el tamaño de la baraja según el tamaño del canvas
     /// </summary>
-    private void setSizeOfDeck()
+    private void SetSizeOfDeck()
     {
 
-        RectTransform canvasComponent = deckCanvasInfo.CanvasGameObject.GetComponent<RectTransform>();
+        RectTransform canvasComponent = deckCanvasInfo.canvasGameObject.GetComponent<RectTransform>();
 
         float width = canvasComponent.sizeDelta.x;
         float height = canvasComponent.sizeDelta.y;
@@ -114,7 +114,7 @@ public class Deck : MonoBehaviour
 
         Card.CARD_RECT_TRANSFORM = transform;
 
-        resizePrefabs(newX, newY);
+        ResizePrefabs(newX, newY);
 
     }
 
@@ -123,7 +123,7 @@ public class Deck : MonoBehaviour
     /// </summary>
     /// <param name="newX">Nueva X</param>
     /// <param name="newY">Nueva Y</param>
-    private void resizePrefabs(float newX, float newY)
+    private void ResizePrefabs(float newX, float newY)
     {
         RectTransform prefabTransform = cardPrefab.GetComponent<RectTransform>();
         prefabTransform.sizeDelta = new Vector2(newX, newY);
@@ -137,13 +137,13 @@ public class Deck : MonoBehaviour
     /// <summary>
     /// Crea una instancia de todas las cartas
     /// </summary>
-    private void instantiateCards()
+    private void InstantiateCards()
     {
         RectTransform rectTransformComponent = GetComponent<RectTransform>();
 
         for (int i = 0; i < cardsInDeck; ++i)
         {
-            deckInfo.cardsGameObject.Add(Card.instantiateCard(cardPrefab, rectTransformComponent, deckCanvasInfo.CanvasGameObject.transform, this));
+            deckInfo.cardsGameObject.Add(Card.instantiateCard(cardPrefab, rectTransformComponent, deckCanvasInfo.canvasGameObject.transform, this));
             deckInfo.activeCards.Add(deckInfo.cardsGameObject.Last());
         }
     }
@@ -152,7 +152,7 @@ public class Deck : MonoBehaviour
     /// <summary>
     /// Se barajan todas las cartas de la baraja
     /// </summary>
-    private void suffleDeck()
+    private void SuffleDeck()
     {
         List<GameObject> randomList = new List<GameObject>();
 
@@ -173,7 +173,7 @@ public class Deck : MonoBehaviour
     /// </summary>
     /// <param name="count">Cantidad de cartas a repartir</param>
     /// <returns></returns>
-    public void dealCards()
+    public void DealCards()
     {
 
         foreach (AnchorInfo position in deckCanvasInfo.anchorToCards)
@@ -187,7 +187,7 @@ public class Deck : MonoBehaviour
                 if (!card)
                 {
                     deckInfo.moveCementaryToActive(GetComponent<RectTransform>());
-                    suffleDeck();
+                    SuffleDeck();
                     card = deckInfo.activeCards.FirstOrDefault();
 
                 }
@@ -196,24 +196,24 @@ public class Deck : MonoBehaviour
                 deckInfo.activeCards.RemoveAt(0);
                 deckInfo.handCards.Add(card);
 
-                StartCoroutine(AuxiliarFuncions.moveObjectTo(card.GetComponent<RectTransform>(), position.transform.position));
+                StartCoroutine(AuxiliarFuncions.MoveObjectTo(card.GetComponent<RectTransform>(), position.transform.position));
 
             }
         }
 
-        checkIfCards();
+        CheckIfCards();
 
     }
 
     /// <summary>
     /// Determina si hay cartas en la baraja activa
     /// </summary>
-    private void checkIfCards()
+    private void CheckIfCards()
     {
         if (!deckInfo.activeCards.FirstOrDefault())
         {
             deckInfo.moveCementaryToActive(GetComponent<RectTransform>());
-            suffleDeck();
+            SuffleDeck();
 
         }
     }

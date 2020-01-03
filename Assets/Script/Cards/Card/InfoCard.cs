@@ -18,35 +18,35 @@ public class InfoCard
     /// <summary>
     /// Identificador de la carta
     /// </summary>
-    public int id { get; private set; }
+    public int Id { get; private set; }
     /// <summary>
     /// Descripcion del funcionamiento o uso de la carta
     /// </summary>
-    public string description { get; private set; }
+    public string Description { get; private set; }
     /// <summary>
     /// Tipo de carta
     /// </summary>
-    public CardKind card_kind { get; private set; }
+    public CardKind Card_kind { get; private set; }
     /// <summary>
     /// Precio de la carta
     /// </summary>
-    public int cost { get; private set; }
+    public int Cost { get; private set; }
     /// <summary>
     /// Indica la fuerza de la carta, si es de daño indicaria cuanto daño, si es de defensa cuanta defensa, etc
     /// </summary>
-    public int power { get; private set; }
+    public int Power { get; private set; }
     /// <summary>
     /// Distancia que alcanza
     /// </summary>
-    public int distance { get; private set; }
+    public int Distance { get; private set; }
     /// <summary>
     /// radio del area en el que afecta 
     /// </summary>
-    public int area_radius { get; private set; }
+    public int AreaRadius { get; private set; }
     /// <summary>
     /// Turnos que dura el efecto
     /// </summary>
-    public int turn { get; private set; }
+    public int Turn { get; private set; }
 
 
     /// <summary>
@@ -59,15 +59,15 @@ public class InfoCard
     /// <param name="_turn">turnos de accion</param>
     public InfoCard(CardKind _card_kind, int _id, string _description ,int _cost = 0, int _power = 1, int _distance = 1, int _area_radius = 0, int _turn = 1)
     {
-        card_kind = _card_kind;
+        Card_kind = _card_kind;
         //los primeros numeros del id indican el tipo de carta, los ultimos 5 numeros indican las variables de esta
-        id = ((((_id * 10 + _cost) * 10 + _power) * 10 + _distance) * 10 + _area_radius) * 10 + _turn;
-        description = _description;
-        cost = _cost;
-        power = _power;
-        distance = _distance;
-        area_radius = _area_radius;
-        turn = _turn;
+        Id = ((((_id * 10 + _cost) * 10 + _power) * 10 + _distance) * 10 + _area_radius) * 10 + _turn;
+        Description = _description;
+        Cost = _cost;
+        Power = _power;
+        Distance = _distance;
+        AreaRadius = _area_radius;
+        Turn = _turn;
 
     }
 }

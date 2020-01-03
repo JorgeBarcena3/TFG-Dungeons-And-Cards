@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Controlador de la baraja
     /// </summary>
-    public Deck Deck;
+    public Deck deck;
 
     /// <summary>
     /// Componente que se encarga de cargar la imagen
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.D) || (Input.touchCount == 1 && Input.GetTouch(0).tapCount == 2))
         {
-            Deck.dealCards();
+            deck.DealCards();
         }
     }
 
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
         yield return null;
         worldGenerator.init();
         yield return null;
-        Deck.init();
+        deck.init();
         yield return null;
         state = States.INGAME;
         imageLoader.FadeOut();

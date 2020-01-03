@@ -207,6 +207,16 @@ PrefabInstance:
       propertyPath: loadingImage
       value: 
       objectReference: {fileID: 771216674}
+    - target: {fileID: 579095924439372255, guid: 5f7df52737a46634eb87ad8ef37d8df9,
+        type: 3}
+      propertyPath: deck
+      value: 
+      objectReference: {fileID: 848901290}
+    - target: {fileID: 579095924439372255, guid: 5f7df52737a46634eb87ad8ef37d8df9,
+        type: 3}
+      propertyPath: imageLoader
+      value: 
+      objectReference: {fileID: 1074213258}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f7df52737a46634eb87ad8ef37d8df9, type: 3}
 --- !u!1 &658229128
@@ -485,6 +495,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardsCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5093986053229863616, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
+        type: 3}
+      propertyPath: cardsInDeck
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093986053229863616, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
+        type: 3}
+      propertyPath: cardsInHand
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093986053229863616, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
+        type: 3}
+      propertyPath: back
+      value: 
+      objectReference: {fileID: 21300000, guid: e0d2daba17cf0dd48b51a3bf793893dd,
+        type: 3}
     - target: {fileID: 5093986054176308067, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -605,22 +631,6 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 2100000, guid: 1dfcff1489389fa458618f1640f86076, type: 2}
-    - target: {fileID: 5093986053229863616, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
-        type: 3}
-      propertyPath: cardsInDeck
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 5093986053229863616, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
-        type: 3}
-      propertyPath: cardsInHand
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5093986053229863616, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
-        type: 3}
-      propertyPath: back
-      value: 
-      objectReference: {fileID: 21300000, guid: e0d2daba17cf0dd48b51a3bf793893dd,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1f7b482bd6ceb445a3b5193e6217bfd, type: 3}
 --- !u!1001 &2042085037
@@ -634,6 +644,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Generador
+      objectReference: {fileID: 0}
+    - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
+        type: 3}
+      propertyPath: pasillosEstrechos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
+        type: 3}
+      propertyPath: verProcesoCreacionMapa
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6809962095224083633, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
@@ -688,16 +708,6 @@ PrefabInstance:
     - target: {fileID: 6809962095224083633, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
-        type: 3}
-      propertyPath: pasillosEstrechos
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
-        type: 3}
-      propertyPath: verProcesoCreacionMapa
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

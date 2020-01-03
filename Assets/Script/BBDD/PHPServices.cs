@@ -46,7 +46,7 @@ public class PHPServices : MonoBehaviour
     /// <param name="name"></param>
     /// <param name="score"></param>
     /// <returns></returns>
-    public IEnumerator setScore(string name, string score)
+    public IEnumerator SetScore(string name, string score)
     {
         string API_URL = url + "setScore.php";
 

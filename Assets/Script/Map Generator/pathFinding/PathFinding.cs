@@ -97,8 +97,8 @@ public class PathFinding
 
         foreach (Nodo s in abierta)
         {
-            if (s.estado.cellInfo.x == nodo.estado.cellInfo.x
-                && s.estado.cellInfo.y == nodo.estado.cellInfo.y
+            if (s.estado.CellInfo.x == nodo.estado.CellInfo.x
+                && s.estado.CellInfo.y == nodo.estado.CellInfo.y
                 )
                 esta = true;
         }

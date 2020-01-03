@@ -63,12 +63,12 @@ public class DeckInfo : MonoBehaviour
         anchorToCards = new List<AnchorInfo>(cardsInHand);
 
         RectTransform canvasComponent = CanvasGameObject.GetComponent<RectTransform>();
-        Vector2 sizeCanvas = AuxiliarFuncions.getSizeFromRectTransform(canvasComponent);
+        Vector2 sizeCanvas = AuxiliarFuncions.GetSizeFromRectTransform(canvasComponent);
 
         float width = sizeCanvas.x;
         float height = sizeCanvas.y;
 
-        Vector2 CardSize = AuxiliarFuncions.getSizeFromRectTransform(Card.CARD_RECT_TRANSFORM);
+        Vector2 CardSize = AuxiliarFuncions.GetSizeFromRectTransform(Card.CARD_RECT_TRANSFORM);
 
         float x = width / (cardsInHand + 1);
         float xOffset = x / (cardsInHand + 1);
@@ -109,7 +109,7 @@ public class DeckInfo : MonoBehaviour
 
                 cementeryCards.Add(card);
 
-                StartCoroutine(AuxiliarFuncions.moveObjectToLocal(card.GetComponent<RectTransform>(), cementaryPosition));
+                StartCoroutine(AuxiliarFuncions.MoveObjectToLocal(card.GetComponent<RectTransform>(), cementaryPosition));
             }
         }
 
@@ -127,7 +127,7 @@ public class DeckInfo : MonoBehaviour
         {
             activeCards.Add(cementeryCards.First());
             cementeryCards.RemoveAt(0);
-            StartCoroutine(AuxiliarFuncions.moveObjectTo(activeCards.Last().transform, position.position));
+            StartCoroutine(AuxiliarFuncions.MoveObjectTo(activeCards.Last().transform, position.position));
             //TODO: ESPERAR A QUE TODAS LAS CASRTAS HAYAN LLEGADO A SU DESTINO
         }
 

@@ -8,10 +8,10 @@ using UnityEngine.UI;
 /// </summary>
 public enum ATTACKTYPE
 {
-    movement = 0,
-    attack = 1,
-    defense = 2,
-    special = 3
+    MOVEMENT = 0,
+    ATTACK = 1,
+    DEFENSE = 2,
+    SPECIAL = 3
 }
 
 /// <summary>
@@ -80,7 +80,7 @@ public class Card : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
-        deck.goToCementery(this.gameObject);
+        deck.GoToCementery(this.gameObject);
     }
 
 

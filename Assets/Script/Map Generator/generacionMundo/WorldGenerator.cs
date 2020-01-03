@@ -123,12 +123,12 @@ public class WorldGenerator : MonoBehaviour
         this.board = new Tablero(tamanioX, tamanioY, radioVecino, reglaDeGeneracion, probabilidadesDeSerSueloRnd, pasillosEstrechos);
 
         //Creamos un tablero random
-        this.board.createRandomWorld();
+        this.board.CreateRandomWorld();
 
         if (iteracionesIniciales && !verProcesoCreacionMapa)
-            refreshBoard();
+            RefreshBoard();
 
-        drawBoard();
+        DrawBoard();
 
     }
 
@@ -145,7 +145,7 @@ public class WorldGenerator : MonoBehaviour
     /// <summary>
     /// Función que pinta el tablero
     /// </summary>
-    void drawBoard()
+    void DrawBoard()
     {
         /*
         if (spritesBoard == null)
@@ -224,7 +224,7 @@ public class WorldGenerator : MonoBehaviour
                 Vector3 position = y % 2 == 0 ? this.transform.position + new Vector3(x * size.x, -(y * size.y * 23 / 40), -(y)) :
                     this.transform.position + new Vector3(x * size.x + size.x / 2, -(y * size.y * 23 / 40), -(y));
 
-                if (this.board.world_cell[x, y].value == CellsType.dead)
+                if (this.board.world_cell[x, y].Value == CELLSTYPE.DEAD)
                 {
                     spritesBoard.Add(Instantiate(sprites[0], position, Quaternion.identity, this.transform));
                 }
@@ -276,27 +276,27 @@ public class WorldGenerator : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                refreshBoard();
+                RefreshBoard();
             }
 
             if (Input.GetKeyDown(KeyCode.S))
             {
-                board.smoothOutTheMap();
-                drawBoard();
+                board.SmoothOutTheMap();
+                DrawBoard();
 
             }
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                board.roomManager.checkRooms(board);
-                drawBoard();
+                board.RoomManager.CheckRooms(board);
+                DrawBoard();
 
             }
 
             if (Input.GetKeyDown(KeyCode.C))
             {
-                board.roomManager.checkRooms(board, true);
-                drawBoard();
+                board.RoomManager.CheckRooms(board, true);
+                DrawBoard();
             }
         }
     }
@@ -304,42 +304,42 @@ public class WorldGenerator : MonoBehaviour
     /// <summary>
     /// Hace una genracion del algoritmo
     /// </summary>
-    public void doAStep()
+    public void DoAStep()
     {
-        this.board.computeNeighbors();
-        board.roomManager.checkRooms(board);
+        this.board.ComputeNeighbors();
+        board.RoomManager.CheckRooms(board);
         if (++countIteracionesIniciales >= interaciones)
         {
-            board.roomManager.checkRooms(board, this.generarPasillosPorIteracion);
+            board.RoomManager.CheckRooms(board, this.generarPasillosPorIteracion);
             if (suavizarMundo)
-                board.smoothOutTheMap();
+                board.SmoothOutTheMap();
 
             CancelInvoke("doAStep");
         }
-        drawBoard();
+        DrawBoard();
 
     }
 
     /// <summary>
     /// Computamos los vecinos otra vez
     /// </summary>
-    public void refreshBoard()
+    public void RefreshBoard()
     {
         for (int i = 0; i < interaciones; ++i)
         {
-            this.board.computeNeighbors();
+            this.board.ComputeNeighbors();
         }
 
         if (suavizarMundo)
-            this.board.smoothOutTheMap();
+            this.board.SmoothOutTheMap();
 
         if (generarPasillosPorIteracion)
-            board.roomManager.checkRooms(board, true);
+            board.RoomManager.CheckRooms(board, true);
         else
-            board.roomManager.checkRooms(board);
+            board.RoomManager.CheckRooms(board);
 
 
-        drawBoard();
+        DrawBoard();
 
     }
 

@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 /// <summary>
 /// Encargado de determinar las salas que contiene un tablero
 /// </summary>
-public class roomsManager
+public class RoomsManager
 {
     /// <summary>
     /// Lista de habitaciones
@@ -17,44 +17,44 @@ public class roomsManager
     /// <summary>
     /// Referencia al tablero donde esta la habitacion
     /// </summary>
-    private Tablero tablero;
+    private Tablero board;
 
     /// <summary>
     /// Determina si los pasillos serán estrechos o no
     /// </summary>
-    private bool pasillosEstrechos;
+    private bool narrowHallWays;
 
     /// <summary>
     /// Constructor por defecto
     /// </summary>
-    public roomsManager(Tablero _tablero, bool _pasillosEstrechos)
+    public RoomsManager(Tablero _tablero, bool _pasillosEstrechos)
     {
         this.rooms = new List<Room>();
-        this.tablero = _tablero;
-        this.pasillosEstrechos = _pasillosEstrechos;
+        this.board = _tablero;
+        this.narrowHallWays = _pasillosEstrechos;
     }
 
     /// <summary>
     /// Determina las rooms que hay en un tablero
     /// </summary>
     /// <param name="_tablero">Tablero de donde se buscaran las habitaciones</param>
-    public void checkRooms(Tablero _tablero, bool unirHabitaciones = false)
+    public void CheckRooms(Tablero _tablero, bool unirHabitaciones = false)
     {
 
-        setCeldasOutOfRoom(_tablero);
+        SetCellsOutOfRoom(_tablero);
 
         for (int y = 0; y < _tablero.world_cell.GetLength(0); ++y)
         {
             for (int x = 0; x < _tablero.world_cell.GetLength(1); ++x)
             {
-                if (_tablero[x, y].value == CellsType.alive && !_tablero[x, y].cellInfo.isInRoom)
+                if (_tablero[x, y].Value == CELLSTYPE.ALIVE && !_tablero[x, y].CellInfo.isInRoom)
                 {
                     Room newRoom = new Room(GetRegionTiles(_tablero, _tablero[x, y]), _tablero);
                     Color RegionColor = new Color((float)Random.Range(0f, 1f), (float)Random.Range(0f, 1f), (float)Random.Range(0f, 1f));
-                    foreach (Cell cell in newRoom.celdas)
+                    foreach (Cell cell in newRoom.Cells)
                     {
-                        cell.color = RegionColor;
-                        cell.cellInfo.isInRoom = true;
+                        cell.Color = RegionColor;
+                        cell.CellInfo.isInRoom = true;
 
                     }
                     rooms.Add(newRoom);
@@ -71,7 +71,7 @@ public class roomsManager
     /// Elimina de las celdas de un tablero
     /// </summary>
     /// <param name="tablero">Tablero del cual eliminar las cosas</param>
-    private void setCeldasOutOfRoom(Tablero _tablero)
+    private void SetCellsOutOfRoom(Tablero _tablero)
     {
 
         this.rooms = new List<Room>();
@@ -80,8 +80,8 @@ public class roomsManager
         {
             for (int x = 0; x < _tablero.world_cell.GetLength(1); ++x)
             {
-                _tablero[x, y].cellInfo.isInRoom = false;
-                _tablero[x, y].color = Color.white;
+                _tablero[x, y].CellInfo.isInRoom = false;
+                _tablero[x, y].Color = Color.white;
             }
         }
     }
@@ -98,20 +98,20 @@ public class roomsManager
         List<Cell> room = new List<Cell>();
 
         Queue<Cell> queue = new Queue<Cell>();
-        _cell.cellInfo.isInRoom = true;
+        _cell.CellInfo.isInRoom = true;
         queue.Enqueue(_cell);
 
         while (queue.Count > 0)
         {
             Cell cell = queue.Dequeue();
             room.Add(cell);
-            CellsType cellType = cell.value;
+            CELLSTYPE cellType = cell.Value;
 
-            int radioVecinos = _tablero.radioVecino;
+            int radioVecinos = _tablero.NeighboursRadius;
 
-            for (int x = cell.cellInfo.x - radioVecinos; x <= cell.cellInfo.x + radioVecinos; x++)
+            for (int x = cell.CellInfo.x - radioVecinos; x <= cell.CellInfo.x + radioVecinos; x++)
             {
-                for (int y = cell.cellInfo.y - radioVecinos; y <= cell.cellInfo.y + radioVecinos; y++)
+                for (int y = cell.CellInfo.y - radioVecinos; y <= cell.CellInfo.y + radioVecinos; y++)
                 {
 
                     int NeighborX = x;
@@ -120,12 +120,12 @@ public class roomsManager
                     if (
                         (NeighborX >= 0 && NeighborX < _tablero.world_cell.GetLength(0))
                      && (NeighborY >= 0 && NeighborY < _tablero.world_cell.GetLength(1))
-                     && (NeighborX == cell.cellInfo.x || NeighborY == cell.cellInfo.y)
+                     && (NeighborX == cell.CellInfo.x || NeighborY == cell.CellInfo.y)
                      )
                     {
-                        if (_tablero[NeighborX, NeighborY].value == cellType && !_tablero[NeighborX, NeighborY].cellInfo.isInRoom)
+                        if (_tablero[NeighborX, NeighborY].Value == cellType && !_tablero[NeighborX, NeighborY].CellInfo.isInRoom)
                         {
-                            _tablero[NeighborX, NeighborY].cellInfo.isInRoom = true;
+                            _tablero[NeighborX, NeighborY].CellInfo.isInRoom = true;
                             queue.Enqueue(_tablero[NeighborX, NeighborY]);
 
                         }
@@ -154,7 +154,7 @@ public class roomsManager
 
         bool conexionEncontrada = false;
 
-        Room habitacionPrincipal = rooms.OrderByDescending(i => i.roomSize).Take(1).FirstOrDefault();
+        Room habitacionPrincipal = rooms.OrderByDescending(i => i.RoomSize).Take(1).FirstOrDefault();
 
         if (habitacionPrincipal != null)
         {
@@ -165,13 +165,13 @@ public class roomsManager
                 if (roomA != habitacionPrincipal)
                 {
 
-                    for (int celdaAIndex = 0; celdaAIndex < roomA.limitesHabitacion.Count; celdaAIndex++)
+                    for (int celdaAIndex = 0; celdaAIndex < roomA.RoomsLimit.Count; celdaAIndex++)
                     {
-                        for (int celdaBIndex = 0; celdaBIndex < habitacionPrincipal.limitesHabitacion.Count; celdaBIndex++)
+                        for (int celdaBIndex = 0; celdaBIndex < habitacionPrincipal.RoomsLimit.Count; celdaBIndex++)
                         {
-                            Cell celdaA = roomA.limitesHabitacion[celdaAIndex];
-                            Cell celdaB = habitacionPrincipal.limitesHabitacion[celdaBIndex];
-                            int distanciaManhattanEntreHabitaciones = (int)(Mathf.Pow(celdaA.cellInfo.x - celdaB.cellInfo.x, 2) + Mathf.Pow(celdaA.cellInfo.y - celdaB.cellInfo.y, 2));
+                            Cell celdaA = roomA.RoomsLimit[celdaAIndex];
+                            Cell celdaB = habitacionPrincipal.RoomsLimit[celdaBIndex];
+                            int distanciaManhattanEntreHabitaciones = (int)(Mathf.Pow(celdaA.CellInfo.x - celdaB.CellInfo.x, 2) + Mathf.Pow(celdaA.CellInfo.y - celdaB.CellInfo.y, 2));
 
                             if (distanciaManhattanEntreHabitaciones < mejorDistancia || !conexionEncontrada)
                             {
@@ -189,7 +189,7 @@ public class roomsManager
 
                 if (conexionEncontrada)
                 {
-                    crearPasillo(mejorHabitacionA, mejorHabitacionB, mejorCeldaA, mejorCeldaB);
+                    CreateHall(mejorHabitacionA, mejorHabitacionB, mejorCeldaA, mejorCeldaB);
                 }
             }
         }
@@ -202,16 +202,16 @@ public class roomsManager
     /// <param name="roomB"></param>
     /// <param name="startPos"></param>
     /// <param name="endPos"></param>
-    void crearPasillo(Room roomA, Room roomB, Cell startPos, Cell endPos)
+    void CreateHall(Room roomA, Room roomB, Cell startPos, Cell endPos)
     {
-        Room.conectarHabitaciones(roomA, roomB);
+        Room.ConnectRooms(roomA, roomB);
 
-        List<Cell> lineaEntreHabitaciones = obtenerlineaEntreHabitaciones(startPos, endPos, roomA, roomB);
+        List<Cell> lineaEntreHabitaciones = GetLineBetweenRooms(startPos, endPos, roomA, roomB);
         lineaEntreHabitaciones.Insert(0, startPos);
 
         foreach (Cell c in lineaEntreHabitaciones)
         {
-            crearPasillo(c);
+            CreateHall(c);
         }
 
     }
@@ -221,23 +221,23 @@ public class roomsManager
     /// </summary>
     /// <param name="c"></param>
     /// <param name="conVecinos"></param>
-    void crearPasillo(Cell c)
+    void CreateHall(Cell c)
     {
 
-        int drawX = c.cellInfo.x;
-        int drawY = c.cellInfo.y;
+        int drawX = c.CellInfo.x;
+        int drawY = c.CellInfo.y;
 
-        tablero[drawX, drawY].value = CellsType.alive;
-        tablero[drawX, drawY].color = Color.red;
+        board[drawX, drawY].Value = CELLSTYPE.ALIVE;
+        board[drawX, drawY].Color = Color.red;
 
-        if (!this.pasillosEstrechos)
+        if (!this.narrowHallWays)
         {
-            List<Cell> vecinos = c.getVecinos(tablero);
+            List<Cell> vecinos = c.getNeighbours(board);
 
             foreach (Cell cell in vecinos)
             {
-                cell.value = CellsType.alive;
-                cell.color = Color.red;
+                cell.Value = CELLSTYPE.ALIVE;
+                cell.Color = Color.red;
             }
         }
 
@@ -251,11 +251,11 @@ public class roomsManager
     /// <param name="roomDesde"></param>
     /// <param name="roomHasta"></param>
     /// <returns></returns>
-    List<Cell> obtenerlineaEntreHabitaciones(Cell desde, Cell hasta, Room roomDesde, Room roomHasta)
+    List<Cell> GetLineBetweenRooms(Cell desde, Cell hasta, Room roomDesde, Room roomHasta)
     {
 
         PathFinding pf = new PathFinding();
-        return pf.calcularRuta(tablero, desde, hasta);
+        return pf.calcularRuta(board, desde, hasta);
 
     }
 

@@ -5,10 +5,10 @@ using UnityEngine;
 /// <summary>
 /// Tipos de celda que puede haber en nuestro mapa
 /// </summary>
-public enum CellsType
+public enum CELLSTYPE
 {
-    dead = 0,
-    alive = 1
+    DEAD = 0,
+    ALIVE = 1
 }
 
 /// <summary>
@@ -20,27 +20,27 @@ public class Cell
     /// <summary>
     /// Informacion de la celda en un tablero
     /// </summary>
-    public CellInfo cellInfo { get; set; }
+    public CellInfo CellInfo { get; set; }
 
     /// <summary>
     /// Valor del contenido de la celda
     /// </summary>
-    public CellsType value { get; set; }
+    public CELLSTYPE Value { get; set; }
 
     /// <summary>
     /// Cuenta de vecinos vivos
     /// </summary>
-    public int countNeighborsAlive { get; set; }
+    public int CountNeighborsAlive { get; set; }
 
     /// <summary>
     /// Probabilidad de iniciar como suelo
     /// </summary>
-    public float probability_alive { get; set; }
+    public float ProbabilityAlive { get; set; }
 
     /// <summary>
     /// Color de representacion de la célula
     /// </summary>
-    public Color color { get; set; }
+    public Color Color { get; set; }
 
     /// <summary>
     /// Constructor por defecto
@@ -54,11 +54,11 @@ public class Cell
     /// </summary>
     public Cell(int x, int y, float _probability_alive = 0.4f)
     {
-        this.probability_alive = _probability_alive;
+        this.ProbabilityAlive = _probability_alive;
         float prob = UnityEngine.Random.Range(0f, 1f);
-        this.value = (prob < probability_alive) ? CellsType.dead : CellsType.alive;
-        this.cellInfo = new CellInfo(x, y);
-        this.color = this.value == CellsType.dead ? Color.black : Color.white;
+        this.Value = (prob < ProbabilityAlive) ? CELLSTYPE.DEAD : CELLSTYPE.ALIVE;
+        this.CellInfo = new CellInfo(x, y);
+        this.Color = this.Value == CELLSTYPE.DEAD ? Color.black : Color.white;
 
     }
 
@@ -68,23 +68,23 @@ public class Cell
     /// <param name="oldCell">Celda antigua</param>
     public Cell(Cell oldCell)
     {
-        this.value = oldCell.value;
-        this.cellInfo = new CellInfo(oldCell.cellInfo.x, oldCell.cellInfo.y);
-        this.probability_alive = oldCell.probability_alive;
-        this.countNeighborsAlive = oldCell.countNeighborsAlive;
-        this.color = oldCell.color;
+        this.Value = oldCell.Value;
+        this.CellInfo = new CellInfo(oldCell.CellInfo.x, oldCell.CellInfo.y);
+        this.ProbabilityAlive = oldCell.ProbabilityAlive;
+        this.CountNeighborsAlive = oldCell.CountNeighborsAlive;
+        this.Color = oldCell.Color;
 
     }
 
     /// <summary>
     /// Constructor para cuando inicializamos una celda en un mundo
     /// </summary>
-    public Cell(int x, int y, CellsType _value, float _probability_alive = 0.4f)
+    public Cell(int x, int y, CELLSTYPE _value, float _probability_alive = 0.4f)
     {
-        this.value = _value;
-        this.cellInfo = new CellInfo(x, y);
-        this.probability_alive = _probability_alive;
-        this.color = this.value == CellsType.dead ? Color.black : Color.white;
+        this.Value = _value;
+        this.CellInfo = new CellInfo(x, y);
+        this.ProbabilityAlive = _probability_alive;
+        this.Color = this.Value == CELLSTYPE.DEAD ? Color.black : Color.white;
 
 
     }
@@ -94,9 +94,9 @@ public class Cell
     /// </summary>
     /// <param name="board"></param>
     /// <returns></returns>
-    public List<Cell> getVecinosWalkables(Tablero board)
+    public List<Cell> GetWalkableNeighbours(Tablero board)
     {
-        int radioVecinos = board.radioVecino;
+        int radioVecinos = board.NeighboursRadius;
 
         List<Cell> celdasWalkables = new List<Cell>();
 
@@ -105,14 +105,14 @@ public class Cell
         {
             for (int x = radioVecinos; x >= -radioVecinos; --x)
             {
-                int NeighborX = cellInfo.x + x;
-                int NeighborY = cellInfo.y + y;
+                int NeighborX = CellInfo.x + x;
+                int NeighborY = CellInfo.y + y;
 
                 if (
                     (NeighborX >= 0 && NeighborX < board.world_cell.GetLength(0))
                  && (NeighborY >= 0 && NeighborY < board.world_cell.GetLength(1))
                  && (Math.Abs(x) + Math.Abs(y) != 0)
-                 && (NeighborX == cellInfo.x || NeighborY == cellInfo.y)
+                 && (NeighborX == CellInfo.x || NeighborY == CellInfo.y)
                  )
                 {
 
@@ -130,9 +130,9 @@ public class Cell
     /// </summary>
     /// <param name="board"></param>
     /// <returns></returns>
-    public List<Cell> getVecinos(Tablero board)
+    public List<Cell> getNeighbours(Tablero board)
     {
-        int radioVecinos = board.radioVecino;
+        int radioVecinos = board.NeighboursRadius;
 
         List<Cell> celdasWalkables = new List<Cell>();
 
@@ -141,8 +141,8 @@ public class Cell
         {
             for (int x = radioVecinos; x >= -radioVecinos; --x)
             {
-                int NeighborX = cellInfo.x + x;
-                int NeighborY = cellInfo.y + y;
+                int NeighborX = CellInfo.x + x;
+                int NeighborY = CellInfo.y + y;
 
                 if (
                     (NeighborX >= 0 && NeighborX < board.world_cell.GetLength(0))

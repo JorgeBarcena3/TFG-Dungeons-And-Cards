@@ -7,22 +7,22 @@ public class Room
     /// <summary>
     /// Lista de celdas que componen la habitacion
     /// </summary>
-    public List<Cell> celdas { get; private set; }
+    public List<Cell> Cells { get; private set; }
 
     /// <summary>
     /// Vertices de cada habitacion
     /// </summary>
-    public List<Cell> limitesHabitacion { get; private set; }
+    public List<Cell> RoomsLimit { get; private set; }
 
     /// <summary>
     /// Habitaciones a las que esta conectado
     /// </summary>
-    public List<Room> connectedRooms { get; private set; }
+    public List<Room> ConnectedRooms { get; private set; }
 
     /// <summary>
     /// Tamaño de la room
     /// </summary>
-    public int roomSize { get; private set; }
+    public int RoomSize { get; private set; }
 
     /// <summary>
     /// Constructor por defecto
@@ -37,27 +37,27 @@ public class Room
     /// <param name="_room">Lista de celdas de la habitacion</param>
     public Room(List<Cell> _room, Tablero _tablero)
     {
-        this.celdas = _room;
-        this.roomSize = celdas.Count;
-        this.connectedRooms = new List<Room>();
+        this.Cells = _room;
+        this.RoomSize = Cells.Count;
+        this.ConnectedRooms = new List<Room>();
 
-        this.limitesHabitacion = new List<Cell>();
+        this.RoomsLimit = new List<Cell>();
 
-        foreach (Cell cell in this.celdas)
+        foreach (Cell cell in this.Cells)
         {
-            for (int x = cell.cellInfo.x - 1; x <= cell.cellInfo.x + 1; x++)
+            for (int x = cell.CellInfo.x - 1; x <= cell.CellInfo.x + 1; x++)
             {
-                for (int y = cell.cellInfo.y - 1; y <= cell.cellInfo.y + 1; y++)
+                for (int y = cell.CellInfo.y - 1; y <= cell.CellInfo.y + 1; y++)
                 {
                     if (
                             (x >= 0 && x < _tablero.world_cell.GetLength(0))
                          && (y >= 0 && y < _tablero.world_cell.GetLength(1))
-                         && (x == cell.cellInfo.x || y == cell.cellInfo.y)
+                         && (x == cell.CellInfo.x || y == cell.CellInfo.y)
                     )
                     {
-                        if (_tablero[x, y].value == CellsType.alive)
+                        if (_tablero[x, y].Value == CELLSTYPE.ALIVE)
                         {
-                            limitesHabitacion.Add(cell);
+                            RoomsLimit.Add(cell);
                         }
                     }
                 }
@@ -71,10 +71,10 @@ public class Room
     /// </summary>
     /// <param name="roomA">Habitacion a conectar A</param>
     /// <param name="roomB">Habitacion a conectar B</param>
-    public static void conectarHabitaciones(Room roomA, Room roomB)
+    public static void ConnectRooms(Room roomA, Room roomB)
     {
-        roomA.connectedRooms.Add(roomB);
-        roomB.connectedRooms.Add(roomA);
+        roomA.ConnectedRooms.Add(roomB);
+        roomB.ConnectedRooms.Add(roomA);
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ public class Room
     /// <returns></returns>
     public bool IsConnected(Room otherRoom)
     {
-        return connectedRooms.Contains(otherRoom);
+        return ConnectedRooms.Contains(otherRoom);
     }
 
 

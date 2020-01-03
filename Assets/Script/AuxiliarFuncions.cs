@@ -14,7 +14,7 @@ public class AuxiliarFuncions : MonoBehaviour
     /// <param name="obj">Objeto a desplazar</param>
     /// <param name="goal">Posicion meta</param>
     /// <param name="time">Tiempo de desplazamiento</param>
-    public static IEnumerator moveObjectToLocal(RectTransform obj, Vector3 goal, float time = 1f)
+    public static IEnumerator MoveObjectToLocal(RectTransform obj, Vector3 goal, float time = 1f)
     {
 
         float t = 0;
@@ -36,7 +36,7 @@ public class AuxiliarFuncions : MonoBehaviour
     /// <param name="obj">Objeto a desplazar</param>
     /// <param name="goal">Posicion meta</param>
     /// <param name="time">Tiempo de desplazamiento</param>
-    public static IEnumerator moveObjectTo(Transform obj, Vector3 goal, float time = 1f)
+    public static IEnumerator MoveObjectTo(Transform obj, Vector3 goal, float time = 1f)
     {
 
         float t = 0;
@@ -57,7 +57,7 @@ public class AuxiliarFuncions : MonoBehaviour
     /// </summary>
     /// <param name="obj">Rectrasnfom del que sacar la informacion</param>
     /// <returns></returns>
-    public static Vector2 getSizeFromRectTransform(RectTransform obj)
+    public static Vector2 GetSizeFromRectTransform(RectTransform obj)
     {
         float x = obj.sizeDelta.x * obj.localScale.x;
         float y = obj.sizeDelta.y * obj.localScale.y;
@@ -70,7 +70,7 @@ public class AuxiliarFuncions : MonoBehaviour
     /// Muestra en la consola el string deseado
     /// </summary>
     /// <param name="str">String a mostrar</param>
-    public static void debugString(string str)
+    public static void DebugString(string str)
     {
         Debug.Log(str);
     }

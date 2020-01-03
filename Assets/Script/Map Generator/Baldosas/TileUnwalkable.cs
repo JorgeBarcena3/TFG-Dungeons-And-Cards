@@ -2,10 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 
+/// </summary>
 public enum TileUnwalkableType
 {
-    WALL,IMPENETRABLEWALL
+    WALL,
+    IMPENETRABLEWALL
 }
+
+/// <summary>
+/// 
+/// </summary>
 public class TileUnwalkable : Tile
 {
    
@@ -14,7 +22,7 @@ public class TileUnwalkable : Tile
 
     public void Awake()
     {
-        walkable = false;
+        Walkable = false;
         tileRender.sprite = sprites[(int)tileType];
     }
    
