@@ -132,4 +132,15 @@ public class DeckInfo : MonoBehaviour
         }
 
     }
+
+    /// <summary>
+    /// Se dan la vuelta a todas las cartas
+    /// </summary>
+    public void FlipAllCards()
+    {
+        foreach (GameObject cardObj in activeCards)
+        {
+            cardObj.GetComponent<Card>().FlipCard(false);
+        }
+    }
 }

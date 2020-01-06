@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,6 +51,16 @@ public class Card : MonoBehaviour
     public int? indexPosition = null;
 
     /// <summary>
+    /// Gameobject que almacena el background de la carta
+    /// </summary>
+    private GameObject background;
+
+    /// <summary>
+    /// Gameobject que almacena el front de la carta
+    /// </summary>
+    private GameObject front;
+
+    /// <summary>
     /// Tamaño de la carta
     /// </summary>
     public static RectTransform CARD_RECT_TRANSFORM { get; set; }
@@ -72,6 +83,14 @@ public class Card : MonoBehaviour
         GameObject cardGameobject = Instantiate(prefab, position.position, Quaternion.identity, _parent);
         Card cardComponent = cardGameobject.AddComponent<Card>();
         cardComponent.deck = _deck;
+
+        cardComponent.background = cardComponent.gameObject.transform.GetChild(0).gameObject;
+        ((RectTransform)cardComponent.background.transform).sizeDelta = Card.CARD_RECT_TRANSFORM.sizeDelta;
+
+        cardComponent.front = cardComponent.gameObject.transform.GetChild(1).gameObject;
+        ((RectTransform)cardComponent.front.transform).sizeDelta = new Vector2(0, 0);
+
+
         return cardGameobject;
     }
 
@@ -83,5 +102,28 @@ public class Card : MonoBehaviour
         deck.GoToCementery(this.gameObject);
     }
 
+    /// <summary>
+    /// Da la vuelta a la carta en cuestion
+    /// </summary>
+    public void FlipCard(bool flipped = true)
+    {
+        if (flipped)
+        {
+            ((RectTransform)front.transform).sizeDelta = Card.CARD_RECT_TRANSFORM.sizeDelta;
+            ((RectTransform)background.transform).sizeDelta = new Vector2(0, 0);
+        }
+        else
+        {
+            ((RectTransform)background.transform).sizeDelta = Card.CARD_RECT_TRANSFORM.sizeDelta;
+            ((RectTransform)front.transform).sizeDelta = new Vector2(0, 0);
+        }
+    }
 
+    /// <summary>
+    /// Seleccionamos un arte de una carta
+    /// </summary>
+    public void SetCardArt(Sprite spr)
+    {
+        front.GetComponent<Image>().sprite = spr;
+    }
 }

@@ -39,6 +39,6 @@ public class DeckCanvasInfo
     public void setDeckBack(Image ImageComponent, Sprite back, ref GameObject cardPrefab)
     {
         ImageComponent.sprite = back;
-        cardPrefab.GetComponent<Image>().sprite = back;
+        cardPrefab.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = back;
     }
 }

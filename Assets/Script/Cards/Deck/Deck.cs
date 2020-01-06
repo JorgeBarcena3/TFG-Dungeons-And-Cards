@@ -39,6 +39,16 @@ public class Deck : MonoBehaviour
     public int cardsInDeck = 30;
 
     /// <summary>
+    /// Arte de las cartas que vamos a meter en la baraja
+    /// </summary>
+    public List<Sprite> cardArt;
+
+    /// <summary>
+    /// Indice de las cartas para la creacion de la baraja
+    /// </summary>
+    private int cardArtIndex = 0;
+
+    /// <summary>
     /// Informacion relativa a la baraja
     /// </summary>
     private DeckInfo deckInfo;
@@ -66,7 +76,7 @@ public class Deck : MonoBehaviour
 
         SetCardsAnchor();
 
-        deckCanvasInfo.setDeckBack(cardPrefab.GetComponent<Image>(), back, ref cardPrefab);
+        deckCanvasInfo.setDeckBack(cardPrefab.transform.GetChild(0).gameObject.GetComponent<Image>(), back, ref cardPrefab);
 
         InstantiateCards();
 
@@ -144,6 +154,11 @@ public class Deck : MonoBehaviour
         for (int i = 0; i < cardsInDeck; ++i)
         {
             deckInfo.cardsGameObject.Add(Card.instantiateCard(cardPrefab, rectTransformComponent, deckCanvasInfo.canvasGameObject.transform, this));
+            deckInfo.cardsGameObject.Last().GetComponent<Card>().SetCardArt(cardArt[cardArtIndex++]);
+
+            if (cardArtIndex > cardsInDeck)
+                cardArtIndex = 0;
+
             deckInfo.activeCards.Add(deckInfo.cardsGameObject.Last());
         }
     }
@@ -193,6 +208,7 @@ public class Deck : MonoBehaviour
                 }
 
                 card.GetComponent<Card>().indexPosition = position.position;
+                card.GetComponent<Card>().FlipCard();
                 deckInfo.activeCards.RemoveAt(0);
                 deckInfo.handCards.Add(card);
 
@@ -214,6 +230,7 @@ public class Deck : MonoBehaviour
         {
             deckInfo.moveCementaryToActive(GetComponent<RectTransform>());
             SuffleDeck();
+            deckInfo.FlipAllCards();
 
         }
     }
