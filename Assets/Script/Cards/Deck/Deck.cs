@@ -86,6 +86,8 @@ public class Deck : MonoBehaviour
         InstantiateCards();
 
         SuffleDeck();
+
+        infoBackground.transform.SetSiblingIndex(100);
     }
 
     /// <summary>
@@ -118,7 +120,7 @@ public class Deck : MonoBehaviour
         float width = canvasComponent.sizeDelta.x;
         float height = canvasComponent.sizeDelta.y;
 
-        float cardWidth = width / (cardsInHand + 1);
+        float cardWidth =  width / cardsInHand - 1;
 
         RectTransform transform = GetComponent<RectTransform>();
 
@@ -142,8 +144,9 @@ public class Deck : MonoBehaviour
         if (deckInfo.infoCard == null)
         {
             deckInfo.infoCard = _gameObject.GetComponent<Card>();
+            _gameObject.transform.SetSiblingIndex(101);
             StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)deckInfo.infoCard.gameObject.transform, Vector3.zero));
-            StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)deckInfo.infoCard.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta * 4)); //Tamaño visual
+            StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)deckInfo.infoCard.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta * 3)); //Tamaño visual
             StartCoroutine(AuxiliarFuncions.FadeIn(infoBackground.GetComponent<Image>(), infoBackground, 65, 1, true));
 
         }
@@ -151,6 +154,7 @@ public class Deck : MonoBehaviour
         {
             Card card = deckInfo.infoCard;
             deckInfo.infoCard = null;
+            card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault() + 1);
             deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
             StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
             StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
@@ -161,6 +165,7 @@ public class Deck : MonoBehaviour
 
             Card card = deckInfo.infoCard;
             deckInfo.infoCard = null;
+            card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault() + 1);
             StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)card.gameObject.transform, deckCanvasInfo.anchorToCards[card.indexPosition.GetValueOrDefault()].transform.localPosition));
             StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
             StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
@@ -246,7 +251,7 @@ public class Deck : MonoBehaviour
                     card = deckInfo.activeCards.FirstOrDefault();
 
                 }
-
+                card.transform.SetSiblingIndex(position.position + 1);
                 card.GetComponent<Card>().indexPosition = position.position;
                 card.GetComponent<Card>().FlipCard();
                 deckInfo.activeCards.RemoveAt(0);

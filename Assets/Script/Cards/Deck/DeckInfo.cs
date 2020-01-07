@@ -75,14 +75,14 @@ public class DeckInfo : MonoBehaviour
 
         Vector2 CardSize = AuxiliarFuncions.GetSizeFromRectTransform(Card.CARD_RECT_TRANSFORM);
 
-        float x = width / (cardsInHand + 1);
-        float xOffset = x / (cardsInHand + 1);
+        float x = width / ((float)Math.Ceiling((double)cardsInHand/2));
         float y = CardSize.y * x / CardSize.x;
 
 
         for (int i = 0; i < cardsInHand; ++i)
         {
-            Vector3 position = new Vector3((-width / 2) + (x / 2) + (x * i) + ((i + 1) * xOffset), (-height / 2) + (height * 0.05f) + (y / 2), 0);
+            //(-width / 2) + (x / 2) + (x * i) + ((i + 1) * xOffset)
+            Vector3 position = new Vector3((-width / 2) + (x / 2) + i * x / 2, (-height / 2) + (height * 0.02f) + (y / 2), 0);
             GameObject anchor = Instantiate(anchorPrefab, position, Quaternion.identity, CanvasGameObject.transform);
             anchorToCards.Add(new AnchorInfo(false, anchor.transform, i));
         }
