@@ -105,6 +105,7 @@ public class Deck : MonoBehaviour
     /// </summary>
     public void GoToCementery(GameObject card)
     {
+
         deckInfo.goToCementery(card, ref deckCanvasInfo.anchorToCards);
     }
 
@@ -145,6 +146,8 @@ public class Deck : MonoBehaviour
         {
             deckInfo.infoCard = _gameObject.GetComponent<Card>();
             _gameObject.transform.SetSiblingIndex(101);
+            StopAllCoroutines();
+
             StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)deckInfo.infoCard.gameObject.transform, Vector3.zero));
             StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)deckInfo.infoCard.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta * 3)); //Tamaño visual
             StartCoroutine(AuxiliarFuncions.FadeIn(infoBackground.GetComponent<Image>(), infoBackground, 65, 1, true));
