@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// Celda en la que se encuentra el enemigo
     /// </summary>
-    Tile currentCell;
+    public Tile currentCell;
 
     /// <summary>
     /// Funcion de inicializacion de los enemigos

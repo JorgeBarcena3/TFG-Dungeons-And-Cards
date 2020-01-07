@@ -101,8 +101,20 @@ public class Card : MonoBehaviour
     /// <param name="cardGameobject"></param>
     private static void selectCardAction(GameObject cardGameobject)
     {
-        //De momento solo hay de movimiento
-        cardGameobject.AddComponent<MovementAction>();
+        int random = UnityEngine.Random.Range(0, 4);
+
+        if (random == 0)
+        {
+            cardGameobject.AddComponent<AttackAction>();
+            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 0.82f, 0.82f);
+        }
+        else
+        {
+            cardGameobject.AddComponent<MovementAction>();
+            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.69f, 0.99f, 0.69f);
+
+        }
+
     }
 
 

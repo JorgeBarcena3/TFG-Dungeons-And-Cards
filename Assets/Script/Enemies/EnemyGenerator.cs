@@ -21,7 +21,7 @@ public class EnemyGenerator : MonoBehaviour
     /// <summary>
     /// Lista de enemigos generados
     /// </summary>
-    private List<GameObject> enemies = new List<GameObject>();
+    public List<GameObject> enemies = new List<GameObject>();
 
     /// <summary>
     /// Inicializador de los enemigo
@@ -47,6 +47,8 @@ public class EnemyGenerator : MonoBehaviour
             {
                 tileobj.GetComponent<Tile>().contain = CELLCONTAINER.ENEMY;
                 enemies.Add(Instantiate(enemiesPrefabs.First(), tileobj.transform.position, Quaternion.identity));
+                enemies.Last().AddComponent<Enemy>();
+                enemies.Last().GetComponent<Enemy>().currentCell = tileobj.GetComponent<Tile>();
                 enemiesPlaced++;
             }
 
