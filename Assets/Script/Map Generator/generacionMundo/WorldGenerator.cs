@@ -135,7 +135,7 @@ public class WorldGenerator : MonoBehaviour
     /// <summary>
     /// Sprite con la que se representaran todo
     /// </summary>
-    public GameObject[] sprites;
+    public GameObject[] prefabTiles;
 
     /// <summary>
     /// Sprites generados
@@ -215,28 +215,28 @@ public class WorldGenerator : MonoBehaviour
 
         }
 
-        Vector3 size = sprites[0].GetComponent<SpriteRenderer>().bounds.size;
-        for (int y = 0; y < this.board.world_cell.GetLength(0); y++)
+        Vector3 size = prefabTiles[0].GetComponent<SpriteRenderer>().bounds.size;
+
+        for (int y = 0; y < this.board.worldCells.GetLength(0); y++)
         {
-            for (int x = 0; x < this.board.world_cell.GetLength(1); x++)
+            for (int x = 0; x < this.board.worldCells.GetLength(1); x++)
             {
                
                 Vector3 position = y % 2 == 0 ? this.transform.position + new Vector3(x * size.x, -(y * size.y * 23 / 40), -(y)) :
-                    this.transform.position + new Vector3(x * size.x + size.x / 2, -(y * size.y * 23 / 40), -(y));
+                                                this.transform.position + new Vector3(x * size.x + size.x / 2, -(y * size.y * 23 / 40), -(y));
 
-                if (this.board.world_cell[x, y].Value == CELLSTYPE.DEAD)
+                if (this.board.worldCells[x, y].Value == CELLSTYPE.DEAD)
                 {
-                    spritesBoard.Add(Instantiate(sprites[0], position, Quaternion.identity, this.transform));
+                    spritesBoard.Add(Instantiate(prefabTiles[0], position, Quaternion.identity, this.transform));
+
                 }
                 else
                 {
-                    spritesBoard.Add(Instantiate(sprites[1], position, Quaternion.identity, this.transform));
+                    spritesBoard.Add(Instantiate(prefabTiles[1], position, Quaternion.identity, this.transform));
 
                 }
 
-
-
-
+                spritesBoard.Last().GetComponent<Tile>().CellInfo = this.board.worldCells[x, y].CellInfo;
 
             }
         }
@@ -261,7 +261,7 @@ public class WorldGenerator : MonoBehaviour
 
         if (slider)
         {
-            slider.activate(sprites[0].GetComponent<SpriteRenderer>(), new Vector2(tamanioX, tamanioY));
+            slider.activate(prefabTiles[0].GetComponent<SpriteRenderer>(), new Vector2(tamanioX, tamanioY));
         }
 
 

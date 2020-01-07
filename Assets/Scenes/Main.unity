@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -837,11 +837,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2833659705855959135, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5093986054176308071, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
         type: 3}
       propertyPath: m_Name
@@ -1468,6 +1463,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 3af7de75ac091144897afe708544b3ef,
         type: 3}
+    - target: {fileID: 2833659705855959135, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5093986054176308067, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1695,6 +1695,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
+      propertyPath: prefabTiles.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
+        type: 3}
       propertyPath: pasillosEstrechos
       value: 1
       objectReference: {fileID: 0}
@@ -1703,6 +1708,18 @@ PrefabInstance:
       propertyPath: verProcesoCreacionMapa
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
+        type: 3}
+      propertyPath: prefabTiles.Array.data[0]
+      value: 
+      objectReference: {fileID: 5829867425870531473, guid: 11862b2dbb70eef4ba627dd793a82e0b,
+        type: 3}
+    - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
+        type: 3}
+      propertyPath: prefabTiles.Array.data[1]
+      value: 
+      objectReference: {fileID: 5548349493086585102, guid: 7e0574edf6c506445b78cf017bcf49a8,
+        type: 3}
     - target: {fileID: 6809962095224083633, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
       propertyPath: m_LocalPosition.x

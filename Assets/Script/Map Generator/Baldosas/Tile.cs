@@ -30,6 +30,11 @@ public class Tile : MonoBehaviour
     //array de posibles sprites
     public Sprite[] sprites;
 
+    /// <summary>
+    /// Informacion de la celda
+    /// </summary>
+    public CellInfo CellInfo;
+
     public Tile(bool walkable = true)
     {
         this.Walkable = walkable;        

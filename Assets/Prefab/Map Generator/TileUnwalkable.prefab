@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3438646890240237437}
   - component: {fileID: 8252586325214786372}
   - component: {fileID: 4993105838952950654}
+  - component: {fileID: 3930739075867375311}
   m_Layer: 0
   m_Name: TileUnwalkable
   m_TagString: Untagged
@@ -100,3 +101,19 @@ MonoBehaviour:
   - {fileID: 741675249598512173, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
   - {fileID: 4414030660562809939, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
   tileType: 0
+--- !u!58 &3930739075867375311
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5829867425870531473}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.12}
+  serializedVersion: 2
+  m_Radius: 0.33

@@ -109,8 +109,8 @@ public class Cell
                 int NeighborY = CellInfo.y + y;
 
                 if (
-                    (NeighborX >= 0 && NeighborX < board.world_cell.GetLength(0))
-                 && (NeighborY >= 0 && NeighborY < board.world_cell.GetLength(1))
+                    (NeighborX >= 0 && NeighborX < board.worldCells.GetLength(0))
+                 && (NeighborY >= 0 && NeighborY < board.worldCells.GetLength(1))
                  && (Math.Abs(x) + Math.Abs(y) != 0)
                  && (NeighborX == CellInfo.x || NeighborY == CellInfo.y)
                  )
@@ -145,8 +145,8 @@ public class Cell
                 int NeighborY = CellInfo.y + y;
 
                 if (
-                    (NeighborX >= 0 && NeighborX < board.world_cell.GetLength(0))
-                 && (NeighborY >= 0 && NeighborY < board.world_cell.GetLength(1))
+                    (NeighborX >= 0 && NeighborX < board.worldCells.GetLength(0))
+                 && (NeighborY >= 0 && NeighborY < board.worldCells.GetLength(1))
                  && (Math.Abs(x) + Math.Abs(y) != 0)
                  )
                 {

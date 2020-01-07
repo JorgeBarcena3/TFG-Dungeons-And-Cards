@@ -43,9 +43,9 @@ public class RoomsManager
 
         SetCellsOutOfRoom(_tablero);
 
-        for (int y = 0; y < _tablero.world_cell.GetLength(0); ++y)
+        for (int y = 0; y < _tablero.worldCells.GetLength(0); ++y)
         {
-            for (int x = 0; x < _tablero.world_cell.GetLength(1); ++x)
+            for (int x = 0; x < _tablero.worldCells.GetLength(1); ++x)
             {
                 if (_tablero[x, y].Value == CELLSTYPE.ALIVE && !_tablero[x, y].CellInfo.isInRoom)
                 {
@@ -76,9 +76,9 @@ public class RoomsManager
 
         this.rooms = new List<Room>();
 
-        for (int y = 0; y < _tablero.world_cell.GetLength(0); ++y)
+        for (int y = 0; y < _tablero.worldCells.GetLength(0); ++y)
         {
-            for (int x = 0; x < _tablero.world_cell.GetLength(1); ++x)
+            for (int x = 0; x < _tablero.worldCells.GetLength(1); ++x)
             {
                 _tablero[x, y].CellInfo.isInRoom = false;
                 _tablero[x, y].Color = Color.white;
@@ -118,8 +118,8 @@ public class RoomsManager
                     int NeighborY = y;
 
                     if (
-                        (NeighborX >= 0 && NeighborX < _tablero.world_cell.GetLength(0))
-                     && (NeighborY >= 0 && NeighborY < _tablero.world_cell.GetLength(1))
+                        (NeighborX >= 0 && NeighborX < _tablero.worldCells.GetLength(0))
+                     && (NeighborY >= 0 && NeighborY < _tablero.worldCells.GetLength(1))
                      && (NeighborX == cell.CellInfo.x || NeighborY == cell.CellInfo.y)
                      )
                     {

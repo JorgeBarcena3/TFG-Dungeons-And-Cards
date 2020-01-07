@@ -50,8 +50,8 @@ public class Room
                 for (int y = cell.CellInfo.y - 1; y <= cell.CellInfo.y + 1; y++)
                 {
                     if (
-                            (x >= 0 && x < _tablero.world_cell.GetLength(0))
-                         && (y >= 0 && y < _tablero.world_cell.GetLength(1))
+                            (x >= 0 && x < _tablero.worldCells.GetLength(0))
+                         && (y >= 0 && y < _tablero.worldCells.GetLength(1))
                          && (x == cell.CellInfo.x || y == cell.CellInfo.y)
                     )
                     {
