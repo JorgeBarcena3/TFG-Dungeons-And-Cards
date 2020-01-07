@@ -115,6 +115,8 @@ public class DeckInfo : MonoBehaviour
 
                 cementeryCards.Add(card);
 
+                cardGameobject.transform.SetSiblingIndex(10);
+
                 StartCoroutine(AuxiliarFuncions.MoveObjectToLocal(card.GetComponent<RectTransform>(), cementaryPosition));
             }
         }

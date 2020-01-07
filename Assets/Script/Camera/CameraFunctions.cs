@@ -14,4 +14,6 @@ public class CameraFunctions : MonoBehaviour
     {
         StartCoroutine( AuxiliarFuncions.MoveObjectTo(this.transform, position, 10f) );
     }
+
+    
 }

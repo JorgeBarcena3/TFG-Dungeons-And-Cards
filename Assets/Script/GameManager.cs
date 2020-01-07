@@ -43,6 +43,11 @@ public class GameManager : MonoBehaviour
     public CameraFunctions camera;
 
     /// <summary>
+    /// HUD del juego
+    /// </summary>
+    public GameObject HUD;
+
+    /// <summary>
     /// Instancia del GameManager
     /// </summary>
     private static GameManager instance;
@@ -106,9 +111,17 @@ public class GameManager : MonoBehaviour
         yield return null;
         imageLoader.FadeOut();
         yield return null;
-        camera.moveCameraTo(player.transform.position);
+        HUD.SetActive(true);
+        setCameraToPlayer();
         yield return null;
         state = States.INGAME;
     }
 
+    /// <summary>
+    /// Coloca la camara en el player
+    /// </summary>
+    public void setCameraToPlayer()
+    {
+        camera.moveCameraTo(player.transform.position);
+    }
 }
