@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 579095924439372254}
   - component: {fileID: 579095924439372255}
+  - component: {fileID: 8363137746124730765}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -43,3 +44,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7904cefbdb298a4f91e7ecc52703fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deck: {fileID: 0}
+  imageLoader: {fileID: 0}
+  worldGenerator: {fileID: 0}
+  player: {fileID: 0}
+  camera: {fileID: 0}
+  enemyGenerator: {fileID: 8363137746124730765}
+  HUD: {fileID: 0}
+--- !u!114 &8363137746124730765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579095924439372252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d39dd20ee261694a87fc4983942f226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemiesNumber: 5
+  enemies: []

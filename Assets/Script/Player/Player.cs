@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
         foreach (var cellObj in world)
         {
             Tile cell = cellObj.GetComponent<Tile>();
-            if (cell.Walkable)
+            if (cell.contain == CELLCONTAINER.EMPTY)
             {
                 currentCell = cell;
                 break;

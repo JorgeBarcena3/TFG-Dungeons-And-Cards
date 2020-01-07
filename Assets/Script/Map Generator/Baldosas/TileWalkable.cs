@@ -29,7 +29,7 @@ public class TileWalkable : Tile
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
-    public TileWalkable(int x, int y) : base( walkable: true) { }
+    public TileWalkable(int x, int y) : base( walkable: CELLCONTAINER.EMPTY) { }
 
 
 
@@ -38,7 +38,7 @@ public class TileWalkable : Tile
     /// </summary>
     public void Awake()
     {
-        Walkable = true;
+        contain = CELLCONTAINER.EMPTY;
         tileRender.sprite = sprites[(int)tileType];
     }  
 

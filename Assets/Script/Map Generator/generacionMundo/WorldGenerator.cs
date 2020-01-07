@@ -17,6 +17,11 @@ public class WorldGenerator : MonoBehaviour
     public int tamanioX = 50;
 
     /// <summary>
+    /// Tamaño del mapa
+    /// </summary>
+    public Vector2 size { get { return new Vector2(tamanioX, tamanioY);  } }
+
+    /// <summary>
     /// Radio por el que se calcularan las casillas vecinas
     /// </summary>
     public int radioVecino = 1;
@@ -338,7 +343,7 @@ public class WorldGenerator : MonoBehaviour
         else
             board.RoomManager.CheckRooms(board);
 
-
+               
         DrawBoard();
 
     }

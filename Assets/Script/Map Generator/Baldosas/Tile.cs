@@ -3,6 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// Determina que contiene la celda
+/// </summary>
+public enum CELLCONTAINER
+{
+    EMPTY = 0,
+    ENEMY = 1,
+    WALL = 2
+}
+
+/// <summary>
 /// 
 /// </summary>
 public class Tile : MonoBehaviour
@@ -17,7 +27,8 @@ public class Tile : MonoBehaviour
     public float Z { get; private set; }
 
     //Indica si esta baldosa es transitable
-    public bool Walkable { get; set; }
+    // public bool Walkable { get; set; }
+    public CELLCONTAINER contain;
 
     //Referencia al spriterender de la baldosa
     [HideInInspector]
@@ -40,9 +51,9 @@ public class Tile : MonoBehaviour
     /// </summary>
     public CellInfo CellInfo;
 
-    public Tile(bool walkable = true)
+    public Tile(CELLCONTAINER walkable = CELLCONTAINER.EMPTY)
     {
-        this.Walkable = walkable;        
+        this.contain = walkable;        
 
     }
     public void Start()
@@ -52,7 +63,7 @@ public class Tile : MonoBehaviour
         X = tileTransform.position.x;
         Y = tileTransform.position.y;
         Z = tileTransform.position.z;
-        if (!Walkable)
+        if (contain == CELLCONTAINER.WALL)
             Elevate();
 
     }

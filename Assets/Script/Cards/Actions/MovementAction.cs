@@ -93,7 +93,7 @@ public class MovementAction : CardAction
 
             if (
                 cell2D.Contains(tile.CellInfo.mapPosition)
-             && tile.Walkable
+             && tile.contain == CELLCONTAINER.EMPTY
                 )
             {
 

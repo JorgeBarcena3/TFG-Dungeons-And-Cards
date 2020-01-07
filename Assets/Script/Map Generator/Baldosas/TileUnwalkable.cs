@@ -18,11 +18,11 @@ public class TileUnwalkable : Tile
 {
    
     public TileUnwalkableType tileType;
-    public TileUnwalkable(int x, int y) : base( walkable: false) {  }
+    public TileUnwalkable(int x, int y) : base( walkable: CELLCONTAINER.WALL) {  }
 
     public void Awake()
     {
-        Walkable = false;
+        contain = CELLCONTAINER.WALL;
         tileRender.sprite = sprites[(int)tileType];
     }
    

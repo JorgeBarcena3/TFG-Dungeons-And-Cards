@@ -43,6 +43,11 @@ public class GameManager : MonoBehaviour
     public CameraFunctions camera;
 
     /// <summary>
+    /// Generador de enemigos
+    /// </summary>
+    public EnemyGenerator enemyGenerator;
+
+    /// <summary>
     /// HUD del juego
     /// </summary>
     public GameObject HUD;
@@ -65,7 +70,7 @@ public class GameManager : MonoBehaviour
     {
         if (!instance)
         {
-            GameManager.instance = new GameManager();
+          //  GameManager.instance =  new GameManager();
         }
 
         return instance;
@@ -78,6 +83,7 @@ public class GameManager : MonoBehaviour
     {
         state = States.LOADING;
         imageLoader = GetComponent<ImageLoader>();
+        GameManager.instance = this;
 
         yield return null;
         StartCoroutine(starting());
@@ -101,9 +107,10 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator starting()
     {
-        GameManager.instance = this;
-        yield return null;
+
         worldGenerator.init();
+        yield return null;
+        enemyGenerator.init();
         yield return null;
         deck.init();
         yield return null;
