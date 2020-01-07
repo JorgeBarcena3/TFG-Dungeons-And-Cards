@@ -33,6 +33,16 @@ public class GameManager : MonoBehaviour
     public WorldGenerator worldGenerator;
 
     /// <summary>
+    /// Jugador del juego
+    /// </summary>
+    public Player player;
+
+    /// <summary>
+    /// Se encarga de las funcions de la camara
+    /// </summary>
+    public CameraFunctions camera;
+
+    /// <summary>
     /// Instancia del GameManager
     /// </summary>
     private static GameManager instance;
@@ -86,13 +96,19 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator starting()
     {
+        GameManager.instance = this;
         yield return null;
         worldGenerator.init();
         yield return null;
         deck.init();
         yield return null;
-        state = States.INGAME;
+        player.init();
+        yield return null;
         imageLoader.FadeOut();
+        yield return null;
+        camera.moveCameraTo(player.transform.position);
+        yield return null;
+        state = States.INGAME;
     }
 
 }

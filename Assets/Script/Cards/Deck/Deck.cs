@@ -236,6 +236,8 @@ public class Deck : MonoBehaviour
     public void DealCards()
     {
 
+        var delta = this.transform.GetSiblingIndex();
+
         foreach (AnchorInfo position in deckCanvasInfo.anchorToCards)
         {
             if (!position.state)
@@ -243,7 +245,7 @@ public class Deck : MonoBehaviour
                 position.state = true;
 
                 GameObject card = deckInfo.activeCards.FirstOrDefault();
-
+                
                 if (!card)
                 {
                     deckInfo.moveCementaryToActive(GetComponent<RectTransform>());

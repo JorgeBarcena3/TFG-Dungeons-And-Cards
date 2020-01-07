@@ -140,7 +140,7 @@ public class WorldGenerator : MonoBehaviour
     /// <summary>
     /// Sprites generados
     /// </summary>
-    private List<GameObject> spritesBoard;
+    public List<GameObject> SpriteBoard { get; private set; }
 
     /// <summary>
     /// Función que pinta el tablero
@@ -203,15 +203,15 @@ public class WorldGenerator : MonoBehaviour
         }
         */
 
-        if (spritesBoard == null)
-            spritesBoard = new List<GameObject>();
+        if (SpriteBoard == null)
+            SpriteBoard = new List<GameObject>();
         else
         {
-            for (int i = 0; i < spritesBoard.Count; i++)
+            for (int i = 0; i < SpriteBoard.Count; i++)
             {
-                Destroy(spritesBoard[i]);
+                Destroy(SpriteBoard[i]);
             }
-            spritesBoard = new List<GameObject>();
+            SpriteBoard = new List<GameObject>();
 
         }
 
@@ -227,16 +227,16 @@ public class WorldGenerator : MonoBehaviour
 
                 if (this.board.worldCells[x, y].Value == CELLSTYPE.DEAD)
                 {
-                    spritesBoard.Add(Instantiate(prefabTiles[0], position, Quaternion.identity, this.transform));
+                    SpriteBoard.Add(Instantiate(prefabTiles[0], position, Quaternion.identity, this.transform));
 
                 }
                 else
                 {
-                    spritesBoard.Add(Instantiate(prefabTiles[1], position, Quaternion.identity, this.transform));
+                    SpriteBoard.Add(Instantiate(prefabTiles[1], position, Quaternion.identity, this.transform));
 
                 }
 
-                spritesBoard.Last().GetComponent<Tile>().CellInfo = this.board.worldCells[x, y].CellInfo;
+                SpriteBoard.Last().GetComponent<Tile>().CellInfo = this.board.worldCells[x, y].CellInfo;
 
             }
         }

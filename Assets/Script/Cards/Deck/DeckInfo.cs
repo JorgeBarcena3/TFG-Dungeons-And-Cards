@@ -84,6 +84,7 @@ public class DeckInfo : MonoBehaviour
             //(-width / 2) + (x / 2) + (x * i) + ((i + 1) * xOffset)
             Vector3 position = new Vector3((-width / 2) + (x / 2) + i * x / 2, (-height / 2) + (height * 0.02f) + (y / 2), 0);
             GameObject anchor = Instantiate(anchorPrefab, position, Quaternion.identity, CanvasGameObject.transform);
+            ((RectTransform)anchor.transform).anchoredPosition3D = new Vector3(((RectTransform)anchor.transform).anchoredPosition3D.x, ((RectTransform)anchor.transform).anchoredPosition3D.y, 0) ;
             anchorToCards.Add(new AnchorInfo(false, anchor.transform, i));
         }
 

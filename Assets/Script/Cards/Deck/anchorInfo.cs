@@ -27,6 +27,7 @@ public class AnchorInfo
     {
         state = _state;
         transform = _transform;
+
         position = _position;
     }
 }
