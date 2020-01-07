@@ -248,6 +248,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4502892282812578173, guid: ca073214e9bfaf54bae945bc2c31bb45,
         type: 3}
+    - target: {fileID: 8363137746124730765, guid: 5f7df52737a46634eb87ad8ef37d8df9,
+        type: 3}
+      propertyPath: EnemiesNumber
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f7df52737a46634eb87ad8ef37d8df9, type: 3}
 --- !u!114 &164865212 stripped
@@ -1878,7 +1883,7 @@ PrefabInstance:
     - target: {fileID: 502619507117396121, guid: 2c6e67cc0f4152843b1cfafdc3d5acfa,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c6e67cc0f4152843b1cfafdc3d5acfa, type: 3}
