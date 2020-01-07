@@ -31,6 +31,11 @@ public class Tile : MonoBehaviour
     public Sprite[] sprites;
 
     /// <summary>
+    /// Determina si tiene una accion asignada o no
+    /// </summary>
+    public CardAction assignedAction = null;
+
+    /// <summary>
     /// Informacion de la celda
     /// </summary>
     public CellInfo CellInfo;
@@ -66,6 +71,17 @@ public class Tile : MonoBehaviour
         Vector3 size = GetComponent<SpriteRenderer>().bounds.size;
         tileTransform.position = new Vector3(X, Y + size.y * 9 / 40, Z-1);
 
+    }
+
+    /// <summary>
+    /// Cuando hacemos click en un objeto
+    /// </summary>
+    private void OnMouseDown()
+    {
+        if (assignedAction)
+        {
+            assignedAction.clickOnTile(this);
+        }
     }
 
 }

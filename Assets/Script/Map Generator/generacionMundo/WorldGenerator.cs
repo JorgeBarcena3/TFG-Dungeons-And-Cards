@@ -107,7 +107,7 @@ public class WorldGenerator : MonoBehaviour
     /// <summary>
     /// Representacion del mundo generado
     /// </summary>
-    private Tablero board;
+    public Tablero board;
 
     /// <summary>
     /// Slider del mapa

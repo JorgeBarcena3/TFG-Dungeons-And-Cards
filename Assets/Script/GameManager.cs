@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     /// Obtenemos la instancia actual del GameManager
     /// </summary>
     /// <returns>Instancia del GameManager</returns>
-    public static GameManager getInstance()
+    public static GameManager GetInstance()
     {
         if (!instance)
         {
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.D) || (Input.touchCount == 1 && Input.GetTouch(0).tapCount == 2))
+        if (GameManager.GetInstance().state == States.INGAME && Input.GetKeyDown(KeyCode.D) || (Input.touchCount == 1 && Input.GetTouch(0).tapCount == 2))
         {
             deck.DealCards();
         }
@@ -111,9 +111,15 @@ public class GameManager : MonoBehaviour
         yield return null;
         imageLoader.FadeOut();
         yield return null;
-        HUD.SetActive(true);
+
         setCameraToPlayer();
-        yield return null;
+
+        while (Vector2.Distance(Camera.main.transform.position, player.transform.position) > 0.01f)
+        {
+            yield return null;
+        }
+
+        HUD.SetActive(true);
         state = States.INGAME;
     }
 

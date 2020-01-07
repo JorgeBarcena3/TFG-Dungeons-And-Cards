@@ -90,9 +90,21 @@ public class Card : MonoBehaviour
         cardComponent.front = cardComponent.gameObject.transform.GetChild(1).gameObject;
         ((RectTransform)cardComponent.front.transform).sizeDelta = new Vector2(0, 0);
 
+        selectCardAction(cardGameobject);
 
         return cardGameobject;
     }
+
+    /// <summary>
+    /// Determina la accion que va a hacer una carta
+    /// </summary>
+    /// <param name="cardGameobject"></param>
+    private static void selectCardAction(GameObject cardGameobject)
+    {
+        //De momento solo hay de movimiento
+        cardGameobject.AddComponent<MovementAction>();
+    }
+
 
     /// <summary>
     /// Detectamos si hemos hecho click en una carta

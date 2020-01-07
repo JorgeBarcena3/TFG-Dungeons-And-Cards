@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class CellInfo
 {
- 
+
     /// <summary>
     /// Posicion X que ocupa
     /// </summary>
@@ -19,6 +19,11 @@ public class CellInfo
     /// Posicion Y que ocupa
     /// </summary>
     public int y;
+
+    /// <summary>
+    /// Posicion en el mapa
+    /// </summary>
+    public Vector2 mapPosition { get { return new Vector2(x, y); } set { x = (int)value.x; y = (int)value.y; } }
 
     /// <summary>
     /// Determina si una celda esta en una habitacion o no

@@ -15,14 +15,14 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Tile en la que se encuentra el jugador
     /// </summary>
-    private Tile currentCell;
+    public Tile currentCell;
 
     /// <summary>
     /// Funcion de inicializacion del jugador
     /// </summary>
     public void init()
     {
-        var world = GameManager.getInstance().worldGenerator.SpriteBoard;
+        var world = GameManager.GetInstance().worldGenerator.SpriteBoard;
         currentCell = world.FirstOrDefault().GetComponent<Tile>();
 
         foreach (var cellObj in world)

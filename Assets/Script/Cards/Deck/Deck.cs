@@ -146,7 +146,12 @@ public class Deck : MonoBehaviour
         {
             deckInfo.infoCard = _gameObject.GetComponent<Card>();
             _gameObject.transform.SetSiblingIndex(101);
+
+            //TODO: Chapuza
             StopAllCoroutines();
+
+            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().size = new Vector2( Card.CARD_RECT_TRANSFORM.sizeDelta.x * 3, (Card.CARD_RECT_TRANSFORM.sizeDelta.y * 3) / 3);
+            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, -(Card.CARD_RECT_TRANSFORM.sizeDelta.y * 3) / 3);
 
             StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)deckInfo.infoCard.gameObject.transform, Vector3.zero));
             StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)deckInfo.infoCard.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta * 3)); //Tamaño visual
@@ -158,7 +163,17 @@ public class Deck : MonoBehaviour
             Card card = deckInfo.infoCard;
             deckInfo.infoCard = null;
             card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault() + 1);
+
+            //TODO: Chapuza
+            StopAllCoroutines();
+
+            _gameObject.GetComponent<CardAction>().DoAction(GameManager.GetInstance().player.gameObject);
+
             deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
+
+            card.gameObject.GetComponent<BoxCollider2D>().size = Card.CARD_RECT_TRANSFORM.sizeDelta;
+            card.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
+
             StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
             StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
 
@@ -169,6 +184,12 @@ public class Deck : MonoBehaviour
             Card card = deckInfo.infoCard;
             deckInfo.infoCard = null;
             card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault() + 1);
+
+            //TODO: Chapuza
+            StopAllCoroutines();
+
+            card.gameObject.GetComponent<BoxCollider2D>().size = Card.CARD_RECT_TRANSFORM.sizeDelta;
+            card.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
             StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)card.gameObject.transform, deckCanvasInfo.anchorToCards[card.indexPosition.GetValueOrDefault()].transform.localPosition));
             StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
             StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
@@ -188,6 +209,8 @@ public class Deck : MonoBehaviour
 
         prefabTransform = anchorPrefab.GetComponent<RectTransform>();
         prefabTransform.sizeDelta = new Vector2(newX, newY);
+
+        cardPrefab.GetComponent<BoxCollider2D>().size = new Vector2(newX, newY);
 
     }
 
@@ -285,10 +308,5 @@ public class Deck : MonoBehaviour
         }
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    
 }
