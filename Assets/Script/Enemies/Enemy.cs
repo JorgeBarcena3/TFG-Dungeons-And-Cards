@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Clase de enemigo
 /// </summary>
-public class Enemy : MonoBehaviour
+public class Enemy : IAAgent
 {
     /// <summary>
     /// Celda en la que se encuentra el enemigo
@@ -16,8 +16,10 @@ public class Enemy : MonoBehaviour
     /// Funcion de inicializacion de los enemigos
     /// </summary>
     /// <param name="_currentCell"></param>
-    public void init(Tile _currentCell)
+    public void init(Tile _currentCell, GameObject _target)
     {
         currentCell = _currentCell;
+        target = _target;
+
     }
 }

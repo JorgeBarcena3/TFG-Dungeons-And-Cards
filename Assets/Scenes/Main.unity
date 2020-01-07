@@ -237,6 +237,11 @@ PrefabInstance:
       propertyPath: HUD
       value: 
       objectReference: {fileID: 2117652391}
+    - target: {fileID: 579095924439372255, guid: 5f7df52737a46634eb87ad8ef37d8df9,
+        type: 3}
+      propertyPath: IA
+      value: 
+      objectReference: {fileID: 153427061}
     - target: {fileID: 8363137746124730765, guid: 5f7df52737a46634eb87ad8ef37d8df9,
         type: 3}
       propertyPath: enemiesPrefabs.Array.size
@@ -255,6 +260,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f7df52737a46634eb87ad8ef37d8df9, type: 3}
+--- !u!114 &153427061 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2270421911190868058, guid: 5f7df52737a46634eb87ad8ef37d8df9,
+    type: 3}
+  m_PrefabInstance: {fileID: 153427060}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074213255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddcf1d1665d900945bf7d6562869cbd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &164865212 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 326370284137120794, guid: 2c6e67cc0f4152843b1cfafdc3d5acfa,
@@ -1728,7 +1745,7 @@ PrefabInstance:
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
       propertyPath: useRandomSeed
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}

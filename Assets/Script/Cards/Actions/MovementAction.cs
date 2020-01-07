@@ -30,6 +30,7 @@ public class MovementAction : CardAction
             spr.color = selectedColor;
         }
 
+        finishTurn();
     }
 
     /// <summary>
@@ -48,6 +49,7 @@ public class MovementAction : CardAction
             SpriteRenderer spr = tile.gameObject.GetComponent<SpriteRenderer>();
             spr.color = selectedColor;
         }
+
     }
 
     /// <summary>

@@ -14,4 +14,12 @@ public abstract class CardAction : MonoBehaviour
     /// Determina si hemos hecho click o no en una tile
     /// </summary>
     public abstract void clickOnTile(Tile tile);
+
+    /// <summary>
+    /// Finalizamos el turno
+    /// </summary>
+    protected void finishTurn()
+    {
+        GameManager.GetInstance().turn = TURN.IA;
+    }
 }

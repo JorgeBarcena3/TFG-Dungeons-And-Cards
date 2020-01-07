@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 579095924439372254}
   - component: {fileID: 579095924439372255}
   - component: {fileID: 8363137746124730765}
+  - component: {fileID: 2270421911190868058}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -49,6 +50,7 @@ MonoBehaviour:
   worldGenerator: {fileID: 0}
   player: {fileID: 0}
   camera: {fileID: 0}
+  IA: {fileID: 0}
   enemyGenerator: {fileID: 8363137746124730765}
   HUD: {fileID: 0}
 --- !u!114 &8363137746124730765
@@ -64,4 +66,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemiesNumber: 5
+  enemiesPrefabs: []
   enemies: []
+--- !u!114 &2270421911190868058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579095924439372252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddcf1d1665d900945bf7d6562869cbd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

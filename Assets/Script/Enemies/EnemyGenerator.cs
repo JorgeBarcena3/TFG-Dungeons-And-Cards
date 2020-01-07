@@ -26,7 +26,7 @@ public class EnemyGenerator : MonoBehaviour
     /// <summary>
     /// Inicializador de los enemigo
     /// </summary>
-    public void init()
+    public void init(GameObject target)
     {
 
         var world = GameManager.GetInstance().worldGenerator.SpriteBoard;
@@ -34,7 +34,7 @@ public class EnemyGenerator : MonoBehaviour
 
         int enemiesPlaced = 0;
 
-        while(enemiesPlaced < EnemiesNumber)
+        while (enemiesPlaced < EnemiesNumber)
         {
 
             int newX = UnityEngine.Random.Range(0, (int)worldSize.x);
@@ -43,12 +43,12 @@ public class EnemyGenerator : MonoBehaviour
 
             GameObject tileobj = world.Where(m => m.GetComponent<Tile>().CellInfo.mapPosition == position).FirstOrDefault();
 
-            if(tileobj != null && tileobj.GetComponent<Tile>().contain == CELLCONTAINER.EMPTY)
+            if (tileobj != null && tileobj.GetComponent<Tile>().contain == CELLCONTAINER.EMPTY)
             {
                 tileobj.GetComponent<Tile>().contain = CELLCONTAINER.ENEMY;
                 enemies.Add(Instantiate(enemiesPrefabs.First(), tileobj.transform.position, Quaternion.identity));
                 enemies.Last().AddComponent<Enemy>();
-                enemies.Last().GetComponent<Enemy>().currentCell = tileobj.GetComponent<Tile>();
+                enemies.Last().GetComponent<Enemy>().init(tileobj.GetComponent<Tile>(), target);
                 enemiesPlaced++;
             }
 

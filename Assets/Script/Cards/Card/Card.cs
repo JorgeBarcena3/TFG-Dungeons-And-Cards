@@ -123,7 +123,8 @@ public class Card : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
-        if (indexPosition != null)
+
+        if (GameManager.GetInstance().turn == TURN.PLAYER && indexPosition != null)
             deck.ShowInfo(this.gameObject);
     }
 

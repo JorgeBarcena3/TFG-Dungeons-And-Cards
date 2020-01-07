@@ -13,6 +13,15 @@ public enum States
 }
 
 /// <summary>
+/// De quien es el turno en cada momento
+/// </summary>
+public enum TURN
+{
+    PLAYER = 0,
+    IA = 1
+}
+
+/// <summary>
 /// Maneja el flujo del juego - Es un Singleton
 /// </summary>
 public class GameManager : MonoBehaviour
@@ -43,6 +52,11 @@ public class GameManager : MonoBehaviour
     public CameraFunctions camera;
 
     /// <summary>
+    /// Controlador de la inteligencia Artificial
+    /// </summary>
+    public IAController IA;
+
+    /// <summary>
     /// Generador de enemigos
     /// </summary>
     public EnemyGenerator enemyGenerator;
@@ -61,6 +75,11 @@ public class GameManager : MonoBehaviour
     /// Estado actual del juego
     /// </summary>
     private States state;
+
+    /// <summary>
+    /// Quien tiene el turno actualmente
+    /// </summary>
+    public TURN ? turn = null;
 
     /// <summary>
     /// Obtenemos la instancia actual del GameManager
@@ -92,13 +111,31 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Update del GameManager
     /// </summary>
-    private void Update()
+    private IEnumerator TurnUpdate()
     {
 
-        if (GameManager.GetInstance().state == States.INGAME && Input.GetKeyDown(KeyCode.D) || (Input.touchCount == 1 && Input.GetTouch(0).tapCount == 2))
+        while(GameManager.GetInstance().state == States.INGAME)
         {
-            deck.DealCards();
+            if (turn == TURN.IA)
+            {
+                deck.DealCards();
+
+                List<IAAgent> agents = new List<IAAgent>();
+                enemyGenerator.enemies.ForEach(m => agents.Add(m.GetComponent<IAAgent>()));
+
+                IA.doAction(agents);
+
+                while (turn == TURN.IA)
+                {
+                    yield return new WaitForSeconds(3f);
+                    turn = TURN.PLAYER;
+                }
+
+            }
+
+            yield return null;
         }
+       
     }
 
     /// <summary>
@@ -110,7 +147,7 @@ public class GameManager : MonoBehaviour
 
         worldGenerator.init();
         yield return null;
-        enemyGenerator.init();
+        enemyGenerator.init(player.gameObject);
         yield return null;
         deck.init();
         yield return null;
@@ -128,6 +165,10 @@ public class GameManager : MonoBehaviour
 
         HUD.SetActive(true);
         state = States.INGAME;
+        turn = TURN.PLAYER;
+        deck.DealCards();
+
+        StartCoroutine(TurnUpdate());
     }
 
     /// <summary>

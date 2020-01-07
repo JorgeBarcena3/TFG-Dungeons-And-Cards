@@ -36,6 +36,8 @@ public class AttackAction : CardAction
             spr.color = selectedColor;
         }
 
+        finishTurn();
+
     }
 
     /// <summary>
