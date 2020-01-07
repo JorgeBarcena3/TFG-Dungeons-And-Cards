@@ -29,6 +29,11 @@ public class DeckInfo : MonoBehaviour
     public List<GameObject> cementeryCards = new List<GameObject>();
 
     /// <summary>
+    /// Carta que esta siendo visitada por el jugador para obtener informacion
+    /// </summary>
+    public Card infoCard = null;
+
+    /// <summary>
     /// Posicion del cementerio de cartas
     /// </summary>
     public Vector3 cementaryPosition;

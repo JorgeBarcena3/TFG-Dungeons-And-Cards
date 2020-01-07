@@ -22,10 +22,9 @@ public class Slider : MonoBehaviour
     private Vector3 mousePosition;
 
     /// <summary>
-    /// Cada cuanto se movera o no
+    /// Posicion del primer touch
     /// </summary>
-    public int sliderOffset;
-
+    private Vector3 touchStart;
 
     /// <summary>
     /// Funcion que inicializa el componente
@@ -58,37 +57,23 @@ public class Slider : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// Mover el mapa en una direccion
-    /// </summary>
-    private void moveMap()
+ 
+    void Update()
     {
-
-    }
-    
-
-    /// <summary>
-    /// Determina cuando se esta arrastrando el raton
-    /// </summary>
-    void OnMouseDrag()
-    {
-
-        if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began)
+        /// Determina cuando se esta arrastrando el raton
+        if (Input.GetMouseButtonDown(0) && boxCollider.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
         {
-            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            Vector3 diference = (mousePosition - currentMousePos);
-
-            if (diference.magnitude > sliderOffset)
-            {
-                diference = diference.normalized;
-                Camera.main.transform.position += new Vector3(diference.x, diference.y, 0) / 5;
-            }
-
-
+            touchStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
+
+        if (Input.GetMouseButton(0) && boxCollider.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
+        {
+            Vector3 direction = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Camera.main.transform.position += direction;
+            //Camera.main.GetComponent<Rigidbody2D>().AddForce(direction, ForceMode2D.Force);
+        }
+
+      
     }
 
 

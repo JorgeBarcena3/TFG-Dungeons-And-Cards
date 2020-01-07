@@ -53,12 +53,12 @@ public class Card : MonoBehaviour
     /// <summary>
     /// Gameobject que almacena el background de la carta
     /// </summary>
-    private GameObject background;
+    public GameObject background;
 
     /// <summary>
     /// Gameobject que almacena el front de la carta
     /// </summary>
-    private GameObject front;
+    public GameObject front;
 
     /// <summary>
     /// Tamaño de la carta
@@ -99,7 +99,8 @@ public class Card : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
-        deck.GoToCementery(this.gameObject);
+        if (indexPosition != null)
+            deck.ShowInfo(this.gameObject);
     }
 
     /// <summary>

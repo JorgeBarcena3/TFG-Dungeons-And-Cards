@@ -8,6 +8,30 @@ using UnityEngine.UI;
 /// </summary>
 public class AuxiliarFuncions : MonoBehaviour
 {
+
+    /// <summary>
+    /// Cambia el tamaño al tamaño deseado
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="size"></param>
+    /// <param name="time"></param>
+    /// <returns></returns>
+    public static IEnumerator SetSizeProgresive(RectTransform obj, Vector2 size, float time = 1f)
+    {
+
+        float t = 0;
+
+        while (Vector3.Distance(obj.sizeDelta, size) > 0.01f)
+        {
+            t += Time.deltaTime / time;
+            obj.sizeDelta = Vector3.Lerp(obj.sizeDelta, size, t);
+            yield return null;
+        }
+
+        obj.sizeDelta = size;
+
+    }
+
     /// <summary>
     /// Mueve un objeto a una posicion local en un tiempo determinada
     /// </summary>
@@ -19,14 +43,14 @@ public class AuxiliarFuncions : MonoBehaviour
 
         float t = 0;
 
-        while (Vector3.Distance(obj.transform.position, goal) > 0.01f)
+        while (Vector2.Distance(obj.localPosition, goal) > 0.01f)
         {
             t += Time.deltaTime / time;
-            obj.localPosition = Vector3.Lerp(obj.transform.localPosition, goal, t);
+            obj.localPosition = Vector3.Lerp(obj.localPosition, goal, t);
             yield return null;
         }
 
-        obj.transform.localPosition = goal;
+        obj.localPosition = goal;
 
     }
 
@@ -44,11 +68,11 @@ public class AuxiliarFuncions : MonoBehaviour
         while (Vector3.Distance(obj.transform.position, goal) > 0.01f)
         {
             t += Time.deltaTime / time;
-            obj.position = Vector3.Lerp(obj.transform.position, goal, t);
+            obj.position = Vector3.Lerp(obj.position, goal, t);
             yield return null;
         }
 
-        obj.transform.position = goal;
+        obj.position = goal;
 
     }
 
@@ -81,18 +105,24 @@ public class AuxiliarFuncions : MonoBehaviour
     /// </summary>
     /// <param name="image">Imagen a la que se le aplicara el efecto</param>
     /// <returns></returns>
-    public static IEnumerator FadeOut(Image image, GameObject toDescativate)
+    public static IEnumerator FadeOut(Image image, GameObject toDescativate, float time = 1, bool setTransition = false)
     {
+        float t = 0;
+        if (setTransition)
+            InfoBackground.IS_TRANSITION = true;
 
         while (image.color.a > 0)
         {
-            image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a - 0.01f);
+            t += Time.deltaTime / time;
+            image.color = Color.Lerp(image.color, new Color(image.color.r, image.color.g, image.color.b, 0), t);
             yield return null;
         }
 
         image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
 
         toDescativate.SetActive(false);
+        if (setTransition)
+            InfoBackground.IS_TRANSITION = false;
 
     }
 
@@ -102,17 +132,27 @@ public class AuxiliarFuncions : MonoBehaviour
     /// </summary>
     /// <param name="image">Imagen a la que se le aplicara el efecto</param>
     /// <returns></returns>
-    public static IEnumerator FadeIn(Image image, GameObject toDescativate)
+    public static IEnumerator FadeIn(Image image, GameObject toDescativate, float percentage = 100, float time = 1, bool setTransition = false)
     {
         toDescativate.SetActive(true);
 
-        while (image.color.a > 0)
+        if (setTransition)
+            InfoBackground.IS_TRANSITION = true;
+
+        float t = 0;
+        float percent = percentage / 100;
+
+        while (image.color.a < percent)
         {
-            image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + 0.01f);
+            t += Time.deltaTime / time;
+            image.color = Color.Lerp(image.color, new Color(image.color.r, image.color.g, image.color.b, percent), t);
             yield return null;
         }
 
-        image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
+        image.color = new Color(image.color.r, image.color.g, image.color.b, percent);
+
+        if (setTransition)
+            InfoBackground.IS_TRANSITION = false;
 
 
     }

@@ -27,6 +27,11 @@ public class Deck : MonoBehaviour
     /// </summary>
     public GameObject anchorPrefab;
 
+    /// <summary>
+    /// Background de la informacion de la carta
+    /// </summary>
+    public GameObject infoBackground;
+
     [Header("Player Settings")]
     /// <summary>
     /// Numero de cartas que tendrá en la mano
@@ -129,6 +134,41 @@ public class Deck : MonoBehaviour
     }
 
     /// <summary>
+    /// Muestra la carta con toda su informacion
+    /// </summary>
+    /// <param name="gameObject"></param>
+    public void ShowInfo(GameObject _gameObject = null)
+    {
+        if (deckInfo.infoCard == null)
+        {
+            deckInfo.infoCard = _gameObject.GetComponent<Card>();
+            StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)deckInfo.infoCard.gameObject.transform, Vector3.zero));
+            StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)deckInfo.infoCard.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta * 4)); //Tamaño visual
+            StartCoroutine(AuxiliarFuncions.FadeIn(infoBackground.GetComponent<Image>(), infoBackground, 65, 1, true));
+
+        }
+        else if (_gameObject != null && deckInfo.infoCard == _gameObject.GetComponent<Card>())
+        {
+            Card card = deckInfo.infoCard;
+            deckInfo.infoCard = null;
+            deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
+            StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
+            StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
+
+        }
+        else
+        {
+
+            Card card = deckInfo.infoCard;
+            deckInfo.infoCard = null;
+            StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)card.gameObject.transform, deckCanvasInfo.anchorToCards[card.indexPosition.GetValueOrDefault()].transform.localPosition));
+            StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
+            StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
+
+        }
+    }
+
+    /// <summary>
     /// Crea un nuevo tamaño para el prefab
     /// </summary>
     /// <param name="newX">Nueva X</param>
@@ -156,7 +196,7 @@ public class Deck : MonoBehaviour
             deckInfo.cardsGameObject.Add(Card.instantiateCard(cardPrefab, rectTransformComponent, deckCanvasInfo.canvasGameObject.transform, this));
             deckInfo.cardsGameObject.Last().GetComponent<Card>().SetCardArt(cardArt[cardArtIndex++]);
 
-            if (cardArtIndex > cardsInDeck)
+            if (cardArtIndex > cardArt.Count - 1)
                 cardArtIndex = 0;
 
             deckInfo.activeCards.Add(deckInfo.cardsGameObject.Last());
@@ -239,6 +279,6 @@ public class Deck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+
     }
 }

@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6809962095224083633}
   - component: {fileID: 6809962095224083632}
+  - component: {fileID: 7777657969312101860}
+  - component: {fileID: 5324159257486684054}
+  - component: {fileID: 7675087554611737503}
   m_Layer: 0
   m_Name: Generador
   m_TagString: Untagged
@@ -52,6 +55,7 @@ MonoBehaviour:
   probabilidadesDeSerSueloRnd: 0.45
   mostrarColoresDebug: 0
   colorDeSalasYPasillos: 0
+  desactivarControles: 1
   seed: 5
   useRandomSeed: 1
   verProcesoCreacionMapa: 1
@@ -61,3 +65,56 @@ MonoBehaviour:
   sprites:
   - {fileID: 5829867425870531473, guid: 11862b2dbb70eef4ba627dd793a82e0b, type: 3}
   - {fileID: 5548349493086585102, guid: 7e0574edf6c506445b78cf017bcf49a8, type: 3}
+--- !u!114 &7777657969312101860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6809962095224083630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42c45f83f517df4ea5432f47dbc52da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomOutMin: 4
+  zoomOutMax: 11
+--- !u!114 &5324159257486684054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6809962095224083630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b96a44379c2942b4792fb2f61bf19e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sliderOffset: 2
+--- !u!61 &7675087554611737503
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6809962095224083630}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0

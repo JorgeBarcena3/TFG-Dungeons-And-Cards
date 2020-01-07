@@ -22,7 +22,7 @@ public class ImageLoader : MonoBehaviour
     /// </summary>
     public void FadeOut()
     {
-        StartCoroutine(AuxiliarFuncions.FadeOut(loadingImage, HUDCanvas));
+        StartCoroutine(AuxiliarFuncions.FadeOut(loadingImage, HUDCanvas, 5));
 
     }
 }
