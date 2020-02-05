@@ -1,98 +1,132 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class WaterWave : MonoBehaviour
 {
-    public float waveHeight = 0.5f;
-    public float waveFrequency = 0.5f;
-    public float waveLength = 0.75f;
-
-    //Position where the waves originate from
-    public Vector3 waveOriginPosition = new Vector3(0.0f, 0.0f, 0.0f);
-
-    MeshFilter meshFilter;
+    public float size = 1;
+    public int gridSize = 16;
+    Vector3 waveSource1 = new Vector3(2.0f, 0.0f, 2.0f);
+    public float waveFrequency = 0.53f;
+    public float waveHeight = 0.48f;
+    public float waveLength = 0.71f;
+    public bool edgeBlend = true;
+    public bool forceFlatShading = true;
+    public Material my_material;
     Mesh mesh;
-    Vector3[] vertices;
-
-    private void Awake()
-    {
-        //Get the Mesh Filter of the gameobject
-        meshFilter = GetComponent<MeshFilter>();
-    }
+    Vector3[] verts;
+    private MeshFilter filter;
 
     void Start()
     {
-        CreateMeshLowPoly(meshFilter);
+        Camera.main.depthTextureMode |= DepthTextureMode.Depth;
+        gameObject.AddComponent<MeshFilter>();
+        gameObject.AddComponent<MeshRenderer>();
+        GetComponent<MeshRenderer>().material = my_material;
+        GetComponent<MeshFilter>().mesh = GenerateMesh();
+        MeshFilter mf = GetComponent<MeshFilter>();
+        makeMeshLowPoly(mf);
+
     }
-
-    /// <summary>
-    /// Rearranges the mesh vertices to create a 'low poly' effect
-    /// </summary>
-    /// <param name="mf">Mesh filter of gamobject</param>
-    /// <returns></returns>
-    MeshFilter CreateMeshLowPoly(MeshFilter mf)
+    private Mesh GenerateMesh() 
     {
-        mesh = mf.sharedMesh;
+        Mesh mesh;
+        mesh = new Mesh();
+        List<Vector3> vertices = new List<Vector3>();
+        List<Vector3> normals = new List<Vector3>();
+        List<Vector2> uvs = new List<Vector2>();
 
-        //Get the original vertices of the gameobject's mesh
-        Vector3[] originalVertices = mesh.vertices;
-
-        //Get the list of triangle indices of the gameobject's mesh
-        int[] triangles = mesh.triangles;
-
-        //Create a vector array for new vertices 
-        Vector3[] vertices = new Vector3[triangles.Length];
-
-        //Assign vertices to create triangles out of the mesh
-        for (int i = 0; i < triangles.Length; i++)
+        for (int x = 0; x < gridSize + 1; x++) 
         {
-            vertices[i] = originalVertices[triangles[i]];
-            triangles[i] = i;
+            for (int y = 0; y < gridSize + 1; y++) 
+            {
+                vertices.Add(new Vector3(-size * 0.5f + size*(x/((float)gridSize)),0,-size * 0.5f + size* (y/((float)gridSize))));
+                normals.Add(Vector3.up);
+                uvs.Add(new Vector2(x / (float)gridSize, y / (float)gridSize));
+            }
         }
 
-        //Update the gameobject's mesh with new vertices
-        mesh.vertices = vertices;
+        List<int> triangles = new List<int>();
+        int vertCount = gridSize + 1;
+        for (int i = 0; i < vertCount * vertCount - vertCount; i++) 
+        {
+            if ((i + 1) % vertCount == 0) 
+            {
+                continue;
+            }
+            triangles.AddRange(new List<int>() { i + 1 + vertCount, i + vertCount, i, i, i + 1, i + vertCount + 1 });
+        }
+
+        mesh.SetVertices(vertices);
+        mesh.SetNormals(normals);
+        mesh.SetUVs(0, uvs);
         mesh.SetTriangles(triangles, 0);
+
+
+        return mesh;
+    }
+
+    MeshFilter makeMeshLowPoly(MeshFilter mf)
+    {
+        mesh = mf.sharedMesh;//Change to sharedmesh? 
+        Vector3[] oldVerts = mesh.vertices;
+        int[] triangles = mesh.triangles;
+        Vector3[] vertices = new Vector3[triangles.Length];
+        for (int i = 0; i < triangles.Length; i++)
+        {
+            vertices[i] = oldVerts[triangles[i]];
+            triangles[i] = i;
+        }
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
-        this.vertices = mesh.vertices;
-
+        verts = mesh.vertices;
         return mf;
     }
 
-    void Update()
+    void setEdgeBlend()
     {
-        GenerateWaves();
+        if (!SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.Depth))
+        {
+            edgeBlend = false;
+        }
+        if (edgeBlend)
+        {
+            Shader.EnableKeyword("WATER_EDGEBLEND_ON");
+            if (Camera.main)
+            {
+                Camera.main.depthTextureMode |= DepthTextureMode.Depth;
+            }
+        }
+        else
+        {
+            Shader.DisableKeyword("WATER_EDGEBLEND_ON");
+        }
     }
 
-    /// <summary>
-    /// Based on the specified wave height and frequency, generate 
-    /// wave motion originating from waveOriginPosition
-    /// </summary>
-    void GenerateWaves()
+    // Update is called once per frame
+    void Update()
     {
-        for (int i = 0; i < vertices.Length; i++)
+        CalcWave();
+        setEdgeBlend();
+    }
+
+    void CalcWave()
+    {
+        for (int i = 0; i < verts.Length; i++)
         {
-            Vector3 v = vertices[i];
-
-            //Initially set the wave height to 0
+            Vector3 v = verts[i];
             v.y = 0.0f;
-
-            //Get the distance between wave origin position and the current vertex
-            float distance = Vector3.Distance(v, waveOriginPosition);
-            distance = (distance % waveLength) / waveLength;
-
-            //Oscilate the wave height via sine to create a wave effect
+            float dist = Vector3.Distance(v, waveSource1);
+            dist = (dist % waveLength) / waveLength;
             v.y = waveHeight * Mathf.Sin(Time.time * Mathf.PI * 2.0f * waveFrequency
-            + (Mathf.PI * 2.0f * distance));
-
-            //Update the vertex
-            vertices[i] = v;
+            + (Mathf.PI * 2.0f * dist));
+            verts[i] = v;
         }
-
-        //Update the mesh properties
-        mesh.vertices = vertices;
+        mesh.vertices = verts;
         mesh.RecalculateNormals();
         mesh.MarkDynamic();
-        meshFilter.mesh = mesh;
+
+        GetComponent<MeshFilter>().mesh = mesh;
     }
 }

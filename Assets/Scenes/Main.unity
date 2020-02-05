@@ -700,8 +700,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1328180375}
-  - component: {fileID: 1328180378}
-  - component: {fileID: 1328180377}
   - component: {fileID: 1328180379}
   - component: {fileID: 1328180376}
   m_Layer: 0
@@ -719,65 +717,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328180374}
   m_LocalRotation: {x: -0.7071068, y: -0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 12.4, y: 4.3, z: 185}
+  m_LocalPosition: {x: 0, y: 15, z: 185}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!114 &1328180376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1328180374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10d58a93bf0614c4e846d963813b71de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coord2D: 1
-  distance: 200
---- !u!23 &1328180377
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1328180374}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: ed02ef739dd15cd46a8777d0b08c080d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1328180378
+--- !u!33 &1328180376
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -797,10 +743,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ddb2f0b56db93a4c80c0388599cbc5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveHeight: 0.5
+  size: 40
+  gridSize: 60
   waveFrequency: 0.5
+  waveHeight: 0.5
   waveLength: 0.1
-  waveOriginPosition: {x: 0, y: 0, z: 0}
+  edgeBlend: 1
+  forceFlatShading: 1
+  my_material: {fileID: 2100000, guid: ed02ef739dd15cd46a8777d0b08c080d, type: 2}
 --- !u!20 &1367293205 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 7043072177646077648, guid: d68af24747c1873468547162f9cf405d,
