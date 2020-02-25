@@ -62,7 +62,6 @@ public class AuxiliarFuncions : MonoBehaviour
     /// <param name="time">Tiempo de desplazamiento</param>
     public static IEnumerator MoveObjectTo(Transform obj, Vector3 goal, float time = 1f)
     {
-
         float t = 0;
 
         while (Vector3.Distance(obj.transform.position, goal) > 0.01f)

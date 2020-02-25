@@ -124,7 +124,7 @@ public class Card : MonoBehaviour
     void OnMouseDown()
     {
 
-        if (GameManager.GetInstance().turn == TURN.PLAYER && indexPosition != null)
+        if (GameManager.GetInstance().state == States.INGAME && GameManager.GetInstance().turn == TURN.PLAYER && indexPosition != null )
             deck.ShowInfo(this.gameObject);
     }
 

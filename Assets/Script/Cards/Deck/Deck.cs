@@ -224,7 +224,7 @@ public class Deck : MonoBehaviour
 
         for (int i = 0; i < cardsInDeck; ++i)
         {
-            deckInfo.cardsGameObject.Add(Card.instantiateCard(cardPrefab, rectTransformComponent, deckCanvasInfo.canvasGameObject.transform, this));
+            deckInfo.cardsGameObject.Add(Card.instantiateCard (cardPrefab, rectTransformComponent, deckCanvasInfo.canvasGameObject.transform, this));
             deckInfo.cardsGameObject.Last().GetComponent<Card>().SetCardArt(cardArt[cardArtIndex++]);
 
             if (cardArtIndex > cardArt.Count - 1)

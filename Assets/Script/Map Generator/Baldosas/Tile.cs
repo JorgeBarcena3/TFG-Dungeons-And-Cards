@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,8 @@ public enum CELLCONTAINER
 {
     EMPTY = 0,
     ENEMY = 1,
-    WALL = 2
+    WALL = 2,
+    PLAYER = 3
 }
 
 /// <summary>
@@ -45,6 +47,65 @@ public class Tile : MonoBehaviour
     /// Determina si tiene una accion asignada o no
     /// </summary>
     public CardAction assignedAction = null;
+
+    /// <summary>
+    /// Devuelve las tiles walkables
+    /// </summary>
+    /// <param name="board"></param>
+    /// <returns></returns>
+    public List<Tile> GetWalkableNeighbours()
+    {
+        int radioVecinos = 1;
+
+        Vector2 position = CellInfo.mapPosition; 
+
+        Tablero board2D = GameManager.GetInstance().worldGenerator.board;
+        List<GameObject> spriteBoard = GameManager.GetInstance().worldGenerator.SpriteBoard;
+
+        List<Vector2> cell2D = new List<Vector2>();
+        List<Tile> tilesWalkables = new List<Tile>();
+
+        //Cogemos todos los vecinos
+        for (int y = radioVecinos; y >= -radioVecinos; --y)
+        {
+            for (int x = radioVecinos; x >= -radioVecinos; --x)
+            {
+                int NeighborX = (int)position.x + x;
+                int NeighborY = (int)position.y + y;
+
+                if (
+                    (NeighborX >= 0 && NeighborX < board2D.worldCells.GetLength(0))
+                 && (NeighborY >= 0 && NeighborY < board2D.worldCells.GetLength(1))
+                 && (Math.Abs(x) + Math.Abs(y) != 0)
+                 )
+                {
+
+                    cell2D.Add(board2D[NeighborX, NeighborY].CellInfo.mapPosition);
+
+                }
+            }
+        }
+
+        foreach (GameObject item in spriteBoard)
+        {
+            Tile tile = item.GetComponent<Tile>();
+
+
+            if (
+                cell2D.Contains(tile.CellInfo.mapPosition)
+             && (tile.contain == CELLCONTAINER.EMPTY || tile.contain == CELLCONTAINER.PLAYER)
+                )
+            {
+
+                float distance = Vector2.Distance(this.transform.position, tile.transform.position);
+                if (distance < 1)
+                    tilesWalkables.Add(tile as TileWalkable);
+            }
+        }
+
+        return tilesWalkables;
+
+    }
 
     /// <summary>
     /// Informacion de la celda

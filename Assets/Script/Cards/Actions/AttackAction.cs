@@ -25,8 +25,9 @@ public class AttackAction : CardAction
 
         StartCoroutine(AuxiliarFuncions.MoveObjectTo(GameManager.GetInstance().player.gameObject.transform, tile.transform.position));
 
+        GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.EMPTY;
         GameManager.GetInstance().player.currentCell = tile;
-        tile.contain = CELLCONTAINER.EMPTY;
+        GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.PLAYER;
 
         foreach (TileWalkable tl in neighbourTiles)
         {

@@ -26,7 +26,7 @@ public class EnemyGenerator : MonoBehaviour
     /// <summary>
     /// Inicializador de los enemigo
     /// </summary>
-    public void init(GameObject target)
+    public void init(Player target)
     {
 
         var world = GameManager.GetInstance().worldGenerator.SpriteBoard;

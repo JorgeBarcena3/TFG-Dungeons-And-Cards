@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Se encarga de las funcions de la camara
     /// </summary>
-    public CameraFunctions camera;
+    public CameraFunctions cameraFunctions;
 
     /// <summary>
     /// Controlador de la inteligencia Artificial
@@ -74,12 +75,18 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Estado actual del juego
     /// </summary>
-    private States state;
+    [HideInInspector]
+    public States state;
 
     /// <summary>
     /// Quien tiene el turno actualmente
     /// </summary>
     public TURN ? turn = null;
+
+    /// <summary>
+    /// Agentes que serán manejados por la IA
+    /// </summary>
+    private List<IAAgent> agents;
 
     /// <summary>
     /// Obtenemos la instancia actual del GameManager
@@ -119,17 +126,16 @@ public class GameManager : MonoBehaviour
             if (turn == TURN.IA)
             {
                 deck.DealCards();
+                yield return new WaitForSeconds(1f);
 
-                List<IAAgent> agents = new List<IAAgent>();
-                enemyGenerator.enemies.ForEach(m => agents.Add(m.GetComponent<IAAgent>()));
+                StartCoroutine( IA.doAction(agents) );
 
-                IA.doAction(agents);
+                yield return new WaitUntil(() => IA.actionDone );
 
-                while (turn == TURN.IA)
-                {
-                    yield return new WaitForSeconds(3f);
-                    turn = TURN.PLAYER;
-                }
+                setCameraToPlayer();
+                yield return new WaitForSeconds(1f);
+
+                turn = TURN.PLAYER;
 
             }
 
@@ -147,16 +153,19 @@ public class GameManager : MonoBehaviour
 
         worldGenerator.init();
         yield return null;
-        enemyGenerator.init(player.gameObject);
-        yield return null;
         deck.init();
         yield return null;
         player.init();
         yield return null;
         imageLoader.FadeOut();
         yield return null;
-
         setCameraToPlayer();
+        yield return null;
+        enemyGenerator.init(player);
+        yield return null;
+        agents = new List<IAAgent>();
+        enemyGenerator.enemies.ForEach(m => agents.Add(m.GetComponent<IAAgent>()));
+        yield return null;
 
         while (Vector2.Distance(Camera.main.transform.position, player.transform.position) > 0.01f)
         {
@@ -168,6 +177,8 @@ public class GameManager : MonoBehaviour
         turn = TURN.PLAYER;
         deck.DealCards();
 
+        yield return new WaitForSeconds(1f);
+
         StartCoroutine(TurnUpdate());
     }
 
@@ -176,6 +187,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void setCameraToPlayer()
     {
-        camera.moveCameraTo(player.transform.position);
+        cameraFunctions.moveCameraTo(player.transform.position);
     }
+
 }

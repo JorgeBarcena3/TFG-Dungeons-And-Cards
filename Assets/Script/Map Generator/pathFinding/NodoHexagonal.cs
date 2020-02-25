@@ -1,28 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 /// <summary>
-/// Nodo utilizado para el calculo del pathfinding
+/// Controla los nodos hexagonales
 /// </summary>
-public class Nodo
+public class NodoHexagonal
 {
     /// <summary>
     /// Estado de la celda del nodo
     /// </summary>
-    public Cell estado;
+    public Tile estado;
 
     /// <summary>
     /// Nodo padre
     /// </summary>
-    public Nodo nodoPadre;
+    public NodoHexagonal nodoPadre;
 
     /// <summary>
     /// Constructor con parametros
     /// </summary>
     /// <param name="_estado"></param>
     /// <param name="_padre"></param>
-    public Nodo(Cell _estado, Nodo _padre)
+    public NodoHexagonal(Tile _estado, NodoHexagonal _padre)
     {
 
         estado = _estado;
@@ -35,17 +37,17 @@ public class Nodo
     /// </summary>
     /// <param name="board"></param>
     /// <returns></returns>
-    public virtual List<Nodo> Expandir(Tablero board)
+    public virtual List<NodoHexagonal> Expandir()
     {
 
-        List<Nodo> result = new List<Nodo>();
-        List<Cell> vecinos = estado.GetWalkableNeighbours(board);
+        List<NodoHexagonal> result = new List<NodoHexagonal>();
+        List<Tile> vecinos = estado.GetWalkableNeighbours();
 
         for (int i = 0; i < vecinos.Count; i++)
         {
-            Cell vecino = vecinos[i];
+            Tile vecino = vecinos[i];
 
-            Nodo nuevo = new Nodo(vecino, this);
+            NodoHexagonal nuevo = new NodoHexagonal(vecino, this);
             result.Add(nuevo);
 
 
@@ -58,7 +60,7 @@ public class Nodo
     /// Devuelve el nodo padre
     /// </summary>
     /// <returns></returns>
-    public Nodo getPadre()
+    public NodoHexagonal getPadre()
     {
         return nodoPadre;
     }
@@ -69,8 +71,9 @@ public class Nodo
     /// <param name="nodo">Nodo a comprobar</param>
     /// <param name="to">Celda meta</param>
     /// <returns></returns>
-    public bool esMeta(Nodo nodo, Cell to)
+    public bool esMeta(NodoHexagonal nodo, Tile to)
     {
         return nodo.estado.CellInfo.x == to.CellInfo.x && nodo.estado.CellInfo.y == to.CellInfo.y;
     }
 }
+

@@ -7,10 +7,14 @@ using UnityEngine;
 /// </summary>
 public class IAAgent : MonoBehaviour
 {
+    /// <summary>
+    /// Celda en la que se encuentra el enemigo
+    /// </summary>
+    public Tile currentCell;
 
     /// <summary>
     /// Objetivo del agente
     /// </summary>
-    public GameObject target;
+    public Player target;
 
 }

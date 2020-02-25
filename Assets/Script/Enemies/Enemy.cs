@@ -7,16 +7,12 @@ using UnityEngine;
 /// </summary>
 public class Enemy : IAAgent
 {
-    /// <summary>
-    /// Celda en la que se encuentra el enemigo
-    /// </summary>
-    public Tile currentCell;
-
+  
     /// <summary>
     /// Funcion de inicializacion de los enemigos
     /// </summary>
     /// <param name="_currentCell"></param>
-    public void init(Tile _currentCell, GameObject _target)
+    public void init(Tile _currentCell, Player _target)
     {
         currentCell = _currentCell;
         target = _target;

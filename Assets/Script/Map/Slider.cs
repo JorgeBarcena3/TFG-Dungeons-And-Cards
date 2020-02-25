@@ -57,23 +57,26 @@ public class Slider : MonoBehaviour
 
     }
 
- 
+
     void Update()
     {
-        /// Determina cuando se esta arrastrando el raton
-        if (Input.GetMouseButtonDown(0) && boxCollider.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
+        if (GameManager.GetInstance().state == States.INGAME)
         {
-            touchStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            /// Determina cuando se esta arrastrando el raton
+            if (Input.GetMouseButtonDown(0) && boxCollider.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
+            {
+                touchStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
+
+            if (Input.GetMouseButton(0) && boxCollider.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
+            {
+                Vector3 direction = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Camera.main.transform.position += direction;
+                //Camera.main.GetComponent<Rigidbody2D>().AddForce(direction, ForceMode2D.Force);
+            }
         }
 
-        if (Input.GetMouseButton(0) && boxCollider.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
-        {
-            Vector3 direction = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Camera.main.transform.position += direction;
-            //Camera.main.GetComponent<Rigidbody2D>().AddForce(direction, ForceMode2D.Force);
-        }
 
-      
     }
 
 
