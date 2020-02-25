@@ -19,7 +19,7 @@ public class WaterWave : MonoBehaviour
     void Start()
     {
         Camera.main.depthTextureMode |= DepthTextureMode.Depth;
-        gameObject.AddComponent<MeshFilter>();
+        //gameObject.AddComponent<MeshFilter>();
         gameObject.AddComponent<MeshRenderer>();
         GetComponent<MeshRenderer>().material = my_material;
         GetComponent<MeshFilter>().mesh = GenerateMesh();

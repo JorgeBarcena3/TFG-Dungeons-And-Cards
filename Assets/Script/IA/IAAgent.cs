@@ -17,4 +17,9 @@ public class IAAgent : MonoBehaviour
     /// </summary>
     public Player target;
 
+    /// <summary>
+    /// Si ha realizado la accion o no
+    /// </summary>
+    public bool actionDone = false;
+
 }

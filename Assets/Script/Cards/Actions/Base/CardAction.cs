@@ -16,6 +16,11 @@ public abstract class CardAction : MonoBehaviour
     public abstract void clickOnTile(Tile tile);
 
     /// <summary>
+    /// Determina si hemos hecho click o no en una tile
+    /// </summary>
+    public abstract bool checkAction(GameObject player);
+
+    /// <summary>
     /// Finalizamos el turno
     /// </summary>
     protected void finishTurn()

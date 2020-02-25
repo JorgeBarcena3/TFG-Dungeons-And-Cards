@@ -15,11 +15,29 @@ public class AttackAction : CardAction
     private List<TileWalkable> neighbourTiles;
 
     /// <summary>
+    /// Comprobamos que la accion es posible
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns></returns>
+    public override bool checkAction(GameObject player)
+    {
+        Vector2 position = player.GetComponent<Player>().currentCell.CellInfo.mapPosition;
+
+        neighbourTiles = GetWalkableNeighbours(position, player);
+
+        if (neighbourTiles.Count > 0)
+            return true;
+
+        return false;
+    }
+
+    /// <summary>
     /// Determina si hemos hecho click o no en una tile
     /// </summary>
     public override void clickOnTile(Tile tile)
     {
         GameObject enemy = GameManager.GetInstance().enemyGenerator.enemies.Where(m => m.GetComponent<Enemy>().currentCell == tile).FirstOrDefault();
+        GameManager.GetInstance().agents.Remove(enemy.GetComponent<IAAgent>());
         GameManager.GetInstance().enemyGenerator.enemies.Remove(enemy);
         Destroy(enemy);
 
@@ -46,10 +64,6 @@ public class AttackAction : CardAction
     /// </summary>
     public override void DoAction(GameObject player)
     {
-        Vector2 position = player.GetComponent<Player>().currentCell.CellInfo.mapPosition;
-
-        neighbourTiles = GetWalkableNeighbours(position, player);
-
         foreach (TileWalkable tile in neighbourTiles)
         {
             tile.assignedAction = this;

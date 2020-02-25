@@ -9,11 +9,25 @@ using UnityEngine;
 /// </summary>
 public class IAController : MonoBehaviour
 {
+    /// <summary>
+    /// Toma las decisiones en función de los parámetros que le pasamos
+    /// </summary>
+    [HideInInspector]
+    public Decider decider;
 
     /// <summary>
     /// Si la accion se ha acabado o no
     /// </summary>
+    [HideInInspector]
     public bool actionDone = false;
+
+    /// <summary>
+    /// Inicializacion del control de la IA
+    /// </summary>
+    public void init()
+    {
+        decider = this.gameObject.AddComponent<Decider>();
+    }
 
     /// <summary>
     /// La IA realiza una accion
@@ -26,12 +40,13 @@ public class IAController : MonoBehaviour
 
         foreach (IAAgent agent in agents)
         {
+            agent.actionDone = false;
+
             List<Tile> waypoints = PathFindingHexagonal.calcularRuta(agent.currentCell, agent.target.currentCell);
 
-            Debug.Log(agent.gameObject.name + " " + waypoints.Count);
             //MOVEMOS LA CAMARA HACIA EL ENEMIGO
 
-            GM.cameraFunctions.moveCameraTo(agent.transform.position);
+            GM.cameraFunctions.moveCameraTo(agent.transform.position, 5f);
  
             yield return new WaitUntil(() => 
                 GM.cameraFunctions.transform.position.x == agent.transform.position.x &&
@@ -40,28 +55,15 @@ public class IAController : MonoBehaviour
 
             //ELEGIMOS LA ACCION A HACER
 
-            //REALIZAMOS LA ACCION
+           StartCoroutine( decider.takeDecision(agent, new IAInputInfo(waypoints, 1, 8)) );
 
-            Vector3 newPosition = waypoints.FirstOrDefault().GetPosition();
-
-            newPosition.z = agent.transform.position.z;
-
-            StartCoroutine(AuxiliarFuncions.MoveObjectTo(agent.transform, newPosition, 10f));
-
-            yield return new WaitUntil(() =>
-                agent.transform.position.x == newPosition.x &&
-                agent.transform.position.y == newPosition.y
-                );
-
-
-            agent.currentCell.contain = CELLCONTAINER.EMPTY;
-            agent.currentCell = waypoints.First();
-            agent.currentCell.contain = CELLCONTAINER.ENEMY;
-
+            yield return new WaitUntil(() => agent.actionDone );          
 
         }
 
         actionDone = true;
 
     }
+
+
 }

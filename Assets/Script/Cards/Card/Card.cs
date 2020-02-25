@@ -116,14 +116,12 @@ public class Card : MonoBehaviour
         }
 
     }
-
-
+    
     /// <summary>
     /// Detectamos si hemos hecho click en una carta
     /// </summary>
     void OnMouseDown()
     {
-
         if (GameManager.GetInstance().state == States.INGAME && GameManager.GetInstance().turn == TURN.PLAYER && indexPosition != null )
             deck.ShowInfo(this.gameObject);
     }

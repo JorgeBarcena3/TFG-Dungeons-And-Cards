@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
@@ -58,6 +60,11 @@ public class GameManager : MonoBehaviour
     public IAController IA;
 
     /// <summary>
+    /// Controlador del HUD
+    /// </summary>
+    public HUDController hud;
+
+    /// <summary>
     /// Generador de enemigos
     /// </summary>
     public EnemyGenerator enemyGenerator;
@@ -81,12 +88,13 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Quien tiene el turno actualmente
     /// </summary>
-    public TURN ? turn = null;
+    public TURN? turn = null;
 
     /// <summary>
     /// Agentes que serán manejados por la IA
     /// </summary>
-    private List<IAAgent> agents;
+    [HideInInspector]
+    public List<IAAgent> agents;
 
     /// <summary>
     /// Obtenemos la instancia actual del GameManager
@@ -96,7 +104,7 @@ public class GameManager : MonoBehaviour
     {
         if (!instance)
         {
-          //  GameManager.instance =  new GameManager();
+            //GameManager.instance =  new GameManager();
         }
 
         return instance;
@@ -121,27 +129,52 @@ public class GameManager : MonoBehaviour
     private IEnumerator TurnUpdate()
     {
 
-        while(GameManager.GetInstance().state == States.INGAME)
+        while (GameManager.GetInstance().state == States.INGAME)
         {
             if (turn == TURN.IA)
             {
+                checkEndGame();
+
                 deck.DealCards();
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.5f);
 
-                StartCoroutine( IA.doAction(agents) );
+                //Mostramos la animacion del player
+                hud.turnlbl.showTurn();
+                yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
 
-                yield return new WaitUntil(() => IA.actionDone );
+                StartCoroutine(IA.doAction(agents));
+                yield return new WaitUntil(() => IA.actionDone);
 
                 setCameraToPlayer();
                 yield return new WaitForSeconds(1f);
 
                 turn = TURN.PLAYER;
 
+                //Mostramos la animacion del player
+                hud.turnlbl.showTurn();
+                yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
             }
 
             yield return null;
         }
-       
+
+    }
+
+    /// <summary>
+    /// Determinamos si es el final del juego o no
+    /// </summary>
+    private void checkEndGame()
+    {
+        if (agents.Count == 0)
+        {
+            Debug.Log("Has matado a los enemigos");
+            resetScene();
+        }
+    }
+
+    public void resetScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     /// <summary>
@@ -166,6 +199,7 @@ public class GameManager : MonoBehaviour
         agents = new List<IAAgent>();
         enemyGenerator.enemies.ForEach(m => agents.Add(m.GetComponent<IAAgent>()));
         yield return null;
+        IA.init();
 
         while (Vector2.Distance(Camera.main.transform.position, player.transform.position) > 0.01f)
         {
@@ -173,11 +207,15 @@ public class GameManager : MonoBehaviour
         }
 
         HUD.SetActive(true);
+
+        deck.DealCards();
+        yield return new WaitForSeconds(0.5f);
+
+        hud.turnlbl.showTurn();
+        yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
+
         state = States.INGAME;
         turn = TURN.PLAYER;
-        deck.DealCards();
-
-        yield return new WaitForSeconds(1f);
 
         StartCoroutine(TurnUpdate());
     }

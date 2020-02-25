@@ -14,6 +14,23 @@ public class MovementAction : CardAction
     private List<TileWalkable> neighbourTiles;
 
     /// <summary>
+    /// Comprobamos si la accion es posible o no
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns></returns>
+    public override bool checkAction(GameObject player)
+    {
+        Vector2 position = player.GetComponent<Player>().currentCell.CellInfo.mapPosition;
+
+        neighbourTiles = GetWalkableNeighbours(position, player);
+
+        if (neighbourTiles.Count > 0)
+            return true;
+
+        return false;
+    }
+
+    /// <summary>
     /// Determina si hemos hecho click o no en una tile
     /// </summary>
     public override void clickOnTile(Tile tile)
@@ -40,9 +57,6 @@ public class MovementAction : CardAction
     /// </summary>
     public override void DoAction(GameObject player)
     {
-        Vector2 position = player.GetComponent<Player>().currentCell.CellInfo.mapPosition;
-
-        neighbourTiles = GetWalkableNeighbours(position, player);
 
         foreach (TileWalkable tile in neighbourTiles)
         {

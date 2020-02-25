@@ -121,7 +121,7 @@ public class Deck : MonoBehaviour
         float width = canvasComponent.sizeDelta.x;
         float height = canvasComponent.sizeDelta.y;
 
-        float cardWidth =  width / cardsInHand - 1;
+        float cardWidth = width / cardsInHand - 1;
 
         RectTransform transform = GetComponent<RectTransform>();
 
@@ -145,12 +145,13 @@ public class Deck : MonoBehaviour
         if (deckInfo.infoCard == null)
         {
             deckInfo.infoCard = _gameObject.GetComponent<Card>();
+            infoBackground.transform.SetSiblingIndex(100);
             _gameObject.transform.SetSiblingIndex(101);
 
             //TODO: Chapuza
             StopAllCoroutines();
 
-            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().size = new Vector2( Card.CARD_RECT_TRANSFORM.sizeDelta.x * 3, (Card.CARD_RECT_TRANSFORM.sizeDelta.y * 3) / 3);
+            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(Card.CARD_RECT_TRANSFORM.sizeDelta.x * 3, (Card.CARD_RECT_TRANSFORM.sizeDelta.y * 3) / 3);
             deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, -(Card.CARD_RECT_TRANSFORM.sizeDelta.y * 3) / 3);
 
             StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)deckInfo.infoCard.gameObject.transform, Vector3.zero));
@@ -160,41 +161,54 @@ public class Deck : MonoBehaviour
         }
         else if (_gameObject != null && deckInfo.infoCard == _gameObject.GetComponent<Card>())
         {
-            Card card = deckInfo.infoCard;
-            deckInfo.infoCard = null;
-            card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault() + 1);
 
-            //TODO: Chapuza
-            StopAllCoroutines();
+            if (_gameObject.GetComponent<CardAction>().checkAction(GameManager.GetInstance().player.gameObject))
+            {
+                Card card = deckInfo.infoCard;
+                deckInfo.infoCard = null;
+                card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault() + 1);
 
-            _gameObject.GetComponent<CardAction>().DoAction(GameManager.GetInstance().player.gameObject);
+                //TODO: Chapuza
+                StopAllCoroutines();
 
-            deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
+                _gameObject.GetComponent<CardAction>().DoAction(GameManager.GetInstance().player.gameObject);
 
-            card.gameObject.GetComponent<BoxCollider2D>().size = Card.CARD_RECT_TRANSFORM.sizeDelta;
-            card.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
+                deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
 
-            StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
-            StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
+                card.gameObject.GetComponent<BoxCollider2D>().size = Card.CARD_RECT_TRANSFORM.sizeDelta;
+                card.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
+
+                StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
+                StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
+            }
+            else
+                hideCardInfo();
 
         }
         else
         {
-
-            Card card = deckInfo.infoCard;
-            deckInfo.infoCard = null;
-            card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault() + 1);
-
-            //TODO: Chapuza
-            StopAllCoroutines();
-
-            card.gameObject.GetComponent<BoxCollider2D>().size = Card.CARD_RECT_TRANSFORM.sizeDelta;
-            card.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
-            StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)card.gameObject.transform, deckCanvasInfo.anchorToCards[card.indexPosition.GetValueOrDefault()].transform.localPosition));
-            StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
-            StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
+            hideCardInfo();
 
         }
+    }
+
+    /// <summary>
+    /// Oculta la informacion de la carta
+    /// </summary>
+    private void hideCardInfo()
+    {
+        Card card = deckInfo.infoCard;
+        deckInfo.infoCard = null;
+        card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault() + 1);
+
+        //TODO: Chapuza
+        StopAllCoroutines();
+
+        card.gameObject.GetComponent<BoxCollider2D>().size = Card.CARD_RECT_TRANSFORM.sizeDelta;
+        card.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
+        StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)card.gameObject.transform, deckCanvasInfo.anchorToCards[card.indexPosition.GetValueOrDefault()].transform.localPosition));
+        StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
+        StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
     }
 
     /// <summary>
@@ -224,7 +238,7 @@ public class Deck : MonoBehaviour
 
         for (int i = 0; i < cardsInDeck; ++i)
         {
-            deckInfo.cardsGameObject.Add(Card.instantiateCard (cardPrefab, rectTransformComponent, deckCanvasInfo.canvasGameObject.transform, this));
+            deckInfo.cardsGameObject.Add(Card.instantiateCard(cardPrefab, rectTransformComponent, deckCanvasInfo.canvasGameObject.transform, this));
             deckInfo.cardsGameObject.Last().GetComponent<Card>().SetCardArt(cardArt[cardArtIndex++]);
 
             if (cardArtIndex > cardArt.Count - 1)
@@ -271,7 +285,7 @@ public class Deck : MonoBehaviour
                 position.state = true;
 
                 GameObject card = deckInfo.activeCards.FirstOrDefault();
-                
+
                 if (!card)
                 {
                     deckInfo.moveCementaryToActive(GetComponent<RectTransform>());
@@ -308,5 +322,5 @@ public class Deck : MonoBehaviour
         }
     }
 
-    
+
 }
