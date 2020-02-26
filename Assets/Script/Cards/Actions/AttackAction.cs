@@ -121,7 +121,7 @@ public class AttackAction : CardAction
             {
 
                 float distance = Vector2.Distance(player.transform.position, tile.transform.position);
-                if (distance < ((radioVecinos - 1) * 0.5f))
+                if (distance < 1 + ( (radioVecinos - 1) * 0.5f) )
                     tilesWalkables.Add(tile as TileWalkable);
             }
         }
