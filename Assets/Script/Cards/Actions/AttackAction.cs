@@ -80,8 +80,6 @@ public class AttackAction : CardAction
     private List<TileWalkable> GetWalkableNeighbours(Vector2 position, GameObject player)
     {
 
-        int radioVecinos = 1;
-
         Tablero board2D = GameManager.GetInstance().worldGenerator.board;
         List<GameObject> spriteBoard = GameManager.GetInstance().worldGenerator.SpriteBoard;
 
@@ -121,7 +119,7 @@ public class AttackAction : CardAction
             {
 
                 float distance = Vector2.Distance(player.transform.position, tile.transform.position);
-                if (distance < 1)
+                if (distance < radioVecinos)
                     tilesWalkables.Add(tile as TileWalkable);
             }
         }

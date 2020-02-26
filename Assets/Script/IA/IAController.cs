@@ -47,17 +47,17 @@ public class IAController : MonoBehaviour
             //MOVEMOS LA CAMARA HACIA EL ENEMIGO
 
             GM.cameraFunctions.moveCameraTo(agent.transform.position, 5f);
- 
-            yield return new WaitUntil(() => 
+
+            yield return new WaitUntil(() =>
                 GM.cameraFunctions.transform.position.x == agent.transform.position.x &&
-                GM.cameraFunctions.transform.position.y == agent.transform.position.y 
+                GM.cameraFunctions.transform.position.y == agent.transform.position.y
                 );
 
             //ELEGIMOS LA ACCION A HACER
 
-           StartCoroutine( decider.takeDecision(agent, new IAInputInfo(waypoints, 1, 8)) );
+            StartCoroutine(decider.takeDecision(agent, new IAInputInfo(waypoints, 1, 8)));
 
-            yield return new WaitUntil(() => agent.actionDone );          
+            yield return new WaitUntil(() => agent.actionDone);
 
         }
 

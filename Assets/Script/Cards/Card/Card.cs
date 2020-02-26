@@ -61,6 +61,16 @@ public class Card : MonoBehaviour
     public GameObject front;
 
     /// <summary>
+    /// Gameobject que almacena el coste de la carta
+    /// </summary>
+    public GameObject cost;
+
+    /// <summary>
+    /// Texto que almacena el coste de la carta
+    /// </summary>
+    public Text cost_lbl;
+
+    /// <summary>
     /// Tamaño de la carta
     /// </summary>
     public static RectTransform CARD_RECT_TRANSFORM { get; set; }
@@ -90,6 +100,12 @@ public class Card : MonoBehaviour
         cardComponent.front = cardComponent.gameObject.transform.GetChild(1).gameObject;
         ((RectTransform)cardComponent.front.transform).sizeDelta = new Vector2(0, 0);
 
+        cardComponent.cost = cardComponent.front.gameObject.transform.GetChild(0).gameObject;
+        ((RectTransform)cardComponent.front.transform).sizeDelta = new Vector2(0, 0);
+
+        cardComponent.cost_lbl = cardComponent.cost.GetComponentInChildren<Text>();
+        ((RectTransform)cardComponent.front.transform).sizeDelta = new Vector2(0, 0);
+
         selectCardAction(cardGameobject);
 
         return cardGameobject;
@@ -101,22 +117,26 @@ public class Card : MonoBehaviour
     /// <param name="cardGameobject"></param>
     private static void selectCardAction(GameObject cardGameobject)
     {
-        int random = UnityEngine.Random.Range(0, 4);
+        int random = UnityEngine.Random.Range(0, 6);
 
-        if (random == 0)
+        if (random < 2)
         {
             cardGameobject.AddComponent<AttackAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 0.82f, 0.82f);
+            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.ATTACK;
         }
         else
         {
             cardGameobject.AddComponent<MovementAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.69f, 0.99f, 0.69f);
-
+            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.MOVEMENT;
         }
 
+        cardGameobject.GetComponent<Card>().setCost(cardGameobject.GetComponent<CardAction>().setRadio());
+
+
     }
-    
+
     /// <summary>
     /// Detectamos si hemos hecho click en una carta
     /// </summary>
@@ -133,11 +153,13 @@ public class Card : MonoBehaviour
     {
         if (flipped)
         {
+            front.SetActive(true);
             ((RectTransform)front.transform).sizeDelta = Card.CARD_RECT_TRANSFORM.sizeDelta;
             ((RectTransform)background.transform).sizeDelta = new Vector2(0, 0);
         }
         else
         {
+            front.SetActive(false);
             ((RectTransform)background.transform).sizeDelta = Card.CARD_RECT_TRANSFORM.sizeDelta;
             ((RectTransform)front.transform).sizeDelta = new Vector2(0, 0);
         }
@@ -149,5 +171,14 @@ public class Card : MonoBehaviour
     public void SetCardArt(Sprite spr)
     {
         front.GetComponent<Image>().sprite = spr;
+    }
+
+    /// <summary>
+    /// Cambia el lbl del coste
+    /// </summary>
+    /// <param name="str"></param>
+    public void setCost(string str)
+    {
+        cost_lbl.text = str;
     }
 }

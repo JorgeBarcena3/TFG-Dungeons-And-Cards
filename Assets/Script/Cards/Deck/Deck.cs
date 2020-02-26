@@ -61,7 +61,8 @@ public class Deck : MonoBehaviour
     /// <summary>
     /// Informacion relativa al canvas para la baraja
     /// </summary>
-    private DeckCanvasInfo deckCanvasInfo;
+    [HideInInspector]
+    public DeckCanvasInfo deckCanvasInfo;
 
 
     /// <summary>
@@ -156,6 +157,7 @@ public class Deck : MonoBehaviour
 
             StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)deckInfo.infoCard.gameObject.transform, Vector3.zero));
             StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)deckInfo.infoCard.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta * 3)); //Tamaño visual
+            StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)deckInfo.infoCard.cost.transform, new Vector2(Card.CARD_RECT_TRANSFORM.sizeDelta.x, Card.CARD_RECT_TRANSFORM.sizeDelta.x) * 3)); //Tamaño visual
             StartCoroutine(AuxiliarFuncions.FadeIn(infoBackground.GetComponent<Image>(), infoBackground, 65, 1, true));
 
         }
@@ -179,6 +181,7 @@ public class Deck : MonoBehaviour
                 card.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
 
                 StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
+                StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.cost.transform, new Vector2(100,100))); //Tamaño visual
                 StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
             }
             else
@@ -208,6 +211,7 @@ public class Deck : MonoBehaviour
         card.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
         StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)card.gameObject.transform, deckCanvasInfo.anchorToCards[card.indexPosition.GetValueOrDefault()].transform.localPosition));
         StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
+        StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.cost.transform, new Vector2(100, 100))); //Tamaño visual
         StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
     }
 
@@ -246,6 +250,9 @@ public class Deck : MonoBehaviour
 
             deckInfo.activeCards.Add(deckInfo.cardsGameObject.Last());
         }
+
+        var movimiento = deckInfo.activeCards.Where(m => m.GetComponent<Card>().type == ATTACKTYPE.MOVEMENT).ToList();
+        var atake      = deckInfo.activeCards.Where(m => m.GetComponent<Card>().type == ATTACKTYPE.ATTACK)  .ToList();
     }
 
 

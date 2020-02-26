@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Decide si hacer o no una accion
@@ -21,7 +22,8 @@ public class Decider : MonoBehaviour
         //REALIZAMOS LA ACCION
         if (info.waypointsToPlayer.Count > 1)
         {
-            Vector3 newPosition = info.waypointsToPlayer.FirstOrDefault().GetPosition();
+            int index = (agent as Enemy) ? (agent as Enemy).getAvance() : 0; 
+            Vector3 newPosition = info.waypointsToPlayer[index].GetPosition();
 
             newPosition.z = agent.transform.position.z;
 
@@ -32,9 +34,14 @@ public class Decider : MonoBehaviour
                 agent.transform.position.y == newPosition.y
                 );
 
+            if(info.waypointsToPlayer[index].contain == CELLCONTAINER.PLAYER)
+            {
+                Debug.Log("Te han matado los enemigos");
+                GameManager.GetInstance().resetScene();
+            }
 
             agent.currentCell.contain = CELLCONTAINER.EMPTY;
-            agent.currentCell = info.waypointsToPlayer.First();
+            agent.currentCell = info.waypointsToPlayer[index];
             agent.currentCell.contain = CELLCONTAINER.ENEMY;
 
         }

@@ -29,35 +29,14 @@ public enum TURN
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+    [Header("Cartas")]
+
     /// <summary>
     /// Controlador de la baraja
     /// </summary>
     public Deck deck;
 
-    /// <summary>
-    /// Componente que se encarga de cargar la imagen
-    /// </summary>
-    public ImageLoader imageLoader;
-
-    /// <summary>
-    /// Generador de mundo
-    /// </summary>
-    public WorldGenerator worldGenerator;
-
-    /// <summary>
-    /// Jugador del juego
-    /// </summary>
-    public Player player;
-
-    /// <summary>
-    /// Se encarga de las funcions de la camara
-    /// </summary>
-    public CameraFunctions cameraFunctions;
-
-    /// <summary>
-    /// Controlador de la inteligencia Artificial
-    /// </summary>
-    public IAController IA;
+    [Header("HUD")]
 
     /// <summary>
     /// Controlador del HUD
@@ -65,14 +44,50 @@ public class GameManager : MonoBehaviour
     public HUDController hud;
 
     /// <summary>
+    /// HUD del juego
+    /// </summary>
+    public GameObject HUD;
+
+    /// <summary>
+    /// Componente que se encarga de cargar la imagen
+    /// </summary>
+    public ImageLoader imageLoader;
+
+    [Header("Enemigos")]
+
+    /// <summary>
+    /// Controlador de la inteligencia Artificial
+    /// </summary>
+    public IAController IA;
+
+    /// <summary>
     /// Generador de enemigos
     /// </summary>
     public EnemyGenerator enemyGenerator;
 
+    [Header("Generador de mapa")]
+
     /// <summary>
-    /// HUD del juego
+    /// Generador de mundo
     /// </summary>
-    public GameObject HUD;
+    public WorldGenerator worldGenerator;
+
+
+    [Header("Jugador")]
+    /// <summary>
+    /// Jugador del juego
+    /// </summary>
+    public Player player;
+
+
+    [Header("Camara")]
+    /// <summary>
+    /// Se encarga de las funcions de la camara
+    /// </summary>
+    public CameraFunctions cameraFunctions;
+
+ 
+  
 
     /// <summary>
     /// Instancia del GameManager
@@ -135,8 +150,11 @@ public class GameManager : MonoBehaviour
             {
                 checkEndGame();
 
-                deck.DealCards();
-                yield return new WaitForSeconds(0.5f);
+                if (deck.deckCanvasInfo.anchorToCards.Where(m => !m.state).Count() > 0)
+                {
+                    deck.DealCards();
+                    yield return new WaitForSeconds(0.5f);
+                }
 
                 //Mostramos la animacion del player
                 hud.turnlbl.showTurn();
@@ -158,6 +176,15 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
+    }
+
+    /// <summary>
+    /// Pasa de turno
+    /// </summary>
+    public void changeTurnToIA()
+    {
+        if (turn == TURN.PLAYER)
+            turn = TURN.IA;
     }
 
     /// <summary>

@@ -43,12 +43,13 @@ public class EnemyGenerator : MonoBehaviour
 
             GameObject tileobj = world.Where(m => m.GetComponent<Tile>().CellInfo.mapPosition == position).FirstOrDefault();
 
-            if (tileobj != null && tileobj.GetComponent<Tile>().contain == CELLCONTAINER.EMPTY && tileobj.GetComponent<Tile>().contain == CELLCONTAINER.PLAYER)
+            if (tileobj != null && tileobj.GetComponent<Tile>().contain == CELLCONTAINER.EMPTY)
             {
+                int type = Random.Range(0, enemiesPrefabs.Count());
                 tileobj.GetComponent<Tile>().contain = CELLCONTAINER.ENEMY;
-                enemies.Add(Instantiate(enemiesPrefabs.First(), tileobj.transform.position, Quaternion.identity));
+                enemies.Add(Instantiate(enemiesPrefabs[type], tileobj.transform.position, Quaternion.identity));
                 enemies.Last().AddComponent<Enemy>();
-                enemies.Last().GetComponent<Enemy>().init(tileobj.GetComponent<Tile>(), target);
+                enemies.Last().GetComponent<Enemy>().init(tileobj.GetComponent<Tile>(), target, type);
                 enemiesPlaced++;
             }
 

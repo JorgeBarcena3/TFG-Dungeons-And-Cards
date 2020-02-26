@@ -20,6 +20,7 @@ public class AuxiliarFuncions : MonoBehaviour
     {
 
         float t = 0;
+        
 
         while (Vector3.Distance(obj.sizeDelta, size) > 0.01f)
         {
