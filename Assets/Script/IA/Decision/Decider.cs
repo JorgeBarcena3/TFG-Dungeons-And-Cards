@@ -22,30 +22,39 @@ public class Decider : MonoBehaviour
         //REALIZAMOS LA ACCION
         if (info.waypointsToPlayer.Count > 1)
         {
-            int index = (agent as Enemy) ? (agent as Enemy).getAvance() : 0; 
-            Vector3 newPosition = info.waypointsToPlayer[index].GetPosition();
+            int index = (agent as Enemy) ? (agent as Enemy).getAvance() : 0;
 
-            newPosition.z = agent.transform.position.z;
+            if (info.waypointsToPlayer[index].contain != CELLCONTAINER.ENEMY)
+            {
 
-            StartCoroutine(AuxiliarFuncions.MoveObjectTo(agent.transform, newPosition, 5f));
+                for (int i = 0; i <= index; i++)
+                {
+                    Vector3 newPosition = info.waypointsToPlayer[i].GetPosition();
 
-            yield return new WaitUntil(() =>
-                agent.transform.position.x == newPosition.x &&
-                agent.transform.position.y == newPosition.y
-                );
+                    newPosition.z = agent.transform.position.z;
 
-            if(info.waypointsToPlayer[index].contain == CELLCONTAINER.PLAYER)
+                    StartCoroutine(AuxiliarFuncions.MoveObjectTo(agent.transform, newPosition, 1f));
+
+                    yield return new WaitUntil(() =>
+                        agent.transform.position.x == newPosition.x &&
+                        agent.transform.position.y == newPosition.y
+                        );
+                }
+               
+
+                agent.currentCell.contain = CELLCONTAINER.EMPTY;
+                agent.currentCell = info.waypointsToPlayer[index];
+                agent.currentCell.contain = CELLCONTAINER.ENEMY;
+            }
+
+            if (info.waypointsToPlayer[index].contain == CELLCONTAINER.PLAYER)
             {
                 Debug.Log("Te han matado los enemigos");
                 GameManager.GetInstance().resetScene();
             }
 
-            agent.currentCell.contain = CELLCONTAINER.EMPTY;
-            agent.currentCell = info.waypointsToPlayer[index];
-            agent.currentCell.contain = CELLCONTAINER.ENEMY;
-
         }
-        else if(info.waypointsToPlayer.Count == 1)
+        else if (info.waypointsToPlayer.Count == 1)
         {
             Debug.Log("Te han matado los enemigos");
             GameManager.GetInstance().resetScene();

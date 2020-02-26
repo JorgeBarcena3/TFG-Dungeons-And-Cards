@@ -53,7 +53,7 @@ public class Tile : MonoBehaviour
     /// </summary>
     /// <param name="board"></param>
     /// <returns></returns>
-    public List<Tile> GetWalkableNeighbours()
+    public List<Tile> GetWalkableNeighboursForEnemies()
     {
         int radioVecinos = 1;
 
@@ -93,7 +93,9 @@ public class Tile : MonoBehaviour
 
             if (
                 cell2D.Contains(tile.CellInfo.mapPosition)
-             && (tile.contain == CELLCONTAINER.EMPTY || tile.contain == CELLCONTAINER.PLAYER)
+             && (tile.contain == CELLCONTAINER.EMPTY || 
+             tile.contain == CELLCONTAINER.PLAYER ||
+             tile.contain == CELLCONTAINER.ENEMY)
                 )
             {
 

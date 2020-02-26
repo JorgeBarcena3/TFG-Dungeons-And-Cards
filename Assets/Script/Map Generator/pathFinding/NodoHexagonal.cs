@@ -41,7 +41,7 @@ public class NodoHexagonal
     {
 
         List<NodoHexagonal> result = new List<NodoHexagonal>();
-        List<Tile> vecinos = estado.GetWalkableNeighbours();
+        List<Tile> vecinos = estado.GetWalkableNeighboursForEnemies();
 
         for (int i = 0; i < vecinos.Count; i++)
         {
