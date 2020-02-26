@@ -161,12 +161,12 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
 
                 StartCoroutine(IA.doAction(agents));
-                yield return new WaitUntil(() => IA.actionDone);
+                yield return new WaitUntil(() => IA.actionDone);               
+
+                turn = TURN.PLAYER;
 
                 setCameraToPlayer();
                 yield return new WaitForSeconds(1f);
-
-                turn = TURN.PLAYER;
 
                 //Mostramos la animacion del player
                 hud.turnlbl.showTurn();

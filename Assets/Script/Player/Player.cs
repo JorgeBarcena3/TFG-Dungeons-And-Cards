@@ -23,19 +23,26 @@ public class Player : MonoBehaviour
     public void init()
     {
         var world = GameManager.GetInstance().worldGenerator.SpriteBoard;
-        currentCell = world.FirstOrDefault().GetComponent<Tile>();
+        var worldSize = GameManager.GetInstance().worldGenerator.size;
+        bool spawned = false;
 
-        foreach (var cellObj in world)
+        do
         {
-            Tile cell = cellObj.GetComponent<Tile>();
-            if (cell.contain == CELLCONTAINER.EMPTY)
+            int newX = UnityEngine.Random.Range(0, (int)worldSize.x);
+            int newY = UnityEngine.Random.Range(0, (int)worldSize.y);
+
+            currentCell = world[newX + (newY * (int)worldSize.x)].GetComponent<Tile>();
+            Tile cell = currentCell.GetComponent<Tile>();
+
+            if (currentCell.contain == CELLCONTAINER.EMPTY)
             {
                 currentCell = cell;
                 currentCell.contain = CELLCONTAINER.PLAYER;
-                break;
+                spawned = true;
             }
 
-        }
+        } while (!spawned);
+
 
         this.transform.position = new Vector3(currentCell.gameObject.transform.position.x, currentCell.gameObject.transform.position.y, 100);
         this.gameObject.SetActive(true);
