@@ -82,6 +82,7 @@ public class Card : MonoBehaviour
     {
         ImageComponent = GetComponent<Image>();
         ImageComponent.sprite = sprt;
+
     }
 
     /// <summary>
@@ -135,7 +136,7 @@ public class Card : MonoBehaviour
         cardGameobject.GetComponent<Card>().setCost(cardGameobject.GetComponent<CardAction>().setRadio());
 
 
-    }
+    }  
 
     /// <summary>
     /// Detectamos si hemos hecho click en una carta
@@ -143,10 +144,10 @@ public class Card : MonoBehaviour
     void OnMouseDown()
     {
         if (
-            !GameManager.GetInstance().deck.inCardAction  &&
-            GameManager.GetInstance().state == States.INGAME && 
-            GameManager.GetInstance().turn == TURN.PLAYER && 
-            indexPosition != null 
+            !GameManager.GetInstance().deck.inCardAction &&
+            GameManager.GetInstance().state == States.INGAME &&
+            GameManager.GetInstance().turn == TURN.PLAYER &&
+            indexPosition != null
             )
             deck.ShowInfo(this.gameObject);
     }

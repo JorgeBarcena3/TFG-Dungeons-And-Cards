@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 579095924439372255}
   - component: {fileID: 8363137746124730765}
   - component: {fileID: 2270421911190868058}
+  - component: {fileID: 6052001793645524022}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46,13 +47,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deck: {fileID: 0}
+  hud: {fileID: 0}
+  HUD: {fileID: 0}
   imageLoader: {fileID: 0}
-  worldGenerator: {fileID: 0}
-  player: {fileID: 0}
-  camera: {fileID: 0}
   IA: {fileID: 0}
   enemyGenerator: {fileID: 8363137746124730765}
-  HUD: {fileID: 0}
+  worldGenerator: {fileID: 0}
+  player: {fileID: 0}
+  cameraFunctions: {fileID: 0}
+  state: 0
+  agents: []
 --- !u!114 &8363137746124730765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,3 +84,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddcf1d1665d900945bf7d6562869cbd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decider: {fileID: 0}
+  actionDone: 0
+--- !u!114 &6052001793645524022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579095924439372252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5569c274d4e51324aaae8e6f20d08376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectSwipeOnlyAfterRelease: 1
+  minDistanceForSwipe: 20

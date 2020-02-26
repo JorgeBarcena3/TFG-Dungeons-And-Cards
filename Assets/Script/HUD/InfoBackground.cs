@@ -14,12 +14,16 @@ public class InfoBackground : MonoBehaviour
     /// </summary>
     public static bool IS_TRANSITION = false;
 
+#if UNITY_EDITOR
+
     /// <summary>
     /// Detectamos si hemos hecho click en una carta
     /// </summary>
     void OnMouseDown()
     {
-        if (!IS_TRANSITION)
-            deck.ShowInfo();
+        //if (!IS_TRANSITION)
+        //    deck.ShowInfo();
     }
+
+#endif
 }

@@ -56,7 +56,8 @@ public class Deck : MonoBehaviour
     /// <summary>
     /// Informacion relativa a la baraja
     /// </summary>
-    private DeckInfo deckInfo;
+    [HideInInspector]
+    public DeckInfo deckInfo;
 
     /// <summary>
     /// Informacion relativa al canvas para la baraja
@@ -94,6 +95,29 @@ public class Deck : MonoBehaviour
         SuffleDeck();
 
         infoBackground.transform.SetSiblingIndex(100);
+
+        SwipeDetector.OnSwipe += onCardSwipe;
+
+    }
+
+    /// <summary>
+    /// Detectamos si hemos hecho click en una carta
+    /// </summary>
+    private void onCardSwipe(SwipeData data)
+    {
+
+        if (
+            data.Direction == SwipeDirection.Up &&
+            !inCardAction &&
+            deckInfo.infoCard
+            )
+            ShowInfo(deckInfo.infoCard.gameObject);
+
+        else if (deckInfo.infoCard != null)
+        {
+            ShowInfo();
+        }
+
     }
 
     /// <summary>
@@ -157,9 +181,14 @@ public class Deck : MonoBehaviour
             //TODO: Chapuza
             StopAllCoroutines();
 
+#if UNITY_EDITOR_WIN
             deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(Card.CARD_RECT_TRANSFORM.sizeDelta.x * 3, (Card.CARD_RECT_TRANSFORM.sizeDelta.y * 3) / 3);
             deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, -(Card.CARD_RECT_TRANSFORM.sizeDelta.y * 3) / 3);
-
+#endif
+#if UNITY_ANDROID	
+            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0,0);
+            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0,0);
+#endif
             StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)deckInfo.infoCard.gameObject.transform, Vector3.zero));
             StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)deckInfo.infoCard.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta * 3)); //Tamaño visual
             StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)deckInfo.infoCard.cost.transform, new Vector2(Card.CARD_RECT_TRANSFORM.sizeDelta.x, Card.CARD_RECT_TRANSFORM.sizeDelta.x) * 3)); //Tamaño visual
@@ -186,7 +215,7 @@ public class Deck : MonoBehaviour
                 card.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
 
                 StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
-                StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.cost.transform, new Vector2(100,100))); //Tamaño visual
+                StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.cost.transform, new Vector2(100, 100))); //Tamaño visual
                 StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
             }
             else
@@ -257,7 +286,7 @@ public class Deck : MonoBehaviour
         }
 
         var movimiento = deckInfo.activeCards.Where(m => m.GetComponent<Card>().type == ATTACKTYPE.MOVEMENT).ToList();
-        var atake      = deckInfo.activeCards.Where(m => m.GetComponent<Card>().type == ATTACKTYPE.ATTACK)  .ToList();
+        var atake = deckInfo.activeCards.Where(m => m.GetComponent<Card>().type == ATTACKTYPE.ATTACK).ToList();
     }
 
 
