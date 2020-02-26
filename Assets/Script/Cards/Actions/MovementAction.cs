@@ -66,6 +66,8 @@ public class MovementAction : CardAction
             spr.color = selectedColor;
         }
 
+        GameManager.GetInstance().deck.inCardAction = true;
+
     }
 
     /// <summary>

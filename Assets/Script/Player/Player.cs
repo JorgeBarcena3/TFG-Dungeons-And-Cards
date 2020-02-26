@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
             if (cell.contain == CELLCONTAINER.EMPTY)
             {
                 currentCell = cell;
+                currentCell.contain = CELLCONTAINER.PLAYER;
                 break;
             }
 

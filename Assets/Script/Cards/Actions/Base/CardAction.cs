@@ -43,6 +43,7 @@ public abstract class CardAction : MonoBehaviour
     /// </summary>
     protected void finishTurn()
     {
+        GameManager.GetInstance().deck.inCardAction = false;
         GameManager.GetInstance().turn = TURN.IA;
     }
 }

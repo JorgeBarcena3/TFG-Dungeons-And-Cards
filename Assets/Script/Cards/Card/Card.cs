@@ -142,7 +142,12 @@ public class Card : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
-        if (GameManager.GetInstance().state == States.INGAME && GameManager.GetInstance().turn == TURN.PLAYER && indexPosition != null )
+        if (
+            !GameManager.GetInstance().deck.inCardAction  &&
+            GameManager.GetInstance().state == States.INGAME && 
+            GameManager.GetInstance().turn == TURN.PLAYER && 
+            indexPosition != null 
+            )
             deck.ShowInfo(this.gameObject);
     }
 

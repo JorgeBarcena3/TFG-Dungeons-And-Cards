@@ -71,6 +71,8 @@ public class AttackAction : CardAction
             SpriteRenderer spr = tile.gameObject.GetComponent<SpriteRenderer>();
             spr.color = selectedColor;
         }
+
+        GameManager.GetInstance().deck.inCardAction = true;
     }
 
     /// <summary>

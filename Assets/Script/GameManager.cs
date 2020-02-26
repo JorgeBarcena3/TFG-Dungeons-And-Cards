@@ -86,8 +86,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public CameraFunctions cameraFunctions;
 
- 
-  
+
+
 
     /// <summary>
     /// Instancia del GameManager
@@ -183,7 +183,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void changeTurnToIA()
     {
-        if (turn == TURN.PLAYER)
+        if (turn == TURN.PLAYER && !deck.inCardAction)
             turn = TURN.IA;
     }
 
@@ -252,7 +252,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void setCameraToPlayer()
     {
-        cameraFunctions.moveCameraTo(player.transform.position);
+        if (turn != TURN.IA)
+            cameraFunctions.moveCameraTo(player.transform.position);
     }
 
 }

@@ -64,6 +64,11 @@ public class Deck : MonoBehaviour
     [HideInInspector]
     public DeckCanvasInfo deckCanvasInfo;
 
+    /// <summary>
+    /// Determina si estamos realizando una accion o no
+    /// </summary>
+    [HideInInspector]
+    public bool inCardAction;
 
     /// <summary>
     /// Se inicializa la baraja
