@@ -199,9 +199,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Reseteamos la escena
+    /// </summary>
     public void resetScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Initiate.Fade(SceneManager.GetActiveScene().name, Color.black, 2.0f);
     }
 
     /// <summary>
