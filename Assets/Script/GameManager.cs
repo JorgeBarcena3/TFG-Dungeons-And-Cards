@@ -16,15 +16,6 @@ public enum States
 }
 
 /// <summary>
-/// De quien es el turno en cada momento
-/// </summary>
-public enum TURN
-{
-    PLAYER = 0,
-    IA = 1
-}
-
-/// <summary>
 /// Maneja el flujo del juego - Es un Singleton
 /// </summary>
 public class GameManager : MonoBehaviour
@@ -92,15 +83,22 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
 
     /// <summary>
+    /// Turno de quien
+    /// </summary>
+    public TURN turn { get { return turnManager.turn.GetValueOrDefault(); } set {
+            turnManager.turn = value;
+        } }
+
+    /// <summary>
     /// Estado actual del juego
     /// </summary>
     [HideInInspector]
     public States state;
 
     /// <summary>
-    /// Quien tiene el turno actualmente
+    /// Manejador del turno
     /// </summary>
-    public TURN? turn = null;
+    public TurnManager turnManager;
 
     /// <summary>
     /// Agentes que serán manejados por la IA
@@ -136,62 +134,9 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Update del GameManager
-    /// </summary>
-    private IEnumerator TurnUpdate()
-    {
-
-        while (GameManager.GetInstance().state == States.INGAME)
-        {
-            if (turn == TURN.IA)
-            {
-                checkEndGame();
-
-                if (deck.deckCanvasInfo.anchorToCards.Where(m => !m.state).Count() > 0)
-                {
-                    StartCoroutine(deck.DealCards());
-                    yield return new WaitUntil(() => deck.deckCanvasInfo.anchorToCards.Where(m => !m.state).Count() == 0);
-                }
-
-                player.playerInfo.addMana(1);
-                player.refreshPlayerData();
-
-                //Mostramos la animacion del IA
-                hud.turnlbl.showTurn("ENEMIGOS");
-                yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
-
-                StartCoroutine(IA.doAction(agents));
-                yield return new WaitUntil(() => IA.actionDone);                      
-
-                cameraFunctions.moveCameraTo(player.transform.position);
-                yield return new WaitForSeconds(1.5f);
-
-                //Mostramos la animacion del player
-                hud.turnlbl.showTurn("JUGADOR");
-                yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
-
-                turn = TURN.PLAYER;
-
-            }
-
-            yield return null;
-        }
-
-    }
-
-    /// <summary>
-    /// Pasa de turno
-    /// </summary>
-    public void changeTurnToIA()
-    {
-        if (turn == TURN.PLAYER && !deck.inCardAction)
-            turn = TURN.IA;
-    }
-
-    /// <summary>
     /// Determinamos si es el final del juego o no
     /// </summary>
-    private void checkEndGame()
+    public void checkEndGame()
     {
         if (agents.Count == 0)
         {
@@ -239,7 +184,7 @@ public class GameManager : MonoBehaviour
 
         HUD.SetActive(true);
 
-        StartCoroutine( deck.DealCards() );
+        StartCoroutine(deck.DealCards());
         yield return new WaitForSeconds(0.5f);
 
         hud.turnlbl.showTurn("JUGADOR");
@@ -248,7 +193,7 @@ public class GameManager : MonoBehaviour
         state = States.INGAME;
         turn = TURN.PLAYER;
 
-        StartCoroutine(TurnUpdate());
+        StartCoroutine(turnManager.TurnUpdate());
     }
 
     /// <summary>

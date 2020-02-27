@@ -252,6 +252,11 @@ PrefabInstance:
       propertyPath: hud
       value: 
       objectReference: {fileID: 5243663470825440883}
+    - target: {fileID: 579095924439372255, guid: 5f7df52737a46634eb87ad8ef37d8df9,
+        type: 3}
+      propertyPath: turnManager
+      value: 
+      objectReference: {fileID: 1074213257}
     - target: {fileID: 6052001793645524022, guid: 5f7df52737a46634eb87ad8ef37d8df9,
         type: 3}
       propertyPath: minDistanceForSwipe
@@ -809,6 +814,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7904cefbdb298a4f91e7ecc52703fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1074213257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074213255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e54dcee7bd2e041a9d0cdb9913fb07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1074213258
@@ -2532,7 +2549,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1074213256}
+      objectReference: {fileID: 1074213257}
     - target: {fileID: 6908108266062956982, guid: 284a95e10c61f744b86061aa6cab3399,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
