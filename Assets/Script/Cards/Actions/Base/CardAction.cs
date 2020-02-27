@@ -48,10 +48,9 @@ public abstract class CardAction : MonoBehaviour
         GameManager.GetInstance().player.currentMovesTurn++;
 
         if (GameManager.GetInstance().player.currentMovesTurn >= GameManager.GetInstance().player.maxMovesPerTurn)
-        { 
-            GameManager.GetInstance().turn = TURN.IA;
+        {
             GameManager.GetInstance().player.currentMovesTurn = 0;
-
+            GameManager.GetInstance().turn = TURN.IA;
         }
     }
 }

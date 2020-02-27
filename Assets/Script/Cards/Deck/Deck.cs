@@ -236,6 +236,15 @@ public class Deck : MonoBehaviour
 
         if (doAction)
             _gameObject.GetComponent<CardAction>().DoAction(GameManager.GetInstance().player.gameObject);
+        else
+        {
+            GameManager.GetInstance().player.currentMovesTurn++;
+            if (GameManager.GetInstance().player.currentMovesTurn >= GameManager.GetInstance().player.maxMovesPerTurn)
+            {
+                GameManager.GetInstance().player.currentMovesTurn = 0;
+                GameManager.GetInstance().turn = TURN.IA;
+            }
+        }
 
         deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
 
