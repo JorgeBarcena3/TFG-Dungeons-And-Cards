@@ -15,7 +15,19 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Tile en la que se encuentra el jugador
     /// </summary>
+    [HideInInspector]
     public Tile currentCell;
+
+    /// <summary>
+    /// Cantidad de movimientos por turno
+    /// </summary>
+    public int maxMovesPerTurn = 2;
+
+    /// <summary>
+    /// Cantidad de movimientos por turno
+    /// </summary>
+    [HideInInspector]
+    public int currentMovesTurn = 0;
 
     /// <summary>
     /// Funcion de inicializacion del jugador

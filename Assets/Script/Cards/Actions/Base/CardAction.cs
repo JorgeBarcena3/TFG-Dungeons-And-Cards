@@ -34,16 +34,24 @@ public abstract class CardAction : MonoBehaviour
     /// <returns></returns>
     public string setRadio()
     {
-        radioVecinos = this.gameObject.GetComponent<Card>().info.Power; 
+        radioVecinos = this.gameObject.GetComponent<Card>().info.Power;
         return radioVecinos.ToString();
     }
 
     /// <summary>
     /// Finalizamos el turno
     /// </summary>
-    protected void finishTurn()
+    protected virtual void finishTurn()
     {
         GameManager.GetInstance().deck.inCardAction = false;
-        GameManager.GetInstance().turn = TURN.IA;
+
+        GameManager.GetInstance().player.currentMovesTurn++;
+
+        if (GameManager.GetInstance().player.currentMovesTurn >= GameManager.GetInstance().player.maxMovesPerTurn)
+        { 
+            GameManager.GetInstance().turn = TURN.IA;
+            GameManager.GetInstance().player.currentMovesTurn = 0;
+
+        }
     }
 }

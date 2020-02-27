@@ -1899,6 +1899,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 326370284137120794, guid: 2c6e67cc0f4152843b1cfafdc3d5acfa,
+        type: 3}
+      propertyPath: maxMovesPerTurn
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 502619507117396121, guid: 2c6e67cc0f4152843b1cfafdc3d5acfa,
         type: 3}
       propertyPath: m_SortingOrder
