@@ -34,7 +34,7 @@ public abstract class CardAction : MonoBehaviour
     /// <returns></returns>
     public string setRadio()
     {
-        radioVecinos = Random.Range(1, 3);
+        radioVecinos = this.gameObject.GetComponent<Card>().info.Power; 
         return radioVecinos.ToString();
     }
 

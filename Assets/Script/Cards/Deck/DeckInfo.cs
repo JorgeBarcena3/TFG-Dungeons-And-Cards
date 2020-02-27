@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -127,7 +128,7 @@ public class DeckInfo : MonoBehaviour
     /// Mueve todas las cartas del cementerio a las cartas activas
     /// </summary>
     /// <param name="position"></param>
-    public void moveCementaryToActive(RectTransform position)
+    public IEnumerator moveCementaryToActive(RectTransform position)
     {
         activeCards.Clear();
 
@@ -135,8 +136,13 @@ public class DeckInfo : MonoBehaviour
         {
             activeCards.Add(cementeryCards.First());
             cementeryCards.RemoveAt(0);
+            activeCards.Last().GetComponent<Card>().FlipCard(false);
             StartCoroutine(AuxiliarFuncions.MoveObjectTo(activeCards.Last().transform, position.position));
-            //TODO: ESPERAR A QUE TODAS LAS CASRTAS HAYAN LLEGADO A SU DESTINO
+
+            if(cementeryCards.Count == 1)
+            {
+                yield return new WaitUntil(() => activeCards.Last().transform.position == position.position);
+            }
         }
 
     }

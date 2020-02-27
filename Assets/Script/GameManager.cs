@@ -152,25 +152,26 @@ public class GameManager : MonoBehaviour
 
                 if (deck.deckCanvasInfo.anchorToCards.Where(m => !m.state).Count() > 0)
                 {
-                    deck.DealCards();
-                    yield return new WaitForSeconds(0.5f);
+                    StartCoroutine(deck.DealCards());
+                    yield return new WaitUntil(() => deck.deckCanvasInfo.anchorToCards.Where(m => !m.state).Count() == 0);
                 }
 
-                //Mostramos la animacion del player
-                hud.turnlbl.showTurn();
+                //Mostramos la animacion del IA
+                hud.turnlbl.showTurn("ENEMIGOS");
                 yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
 
                 StartCoroutine(IA.doAction(agents));
-                yield return new WaitUntil(() => IA.actionDone);               
+                yield return new WaitUntil(() => IA.actionDone);                      
+
+                cameraFunctions.moveCameraTo(player.transform.position);
+                yield return new WaitForSeconds(1.5f);
+
+                //Mostramos la animacion del player
+                hud.turnlbl.showTurn("JUGADOR");
+                yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
 
                 turn = TURN.PLAYER;
 
-                setCameraToPlayer();
-                yield return new WaitForSeconds(1f);
-
-                //Mostramos la animacion del player
-                hud.turnlbl.showTurn();
-                yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
             }
 
             yield return null;
@@ -238,10 +239,10 @@ public class GameManager : MonoBehaviour
 
         HUD.SetActive(true);
 
-        deck.DealCards();
+        StartCoroutine( deck.DealCards() );
         yield return new WaitForSeconds(0.5f);
 
-        hud.turnlbl.showTurn();
+        hud.turnlbl.showTurn("JUGADOR");
         yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
 
         state = States.INGAME;

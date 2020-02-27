@@ -40,18 +40,17 @@ public class Decider : MonoBehaviour
                         agent.transform.position.y == newPosition.y
                         );
                 }
-               
+
+                if (info.waypointsToPlayer[index].contain == CELLCONTAINER.PLAYER)
+                {
+                    Debug.Log("Te han matado los enemigos");
+                    GameManager.GetInstance().resetScene();
+                }
 
                 agent.currentCell.contain = CELLCONTAINER.EMPTY;
                 agent.currentCell = info.waypointsToPlayer[index];
                 agent.currentCell.contain = CELLCONTAINER.ENEMY;
-            }
-
-            if (info.waypointsToPlayer[index].contain == CELLCONTAINER.PLAYER)
-            {
-                Debug.Log("Te han matado los enemigos");
-                GameManager.GetInstance().resetScene();
-            }
+            }          
 
         }
         else if (info.waypointsToPlayer.Count == 1)

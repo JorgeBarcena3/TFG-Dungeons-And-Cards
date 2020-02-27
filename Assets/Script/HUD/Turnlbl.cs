@@ -24,12 +24,12 @@ public class Turnlbl : MonoBehaviour
     /// <summary>
     /// Se cambia el texto
     /// </summary>
-    public void showTurn()
+    public void showTurn(string _text)
     {
         if (GameManager.GetInstance().turn == TURN.IA)
-            texto.text = "ENEMIGOS";
+            texto.text = _text;
         else
-            texto.text = "JUGADOR";
+            texto.text = _text;
 
         anim.SetTrigger("Show");
     }

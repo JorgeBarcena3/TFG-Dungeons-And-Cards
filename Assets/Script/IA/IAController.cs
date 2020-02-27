@@ -38,6 +38,8 @@ public class IAController : MonoBehaviour
 
         GameManager GM = GameManager.GetInstance();
 
+        agents = agents.OrderBy(m => Vector2.Distance(m.transform.position, GM.player.transform.position)).ToList();
+
         foreach (IAAgent agent in agents)
         {
             agent.actionDone = false;

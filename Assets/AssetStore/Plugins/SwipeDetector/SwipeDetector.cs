@@ -10,33 +10,69 @@ public class SwipeDetector : MonoBehaviour
     private bool detectSwipeOnlyAfterRelease = false;
 
     [SerializeField]
+    private bool useClick = false;
+
+    private bool isClick = false;
+
+    [SerializeField]
     private float minDistanceForSwipe = 20f;
 
     public static event Action<SwipeData> OnSwipe = delegate { };
 
+    private void Start()
+    {
+
+#if UNITY_EDITOR
+        useClick = true;
+#else
+        useClick = false;
+#endif   
+
+    }
+
     private void Update()
     {
         if (GameManager.GetInstance().state == States.INGAME &&
-            GameManager.GetInstance().turn  == TURN.PLAYER)
+            GameManager.GetInstance().turn == TURN.PLAYER)
         {
-            foreach (Touch touch in Input.touches)
+
+            if (useClick)
             {
-                if (touch.phase == TouchPhase.Began)
+                if (Input.GetMouseButtonDown(0) && !isClick)
                 {
-                    fingerUpPosition = touch.position;
-                    fingerDownPosition = touch.position;
+                    fingerUpPosition = Input.mousePosition;
+                    fingerDownPosition = Input.mousePosition;
+                    isClick = true;
                 }
-
-                if (!detectSwipeOnlyAfterRelease && touch.phase == TouchPhase.Moved)
+                else if (Input.GetMouseButtonUp(0) && isClick)
                 {
-                    fingerDownPosition = touch.position;
-                    //DetectSwipe();
-                }
-
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    fingerDownPosition = touch.position;
+                    fingerDownPosition = Input.mousePosition;
                     DetectSwipe();
+                    isClick = false;
+                }
+
+            }
+            else { 
+
+                foreach (Touch touch in Input.touches)
+                {
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        fingerUpPosition = touch.position;
+                        fingerDownPosition = touch.position;
+                    }
+
+                    if (!detectSwipeOnlyAfterRelease && touch.phase == TouchPhase.Moved)
+                    {
+                        fingerDownPosition = touch.position;
+                        //DetectSwipe();
+                    }
+
+                    if (touch.phase == TouchPhase.Ended)
+                    {
+                        fingerDownPosition = touch.position;
+                        DetectSwipe();
+                    }
                 }
             }
         }
@@ -82,7 +118,7 @@ public class SwipeDetector : MonoBehaviour
 
     private void SendSwipe(SwipeDirection direction)
     {
-        
+
         SwipeData swipeData = new SwipeData()
         {
             Direction = direction,

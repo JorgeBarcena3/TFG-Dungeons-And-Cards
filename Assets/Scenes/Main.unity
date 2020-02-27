@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -257,6 +257,11 @@ PrefabInstance:
       propertyPath: minDistanceForSwipe
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 6052001793645524022, guid: 5f7df52737a46634eb87ad8ef37d8df9,
+        type: 3}
+      propertyPath: useClick
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8363137746124730765, guid: 5f7df52737a46634eb87ad8ef37d8df9,
         type: 3}
       propertyPath: enemiesPrefabs.Array.size
@@ -271,7 +276,7 @@ PrefabInstance:
     - target: {fileID: 8363137746124730765, guid: 5f7df52737a46634eb87ad8ef37d8df9,
         type: 3}
       propertyPath: EnemiesNumber
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8363137746124730765, guid: 5f7df52737a46634eb87ad8ef37d8df9,
         type: 3}
@@ -830,7 +835,7 @@ PrefabInstance:
     - target: {fileID: 5093986053229863616, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
         type: 3}
       propertyPath: cardsInDeck
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5093986053229863616, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
         type: 3}

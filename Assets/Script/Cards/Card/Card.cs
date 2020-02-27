@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Tipo de ataque posibles
@@ -33,7 +34,8 @@ public class Card : MonoBehaviour
     /// <summary>
     /// Informacion relativa a cada carta
     /// </summary>
-    private InfoCard info;
+    [HideInInspector]
+    public InfoCard info;
 
     /// <summary>
     /// Componente del UI que almacena las imagenes
@@ -125,12 +127,17 @@ public class Card : MonoBehaviour
             cardGameobject.AddComponent<AttackAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 0.82f, 0.82f);
             cardGameobject.GetComponent<Card>().type = ATTACKTYPE.ATTACK;
+            cardGameobject.GetComponent<Card>().info = new InfoCard(CardKind.DAMAGE, 00, "Carta de Atake", 0, Random.Range(1, 4));
+
+
         }
         else
         {
             cardGameobject.AddComponent<MovementAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.69f, 0.99f, 0.69f);
             cardGameobject.GetComponent<Card>().type = ATTACKTYPE.MOVEMENT;
+            cardGameobject.GetComponent<Card>().info = new InfoCard(CardKind.MOVE, 00, "Carta de Movimiento", 0, Random.Range(1, 4));
+
         }
 
         cardGameobject.GetComponent<Card>().setCost(cardGameobject.GetComponent<CardAction>().setRadio());

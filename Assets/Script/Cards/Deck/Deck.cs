@@ -111,8 +111,16 @@ public class Deck : MonoBehaviour
             !inCardAction &&
             deckInfo.infoCard
             )
+        {
             ShowInfo(deckInfo.infoCard.gameObject);
-
+        }
+        else if (
+          data.Direction == SwipeDirection.Right &&
+          !inCardAction &&
+          deckInfo.infoCard)
+        {
+            matarCartas(deckInfo.infoCard.gameObject, false);
+        }
         else if (deckInfo.infoCard != null)
         {
             ShowInfo();
@@ -181,13 +189,13 @@ public class Deck : MonoBehaviour
             //TODO: Chapuza
             StopAllCoroutines();
 
-#if UNITY_EDITOR_WIN
+#if UNITY_EDITOR_WIN || UNITY_EDITOR
             deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(Card.CARD_RECT_TRANSFORM.sizeDelta.x * 3, (Card.CARD_RECT_TRANSFORM.sizeDelta.y * 3) / 3);
             deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, -(Card.CARD_RECT_TRANSFORM.sizeDelta.y * 3) / 3);
 #endif
 #if UNITY_ANDROID	
-            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0,0);
-            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0,0);
+            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0, 0);
+            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
 #endif
             StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)deckInfo.infoCard.gameObject.transform, Vector3.zero));
             StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)deckInfo.infoCard.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta * 3)); //Tamaño visual
@@ -200,23 +208,7 @@ public class Deck : MonoBehaviour
 
             if (_gameObject.GetComponent<CardAction>().checkAction(GameManager.GetInstance().player.gameObject))
             {
-                Card card = deckInfo.infoCard;
-                deckInfo.infoCard = null;
-                card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault() + 1);
-
-                //TODO: Chapuza
-                StopAllCoroutines();
-
-                _gameObject.GetComponent<CardAction>().DoAction(GameManager.GetInstance().player.gameObject);
-
-                deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
-
-                card.gameObject.GetComponent<BoxCollider2D>().size = Card.CARD_RECT_TRANSFORM.sizeDelta;
-                card.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
-
-                StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
-                StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.cost.transform, new Vector2(100, 100))); //Tamaño visual
-                StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
+                matarCartas(_gameObject);
             }
             else
                 hideCardInfo();
@@ -227,6 +219,32 @@ public class Deck : MonoBehaviour
             hideCardInfo();
 
         }
+    }
+
+    /// <summary>
+    /// Manda una carta al cementerio
+    /// </summary>
+    /// <param name="_gameObject"></param>
+    private void matarCartas(GameObject _gameObject, bool doAction = true)
+    {
+        Card card = deckInfo.infoCard;
+        deckInfo.infoCard = null;
+        card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault() + 1);
+
+        //TODO: Chapuza
+        StopAllCoroutines();
+
+        if (doAction)
+            _gameObject.GetComponent<CardAction>().DoAction(GameManager.GetInstance().player.gameObject);
+
+        deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
+
+        card.gameObject.GetComponent<BoxCollider2D>().size = Card.CARD_RECT_TRANSFORM.sizeDelta;
+        card.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
+
+        StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
+        StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.cost.transform, new Vector2(100, 100))); //Tamaño visual
+        StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
     }
 
     /// <summary>
@@ -314,7 +332,7 @@ public class Deck : MonoBehaviour
     /// </summary>
     /// <param name="count">Cantidad de cartas a repartir</param>
     /// <returns></returns>
-    public void DealCards()
+    public IEnumerator DealCards()
     {
 
         var delta = this.transform.GetSiblingIndex();
@@ -329,14 +347,18 @@ public class Deck : MonoBehaviour
 
                 if (!card)
                 {
-                    deckInfo.moveCementaryToActive(GetComponent<RectTransform>());
-                    SuffleDeck();
+                    StartCoroutine( CheckIfCards() );
+
+                    yield return new WaitUntil(() => deckInfo.cementeryCards.Count == 0);
+
+                    yield return new WaitForSeconds(1);
                     card = deckInfo.activeCards.FirstOrDefault();
 
                 }
                 card.transform.SetSiblingIndex(position.position + 1);
                 card.GetComponent<Card>().indexPosition = position.position;
                 card.GetComponent<Card>().FlipCard();
+
                 deckInfo.activeCards.RemoveAt(0);
                 deckInfo.handCards.Add(card);
 
@@ -345,22 +367,24 @@ public class Deck : MonoBehaviour
             }
         }
 
-        CheckIfCards();
+        StartCoroutine(CheckIfCards());
 
     }
 
     /// <summary>
     /// Determina si hay cartas en la baraja activa
     /// </summary>
-    private void CheckIfCards()
+    private IEnumerator CheckIfCards()
     {
         if (!deckInfo.activeCards.FirstOrDefault())
         {
-            deckInfo.moveCementaryToActive(GetComponent<RectTransform>());
-            SuffleDeck();
-            deckInfo.FlipAllCards();
-
+            StartCoroutine( deckInfo.moveCementaryToActive(GetComponent<RectTransform>()) );           
         }
+
+        yield return new WaitUntil(() => deckInfo.cementeryCards.Count == 0);
+
+        SuffleDeck();
+
     }
 
 

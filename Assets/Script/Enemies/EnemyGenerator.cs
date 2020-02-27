@@ -21,6 +21,7 @@ public class EnemyGenerator : MonoBehaviour
     /// <summary>
     /// Lista de enemigos generados
     /// </summary>
+    [HideInInspector]
     public List<GameObject> enemies = new List<GameObject>();
 
     /// <summary>
@@ -45,7 +46,7 @@ public class EnemyGenerator : MonoBehaviour
 
             if (tileobj != null && tileobj.GetComponent<Tile>().contain == CELLCONTAINER.EMPTY)
             {
-                int type = Random.Range(0, enemiesPrefabs.Count());
+                int type = Random.Range(0, 9) >= 3 ? 0 : 1 ;
                 tileobj.GetComponent<Tile>().contain = CELLCONTAINER.ENEMY;
                 enemies.Add(Instantiate(enemiesPrefabs[type], tileobj.transform.position, Quaternion.identity));
                 enemies.Last().AddComponent<Enemy>();
