@@ -34,8 +34,17 @@ public class ManaManager : MonoBehaviour
     /// Cambia la barra de porcentaje el porcentaje del mana
     /// </summary>
     /// <param name="percentage"> Valores entre 0 y 1 </param>
-    private void setPercentajeBar(float percentage)
+    private IEnumerator setPercentajeBar(float percentage, float time)
     {
+        float t = 0;
+
+        while (fillMana.fillAmount != percentage)
+        {
+            t += Time.deltaTime / time;
+            fillMana.fillAmount = Mathf.Lerp(fillMana.fillAmount, percentage, t);
+            yield return null;
+        }
+
         fillMana.fillAmount = percentage;
     }
 
@@ -47,7 +56,7 @@ public class ManaManager : MonoBehaviour
     public void refreshMana(int i, float percentage)
     {
         setManaLbl(i);
-        setPercentajeBar(percentage);
+        StartCoroutine( setPercentajeBar(percentage, 1f) );
     }
 
 }

@@ -2408,6 +2408,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
+    - target: {fileID: 1865280816681703713, guid: 284a95e10c61f744b86061aa6cab3399,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1865280816681703722, guid: 284a95e10c61f744b86061aa6cab3399,
         type: 3}
       propertyPath: manaManager
