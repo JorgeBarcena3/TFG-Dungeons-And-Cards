@@ -238,10 +238,14 @@ public class Deck : MonoBehaviour
             _gameObject.GetComponent<CardAction>().DoAction(GameManager.GetInstance().player.gameObject);
         else
         {
-            if (GameManager.GetInstance().player.playerInfo.useMana(_gameObject.GetComponent<Card>().info.Cost))
+            if (GameManager.GetInstance().player.playerInfo.useMana(0))
             {
                 GameManager.GetInstance().turn = TURN.IA;
             }
+            else
+                GameManager.GetInstance().player.playerInfo.addMana(1);
+                GameManager.GetInstance().player.refreshPlayerData();
+
         }
 
         deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
@@ -354,7 +358,7 @@ public class Deck : MonoBehaviour
 
                 if (!card)
                 {
-                    StartCoroutine( CheckIfCards() );
+                    StartCoroutine(CheckIfCards());
 
                     yield return new WaitUntil(() => deckInfo.cementeryCards.Count == 0);
 
@@ -385,7 +389,7 @@ public class Deck : MonoBehaviour
     {
         if (!deckInfo.activeCards.FirstOrDefault())
         {
-            StartCoroutine( deckInfo.moveCementaryToActive(GetComponent<RectTransform>()) );           
+            StartCoroutine(deckInfo.moveCementaryToActive(GetComponent<RectTransform>()));
         }
 
         yield return new WaitUntil(() => deckInfo.cementeryCards.Count == 0);

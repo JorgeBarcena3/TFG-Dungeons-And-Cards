@@ -32,7 +32,7 @@ public class PlayerInfo : MonoBehaviour
     /// Usa el maná del jugador
     /// </summary>
     /// <param name="mana"></param>
-    /// <returns>Devuelve true si queda mas maná</returns>
+    /// <returns>Devuelve true si NO queda mas maná</returns>
     public bool useMana(int mana)
     {
         currentManaPoints -= mana;
