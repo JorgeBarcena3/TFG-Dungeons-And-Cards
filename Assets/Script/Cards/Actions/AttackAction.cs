@@ -43,12 +43,15 @@ public class AttackAction : CardAction
         GameManager.GetInstance().agents.Remove(enemy.GetComponent<IAAgent>());
         GameManager.GetInstance().enemyGenerator.enemies.Remove(enemy);
         Destroy(enemy);
+        tile.contain = CELLCONTAINER.EMPTY;
 
-        StartCoroutine(AuxiliarFuncions.MoveObjectTo(GameManager.GetInstance().player.gameObject.transform, tile.transform.position));
+        //Matar con movimiento
 
-        GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.EMPTY;
-        GameManager.GetInstance().player.currentCell = tile;
-        GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.PLAYER;
+        //StartCoroutine(AuxiliarFuncions.MoveObjectTo(GameManager.GetInstance().player.gameObject.transform, tile.transform.position));
+
+        //GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.EMPTY;
+        //GameManager.GetInstance().player.currentCell = tile;
+        //GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.PLAYER;
 
         foreach (TileWalkable tl in neighbourTiles)
         {

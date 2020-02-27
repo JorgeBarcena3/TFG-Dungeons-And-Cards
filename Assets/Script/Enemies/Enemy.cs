@@ -8,6 +8,7 @@ using UnityEngine;
 /// </summary>
 enum ENEMY_TYPE : int
 {
+    HYPER_FAST = 2,
     FAST = 1,
     SLOW = 0
 }

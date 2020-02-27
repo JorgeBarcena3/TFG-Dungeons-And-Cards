@@ -46,7 +46,8 @@ public class EnemyGenerator : MonoBehaviour
 
             if (tileobj != null && tileobj.GetComponent<Tile>().contain == CELLCONTAINER.EMPTY)
             {
-                int type = Random.Range(0, 9) >= 3 ? 0 : 1 ;
+                int rnd = Random.Range(0, 10);
+                int type = rnd < 1 ? 2 : rnd < 4 ? 1 : 0;
                 tileobj.GetComponent<Tile>().contain = CELLCONTAINER.ENEMY;
                 enemies.Add(Instantiate(enemiesPrefabs[type], tileobj.transform.position, Quaternion.identity));
                 enemies.Last().AddComponent<Enemy>();

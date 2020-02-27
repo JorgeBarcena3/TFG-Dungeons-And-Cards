@@ -131,7 +131,7 @@ public class Card : MonoBehaviour
             cardGameobject.GetComponent<Card>().info = new InfoCard(CardKind.GUARD, 00, "Carta de recuperacion de maná", 0, Random.Range(1, 4));
 
         }
-        else if(random < 5)
+        else if(random < 6)
         {
             cardGameobject.AddComponent<AttackAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 0.82f, 0.82f);
@@ -144,7 +144,7 @@ public class Card : MonoBehaviour
             cardGameobject.AddComponent<MovementAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.69f, 0.99f, 0.69f);
             cardGameobject.GetComponent<Card>().type = ATTACKTYPE.MOVEMENT;
-            cardGameobject.GetComponent<Card>().info = new InfoCard(CardKind.MOVE, 00, "Carta de Movimiento", 0, Random.Range(1, 4));
+            cardGameobject.GetComponent<Card>().info = new InfoCard(CardKind.MOVE, 00, "Carta de Movimiento", 0, Random.Range(1, 5));
 
         }
 
