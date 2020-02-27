@@ -19,15 +19,9 @@ public class Player : MonoBehaviour
     public Tile currentCell;
 
     /// <summary>
-    /// Cantidad de movimientos por turno
+    /// Informacion del player
     /// </summary>
-    public int maxMovesPerTurn = 2;
-
-    /// <summary>
-    /// Cantidad de movimientos por turno
-    /// </summary>
-    [HideInInspector]
-    public int currentMovesTurn = 0;
+    public PlayerInfo playerInfo;   
 
     /// <summary>
     /// Funcion de inicializacion del jugador
@@ -58,5 +52,16 @@ public class Player : MonoBehaviour
 
         this.transform.position = new Vector3(currentCell.gameObject.transform.position.x, currentCell.gameObject.transform.position.y, 100);
         this.gameObject.SetActive(true);
+
+        playerInfo.currentManaPoints = playerInfo.maxManaPoints;
+        refreshPlayerData();
+    }
+
+    /// <summary>
+    /// Refresca el los datos del jugador
+    /// </summary>
+    public void refreshPlayerData()
+    {
+        playerInfo.refreshData();
     }
 }

@@ -63,7 +63,7 @@ public class InfoCard
         //los primeros numeros del id indican el tipo de carta, los ultimos 5 numeros indican las variables de esta
         Id = ((((_id * 10 + _cost) * 10 + _power) * 10 + _distance) * 10 + _area_radius) * 10 + _turn;
         Description = _description;
-        Cost = _cost;
+        Cost = _power;
         Power = _power;
         Distance = _distance;
         AreaRadius = _area_radius;

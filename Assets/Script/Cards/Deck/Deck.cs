@@ -238,10 +238,8 @@ public class Deck : MonoBehaviour
             _gameObject.GetComponent<CardAction>().DoAction(GameManager.GetInstance().player.gameObject);
         else
         {
-            GameManager.GetInstance().player.currentMovesTurn++;
-            if (GameManager.GetInstance().player.currentMovesTurn >= GameManager.GetInstance().player.maxMovesPerTurn)
+            if (GameManager.GetInstance().player.playerInfo.useMana(_gameObject.GetComponent<Card>().info.Cost))
             {
-                GameManager.GetInstance().player.currentMovesTurn = 0;
                 GameManager.GetInstance().turn = TURN.IA;
             }
         }

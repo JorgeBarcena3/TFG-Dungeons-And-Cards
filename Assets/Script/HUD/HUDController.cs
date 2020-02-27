@@ -15,4 +15,9 @@ public class HUDController : MonoBehaviour
     /// Cartel de turnos
     /// </summary>
     public Turnlbl turnlbl;
+
+    /// <summary>
+    /// Manager del mana del jugador
+    /// </summary>
+    public ManaManager manaManager;
 }

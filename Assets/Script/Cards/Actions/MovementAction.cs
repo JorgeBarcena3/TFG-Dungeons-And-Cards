@@ -20,12 +20,16 @@ public class MovementAction : CardAction
     /// <returns></returns>
     public override bool checkAction(GameObject player)
     {
-        Vector2 position = player.GetComponent<Player>().currentCell.CellInfo.mapPosition;
+        if (GameManager.GetInstance().player.playerInfo.canUseMana(this.gameObject.GetComponent<Card>().info.Cost))
+        {
+            Vector2 position = player.GetComponent<Player>().currentCell.CellInfo.mapPosition;
 
-        neighbourTiles = GetWalkableNeighbours(position, player);
+            neighbourTiles = GetWalkableNeighbours(position, player);
 
-        if (neighbourTiles.Count > 0)
-            return true;
+            if (neighbourTiles.Count > 0)
+                return true;
+
+        }
 
         return false;
     }

@@ -86,9 +86,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public CameraFunctions cameraFunctions;
 
-
-
-
     /// <summary>
     /// Instancia del GameManager
     /// </summary>
@@ -155,6 +152,9 @@ public class GameManager : MonoBehaviour
                     StartCoroutine(deck.DealCards());
                     yield return new WaitUntil(() => deck.deckCanvasInfo.anchorToCards.Where(m => !m.state).Count() == 0);
                 }
+
+                player.playerInfo.addMana(1);
+                player.refreshPlayerData();
 
                 //Mostramos la animacion del IA
                 hud.turnlbl.showTurn("ENEMIGOS");

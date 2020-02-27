@@ -21,12 +21,15 @@ public class AttackAction : CardAction
     /// <returns></returns>
     public override bool checkAction(GameObject player)
     {
-        Vector2 position = player.GetComponent<Player>().currentCell.CellInfo.mapPosition;
+        if (GameManager.GetInstance().player.playerInfo.canUseMana(this.gameObject.GetComponent<Card>().info.Cost))
+        {
+            Vector2 position = player.GetComponent<Player>().currentCell.CellInfo.mapPosition;
 
-        neighbourTiles = GetWalkableNeighbours(position, player);
+            neighbourTiles = GetWalkableNeighbours(position, player);
 
-        if (neighbourTiles.Count > 0)
-            return true;
+            if (neighbourTiles.Count > 0)
+                return true;
+        }
 
         return false;
     }
@@ -121,7 +124,7 @@ public class AttackAction : CardAction
             {
 
                 float distance = Vector2.Distance(player.transform.position, tile.transform.position);
-                if (distance < 1 + ( (radioVecinos - 1) * 0.5f) )
+                if (distance < 1 + ((radioVecinos - 1) * 0.5f))
                     tilesWalkables.Add(tile as TileWalkable);
             }
         }
@@ -129,4 +132,4 @@ public class AttackAction : CardAction
         return tilesWalkables;
     }
 
- }
+}

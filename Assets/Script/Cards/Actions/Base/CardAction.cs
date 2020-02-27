@@ -43,14 +43,16 @@ public abstract class CardAction : MonoBehaviour
     /// </summary>
     protected virtual void finishTurn()
     {
-        GameManager.GetInstance().deck.inCardAction = false;
 
-        GameManager.GetInstance().player.currentMovesTurn++;
+        GameManager GM = GameManager.GetInstance();
+        GM.deck.inCardAction = false;       
 
-        if (GameManager.GetInstance().player.currentMovesTurn >= GameManager.GetInstance().player.maxMovesPerTurn)
+        if (GM.player.playerInfo.useMana(this.gameObject.GetComponent<Card>().info.Cost))
         {
-            GameManager.GetInstance().player.currentMovesTurn = 0;
-            GameManager.GetInstance().turn = TURN.IA;
+            GM.turn = TURN.IA;
         }
+
+        GM.player.refreshPlayerData();
+
     }
 }
