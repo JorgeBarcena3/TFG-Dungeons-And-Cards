@@ -56,7 +56,7 @@ public class ManaManager : MonoBehaviour
     public void refreshMana(int i, float percentage)
     {
         setManaLbl(i);
-        StartCoroutine( setPercentajeBar(percentage, 1f) );
+        StartCoroutine( setPercentajeBar(percentage, 0.5f) );
     }
 
 }

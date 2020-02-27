@@ -120,15 +120,23 @@ public class Card : MonoBehaviour
     /// <param name="cardGameobject"></param>
     private static void selectCardAction(GameObject cardGameobject)
     {
-        int random = UnityEngine.Random.Range(0, 6);
+        int random = UnityEngine.Random.Range(0, 10);
 
         if (random < 2)
+        {
+
+            cardGameobject.AddComponent<GivenManaAction>();
+            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.43f, 0.89f, 0.98f);
+            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.DEFENSE;
+            cardGameobject.GetComponent<Card>().info = new InfoCard(CardKind.GUARD, 00, "Carta de recuperacion de maná", 0, Random.Range(1, 4));
+
+        }
+        else if(random < 5)
         {
             cardGameobject.AddComponent<AttackAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 0.82f, 0.82f);
             cardGameobject.GetComponent<Card>().type = ATTACKTYPE.ATTACK;
             cardGameobject.GetComponent<Card>().info = new InfoCard(CardKind.DAMAGE, 00, "Carta de Atake", 0, Random.Range(1, 4));
-
 
         }
         else

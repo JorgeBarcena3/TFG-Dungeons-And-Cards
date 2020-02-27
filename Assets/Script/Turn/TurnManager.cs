@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -73,6 +74,18 @@ public class TurnManager : MonoBehaviour
             yield return null;
         }
 
+    }
+
+    /// <summary>
+    /// Es turno de la IA
+    /// </summary>
+    /// <returns></returns>
+    public bool isIATurn()
+    {
+        GameManager GM = GameManager.GetInstance();
+
+        return ( GM.player.playerInfo.currentManaPoints <= 0 ||
+                GM.deck.deckCanvasInfo.anchorToCards.Where(m => !m.state).Count() == GM.deck.deckCanvasInfo.anchorToCards.Count - 1);
     }
 
     /// <summary>

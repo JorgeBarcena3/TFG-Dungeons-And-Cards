@@ -52,7 +52,7 @@ public class PlayerInfo : MonoBehaviour
     /// <returns></returns>
     public void addMana(int mana)
     {
-        currentManaPoints = currentManaPoints + mana > maxManaPoints ? maxManaPoints : currentManaPoints + mana;
+        currentManaPoints = currentManaPoints + mana >= maxManaPoints ? maxManaPoints : currentManaPoints + mana;
     }
 
     /// <summary>

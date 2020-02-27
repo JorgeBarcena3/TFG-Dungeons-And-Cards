@@ -189,14 +189,6 @@ public class Deck : MonoBehaviour
             //TODO: Chapuza
             StopAllCoroutines();
 
-#if UNITY_EDITOR_WIN || UNITY_EDITOR
-            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(Card.CARD_RECT_TRANSFORM.sizeDelta.x * 3, (Card.CARD_RECT_TRANSFORM.sizeDelta.y * 3) / 3);
-            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, -(Card.CARD_RECT_TRANSFORM.sizeDelta.y * 3) / 3);
-#endif
-#if UNITY_ANDROID	
-            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0, 0);
-            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
-#endif
             StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)deckInfo.infoCard.gameObject.transform, Vector3.zero));
             StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)deckInfo.infoCard.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta * 3)); //Tamaño visual
             StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)deckInfo.infoCard.cost.transform, new Vector2(Card.CARD_RECT_TRANSFORM.sizeDelta.x, Card.CARD_RECT_TRANSFORM.sizeDelta.x) * 3)); //Tamaño visual
@@ -236,22 +228,17 @@ public class Deck : MonoBehaviour
 
         if (doAction)
             _gameObject.GetComponent<CardAction>().DoAction(GameManager.GetInstance().player.gameObject);
-        else
+        else // Si la descartamos
         {
-            if (GameManager.GetInstance().player.playerInfo.useMana(0))
-            {
+            GameManager.GetInstance().player.playerInfo.addMana(1);
+            GameManager.GetInstance().player.refreshPlayerData();
+
+            if (GameManager.GetInstance().turnManager.isIATurn())
                 GameManager.GetInstance().turn = TURN.IA;
-            }
-            else
-                GameManager.GetInstance().player.playerInfo.addMana(1);
-                GameManager.GetInstance().player.refreshPlayerData();
 
         }
 
         deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
-
-        card.gameObject.GetComponent<BoxCollider2D>().size = Card.CARD_RECT_TRANSFORM.sizeDelta;
-        card.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
 
         StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
         StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.cost.transform, new Vector2(100, 100))); //Tamaño visual
