@@ -210,9 +210,9 @@ public class Card : MonoBehaviour
     void OnMouseDown()
     {
         if (
-            !GameManager.GetInstance().deck.inCardAction &&
-            GameManager.GetInstance().state == States.INGAME &&
-            GameManager.GetInstance().turn == TURN.PLAYER &&
+            !GameManager.Instance.deck.inCardAction &&
+            GameManager.Instance.state == States.INGAME &&
+            GameManager.Instance.turn == TURN.PLAYER &&
             indexPosition != null
             && !deck.infoBackground.activeSelf
             )

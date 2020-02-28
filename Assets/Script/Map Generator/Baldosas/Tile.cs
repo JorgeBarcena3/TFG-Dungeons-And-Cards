@@ -30,6 +30,7 @@ public class Tile : MonoBehaviour
 
     //Indica si esta baldosa es transitable
     // public bool Walkable { get; set; }
+    [HideInInspector]
     public CELLCONTAINER contain;
 
     //Referencia al spriterender de la baldosa
@@ -40,12 +41,10 @@ public class Tile : MonoBehaviour
     [HideInInspector]
     public Transform tileTransform;
 
-    //array de posibles sprites
-    public Sprite[] sprites;
-
     /// <summary>
     /// Determina si tiene una accion asignada o no
     /// </summary>
+    [HideInInspector]
     public CardAction assignedAction = null;
 
     /// <summary>
@@ -59,8 +58,8 @@ public class Tile : MonoBehaviour
 
         Vector2 position = CellInfo.mapPosition; 
 
-        Tablero board2D = GameManager.GetInstance().worldGenerator.board;
-        List<GameObject> spriteBoard = GameManager.GetInstance().worldGenerator.SpriteBoard;
+        Tablero board2D = GameManager.Instance.worldGenerator.board;
+        List<GameObject> spriteBoard = GameManager.Instance.worldGenerator.SpriteBoard;
 
         List<Vector2> cell2D = new List<Vector2>();
         List<Tile> tilesWalkables = new List<Tile>();

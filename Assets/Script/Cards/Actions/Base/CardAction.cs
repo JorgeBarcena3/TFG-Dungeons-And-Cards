@@ -45,7 +45,7 @@ public abstract class CardAction : MonoBehaviour
     protected virtual void finishTurn()
     {
 
-        GameManager GM = GameManager.GetInstance();
+        GameManager GM = GameManager.Instance;
 
         GM.deck.inCardAction = false;
         GM.player.playerInfo.useMana(this.gameObject.GetComponent<Card>().info.Cost);

@@ -152,61 +152,6 @@ public class WorldGenerator : MonoBehaviour
     /// </summary>
     void DrawBoard()
     {
-        /*
-        if (spritesBoard == null)
-            spritesBoard = new List<GameObject>();
-        else
-        {
-            for (int i = 0; i < spritesBoard.Count; i++)
-            {
-                Destroy(spritesBoard[i]);
-            }
-            spritesBoard = new List<GameObject>();
-
-        }
-
-        for (int y = 0; y < this.board.world_cell.GetLength(0); y++)
-        {
-            for (int x = 0; x < this.board.world_cell.GetLength(1); x++)
-            {
-                Vector3 size = sprites[0].GetComponent<SpriteRenderer>().bounds.size;
-                Vector3 position = this.transform.position + new Vector3(x * size.x, -(y * size.y), 0);
-
-                if (this.board.world_cell[x, y].value == CellsType.dead)
-                {
-                    spritesBoard.Add(Instantiate(sprites[0], position, Quaternion.identity, this.transform));
-                }
-                else
-                {
-                    spritesBoard.Add(Instantiate(sprites[1], position, Quaternion.identity, this.transform));
-
-                }
-
-                if (!mostrarColoresDebug)
-                {
-                    if (this.board[x, y].value == CellsType.alive)
-                    {
-                        spritesBoard.Last().GetComponent<SpriteRenderer>().color = Color.white;
-                    }
-                    else
-                    {
-                        spritesBoard.Last().GetComponent<SpriteRenderer>().color = Color.black;
-                    }
-                }
-                else if (colorDeSalasYPasillos)
-                {
-                    if (this.board[x, y].value == CellsType.alive)
-                    {
-                        spritesBoard.Last().GetComponent<SpriteRenderer>().color = this.board[x, y].color;
-
-                    }
-                }
-
-
-
-            }
-        }
-        */
 
         if (SpriteBoard == null)
             SpriteBoard = new List<GameObject>();
@@ -220,6 +165,8 @@ public class WorldGenerator : MonoBehaviour
 
         }
 
+        GameArtTheme.Instance.ChooseTheme();
+
         Vector3 size = prefabTiles[0].GetComponent<SpriteRenderer>().bounds.size;
 
         for (int y = 0; y < this.board.worldCells.GetLength(0); y++)
@@ -227,8 +174,8 @@ public class WorldGenerator : MonoBehaviour
             for (int x = 0; x < this.board.worldCells.GetLength(1); x++)
             {
                
-                Vector3 position = y % 2 == 0 ? this.transform.position + new Vector3(x * size.x, -(y * size.y * 23 / 40), -(y)) :
-                                                this.transform.position + new Vector3(x * size.x + size.x / 2, -(y * size.y * 23 / 40), -(y));
+                Vector3 position = y % 2 == 0 ? this.transform.position + new Vector3(x * size.x - 1, -(y * size.y * 23 / 40), -(y)) :
+                                                this.transform.position + new Vector3(x * size.x - 1 + size.x / 2, -(y * size.y * 23 / 40), -(y));
 
                 if (this.board.worldCells[x, y].Value == CELLSTYPE.DEAD)
                 {
@@ -245,6 +192,8 @@ public class WorldGenerator : MonoBehaviour
 
             }
         }
+
+        GameArtTheme.Instance.AddDecoration(SpriteBoard);
     }
 
     /// <summary>

@@ -36,7 +36,7 @@ public class IAController : MonoBehaviour
     {
         actionDone = false;
 
-        GameManager GM = GameManager.GetInstance();
+        GameManager GM = GameManager.Instance;
 
         agents = agents.OrderBy(m => Vector2.Distance(m.transform.position, GM.player.transform.position)).ToList();
 

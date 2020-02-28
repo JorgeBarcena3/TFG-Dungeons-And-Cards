@@ -39,7 +39,7 @@ public class TileWalkable : Tile
     public void Awake()
     {
         contain = CELLCONTAINER.EMPTY;
-        tileRender.sprite = sprites[(int)tileType];
+        tileRender.sprite = GameArtTheme.Instance.currentTheme.floor;
     }  
 
 }

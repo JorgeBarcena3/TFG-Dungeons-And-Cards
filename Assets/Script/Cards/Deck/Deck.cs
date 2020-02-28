@@ -106,25 +106,28 @@ public class Deck : MonoBehaviour
     /// </summary>
     private void onCardSwipe(SwipeData data)
     {
-
-        if (
+        if (GameManager.Instance.state == States.INGAME &&
+           GameManager.Instance.turn == TURN.PLAYER)
+        {
+            if (
             data.Direction == SwipeDirection.Up &&
             !inCardAction &&
             deckInfo.infoCard
             )
-        {
-            ClickOnCard(deckInfo.infoCard.gameObject);
-        }
-        else if (
-          data.Direction == SwipeDirection.Right &&
-          !inCardAction &&
-          deckInfo.infoCard)
-        {
-            matarCartas(deckInfo.infoCard.gameObject, false);
-        }
-        else if (deckInfo.infoCard != null)
-        {
-            ClickOnCard();
+            {
+                ClickOnCard(deckInfo.infoCard.gameObject);
+            }
+            else if (
+              data.Direction == SwipeDirection.Right &&
+              !inCardAction &&
+              deckInfo.infoCard)
+            {
+                matarCartas(deckInfo.infoCard.gameObject, false);
+            }
+            else if (deckInfo.infoCard != null)
+            {
+                ClickOnCard();
+            }
         }
 
     }
@@ -191,7 +194,7 @@ public class Deck : MonoBehaviour
         else if (_gameObject != null && deckInfo.infoCard == _gameObject.GetComponent<Card>())
         {
 
-            if (_gameObject.GetComponent<CardAction>().checkAction(GameManager.GetInstance().player.gameObject))
+            if (_gameObject.GetComponent<CardAction>().checkAction(GameManager.Instance.player.gameObject))
             {
                 matarCartas(_gameObject);
             }
@@ -239,14 +242,14 @@ public class Deck : MonoBehaviour
         StopAllCoroutines();
 
         if (doAction)
-            _gameObject.GetComponent<CardAction>().DoAction(GameManager.GetInstance().player.gameObject);
+            _gameObject.GetComponent<CardAction>().DoAction(GameManager.Instance.player.gameObject);
         else // Si la descartamos
         {
-            GameManager.GetInstance().player.playerInfo.addMana(1);
-            GameManager.GetInstance().player.refreshPlayerData();
+            GameManager.Instance.player.playerInfo.addMana(1);
+            GameManager.Instance.player.refreshPlayerData();
 
-            if (GameManager.GetInstance().turnManager.isIATurn())
-                GameManager.GetInstance().turn = TURN.IA;
+            if (GameManager.Instance.turnManager.isIATurn())
+                GameManager.Instance.turn = TURN.IA;
 
         }
 

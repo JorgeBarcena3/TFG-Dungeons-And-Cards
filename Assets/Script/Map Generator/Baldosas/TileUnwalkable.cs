@@ -23,7 +23,7 @@ public class TileUnwalkable : Tile
     public void Awake()
     {
         contain = CELLCONTAINER.WALL;
-        tileRender.sprite = sprites[(int)tileType];
+        tileRender.sprite = GameArtTheme.Instance.currentTheme.wall;
     }
-   
+
 }

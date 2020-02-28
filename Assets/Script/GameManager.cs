@@ -18,7 +18,7 @@ public enum States
 /// <summary>
 /// Maneja el flujo del juego - Es un Singleton
 /// </summary>
-public class GameManager : MonoBehaviour
+public class GameManager : Singelton<GameManager>
 {
     [Header("Cartas")]
 
@@ -78,11 +78,6 @@ public class GameManager : MonoBehaviour
     public CameraFunctions cameraFunctions;
 
     /// <summary>
-    /// Instancia del GameManager
-    /// </summary>
-    private static GameManager instance;
-
-    /// <summary>
     /// Turno de quien
     /// </summary>
     public TURN turn { get { return turnManager.turn.GetValueOrDefault(); } set {
@@ -105,20 +100,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     [HideInInspector]
     public List<IAAgent> agents;
-
-    /// <summary>
-    /// Obtenemos la instancia actual del GameManager
-    /// </summary>
-    /// <returns>Instancia del GameManager</returns>
-    public static GameManager GetInstance()
-    {
-        if (!instance)
-        {
-            //GameManager.instance =  new GameManager();
-        }
-
-        return instance;
-    }
+    
 
     /// <summary>
     /// Funcion de start
@@ -127,7 +109,6 @@ public class GameManager : MonoBehaviour
     {
         state = States.LOADING;
         imageLoader = GetComponent<ImageLoader>();
-        GameManager.instance = this;
 
         yield return null;
         StartCoroutine(starting());

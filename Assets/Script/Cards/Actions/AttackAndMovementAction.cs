@@ -21,7 +21,7 @@ public class AttackAndMovementAction : CardAction
     /// <returns></returns>
     public override bool checkAction(GameObject player)
     {
-        if (GameManager.GetInstance().player.playerInfo.canUseMana(this.gameObject.GetComponent<Card>().info.Cost))
+        if (GameManager.Instance.player.playerInfo.canUseMana(this.gameObject.GetComponent<Card>().info.Cost))
         {
             Vector2 position = player.GetComponent<Player>().currentCell.CellInfo.mapPosition;
 
@@ -39,18 +39,16 @@ public class AttackAndMovementAction : CardAction
     /// </summary>
     public override void clickOnTile(Tile tile)
     {
-        List<Tile> waypoints = PathFindingHexagonal.calcularRuta(GameManager.GetInstance().player.gameObject.GetComponent<Player>().currentCell, tile);
+        List<Tile> waypoints = PathFindingHexagonal.calcularRuta(GameManager.Instance.player.gameObject.GetComponent<Player>().currentCell, tile);
 
-        StartCoroutine(AuxiliarFuncions.moveWithWaypoints(GameManager.GetInstance().player.gameObject.transform, waypoints, 0.25f));
+        StartCoroutine(AuxiliarFuncions.moveWithWaypoints(GameManager.Instance.player.gameObject.transform, waypoints, 0.25f));
 
-        GameObject enemy = GameManager.GetInstance().enemyGenerator.enemies.Where(m => m.GetComponent<Enemy>().currentCell == tile).FirstOrDefault();
-        GameManager.GetInstance().agents.Remove(enemy.GetComponent<IAAgent>());
-        GameManager.GetInstance().enemyGenerator.enemies.Remove(enemy);
-        Destroy(enemy);
+        GameObject enemy = GameManager.Instance.enemyGenerator.enemies.Where(m => m.GetComponent<Enemy>().currentCell == tile).FirstOrDefault();
+        StartCoroutine(enemy.GetComponent<Enemy>().DestroyEnemy());
 
-        GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.EMPTY;
-        GameManager.GetInstance().player.currentCell = tile;
-        GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.PLAYER;
+        GameManager.Instance.player.currentCell.contain = CELLCONTAINER.EMPTY;
+        GameManager.Instance.player.currentCell = tile;
+        GameManager.Instance.player.currentCell.contain = CELLCONTAINER.PLAYER;
 
         foreach (TileWalkable tl in neighbourTiles)
         {
@@ -77,7 +75,7 @@ public class AttackAndMovementAction : CardAction
             spr.color = selectedColor;
         }
 
-        GameManager.GetInstance().deck.inCardAction = true;
+        GameManager.Instance.deck.inCardAction = true;
     }
 
     /// <summary>
@@ -87,8 +85,8 @@ public class AttackAndMovementAction : CardAction
     private List<TileWalkable> GetWalkableNeighbours(Vector2 position, GameObject player)
     {
 
-        Tablero board2D = GameManager.GetInstance().worldGenerator.board;
-        List<GameObject> spriteBoard = GameManager.GetInstance().worldGenerator.SpriteBoard;
+        Tablero board2D = GameManager.Instance.worldGenerator.board;
+        List<GameObject> spriteBoard = GameManager.Instance.worldGenerator.SpriteBoard;
 
         List<Vector2> cell2D = new List<Vector2>();
         List<TileWalkable> tilesWalkables = new List<TileWalkable>();
@@ -125,7 +123,7 @@ public class AttackAndMovementAction : CardAction
                 )
             {
 
-                List<Tile> points = PathFindingHexagonal.calcularRuta(GameManager.GetInstance().player.gameObject.GetComponent<Player>().currentCell, tile, 100);
+                List<Tile> points = PathFindingHexagonal.calcularRuta(GameManager.Instance.player.gameObject.GetComponent<Player>().currentCell, tile, 100);
 
                 if (points.Count > 0 && points.Count <= radioVecinos)
                     tilesWalkables.Add(tile as TileWalkable);

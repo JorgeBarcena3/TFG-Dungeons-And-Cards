@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 /// </summary>
 public class AuxiliarFuncions : MonoBehaviour
 {
-    
+
     /// <summary>
     /// Cambia el tamaño al tamaño deseado
     /// </summary>
@@ -20,7 +21,7 @@ public class AuxiliarFuncions : MonoBehaviour
     {
 
         float t = 0;
-        
+
 
         while (Vector3.Distance(obj.localScale, size) > 0.01f)
         {
@@ -54,26 +55,29 @@ public class AuxiliarFuncions : MonoBehaviour
         obj.localPosition = goal;
 
     }
-    
+
     /// <summary>
     /// Nos movemos siguiendo unos waypoints
     /// </summary>
     public static IEnumerator moveWithWaypoints(Transform obj, List<Tile> waypoints, float time = 0.1f)
     {
-
+        obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, waypoints.Last().transform.position.z);
         foreach (Tile tile in waypoints)
         {
 
-            float t = 0;
+            Vector3 newPosition = tile.transform.position;
+            obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, -15);
 
-            while (Vector3.Distance(obj.transform.position, tile.transform.position) > 0.01f)
-            {
-                t += Time.deltaTime / time;
-                obj.position = Vector3.Lerp(obj.position, tile.transform.position, t);
-                yield return null;
-            }
+            GameManager.Instance.StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(obj.transform, newPosition, 1f) );
 
-            obj.position = tile.transform.position;
+            yield return new WaitUntil(() =>
+                obj.transform.position.x == newPosition.x &&
+                obj.transform.position.y == newPosition.y
+                );
+
+
+            obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, tile.transform.localPosition.z) + GameManager.Instance.player.zOffset;
+            
 
         }
 
@@ -97,6 +101,27 @@ public class AuxiliarFuncions : MonoBehaviour
         }
 
         obj.position = goal;
+
+    }
+
+    /// <summary>
+    /// Mueve un objeto a una posicion en un tiempo determinada
+    /// </summary>
+    /// <param name="obj">Objeto a desplazar</param>
+    /// <param name="goal">Posicion meta</param>
+    /// <param name="time">Tiempo de desplazamiento</param>
+    public static IEnumerator MoveObjectTo2D(Transform obj, Vector2 goal, float time = 1f)
+    {
+        float t = 0;
+
+        while (Vector2.Distance(obj.transform.position, goal) > 0.01f)
+        {
+            t += Time.deltaTime / time;
+            obj.position = new Vector3(Mathf.Lerp(obj.position.x, goal.x, t), Mathf.Lerp(obj.position.y, goal.y, t), obj.position.z);
+            yield return null;
+        }
+
+        obj.position = new Vector3(goal.x, goal.y, obj.position.z);
 
     }
 
@@ -180,5 +205,7 @@ public class AuxiliarFuncions : MonoBehaviour
 
 
     }
+
+
 
 }

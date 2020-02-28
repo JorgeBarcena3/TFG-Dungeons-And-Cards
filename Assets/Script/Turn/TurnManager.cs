@@ -34,9 +34,9 @@ public class TurnManager : MonoBehaviour
     /// </summary>
     public IEnumerator TurnUpdate()
     {
-        GameManager GM = GameManager.GetInstance();
+        GameManager GM = GameManager.Instance;
 
-        while (GameManager.GetInstance().state == States.INGAME)
+        while (GameManager.Instance.state == States.INGAME)
         {
             if (turn == TURN.IA)
             {
@@ -85,7 +85,7 @@ public class TurnManager : MonoBehaviour
     /// <returns></returns>
     public bool isIATurn()
     {
-        GameManager GM = GameManager.GetInstance();
+        GameManager GM = GameManager.Instance;
 
         return ( GM.player.playerInfo.currentManaPoints <= 0 ||
                 GM.deck.deckCanvasInfo.anchorToCards.Where(m => !m.state).Count() == GM.deck.deckCanvasInfo.anchorToCards.Count - 1);
@@ -96,7 +96,7 @@ public class TurnManager : MonoBehaviour
     /// </summary>
     public void changeTurnToIA()
     {
-        if (turn == TURN.PLAYER && !GameManager.GetInstance().deck.inCardAction)
+        if (turn == TURN.PLAYER && !GameManager.Instance.deck.inCardAction)
             turn = TURN.IA;
     }
 

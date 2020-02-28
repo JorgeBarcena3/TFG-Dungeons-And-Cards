@@ -60,14 +60,14 @@ public class Slider : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.GetInstance().state == States.INGAME && GameManager.GetInstance().turn == TURN.PLAYER &&
-            GameManager.GetInstance().deck.deckInfo.infoCard == null)
+        if (GameManager.Instance.state == States.INGAME && GameManager.Instance.turn == TURN.PLAYER &&
+            GameManager.Instance.deck.deckInfo.infoCard == null)
         {
             /// Determina cuando se esta arrastrando el raton
             if (Input.GetMouseButtonDown(0) && boxCollider.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
             {
                 touchStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            }
+            } else
 
             if (Input.GetMouseButton(0) && boxCollider.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
             {

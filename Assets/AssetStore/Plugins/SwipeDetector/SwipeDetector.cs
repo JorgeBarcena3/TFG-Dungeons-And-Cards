@@ -32,50 +32,49 @@ public class SwipeDetector : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.GetInstance().state == States.INGAME &&
-            GameManager.GetInstance().turn == TURN.PLAYER)
+
+
+        if (useClick)
+        {
+            if (Input.GetMouseButtonDown(0) && !isClick)
+            {
+                fingerUpPosition = Input.mousePosition;
+                fingerDownPosition = Input.mousePosition;
+                isClick = true;
+            }
+            else if (Input.GetMouseButtonUp(0) && isClick)
+            {
+                fingerDownPosition = Input.mousePosition;
+                DetectSwipe();
+                isClick = false;
+            }
+
+        }
+        else
         {
 
-            if (useClick)
+            foreach (Touch touch in Input.touches)
             {
-                if (Input.GetMouseButtonDown(0) && !isClick)
+                if (touch.phase == TouchPhase.Began)
                 {
-                    fingerUpPosition = Input.mousePosition;
-                    fingerDownPosition = Input.mousePosition;
-                    isClick = true;
+                    fingerUpPosition = touch.position;
+                    fingerDownPosition = touch.position;
                 }
-                else if (Input.GetMouseButtonUp(0) && isClick)
+
+                if (!detectSwipeOnlyAfterRelease && touch.phase == TouchPhase.Moved)
                 {
-                    fingerDownPosition = Input.mousePosition;
+                    fingerDownPosition = touch.position;
+                    //DetectSwipe();
+                }
+
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    fingerDownPosition = touch.position;
                     DetectSwipe();
-                    isClick = false;
-                }
-
-            }
-            else { 
-
-                foreach (Touch touch in Input.touches)
-                {
-                    if (touch.phase == TouchPhase.Began)
-                    {
-                        fingerUpPosition = touch.position;
-                        fingerDownPosition = touch.position;
-                    }
-
-                    if (!detectSwipeOnlyAfterRelease && touch.phase == TouchPhase.Moved)
-                    {
-                        fingerDownPosition = touch.position;
-                        //DetectSwipe();
-                    }
-
-                    if (touch.phase == TouchPhase.Ended)
-                    {
-                        fingerDownPosition = touch.position;
-                        DetectSwipe();
-                    }
                 }
             }
         }
+
     }
 
     private void DetectSwipe()
@@ -95,7 +94,7 @@ public class SwipeDetector : MonoBehaviour
             fingerUpPosition = Vector2.zero;
             fingerDownPosition = Vector2.zero;
         }
-       
+
     }
 
     private bool IsVerticalSwipe()

@@ -9,13 +9,13 @@ public class GivenManaAction : CardAction
 {
     public override bool checkAction(GameObject player)
     {
-        return ( GameManager.GetInstance().player.playerInfo.currentManaPoints < GameManager.GetInstance().player.playerInfo.maxManaPoints );
+        return ( GameManager.Instance.player.playerInfo.currentManaPoints < GameManager.Instance.player.playerInfo.maxManaPoints );
     }
 
     public override void DoAction(GameObject player)
     {
-        GameManager.GetInstance().deck.inCardAction = true;
-        GameManager.GetInstance().player.playerInfo.addMana(GetComponent<Card>().info.Power);
+        GameManager.Instance.deck.inCardAction = true;
+        GameManager.Instance.player.playerInfo.addMana(GetComponent<Card>().info.Power);
 
         finishTurn();
 
@@ -24,7 +24,7 @@ public class GivenManaAction : CardAction
     protected override void finishTurn()
     {
 
-        GameManager GM = GameManager.GetInstance();
+        GameManager GM = GameManager.Instance;
         GM.deck.inCardAction = false;
 
         if (GM.turnManager.isIATurn())

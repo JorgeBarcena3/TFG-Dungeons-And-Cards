@@ -18,6 +18,7 @@ public class PlayerInfo : MonoBehaviour
     /// <summary>
     /// Cantidad de movimientos por turno
     /// </summary>
+    [HideInInspector]
     public int currentManaPoints = 5;
 
     /// <summary>
@@ -25,7 +26,7 @@ public class PlayerInfo : MonoBehaviour
     /// </summary>
     public void refreshData()
     {
-        GameManager.GetInstance().hud.manaManager.refreshMana(currentManaPoints > maxManaPoints ? currentManaPoints = maxManaPoints : currentManaPoints, (float)currentManaPoints / (float)maxManaPoints);
+        GameManager.Instance.hud.manaManager.refreshMana(currentManaPoints > maxManaPoints ? currentManaPoints = maxManaPoints : currentManaPoints, (float)currentManaPoints / (float)maxManaPoints);
     }
 
     /// <summary>

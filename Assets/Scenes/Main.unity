@@ -267,6 +267,11 @@ PrefabInstance:
       propertyPath: useClick
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6052001793645524022, guid: 5f7df52737a46634eb87ad8ef37d8df9,
+        type: 3}
+      propertyPath: detectSwipeOnlyAfterRelease
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8363137746124730765, guid: 5f7df52737a46634eb87ad8ef37d8df9,
         type: 3}
       propertyPath: enemiesPrefabs.Array.size
@@ -293,7 +298,7 @@ PrefabInstance:
         type: 3}
       propertyPath: enemiesPrefabs.Array.data[2]
       value: 
-      objectReference: {fileID: 7735887066494904213, guid: a7cfbe138b7a0d146acefe631d13d3d7,
+      objectReference: {fileID: 8310318202955601204, guid: a7cfbe138b7a0d146acefe631d13d3d7,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f7df52737a46634eb87ad8ef37d8df9, type: 3}
@@ -740,7 +745,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 2042085037}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1263387273}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3af96a43cb6e61846aab14cbfb3996b4, type: 3}
@@ -752,6 +757,87 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2042085037}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1263387273 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6809962095224083630, guid: c03444dccd598fb499e40644e7cc05fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 2042085037}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1263387277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263387273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7552e47d62cd30541826f215e5c3c24c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Themes:
+  - Name: Desertic
+    wall: {fileID: 741675249598512173, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
+    floor: {fileID: 197071637191166650, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
+    percentajeDetails: 0.1
+    floorDetails:
+    - {fileID: 21300000, guid: b19966464b4b18642b164ee105231c5e, type: 3}
+    - {fileID: 21300000, guid: 7251f17a4bba2ea46bc740c317a0defc, type: 3}
+    - {fileID: 21300000, guid: a914d9ecabd4e3d49b1057ec8b12bdda, type: 3}
+    - {fileID: 21300000, guid: 24ff0c86462df924a831f94037ea9484, type: 3}
+    - {fileID: 21300000, guid: 53a446f070480da4188232cec759febf, type: 3}
+    - {fileID: 21300000, guid: 068f392278e8922439efc3a22c12c1d7, type: 3}
+    wallDetails:
+    - {fileID: 21300000, guid: f0d9c9249507ac8459502745b282f148, type: 3}
+    - {fileID: 21300000, guid: b19966464b4b18642b164ee105231c5e, type: 3}
+    - {fileID: 21300000, guid: 717efd94ae53e1d44b3cdee152919471, type: 3}
+    - {fileID: 21300000, guid: acae337798b2a484b883be66c9f97f31, type: 3}
+    - {fileID: 21300000, guid: 21615ee18de0ba34d9891ffc16871023, type: 3}
+  - Name: Mountain
+    wall: {fileID: -1809494261920920087, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
+    floor: {fileID: 4414030660562809939, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
+    percentajeDetails: 0.1
+    floorDetails:
+    - {fileID: 21300000, guid: 43b0fe894bf371d44a29c7242acb6468, type: 3}
+    - {fileID: 21300000, guid: 7d4395cd4a57bea4f9d26c0db3ccff47, type: 3}
+    - {fileID: 21300000, guid: 83cf984ebaecc5348a3b502706d57fb6, type: 3}
+    - {fileID: 21300000, guid: bf0de282494a6dd489e590589fa75daf, type: 3}
+    - {fileID: 21300000, guid: 58269d45bdd5e2c42b75608c7f0c9dda, type: 3}
+    - {fileID: 21300000, guid: 7251f17a4bba2ea46bc740c317a0defc, type: 3}
+    - {fileID: 21300000, guid: 79206ea6e165bf54aa156c1a1d5cf843, type: 3}
+    - {fileID: 21300000, guid: acae337798b2a484b883be66c9f97f31, type: 3}
+    - {fileID: 21300000, guid: 717efd94ae53e1d44b3cdee152919471, type: 3}
+    wallDetails:
+    - {fileID: 21300000, guid: 4646d9e3553855444ad51b1aa437836c, type: 3}
+    - {fileID: 21300000, guid: 21af557da11b5f4419e27cd74fe797c7, type: 3}
+    - {fileID: 21300000, guid: 389fa2e2188889246a0d6730b87fcb6c, type: 3}
+    - {fileID: 21300000, guid: be3f4f53a7f11c74aaec4bf52be0df84, type: 3}
+    - {fileID: 21300000, guid: f0d9c9249507ac8459502745b282f148, type: 3}
+    - {fileID: 21300000, guid: 9afb00a543f2e8743bc1c2686bcb7ed2, type: 3}
+    - {fileID: 21300000, guid: b1b0eccd9154a154a993dbb7c43c9469, type: 3}
+    - {fileID: 21300000, guid: 58269d45bdd5e2c42b75608c7f0c9dda, type: 3}
+    - {fileID: 21300000, guid: e9563fc9c2f469545932c75eac01e912, type: 3}
+  - Name: Ice
+    wall: {fileID: 7852085296366234828, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
+    floor: {fileID: -3267431112862011758, guid: d6b1103f0a3541844a0223130dd70045,
+      type: 3}
+    percentajeDetails: 0.1
+    floorDetails:
+    - {fileID: 21300000, guid: a0295a675eabdc642adf4d9e6b36729e, type: 3}
+    - {fileID: 21300000, guid: 79206ea6e165bf54aa156c1a1d5cf843, type: 3}
+    - {fileID: 21300000, guid: 7d4395cd4a57bea4f9d26c0db3ccff47, type: 3}
+    - {fileID: 21300000, guid: 43b0fe894bf371d44a29c7242acb6468, type: 3}
+    wallDetails:
+    - {fileID: 21300000, guid: 4646d9e3553855444ad51b1aa437836c, type: 3}
+    - {fileID: 21300000, guid: 21af557da11b5f4419e27cd74fe797c7, type: 3}
+    - {fileID: 21300000, guid: 389fa2e2188889246a0d6730b87fcb6c, type: 3}
+  currentTheme:
+    Name: 
+    wall: {fileID: 0}
+    floor: {fileID: 0}
+    percentajeDetails: 0
+    floorDetails: []
+    wallDetails: []
 --- !u!1 &1328180374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1851,7 +1937,7 @@ PrefabInstance:
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
       propertyPath: pasillosEstrechos
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
@@ -1878,12 +1964,12 @@ PrefabInstance:
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
       propertyPath: tamanioY
-      value: 18
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
       propertyPath: tamanioX
-      value: 18
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
@@ -2024,6 +2110,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 291336109089892289, guid: 2c6e67cc0f4152843b1cfafdc3d5acfa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 326370284137120794, guid: 2c6e67cc0f4152843b1cfafdc3d5acfa,
         type: 3}
       propertyPath: maxMovesPerTurn
@@ -2034,6 +2125,11 @@ PrefabInstance:
       propertyPath: playerInfo
       value: 
       objectReference: {fileID: 1453858353}
+    - target: {fileID: 385347106179712993, guid: 2c6e67cc0f4152843b1cfafdc3d5acfa,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 502619507117396121, guid: 2c6e67cc0f4152843b1cfafdc3d5acfa,
         type: 3}
       propertyPath: m_SortingOrder
