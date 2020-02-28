@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// </summary>
 public class AuxiliarFuncions : MonoBehaviour
 {
-
+    
     /// <summary>
     /// Cambia el tamaño al tamaño deseado
     /// </summary>
@@ -16,20 +16,20 @@ public class AuxiliarFuncions : MonoBehaviour
     /// <param name="size"></param>
     /// <param name="time"></param>
     /// <returns></returns>
-    public static IEnumerator SetSizeProgresive(RectTransform obj, Vector2 size, float time = 1f)
+    public static IEnumerator SetLocalScaleProgresive(Transform obj, Vector2 size, float time = 1f)
     {
 
         float t = 0;
         
 
-        while (Vector3.Distance(obj.sizeDelta, size) > 0.01f)
+        while (Vector3.Distance(obj.localScale, size) > 0.01f)
         {
             t += Time.deltaTime / time;
-            obj.sizeDelta = Vector3.Lerp(obj.sizeDelta, size, t);
+            obj.localScale = Vector3.Lerp(obj.localScale, size, t);
             yield return null;
         }
 
-        obj.sizeDelta = size;
+        obj.localScale = size;
 
     }
 
