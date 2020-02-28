@@ -54,6 +54,30 @@ public class AuxiliarFuncions : MonoBehaviour
         obj.localPosition = goal;
 
     }
+    
+    /// <summary>
+    /// Nos movemos siguiendo unos waypoints
+    /// </summary>
+    public static IEnumerator moveWithWaypoints(Transform obj, List<Tile> waypoints, float time = 0.1f)
+    {
+
+        foreach (Tile tile in waypoints)
+        {
+
+            float t = 0;
+
+            while (Vector3.Distance(obj.transform.position, tile.transform.position) > 0.01f)
+            {
+                t += Time.deltaTime / time;
+                obj.position = Vector3.Lerp(obj.position, tile.transform.position, t);
+                yield return null;
+            }
+
+            obj.position = tile.transform.position;
+
+        }
+
+    }
 
     /// <summary>
     /// Mueve un objeto a una posicion en un tiempo determinada

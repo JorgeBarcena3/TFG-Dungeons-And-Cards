@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// Accion de ataque de la carta del jugador
 /// </summary>
-public class AttackAction : CardAction
+public class AttackAndMovementAction : CardAction
 {
     /// <summary>
     /// Tiles a las que se pueden acceder
@@ -39,11 +39,18 @@ public class AttackAction : CardAction
     /// </summary>
     public override void clickOnTile(Tile tile)
     {
+        List<Tile> waypoints = PathFindingHexagonal.calcularRuta(GameManager.GetInstance().player.gameObject.GetComponent<Player>().currentCell, tile);
+
+        StartCoroutine(AuxiliarFuncions.moveWithWaypoints(GameManager.GetInstance().player.gameObject.transform, waypoints, 0.25f));
+
         GameObject enemy = GameManager.GetInstance().enemyGenerator.enemies.Where(m => m.GetComponent<Enemy>().currentCell == tile).FirstOrDefault();
         GameManager.GetInstance().agents.Remove(enemy.GetComponent<IAAgent>());
         GameManager.GetInstance().enemyGenerator.enemies.Remove(enemy);
         Destroy(enemy);
-        tile.contain = CELLCONTAINER.EMPTY;
+
+        GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.EMPTY;
+        GameManager.GetInstance().player.currentCell = tile;
+        GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.PLAYER;
 
         foreach (TileWalkable tl in neighbourTiles)
         {
@@ -118,8 +125,9 @@ public class AttackAction : CardAction
                 )
             {
 
-                float distance = Vector2.Distance(player.transform.position, tile.transform.position);
-                if (distance < 1 + ((radioVecinos - 1) * 0.5f))
+                List<Tile> points = PathFindingHexagonal.calcularRuta(GameManager.GetInstance().player.gameObject.GetComponent<Player>().currentCell, tile, 100);
+
+                if (points.Count > 0 && points.Count <= radioVecinos)
                     tilesWalkables.Add(tile as TileWalkable);
             }
         }
@@ -128,3 +136,4 @@ public class AttackAction : CardAction
     }
 
 }
+

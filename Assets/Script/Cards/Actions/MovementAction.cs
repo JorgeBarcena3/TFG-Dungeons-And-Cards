@@ -39,7 +39,9 @@ public class MovementAction : CardAction
     /// </summary>
     public override void clickOnTile(Tile tile)
     {
-        StartCoroutine(AuxiliarFuncions.MoveObjectTo(GameManager.GetInstance().player.gameObject.transform, tile.transform.position));
+        List<Tile> waypoints = PathFindingHexagonal.calcularRuta(GameManager.GetInstance().player.gameObject.GetComponent<Player>().currentCell, tile);
+        
+        StartCoroutine(AuxiliarFuncions.moveWithWaypoints(GameManager.GetInstance().player.gameObject.transform, waypoints, 0.5f));
 
         GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.EMPTY;
         GameManager.GetInstance().player.currentCell = tile;
@@ -118,10 +120,11 @@ public class MovementAction : CardAction
              && tile.contain == CELLCONTAINER.EMPTY
                 )
             {
+                //Hay un pequeño paron, debemos optimizar esta búsqueda
+                List<Tile> points = PathFindingHexagonal.calcularRuta(GameManager.GetInstance().player.gameObject.GetComponent<Player>().currentCell, tile, 100);
 
-                float distance = Vector2.Distance(player.transform.position, tile.transform.position);
-                if (distance < 1 + ((radioVecinos - 1) * 0.5f))
-                    tilesWalkables.Add(tile as TileWalkable);
+                if (points.Count > 0 && points.Count <= radioVecinos)
+                    tilesWalkables.Add(tile as TileWalkable);               
             }
         }
 
@@ -129,3 +132,4 @@ public class MovementAction : CardAction
     }
 
 }
+

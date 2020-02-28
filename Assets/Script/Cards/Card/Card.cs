@@ -105,21 +105,21 @@ public class Card : MonoBehaviour
     /// <param name="cardGameobject"></param>
     private static void selectCardAction(GameObject cardGameobject)
     {
-        int random = UnityEngine.Random.Range(0, 10);
+        int random = UnityEngine.Random.Range(0, 25);
         Card card = cardGameobject.GetComponent<Card>();
 
 
-        if (random < 2)
+        if (random < 5)
         {
 
             cardGameobject.AddComponent<GivenManaAction>();
-            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.43f, 0.89f, 0.98f);
-            card.type = ATTACKTYPE.SPECIAL;
+            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.68f, 0.93f, 0.98f);
+            card.type = ATTACKTYPE.GIVENMANA;
             card.SetCardArt(card.deck.cardArt[(int)card.type]);
 
             int power = Random.Range(1, 4);
             card.info = new InfoCard(
-                ATTACKTYPE.SPECIAL,
+                ATTACKTYPE.GIVENMANA,
                 01,
                 "Recuperación de Maná",
                 "Cuando utilices esta carta se te recuperaran " + power + " puntos de maná, ue podras utilizar durante este turno",
@@ -127,19 +127,56 @@ public class Card : MonoBehaviour
                 power);
 
         }
-        else if (random < 6)
+        else if (random < 10)
         {
             cardGameobject.AddComponent<AttackAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 0.82f, 0.82f);
-            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.DAMAGE;
+            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.ATTACKACTION;
             card.SetCardArt(card.deck.cardArt[(int)card.type]);
 
             int power = Random.Range(1, 4);
             cardGameobject.GetComponent<Card>().info = new InfoCard(
-                ATTACKTYPE.DAMAGE,
+                ATTACKTYPE.ATTACKACTION,
                 01,
-                "Ataque",
+                "Ataque a distancia",
                 "Cuando utilices esta carta podrás matar cualquier enemigo (sin moverte de la casilla) que se encuentre en el rango de " + power + " casillas de distancia. El coste de maná de esta carta sera de " + power + " puntos.",
+                power,
+                power
+                );
+
+        }
+        else if (random < 15)
+        {
+
+            cardGameobject.AddComponent<AttackAndMovementAction>();
+            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 0.95f, 0.81f);
+            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.ATTACKANDMOVEMENT;
+            card.SetCardArt(card.deck.cardArt[(int)card.type]);
+
+            int power = Random.Range(1, 4);
+            cardGameobject.GetComponent<Card>().info = new InfoCard(
+                ATTACKTYPE.ATTACKACTION,
+                01,
+                "Ataque y movimiento",
+                "Cuando utilices esta carta podrás matar cualquier enemigo (moviéndote a su casilla) que se encuentre en el rango de " + power + " casillas de distancia. El coste de maná de esta carta sera de " + power + " puntos.",
+                power,
+                power
+                );
+
+        }
+        else if (random < 20)
+        {
+            cardGameobject.AddComponent<TeleportAction>();
+            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.45f, 1, 0.70f);
+            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.TELEPORT;
+            card.SetCardArt(card.deck.cardArt[(int)card.type]);
+
+            int power = Random.Range(2, 4);
+            cardGameobject.GetComponent<Card>().info = new InfoCard(
+                ATTACKTYPE.ATTACKACTION,
+                01,
+                "Teleportación",
+                "Cuando utilices esta carta podrás moverte a cualquier casilla que se encuentre en el rango de " + power + ". El coste de maná de esta carta sera de " + power + " puntos.",
                 power,
                 power
                 );
@@ -177,6 +214,7 @@ public class Card : MonoBehaviour
             GameManager.GetInstance().state == States.INGAME &&
             GameManager.GetInstance().turn == TURN.PLAYER &&
             indexPosition != null
+            && !deck.infoBackground.activeSelf
             )
             deck.ClickOnCard(this.gameObject);
     }

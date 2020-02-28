@@ -92,8 +92,10 @@ public class SwipeDetector : MonoBehaviour
                 var direction = fingerDownPosition.x - fingerUpPosition.x > 0 ? SwipeDirection.Right : SwipeDirection.Left;
                 SendSwipe(direction);
             }
-            fingerUpPosition = fingerDownPosition;
+            fingerUpPosition = Vector2.zero;
+            fingerDownPosition = Vector2.zero;
         }
+       
     }
 
     private bool IsVerticalSwipe()
@@ -142,5 +144,6 @@ public enum SwipeDirection
     Up,
     Down,
     Left,
-    Right
+    Right,
+
 }

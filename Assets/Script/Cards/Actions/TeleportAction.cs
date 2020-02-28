@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 /// <summary>
-/// Accion de ataque de la carta del jugador
+/// Accion de movimiento del jugador
 /// </summary>
-public class AttackAction : CardAction
+public class TeleportAction : CardAction
 {
     /// <summary>
     /// Tiles a las que se pueden acceder
@@ -15,7 +14,7 @@ public class AttackAction : CardAction
     private List<TileWalkable> neighbourTiles;
 
     /// <summary>
-    /// Comprobamos que la accion es posible
+    /// Comprobamos si la accion es posible o no
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
@@ -29,6 +28,7 @@ public class AttackAction : CardAction
 
             if (neighbourTiles.Count > 0)
                 return true;
+
         }
 
         return false;
@@ -39,11 +39,11 @@ public class AttackAction : CardAction
     /// </summary>
     public override void clickOnTile(Tile tile)
     {
-        GameObject enemy = GameManager.GetInstance().enemyGenerator.enemies.Where(m => m.GetComponent<Enemy>().currentCell == tile).FirstOrDefault();
-        GameManager.GetInstance().agents.Remove(enemy.GetComponent<IAAgent>());
-        GameManager.GetInstance().enemyGenerator.enemies.Remove(enemy);
-        Destroy(enemy);
-        tile.contain = CELLCONTAINER.EMPTY;
+        StartCoroutine(AuxiliarFuncions.MoveObjectTo(GameManager.GetInstance().player.gameObject.transform, tile.transform.position));
+
+        GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.EMPTY;
+        GameManager.GetInstance().player.currentCell = tile;
+        GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.PLAYER;
 
         foreach (TileWalkable tl in neighbourTiles)
         {
@@ -54,7 +54,6 @@ public class AttackAction : CardAction
         }
 
         finishTurn();
-
     }
 
     /// <summary>
@@ -62,15 +61,17 @@ public class AttackAction : CardAction
     /// </summary>
     public override void DoAction(GameObject player)
     {
+
         foreach (TileWalkable tile in neighbourTiles)
         {
             tile.assignedAction = this;
-            Color selectedColor = new Color(0.94f, 0.27f, 0.27f);
+            Color selectedColor = new Color(0.41f, 1, 0.43f);
             SpriteRenderer spr = tile.gameObject.GetComponent<SpriteRenderer>();
             spr.color = selectedColor;
         }
 
         GameManager.GetInstance().deck.inCardAction = true;
+
     }
 
     /// <summary>
@@ -114,7 +115,7 @@ public class AttackAction : CardAction
 
             if (
                 cell2D.Contains(tile.CellInfo.mapPosition)
-             && tile.contain == CELLCONTAINER.ENEMY
+             && tile.contain == CELLCONTAINER.EMPTY
                 )
             {
 

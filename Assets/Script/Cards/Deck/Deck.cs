@@ -47,7 +47,13 @@ public class Deck : MonoBehaviour
     /// Arte de las cartas que vamos a meter en la baraja
     /// </summary>
     public List<Sprite> cardArt;
-    
+
+    /// <summary>
+    /// Multiplicador del size
+    /// </summary>
+    [Header("HUD")]
+    public float SizeMultiplier = 3;
+
     /// <summary>
     /// Informacion relativa a la baraja
     /// </summary>
@@ -207,6 +213,7 @@ public class Deck : MonoBehaviour
     private void showCardInfo(GameObject _gameObject)
     {
         deckInfo.infoCard = _gameObject.GetComponent<Card>();
+
         infoBackground.transform.SetSiblingIndex(100);
         _gameObject.transform.SetSiblingIndex(101);
 
@@ -214,7 +221,7 @@ public class Deck : MonoBehaviour
         StopAllCoroutines();
 
         StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)deckInfo.infoCard.gameObject.transform, Vector3.zero));
-        StartCoroutine(AuxiliarFuncions.SetLocalScaleProgresive(deckInfo.infoCard.gameObject.transform, Card.ORIGINAL_SIZE * 3));
+        StartCoroutine(AuxiliarFuncions.SetLocalScaleProgresive(deckInfo.infoCard.gameObject.transform, Card.ORIGINAL_SIZE * SizeMultiplier));
         StartCoroutine(AuxiliarFuncions.FadeIn(infoBackground.GetComponent<Image>(), infoBackground, 65, 1, true));
     }
 
@@ -226,7 +233,7 @@ public class Deck : MonoBehaviour
     {
         Card card = deckInfo.infoCard;
         deckInfo.infoCard = null;
-        card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault() + 1);
+        card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault());
 
         //TODO: Chapuza
         StopAllCoroutines();
@@ -256,7 +263,8 @@ public class Deck : MonoBehaviour
     {
         Card card = deckInfo.infoCard;
         deckInfo.infoCard = null;
-        card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault() + 1);
+
+        reorderHandsCards();
 
         //TODO: Chapuza
         StopAllCoroutines();
@@ -269,6 +277,29 @@ public class Deck : MonoBehaviour
     }
 
     /// <summary>
+    /// Reordenamos las cartas de la mano
+    /// </summary>
+    private void reorderHandsCards()
+    {
+        int SiblingIndex = cardsInHand;
+
+        var orderAnchors = deckCanvasInfo.anchorToCards.OrderByDescending(o => o.position).ToList();
+
+        foreach (AnchorInfo info in orderAnchors)
+        {
+            GameObject cardobj = deckInfo.handCards.Where(m => m.GetComponent<Card>().indexPosition == info.position).FirstOrDefault();
+
+            if (cardobj)
+            {
+                Card cardInfo = cardobj.GetComponent<Card>();
+                cardInfo.transform.SetSiblingIndex(0);
+
+
+            }
+        }
+    }
+
+    /// <summary>
     /// Crea un nuevo tamaño para el prefab
     /// </summary>
     /// <param name="newX">Nueva X</param>
@@ -277,13 +308,13 @@ public class Deck : MonoBehaviour
     {
         RectTransform prefabTransform = cardPrefab.GetComponent<RectTransform>();
 
-        Vector2 originalSize = new Vector2( prefabTransform.sizeDelta.x, prefabTransform.sizeDelta.y);
+        Vector2 originalSize = new Vector2(prefabTransform.sizeDelta.x, prefabTransform.sizeDelta.y);
         Vector2 incremento = new Vector2(newX - originalSize.x, newY - originalSize.y);
 
         prefabTransform.sizeDelta = new Vector2(newX, newY);
 
-        
-        ( (RectTransform)(cardPrefab.transform.GetChild(1).transform) ).sizeDelta += incremento;
+
+        ((RectTransform)(cardPrefab.transform.GetChild(1).transform)).sizeDelta += incremento;
 
         prefabTransform = anchorPrefab.GetComponent<RectTransform>();
         prefabTransform.sizeDelta = new Vector2(newX, newY);
@@ -303,10 +334,10 @@ public class Deck : MonoBehaviour
         for (int i = 0; i < cardsInDeck; ++i)
         {
             deckInfo.cardsGameObject.Add(Card.instantiateCard(cardPrefab, rectTransformComponent, deckCanvasInfo.canvasGameObject.transform, this));
-          
+
             deckInfo.activeCards.Add(deckInfo.cardsGameObject.Last());
         }
-       
+
     }
 
 
@@ -357,7 +388,8 @@ public class Deck : MonoBehaviour
                     card = deckInfo.activeCards.FirstOrDefault();
 
                 }
-                card.transform.SetSiblingIndex(position.position + 1);
+
+                card.transform.SetSiblingIndex(position.position);
                 card.GetComponent<Card>().indexPosition = position.position;
                 card.GetComponent<Card>().FlipCard();
 

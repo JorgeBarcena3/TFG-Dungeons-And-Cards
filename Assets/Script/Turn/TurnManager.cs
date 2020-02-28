@@ -40,6 +40,9 @@ public class TurnManager : MonoBehaviour
         {
             if (turn == TURN.IA)
             {
+                //Tiempo de cortesia
+                yield return new WaitForSeconds(0.5f);
+
                 turnNumber++;
 
                 GM.checkEndGame();

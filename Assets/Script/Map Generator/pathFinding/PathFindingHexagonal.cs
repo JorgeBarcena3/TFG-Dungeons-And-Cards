@@ -14,7 +14,6 @@ public static class PathFindingHexagonal
     private static  List<NodoHexagonal> abierta = new List<NodoHexagonal>();
 
     //Limite de nodos
-    public  static  int limiteDeNodos = 10000;
     private static  int nodosActuales = 0;
 
     /// <summary>
@@ -24,7 +23,7 @@ public static class PathFindingHexagonal
     /// <param name="currentPos"></param>
     /// <param name="goal"></param>
     /// <returns></returns>
-    public static  List<Tile> calcularRuta( Tile currentPos, Tile goal)
+    public static  List<Tile> calcularRuta( Tile currentPos, Tile goal, int limiteNodos = 10000)
     {
         nodosActuales = 0;
         abierta = new List<NodoHexagonal>();
@@ -35,7 +34,7 @@ public static class PathFindingHexagonal
         //Nodo actual
         NodoHexagonal nodo = null;
 
-        while (abierta.Count > 0 && nodosActuales < limiteDeNodos)
+        while (abierta.Count > 0 && nodosActuales < limiteNodos)
         {
             nodo = abierta[0];
             abierta.RemoveAt(0);

@@ -4,12 +4,12 @@
 /// </summary>
 public enum ATTACKTYPE
 {
-    MOVEMENT = 0,
-    DAMAGE = 1,
-    DEFENSE = 2,
-    POISON = 3,
-    GUARD = 4,
-    SPECIAL = 5
+    ATTACKACTION = 0,
+    ATTACKANDMOVEMENT = 1,
+    GIVENMANA = 2,
+    MOVEMENT = 3,
+    TELEPORT = 4,
+    TEMPLATE
 }
 
 
