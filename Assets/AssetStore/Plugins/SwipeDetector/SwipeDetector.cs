@@ -32,8 +32,8 @@ public class SwipeDetector : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.GetInstance().state == States.INGAME &&
-            GameManager.GetInstance().turn == TURN.PLAYER)
+        if ((GameManager.GetInstance().state == States.INGAME &&
+            GameManager.GetInstance().turn == TURN.PLAYER) || GameManager.GetInstance().state == States.INMENU)
         {
 
             if (useClick)

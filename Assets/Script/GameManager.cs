@@ -12,7 +12,8 @@ using UnityEngine.UI;
 public enum States
 {
     LOADING = 0,
-    INGAME = 1
+    INGAME = 1,
+    INMENU = 2
 }
 
 /// <summary>
@@ -214,41 +215,48 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator starting()
     {
-
-        worldGenerator.init();
-        yield return null;
-        deck.init();
-        yield return null;
-        player.init();
-        yield return null;
-        imageLoader.FadeOut();
-        yield return null;
-        setCameraToPlayer();
-        yield return null;
-        enemyGenerator.init(player);
-        yield return null;
-        agents = new List<IAAgent>();
-        enemyGenerator.enemies.ForEach(m => agents.Add(m.GetComponent<IAAgent>()));
-        yield return null;
-        IA.init();
-
-        while (Vector2.Distance(Camera.main.transform.position, player.transform.position) > 0.01f)
+        if (SceneManager.GetActiveScene().name == "Menu")
         {
-            yield return null;
+            state = States.INMENU;
         }
+        else if(SceneManager.GetActiveScene().name == "Main") 
+        {
+            worldGenerator.init();
+            yield return null;
+            deck.init();
+            yield return null;
+            player.init();
+            yield return null;
+            imageLoader.FadeOut();
+            yield return null;
+            setCameraToPlayer();
+            yield return null;
+            enemyGenerator.init(player);
+            yield return null;
+            agents = new List<IAAgent>();
+            enemyGenerator.enemies.ForEach(m => agents.Add(m.GetComponent<IAAgent>()));
+            yield return null;
+            IA.init();
 
-        HUD.SetActive(true);
+            while (Vector2.Distance(Camera.main.transform.position, player.transform.position) > 0.01f)
+            {
+                yield return null;
+            }
 
-        StartCoroutine( deck.DealCards() );
-        yield return new WaitForSeconds(0.5f);
+            HUD.SetActive(true);
 
-        hud.turnlbl.showTurn("JUGADOR");
-        yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
+            StartCoroutine(deck.DealCards());
+            yield return new WaitForSeconds(0.5f);
 
-        state = States.INGAME;
-        turn = TURN.PLAYER;
+            hud.turnlbl.showTurn("JUGADOR");
+            yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
 
-        StartCoroutine(TurnUpdate());
+            state = States.INGAME;
+            turn = TURN.PLAYER;
+
+            StartCoroutine(TurnUpdate());
+        }
+        
     }
 
     /// <summary>
