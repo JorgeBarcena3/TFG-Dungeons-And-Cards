@@ -101,7 +101,7 @@ public class GameManager : Singelton<GameManager>
     /// </summary>
     [HideInInspector]
     public List<IAAgent> agents;
-    
+
 
     /// <summary>
     /// Funcion de start
@@ -145,7 +145,7 @@ public class GameManager : Singelton<GameManager>
         {
             state = States.INMENU;
         }
-        else if(SceneManager.GetActiveScene().name == "Main") 
+        else if (SceneManager.GetActiveScene().name == "Main")
         {
             worldGenerator.init();
             yield return null;
@@ -169,8 +169,8 @@ public class GameManager : Singelton<GameManager>
                 yield return null;
             }
 
-        StartCoroutine(deck.DealCards());
-        yield return new WaitForSeconds(0.5f);
+            StartCoroutine(deck.DealCards());
+            yield return new WaitForSeconds(0.5f);
 
             StartCoroutine(deck.DealCards());
             yield return new WaitForSeconds(0.5f);
@@ -178,16 +178,18 @@ public class GameManager : Singelton<GameManager>
             hud.turnlbl.showTurn("JUGADOR");
             yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
 
-        StartCoroutine(turnManager.TurnUpdate());
+            StartCoroutine(turnManager.TurnUpdate());
+        }
     }
 
-    /// <summary>
-    /// Coloca la camara en el player
-    /// </summary>
-    public void setCameraToPlayer()
-    {
-        if (turn != TURN.IA)
-            cameraFunctions.moveCameraTo(player.transform.position);
-    }
+        /// <summary>
+        /// Coloca la camara en el player
+        /// </summary>
+        public void setCameraToPlayer()
+        {
+            if (turn != TURN.IA)
+                cameraFunctions.moveCameraTo(player.transform.position);
+        }
 
+    
 }
