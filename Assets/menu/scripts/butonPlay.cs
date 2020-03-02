@@ -30,7 +30,7 @@ public class butonPlay : MonoBehaviour
 
     void action(SwipeData data)
     {
-       // if (selected)
+        if (GameManager.Instance.state == States.INMENU)
         {
             if (data.Direction == SwipeDirection.Up)
             {
@@ -92,7 +92,9 @@ public class butonPlay : MonoBehaviour
 
     void play() 
     {
-        SceneManager.LoadScene("Main");
+
+        Initiate.Fade("Main", Color.black, 2.0f);
+        //SceneManager.LoadScene("Main");
         
     }
     void deck() 

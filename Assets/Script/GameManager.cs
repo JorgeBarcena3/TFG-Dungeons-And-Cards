@@ -136,6 +136,14 @@ public class GameManager : Singelton<GameManager>
     }
 
     /// <summary>
+    /// Reseteamos la escena
+    /// </summary>
+    public void GoToMenu()
+    {
+        Initiate.Fade("Menu", Color.black, 2.0f);
+    }
+
+    /// <summary>
     /// Inicializamos los objetos del juego
     /// </summary>
     /// <returns></returns>
@@ -174,6 +182,9 @@ public class GameManager : Singelton<GameManager>
 
             StartCoroutine(deck.DealCards());
             yield return new WaitForSeconds(0.5f);
+
+            state = States.INGAME;
+            turn = TURN.PLAYER;
 
             hud.turnlbl.showTurn("JUGADOR");
             yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
