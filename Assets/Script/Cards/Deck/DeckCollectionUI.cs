@@ -19,5 +19,10 @@ public class DeckCollectionUI : MonoBehaviour
         
     }
 
+    public void  add_deck() 
+    {
+        //TODO
+    }
+
    
 }
