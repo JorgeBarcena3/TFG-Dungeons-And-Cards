@@ -30,7 +30,7 @@ public class butonPlay : MonoBehaviour
 
     void action(SwipeData data)
     {
-        if (GameManager.Instance.state == States.INMENU)
+        if (GameManager.Instance.state == States.INMENU && isShowingInfo())
         {
             if (data.Direction == SwipeDirection.Up)
             {
@@ -57,7 +57,7 @@ public class butonPlay : MonoBehaviour
             else if (
               data.Direction == SwipeDirection.Right)
             {
-                swith();
+                @switch();
             }
             pressed = false;
         }
@@ -65,28 +65,32 @@ public class butonPlay : MonoBehaviour
        
     }
 
-
+    bool isShowingInfo()
+    {
+        return gameObject.transform.position.x != initPosition.x &&
+               gameObject.transform.position.y != initPosition.y;
+    }
     void ShowInfo() 
     {
-        StartCoroutine(AuxiliarFuncions.MoveObjectTo(gameObject.transform, centerPosition));
-        if (gameObject.transform.position.x == centerPosition.x &&
-           gameObject.transform.position.y == centerPosition.y)
+        if (!isShowingInfo())
         {
-           
+            StartCoroutine(AuxiliarFuncions.MoveObjectTo(gameObject.transform, centerPosition));
+            StartCoroutine(AuxiliarFuncions.SetLocalScaleProgresive(gameObject.transform, gameObject.transform.localScale * 2.5f));
         }
+       
+      
     }
     public void HideInfo() 
     {
-        
-        StartCoroutine(AuxiliarFuncions.MoveObjectTo(gameObject.transform, initPosition));
-        if (gameObject.transform.position.x == initPosition.x &&
-           gameObject.transform.position.y == initPosition.y)
-        {
 
-        }
+        if (isShowingInfo())
+        {
+            StartCoroutine(AuxiliarFuncions.MoveObjectTo(gameObject.transform, initPosition));
+            StartCoroutine(AuxiliarFuncions.SetLocalScaleProgresive(gameObject.transform, gameObject.transform.localScale / 2.5f));
+        }      
 
     }
-    void swith() 
+    void @switch() 
     {
     }
 
