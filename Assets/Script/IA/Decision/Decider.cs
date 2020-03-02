@@ -46,7 +46,7 @@ public class Decider : MonoBehaviour
                 if (info.waypointsToPlayer[index].contain == CELLCONTAINER.PLAYER)
                 {
                     Debug.Log("Te han matado los enemigos");
-                    GameManager.Instance.resetScene();
+                    GameManager.Instance.GoToMenu();
                 }
 
                 agent.currentCell.contain = CELLCONTAINER.EMPTY;
@@ -58,7 +58,7 @@ public class Decider : MonoBehaviour
         else if (info.waypointsToPlayer.Count == 1)
         {
             Debug.Log("Te han matado los enemigos");
-            GameManager.Instance.resetScene();
+            GameManager.Instance.GoToMenu();
         }
 
         agent.actionDone = true;
