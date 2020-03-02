@@ -10,7 +10,8 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Profundidad de la Z
     /// </summary>
-    private int zDepth;
+    [HideInInspector]
+    public Vector3 zOffset = new Vector3(0, 0, -0.2f);
 
     /// <summary>
     /// Tile en la que se encuentra el jugador
@@ -19,23 +20,17 @@ public class Player : MonoBehaviour
     public Tile currentCell;
 
     /// <summary>
-    /// Cantidad de movimientos por turno
+    /// Informacion del player
     /// </summary>
-    public int maxMovesPerTurn = 2;
-
-    /// <summary>
-    /// Cantidad de movimientos por turno
-    /// </summary>
-    [HideInInspector]
-    public int currentMovesTurn = 0;
+    public PlayerInfo playerInfo;
 
     /// <summary>
     /// Funcion de inicializacion del jugador
     /// </summary>
     public void init()
     {
-        var world = GameManager.GetInstance().worldGenerator.SpriteBoard;
-        var worldSize = GameManager.GetInstance().worldGenerator.size;
+        var world = GameManager.Instance.worldGenerator.SpriteBoard;
+        var worldSize = GameManager.Instance.worldGenerator.size;
         bool spawned = false;
 
         do
@@ -56,7 +51,93 @@ public class Player : MonoBehaviour
         } while (!spawned);
 
 
-        this.transform.position = new Vector3(currentCell.gameObject.transform.position.x, currentCell.gameObject.transform.position.y, 100);
+        this.transform.position = currentCell.gameObject.transform.position + zOffset;
         this.gameObject.SetActive(true);
+
+        playerInfo.currentManaPoints = playerInfo.maxManaPoints;
+        refreshPlayerData();
+    }
+
+    /// <summary>
+    /// Refresca el los datos del jugador
+    /// </summary>
+    public void refreshPlayerData()
+    {
+        playerInfo.refreshData();
+    }
+
+    /// <summary>
+    /// Teletransporta al jugador a una posicion
+    /// </summary>
+    /// <param name="obj">Objeto a desplazar</param>
+    /// <param name="goal">Posicion meta</param>
+    /// <param name="time">Tiempo de desplazamiento</param>
+    public IEnumerator TeleportPlayerTo(Vector3 goal, float time = 1f)
+    {
+        float t = 0;
+
+        StartCoroutine(FadeOutPlayer(time / 4));
+        goal += zOffset;
+
+        while (Vector3.Distance(this.transform.position, goal) > 0.01f)
+        {
+            t += Time.deltaTime / time;
+            this.transform.position = Vector3.Lerp(this.transform.position, goal, t);
+            yield return null;
+        }
+
+        this.transform.position = goal;
+        StartCoroutine(FadeInPlayer(time / 4));
+    }
+
+    /// <summary>
+    /// Efecto de fadeout del jugador
+    /// </summary>
+    /// <param name="time"></param>
+    /// <returns></returns>
+    public IEnumerator FadeOutPlayer(float time = 1f)
+    {
+        float t = 0;
+
+        List<SpriteRenderer> images = new List<SpriteRenderer>(this.GetComponentsInChildren<SpriteRenderer>());
+
+        while (images.Where(m => m.color.a != 0).Count() > 0)
+        {
+            t += Time.deltaTime / time;
+
+            foreach (SpriteRenderer bodyPart in images)
+            {
+                bodyPart.color = Color.Lerp(bodyPart.color, new Color(bodyPart.color.r, bodyPart.color.g, bodyPart.color.b, 0), t);
+            }
+
+            yield return null;
+
+        }
+
+    }
+
+    /// <summary>
+    /// Efecto de fadein del jugador
+    /// </summary>
+    /// <param name="time"></param>
+    /// <returns></returns>
+    public IEnumerator FadeInPlayer(float time = 1f)
+    {
+        float t = 0;
+
+        List<SpriteRenderer> images = new List<SpriteRenderer>(this.GetComponentsInChildren<SpriteRenderer>());
+
+        while (images.Where(m => m.color.a != 1).Count() > 0)
+        {
+            t += Time.deltaTime / time;
+
+            foreach (SpriteRenderer bodyPart in images)
+            {
+                bodyPart.color = Color.Lerp(bodyPart.color, new Color(bodyPart.color.r, bodyPart.color.g, bodyPart.color.b, 1), t);
+            }
+
+            yield return null;
+
+        }
     }
 }

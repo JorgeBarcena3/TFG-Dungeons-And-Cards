@@ -20,12 +20,16 @@ public class MovementAction : CardAction
     /// <returns></returns>
     public override bool checkAction(GameObject player)
     {
-        Vector2 position = player.GetComponent<Player>().currentCell.CellInfo.mapPosition;
+        if (GameManager.Instance.player.playerInfo.canUseMana(this.gameObject.GetComponent<Card>().info.Cost))
+        {
+            Vector2 position = player.GetComponent<Player>().currentCell.CellInfo.mapPosition;
 
-        neighbourTiles = GetWalkableNeighbours(position, player);
+            neighbourTiles = GetWalkableNeighbours(position, player);
 
-        if (neighbourTiles.Count > 0)
-            return true;
+            if (neighbourTiles.Count > 0)
+                return true;
+
+        }
 
         return false;
     }
@@ -35,11 +39,13 @@ public class MovementAction : CardAction
     /// </summary>
     public override void clickOnTile(Tile tile)
     {
-        StartCoroutine(AuxiliarFuncions.MoveObjectTo(GameManager.GetInstance().player.gameObject.transform, tile.transform.position));
+        List<Tile> waypoints = PathFindingHexagonal.calcularRuta(GameManager.Instance.player.gameObject.GetComponent<Player>().currentCell, tile);
+        
+        StartCoroutine(AuxiliarFuncions.moveWithWaypoints(GameManager.Instance.player.gameObject.transform, waypoints, 0.5f));
 
-        GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.EMPTY;
-        GameManager.GetInstance().player.currentCell = tile;
-        GameManager.GetInstance().player.currentCell.contain = CELLCONTAINER.PLAYER;
+        GameManager.Instance.player.currentCell.contain = CELLCONTAINER.EMPTY;
+        GameManager.Instance.player.currentCell = tile;
+        GameManager.Instance.player.currentCell.contain = CELLCONTAINER.PLAYER;
 
         foreach (TileWalkable tl in neighbourTiles)
         {
@@ -66,7 +72,7 @@ public class MovementAction : CardAction
             spr.color = selectedColor;
         }
 
-        GameManager.GetInstance().deck.inCardAction = true;
+        GameManager.Instance.deck.inCardAction = true;
 
     }
 
@@ -77,8 +83,8 @@ public class MovementAction : CardAction
     private List<TileWalkable> GetWalkableNeighbours(Vector2 position, GameObject player)
     {
 
-        Tablero board2D = GameManager.GetInstance().worldGenerator.board;
-        List<GameObject> spriteBoard = GameManager.GetInstance().worldGenerator.SpriteBoard;
+        Tablero board2D = GameManager.Instance.worldGenerator.board;
+        List<GameObject> spriteBoard = GameManager.Instance.worldGenerator.SpriteBoard;
 
         List<Vector2> cell2D = new List<Vector2>();
         List<TileWalkable> tilesWalkables = new List<TileWalkable>();
@@ -114,10 +120,11 @@ public class MovementAction : CardAction
              && tile.contain == CELLCONTAINER.EMPTY
                 )
             {
+                //Hay un pequeño paron, debemos optimizar esta búsqueda
+                List<Tile> points = PathFindingHexagonal.calcularRuta(GameManager.Instance.player.gameObject.GetComponent<Player>().currentCell, tile, 100);
 
-                float distance = Vector2.Distance(player.transform.position, tile.transform.position);
-                if (distance < 1 + ((radioVecinos - 1) * 0.5f))
-                    tilesWalkables.Add(tile as TileWalkable);
+                if (points.Count > 0 && points.Count <= radioVecinos)
+                    tilesWalkables.Add(tile as TileWalkable);               
             }
         }
 
@@ -125,3 +132,4 @@ public class MovementAction : CardAction
     }
 
 }
+

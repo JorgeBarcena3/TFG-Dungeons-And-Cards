@@ -22,7 +22,7 @@ public class InfoBackground : MonoBehaviour
     void OnMouseDown()
     {
         //if (!IS_TRANSITION)
-        //    deck.ShowInfo();
+        //   deck.ClickOnCard();
     }
 
 #endif

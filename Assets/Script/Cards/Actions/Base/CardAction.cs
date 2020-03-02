@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 /// <summary>
 /// Se encarga de unificar la accion que se debe hacer
@@ -20,10 +21,10 @@ public abstract class CardAction : MonoBehaviour
     /// <summary>
     /// Determina si hemos hecho click o no en una tile
     /// </summary>
-    public abstract void clickOnTile(Tile tile);
+    public virtual void clickOnTile(Tile tile) { }
 
     /// <summary>
-    /// Determina si hemos hecho click o no en una tile
+    /// Determina si la accion se puede o no hacer
     /// </summary>
     public abstract bool checkAction(GameObject player);
 
@@ -43,14 +44,18 @@ public abstract class CardAction : MonoBehaviour
     /// </summary>
     protected virtual void finishTurn()
     {
-        GameManager.GetInstance().deck.inCardAction = false;
 
-        GameManager.GetInstance().player.currentMovesTurn++;
+        GameManager GM = GameManager.Instance;
 
-        if (GameManager.GetInstance().player.currentMovesTurn >= GameManager.GetInstance().player.maxMovesPerTurn)
+        GM.deck.inCardAction = false;
+        GM.player.playerInfo.useMana(this.gameObject.GetComponent<Card>().info.Cost);
+
+        if ( GM.turnManager.isIATurn() )
         {
-            GameManager.GetInstance().player.currentMovesTurn = 0;
-            GameManager.GetInstance().turn = TURN.IA;
+            GM.turn = TURN.IA;
         }
+
+        GM.player.refreshPlayerData();
+
     }
 }

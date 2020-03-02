@@ -26,7 +26,7 @@ public class Turnlbl : MonoBehaviour
     /// </summary>
     public void showTurn(string _text)
     {
-        if (GameManager.GetInstance().turn == TURN.IA)
+        if (GameManager.Instance.turn == TURN.IA)
             texto.text = _text;
         else
             texto.text = _text;

@@ -17,18 +17,9 @@ public enum States
 }
 
 /// <summary>
-/// De quien es el turno en cada momento
-/// </summary>
-public enum TURN
-{
-    PLAYER = 0,
-    IA = 1
-}
-
-/// <summary>
 /// Maneja el flujo del juego - Es un Singleton
 /// </summary>
-public class GameManager : MonoBehaviour
+public class GameManager : Singelton<GameManager>
 {
     [Header("Cartas")]
 
@@ -87,13 +78,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public CameraFunctions cameraFunctions;
 
-
-
-
     /// <summary>
-    /// Instancia del GameManager
+    /// Turno de quien
     /// </summary>
-    private static GameManager instance;
+    public TURN turn { get { return turnManager.turn.GetValueOrDefault(); } set {
+            turnManager.turn = value;
+        } }
 
     /// <summary>
     /// Estado actual del juego
@@ -102,29 +92,16 @@ public class GameManager : MonoBehaviour
     public States state;
 
     /// <summary>
-    /// Quien tiene el turno actualmente
+    /// Manejador del turno
     /// </summary>
-    public TURN? turn = null;
+    public TurnManager turnManager;
 
     /// <summary>
     /// Agentes que serán manejados por la IA
     /// </summary>
     [HideInInspector]
     public List<IAAgent> agents;
-
-    /// <summary>
-    /// Obtenemos la instancia actual del GameManager
-    /// </summary>
-    /// <returns>Instancia del GameManager</returns>
-    public static GameManager GetInstance()
-    {
-        if (!instance)
-        {
-            //GameManager.instance =  new GameManager();
-        }
-
-        return instance;
-    }
+    
 
     /// <summary>
     /// Funcion de start
@@ -133,66 +110,15 @@ public class GameManager : MonoBehaviour
     {
         state = States.LOADING;
         imageLoader = GetComponent<ImageLoader>();
-        GameManager.instance = this;
 
         yield return null;
         StartCoroutine(starting());
     }
 
     /// <summary>
-    /// Update del GameManager
-    /// </summary>
-    private IEnumerator TurnUpdate()
-    {
-
-        while (GameManager.GetInstance().state == States.INGAME)
-        {
-            if (turn == TURN.IA)
-            {
-                checkEndGame();
-
-                if (deck.deckCanvasInfo.anchorToCards.Where(m => !m.state).Count() > 0)
-                {
-                    StartCoroutine(deck.DealCards());
-                    yield return new WaitUntil(() => deck.deckCanvasInfo.anchorToCards.Where(m => !m.state).Count() == 0);
-                }
-
-                //Mostramos la animacion del IA
-                hud.turnlbl.showTurn("ENEMIGOS");
-                yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
-
-                StartCoroutine(IA.doAction(agents));
-                yield return new WaitUntil(() => IA.actionDone);                      
-
-                cameraFunctions.moveCameraTo(player.transform.position);
-                yield return new WaitForSeconds(1.5f);
-
-                //Mostramos la animacion del player
-                hud.turnlbl.showTurn("JUGADOR");
-                yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
-
-                turn = TURN.PLAYER;
-
-            }
-
-            yield return null;
-        }
-
-    }
-
-    /// <summary>
-    /// Pasa de turno
-    /// </summary>
-    public void changeTurnToIA()
-    {
-        if (turn == TURN.PLAYER && !deck.inCardAction)
-            turn = TURN.IA;
-    }
-
-    /// <summary>
     /// Determinamos si es el final del juego o no
     /// </summary>
-    private void checkEndGame()
+    public void checkEndGame()
     {
         if (agents.Count == 0)
         {
@@ -243,7 +169,8 @@ public class GameManager : MonoBehaviour
                 yield return null;
             }
 
-            HUD.SetActive(true);
+        StartCoroutine(deck.DealCards());
+        yield return new WaitForSeconds(0.5f);
 
             StartCoroutine(deck.DealCards());
             yield return new WaitForSeconds(0.5f);
@@ -251,12 +178,7 @@ public class GameManager : MonoBehaviour
             hud.turnlbl.showTurn("JUGADOR");
             yield return new WaitForSeconds(hud.turnlbl.getTimeAnimation());
 
-            state = States.INGAME;
-            turn = TURN.PLAYER;
-
-            StartCoroutine(TurnUpdate());
-        }
-        
+        StartCoroutine(turnManager.TurnUpdate());
     }
 
     /// <summary>

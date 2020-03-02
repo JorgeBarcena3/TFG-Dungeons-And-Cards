@@ -8,6 +8,7 @@ using UnityEngine;
 /// </summary>
 enum ENEMY_TYPE : int
 {
+    HYPER_FAST = 2,
     FAST = 1,
     SLOW = 0
 }
@@ -17,6 +18,11 @@ enum ENEMY_TYPE : int
 /// </summary>
 public class Enemy : IAAgent
 {
+    /// <summary>
+    /// Profundidad de la Z
+    /// </summary>
+    [HideInInspector]
+    public Vector3 zOffset = new Vector3(0, 0, -0.2f);
 
     /// <summary>
     /// Tipo de enemigo
@@ -32,6 +38,8 @@ public class Enemy : IAAgent
         currentCell = _currentCell;
         target = _target;
         setType(_type);
+        transform.position = currentCell.transform.position + zOffset;
+
     }
 
     /// <summary>

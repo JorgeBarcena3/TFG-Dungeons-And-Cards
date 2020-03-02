@@ -5,16 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-/// <summary>
-/// Tipo de ataque posibles
-/// </summary>
-public enum ATTACKTYPE
-{
-    MOVEMENT = 0,
-    ATTACK = 1,
-    DEFENSE = 2,
-    SPECIAL = 3
-}
 
 /// <summary>
 /// Clase que guarda la informacion de una carta
@@ -63,19 +53,19 @@ public class Card : MonoBehaviour
     public GameObject front;
 
     /// <summary>
-    /// Gameobject que almacena el coste de la carta
+    /// Completa la HUD de la carta
     /// </summary>
-    public GameObject cost;
-
-    /// <summary>
-    /// Texto que almacena el coste de la carta
-    /// </summary>
-    public Text cost_lbl;
+    public HUDCard HUDCard;
 
     /// <summary>
     /// Tamaño de la carta
     /// </summary>
     public static RectTransform CARD_RECT_TRANSFORM { get; set; }
+
+    /// <summary>
+    /// Tamaño de la carta
+    /// </summary>
+    public static Vector2 ORIGINAL_SIZE { get; set; }
 
     /// <summary>
     /// Coloca un sprite en el gameobject de la carta
@@ -96,17 +86,12 @@ public class Card : MonoBehaviour
         GameObject cardGameobject = Instantiate(prefab, position.position, Quaternion.identity, _parent);
         Card cardComponent = cardGameobject.AddComponent<Card>();
         cardComponent.deck = _deck;
+        cardComponent.HUDCard = cardGameobject.GetComponent<HUDCard>();
 
         cardComponent.background = cardComponent.gameObject.transform.GetChild(0).gameObject;
         ((RectTransform)cardComponent.background.transform).sizeDelta = Card.CARD_RECT_TRANSFORM.sizeDelta;
 
         cardComponent.front = cardComponent.gameObject.transform.GetChild(1).gameObject;
-        ((RectTransform)cardComponent.front.transform).sizeDelta = new Vector2(0, 0);
-
-        cardComponent.cost = cardComponent.front.gameObject.transform.GetChild(0).gameObject;
-        ((RectTransform)cardComponent.front.transform).sizeDelta = new Vector2(0, 0);
-
-        cardComponent.cost_lbl = cardComponent.cost.GetComponentInChildren<Text>();
         ((RectTransform)cardComponent.front.transform).sizeDelta = new Vector2(0, 0);
 
         selectCardAction(cardGameobject);
@@ -120,15 +105,81 @@ public class Card : MonoBehaviour
     /// <param name="cardGameobject"></param>
     private static void selectCardAction(GameObject cardGameobject)
     {
-        int random = UnityEngine.Random.Range(0, 6);
+        int random = UnityEngine.Random.Range(0, 25);
+        Card card = cardGameobject.GetComponent<Card>();
 
-        if (random < 2)
+
+        if (random < 5)
+        {
+
+            cardGameobject.AddComponent<GivenManaAction>();
+            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.68f, 0.93f, 0.98f);
+            card.type = ATTACKTYPE.GIVENMANA;
+            card.SetCardArt(card.deck.cardArt[(int)card.type]);
+
+            int power = Random.Range(1, 4);
+            card.info = new InfoCard(
+                ATTACKTYPE.GIVENMANA,
+                01,
+                "Recuperación de Maná",
+                "Cuando utilices esta carta se te recuperaran " + power + " puntos de maná, ue podras utilizar durante este turno",
+                power,
+                power);
+
+        }
+        else if (random < 10)
         {
             cardGameobject.AddComponent<AttackAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 0.82f, 0.82f);
-            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.ATTACK;
-            cardGameobject.GetComponent<Card>().info = new InfoCard(CardKind.DAMAGE, 00, "Carta de Atake", 0, Random.Range(1, 4));
+            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.ATTACKACTION;
+            card.SetCardArt(card.deck.cardArt[(int)card.type]);
 
+            int power = Random.Range(1, 4);
+            cardGameobject.GetComponent<Card>().info = new InfoCard(
+                ATTACKTYPE.ATTACKACTION,
+                01,
+                "Ataque a distancia",
+                "Cuando utilices esta carta podrás matar cualquier enemigo (sin moverte de la casilla) que se encuentre en el rango de " + power + " casillas de distancia. El coste de maná de esta carta sera de " + power + " puntos.",
+                power,
+                power
+                );
+
+        }
+        else if (random < 15)
+        {
+
+            cardGameobject.AddComponent<AttackAndMovementAction>();
+            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 0.95f, 0.81f);
+            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.ATTACKANDMOVEMENT;
+            card.SetCardArt(card.deck.cardArt[(int)card.type]);
+
+            int power = Random.Range(1, 4);
+            cardGameobject.GetComponent<Card>().info = new InfoCard(
+                ATTACKTYPE.ATTACKACTION,
+                01,
+                "Ataque y movimiento",
+                "Cuando utilices esta carta podrás matar cualquier enemigo (moviéndote a su casilla) que se encuentre en el rango de " + power + " casillas de distancia. El coste de maná de esta carta sera de " + power + " puntos.",
+                power,
+                power
+                );
+
+        }
+        else if (random < 20)
+        {
+            cardGameobject.AddComponent<TeleportAction>();
+            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.45f, 1, 0.70f);
+            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.TELEPORT;
+            card.SetCardArt(card.deck.cardArt[(int)card.type]);
+
+            int power = Random.Range(2, 4);
+            cardGameobject.GetComponent<Card>().info = new InfoCard(
+                ATTACKTYPE.ATTACKACTION,
+                01,
+                "Teleportación",
+                "Cuando utilices esta carta podrás moverte a cualquier casilla que se encuentre en el rango de " + power + ". El coste de maná de esta carta sera de " + power + " puntos.",
+                power,
+                power
+                );
 
         }
         else
@@ -136,14 +187,22 @@ public class Card : MonoBehaviour
             cardGameobject.AddComponent<MovementAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.69f, 0.99f, 0.69f);
             cardGameobject.GetComponent<Card>().type = ATTACKTYPE.MOVEMENT;
-            cardGameobject.GetComponent<Card>().info = new InfoCard(CardKind.MOVE, 00, "Carta de Movimiento", 0, Random.Range(1, 4));
+            card.SetCardArt(card.deck.cardArt[(int)card.type]);
 
+            int power = Random.Range(1, 4);
+            cardGameobject.GetComponent<Card>().info = new InfoCard(
+                ATTACKTYPE.MOVEMENT,
+                01,
+                "Movimiento",
+                "Cuando utilices esta carta podrás moverte a cualquier casilla que se encuentre en el rango de " + power + ". El coste de maná de esta carta sera de " + power + " puntos.",
+                power,
+                power
+                );
         }
 
-        cardGameobject.GetComponent<Card>().setCost(cardGameobject.GetComponent<CardAction>().setRadio());
+        card.HUDCard.fillInfo(cardGameobject.GetComponent<Card>().info);
 
-
-    }  
+    }
 
     /// <summary>
     /// Detectamos si hemos hecho click en una carta
@@ -151,12 +210,13 @@ public class Card : MonoBehaviour
     void OnMouseDown()
     {
         if (
-            !GameManager.GetInstance().deck.inCardAction &&
-            GameManager.GetInstance().state == States.INGAME &&
-            GameManager.GetInstance().turn == TURN.PLAYER &&
+            !GameManager.Instance.deck.inCardAction &&
+            GameManager.Instance.state == States.INGAME &&
+            GameManager.Instance.turn == TURN.PLAYER &&
             indexPosition != null
+            && !deck.infoBackground.activeSelf
             )
-            deck.ShowInfo(this.gameObject);
+            deck.ClickOnCard(this.gameObject);
     }
 
     /// <summary>
@@ -186,12 +246,5 @@ public class Card : MonoBehaviour
         front.GetComponent<Image>().sprite = spr;
     }
 
-    /// <summary>
-    /// Cambia el lbl del coste
-    /// </summary>
-    /// <param name="str"></param>
-    public void setCost(string str)
-    {
-        cost_lbl.text = str;
-    }
+
 }

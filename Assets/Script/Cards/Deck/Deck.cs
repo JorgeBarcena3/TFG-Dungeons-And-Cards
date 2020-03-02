@@ -49,9 +49,10 @@ public class Deck : MonoBehaviour
     public List<Sprite> cardArt;
 
     /// <summary>
-    /// Indice de las cartas para la creacion de la baraja
+    /// Multiplicador del size
     /// </summary>
-    private int cardArtIndex = 0;
+    [Header("HUD")]
+    public float SizeMultiplier = 3;
 
     /// <summary>
     /// Informacion relativa a la baraja
@@ -105,25 +106,28 @@ public class Deck : MonoBehaviour
     /// </summary>
     private void onCardSwipe(SwipeData data)
     {
-
-        if (
+        if (GameManager.Instance.state == States.INGAME &&
+           GameManager.Instance.turn == TURN.PLAYER)
+        {
+            if (
             data.Direction == SwipeDirection.Up &&
             !inCardAction &&
             deckInfo.infoCard
             )
-        {
-            ShowInfo(deckInfo.infoCard.gameObject);
-        }
-        else if (
-          data.Direction == SwipeDirection.Right &&
-          !inCardAction &&
-          deckInfo.infoCard)
-        {
-            matarCartas(deckInfo.infoCard.gameObject, false);
-        }
-        else if (deckInfo.infoCard != null)
-        {
-            ShowInfo();
+            {
+                ClickOnCard(deckInfo.infoCard.gameObject);
+            }
+            else if (
+              data.Direction == SwipeDirection.Right &&
+              !inCardAction &&
+              deckInfo.infoCard)
+            {
+                matarCartas(deckInfo.infoCard.gameObject, false);
+            }
+            else if (deckInfo.infoCard != null)
+            {
+                ClickOnCard();
+            }
         }
 
     }
@@ -166,11 +170,13 @@ public class Deck : MonoBehaviour
         float newX = cardWidth;
         float newY = transform.sizeDelta.y * cardWidth / transform.sizeDelta.x;
 
-        transform.sizeDelta = new Vector2(newX, newY);
+        //transform.sizeDelta = new Vector2(newX, newY);
 
         Card.CARD_RECT_TRANSFORM = transform;
 
         ResizePrefabs(newX, newY);
+
+        Card.ORIGINAL_SIZE = transform.localScale;
 
     }
 
@@ -178,35 +184,17 @@ public class Deck : MonoBehaviour
     /// Muestra la carta con toda su informacion
     /// </summary>
     /// <param name="gameObject"></param>
-    public void ShowInfo(GameObject _gameObject = null)
+    public void ClickOnCard(GameObject _gameObject = null)
     {
         if (deckInfo.infoCard == null)
         {
-            deckInfo.infoCard = _gameObject.GetComponent<Card>();
-            infoBackground.transform.SetSiblingIndex(100);
-            _gameObject.transform.SetSiblingIndex(101);
-
-            //TODO: Chapuza
-            StopAllCoroutines();
-
-#if UNITY_EDITOR_WIN || UNITY_EDITOR
-            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(Card.CARD_RECT_TRANSFORM.sizeDelta.x * 3, (Card.CARD_RECT_TRANSFORM.sizeDelta.y * 3) / 3);
-            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, -(Card.CARD_RECT_TRANSFORM.sizeDelta.y * 3) / 3);
-#endif
-#if UNITY_ANDROID	
-            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0, 0);
-            deckInfo.infoCard.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
-#endif
-            StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)deckInfo.infoCard.gameObject.transform, Vector3.zero));
-            StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)deckInfo.infoCard.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta * 3)); //Tamaño visual
-            StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)deckInfo.infoCard.cost.transform, new Vector2(Card.CARD_RECT_TRANSFORM.sizeDelta.x, Card.CARD_RECT_TRANSFORM.sizeDelta.x) * 3)); //Tamaño visual
-            StartCoroutine(AuxiliarFuncions.FadeIn(infoBackground.GetComponent<Image>(), infoBackground, 65, 1, true));
+            showCardInfo(_gameObject);
 
         }
         else if (_gameObject != null && deckInfo.infoCard == _gameObject.GetComponent<Card>())
         {
 
-            if (_gameObject.GetComponent<CardAction>().checkAction(GameManager.GetInstance().player.gameObject))
+            if (_gameObject.GetComponent<CardAction>().checkAction(GameManager.Instance.player.gameObject))
             {
                 matarCartas(_gameObject);
             }
@@ -222,6 +210,25 @@ public class Deck : MonoBehaviour
     }
 
     /// <summary>
+    /// Muestra la informacion de una carta
+    /// </summary>
+    /// <param name="_gameObject"></param>
+    private void showCardInfo(GameObject _gameObject)
+    {
+        deckInfo.infoCard = _gameObject.GetComponent<Card>();
+
+        infoBackground.transform.SetSiblingIndex(100);
+        _gameObject.transform.SetSiblingIndex(101);
+
+        //TODO: Chapuza
+        StopAllCoroutines();
+
+        StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)deckInfo.infoCard.gameObject.transform, Vector3.zero));
+        StartCoroutine(AuxiliarFuncions.SetLocalScaleProgresive(deckInfo.infoCard.gameObject.transform, Card.ORIGINAL_SIZE * SizeMultiplier));
+        StartCoroutine(AuxiliarFuncions.FadeIn(infoBackground.GetComponent<Image>(), infoBackground, 65, 1, true));
+    }
+
+    /// <summary>
     /// Manda una carta al cementerio
     /// </summary>
     /// <param name="_gameObject"></param>
@@ -229,30 +236,26 @@ public class Deck : MonoBehaviour
     {
         Card card = deckInfo.infoCard;
         deckInfo.infoCard = null;
-        card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault() + 1);
+        card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault());
 
         //TODO: Chapuza
         StopAllCoroutines();
 
         if (doAction)
-            _gameObject.GetComponent<CardAction>().DoAction(GameManager.GetInstance().player.gameObject);
-        else
+            _gameObject.GetComponent<CardAction>().DoAction(GameManager.Instance.player.gameObject);
+        else // Si la descartamos
         {
-            GameManager.GetInstance().player.currentMovesTurn++;
-            if (GameManager.GetInstance().player.currentMovesTurn >= GameManager.GetInstance().player.maxMovesPerTurn)
-            {
-                GameManager.GetInstance().player.currentMovesTurn = 0;
-                GameManager.GetInstance().turn = TURN.IA;
-            }
+            GameManager.Instance.player.playerInfo.addMana(1);
+            GameManager.Instance.player.refreshPlayerData();
+
+            if (GameManager.Instance.turnManager.isIATurn())
+                GameManager.Instance.turn = TURN.IA;
+
         }
 
         deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
 
-        card.gameObject.GetComponent<BoxCollider2D>().size = Card.CARD_RECT_TRANSFORM.sizeDelta;
-        card.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
-
-        StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
-        StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.cost.transform, new Vector2(100, 100))); //Tamaño visual
+        StartCoroutine(AuxiliarFuncions.SetLocalScaleProgresive(card.gameObject.transform, Card.ORIGINAL_SIZE));
         StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
     }
 
@@ -263,7 +266,8 @@ public class Deck : MonoBehaviour
     {
         Card card = deckInfo.infoCard;
         deckInfo.infoCard = null;
-        card.transform.SetSiblingIndex(card.indexPosition.GetValueOrDefault() + 1);
+
+        reorderHandsCards();
 
         //TODO: Chapuza
         StopAllCoroutines();
@@ -271,9 +275,31 @@ public class Deck : MonoBehaviour
         card.gameObject.GetComponent<BoxCollider2D>().size = Card.CARD_RECT_TRANSFORM.sizeDelta;
         card.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
         StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)card.gameObject.transform, deckCanvasInfo.anchorToCards[card.indexPosition.GetValueOrDefault()].transform.localPosition));
-        StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.front.transform, Card.CARD_RECT_TRANSFORM.sizeDelta));
-        StartCoroutine(AuxiliarFuncions.SetSizeProgresive((RectTransform)card.cost.transform, new Vector2(100, 100))); //Tamaño visual
+        StartCoroutine(AuxiliarFuncions.SetLocalScaleProgresive(card.gameObject.transform, Card.ORIGINAL_SIZE));
         StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
+    }
+
+    /// <summary>
+    /// Reordenamos las cartas de la mano
+    /// </summary>
+    private void reorderHandsCards()
+    {
+        int SiblingIndex = cardsInHand;
+
+        var orderAnchors = deckCanvasInfo.anchorToCards.OrderByDescending(o => o.position).ToList();
+
+        foreach (AnchorInfo info in orderAnchors)
+        {
+            GameObject cardobj = deckInfo.handCards.Where(m => m.GetComponent<Card>().indexPosition == info.position).FirstOrDefault();
+
+            if (cardobj)
+            {
+                Card cardInfo = cardobj.GetComponent<Card>();
+                cardInfo.transform.SetSiblingIndex(0);
+
+
+            }
+        }
     }
 
     /// <summary>
@@ -284,7 +310,14 @@ public class Deck : MonoBehaviour
     private void ResizePrefabs(float newX, float newY)
     {
         RectTransform prefabTransform = cardPrefab.GetComponent<RectTransform>();
+
+        Vector2 originalSize = new Vector2(prefabTransform.sizeDelta.x, prefabTransform.sizeDelta.y);
+        Vector2 incremento = new Vector2(newX - originalSize.x, newY - originalSize.y);
+
         prefabTransform.sizeDelta = new Vector2(newX, newY);
+
+
+        ((RectTransform)(cardPrefab.transform.GetChild(1).transform)).sizeDelta += incremento;
 
         prefabTransform = anchorPrefab.GetComponent<RectTransform>();
         prefabTransform.sizeDelta = new Vector2(newX, newY);
@@ -304,16 +337,10 @@ public class Deck : MonoBehaviour
         for (int i = 0; i < cardsInDeck; ++i)
         {
             deckInfo.cardsGameObject.Add(Card.instantiateCard(cardPrefab, rectTransformComponent, deckCanvasInfo.canvasGameObject.transform, this));
-            deckInfo.cardsGameObject.Last().GetComponent<Card>().SetCardArt(cardArt[cardArtIndex++]);
-
-            if (cardArtIndex > cardArt.Count - 1)
-                cardArtIndex = 0;
 
             deckInfo.activeCards.Add(deckInfo.cardsGameObject.Last());
         }
 
-        var movimiento = deckInfo.activeCards.Where(m => m.GetComponent<Card>().type == ATTACKTYPE.MOVEMENT).ToList();
-        var atake = deckInfo.activeCards.Where(m => m.GetComponent<Card>().type == ATTACKTYPE.ATTACK).ToList();
     }
 
 
@@ -356,7 +383,7 @@ public class Deck : MonoBehaviour
 
                 if (!card)
                 {
-                    StartCoroutine( CheckIfCards() );
+                    StartCoroutine(CheckIfCards());
 
                     yield return new WaitUntil(() => deckInfo.cementeryCards.Count == 0);
 
@@ -364,7 +391,8 @@ public class Deck : MonoBehaviour
                     card = deckInfo.activeCards.FirstOrDefault();
 
                 }
-                card.transform.SetSiblingIndex(position.position + 1);
+
+                card.transform.SetSiblingIndex(position.position);
                 card.GetComponent<Card>().indexPosition = position.position;
                 card.GetComponent<Card>().FlipCard();
 
@@ -387,7 +415,7 @@ public class Deck : MonoBehaviour
     {
         if (!deckInfo.activeCards.FirstOrDefault())
         {
-            StartCoroutine( deckInfo.moveCementaryToActive(GetComponent<RectTransform>()) );           
+            StartCoroutine(deckInfo.moveCementaryToActive(GetComponent<RectTransform>()));
         }
 
         yield return new WaitUntil(() => deckInfo.cementeryCards.Count == 0);
