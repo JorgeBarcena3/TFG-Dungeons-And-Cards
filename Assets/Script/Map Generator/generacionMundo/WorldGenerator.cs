@@ -175,7 +175,8 @@ public class WorldGenerator : MonoBehaviour
             {
                
                 Vector3 position = x % 2 == 0 ? this.transform.position + new Vector3(y * size.x - 1, -(x * size.y * 23 / 40), -(x)) :
-                                                this.transform.position + new Vector3(y * size.x - 1 + size.x / 2, -(x * size.y * 23 / 40), -(x));
+                                                this.transform.position + new Vector3(y * size.x - 1 + size.x / 2, -(x * size.y * 23 / 40),
+                                                -(x));
 
                 if (this.board.worldCells[x,y].Value == CELLSTYPE.DEAD)
                 {

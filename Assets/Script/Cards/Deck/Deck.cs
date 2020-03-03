@@ -255,6 +255,8 @@ public class Deck : MonoBehaviour
         //TODO: Chapuza
         StopAllCoroutines();
 
+        deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
+
         if (doAction)
             _gameObject.GetComponent<CardAction>().DoAction(GameManager.Instance.player.gameObject);
         else // Si la descartamos
@@ -266,9 +268,7 @@ public class Deck : MonoBehaviour
                 GameManager.Instance.turn = TURN.IA;
 
         }
-
-        deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
-
+        
         StartCoroutine(AuxiliarFuncions.SetLocalScaleProgresive(card.gameObject.transform, Card.ORIGINAL_SIZE));
         StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
     }

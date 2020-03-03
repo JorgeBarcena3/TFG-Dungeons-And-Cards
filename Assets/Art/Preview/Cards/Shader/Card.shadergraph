@@ -10,7 +10,7 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.Vector1ShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Name\": \"Speed\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"d626bdc1-4c05-4c94-a4fb-89225879f3be\"\n    },\n    \"m_DefaultReferenceName\": \"Vector1_5B2F5A29\",\n    \"m_OverrideReferenceName\": \"_Speed\",\n    \"m_Precision\": 0,\n    \"m_Value\": 0.10000000149011612,\n    \"m_FloatType\": 0,\n    \"m_RangeValues\": {\n        \"x\": 0.0,\n        \"y\": 1.0\n    },\n    \"m_Hidden\": false\n}"
+            "JSONnodeData": "{\n    \"m_Name\": \"Speed\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"d626bdc1-4c05-4c94-a4fb-89225879f3be\"\n    },\n    \"m_DefaultReferenceName\": \"Vector1_5B2F5A29\",\n    \"m_OverrideReferenceName\": \"_Speed\",\n    \"m_Precision\": 0,\n    \"m_Value\": 0.699999988079071,\n    \"m_FloatType\": 0,\n    \"m_RangeValues\": {\n        \"x\": 0.0,\n        \"y\": 1.0\n    },\n    \"m_Hidden\": false\n}"
         },
         {
             "typeInfo": {
@@ -123,12 +123,6 @@
             "typeInfo": {
                 "fullName": "UnityEditor.Graphing.Edge"
             },
-            "JSONnodeData": "{\n    \"m_OutputSlot\": {\n        \"m_SlotId\": 0,\n        \"m_NodeGUIDSerialized\": \"99f10643-b877-4fd7-b4cf-f03a6c644ea4\"\n    },\n    \"m_InputSlot\": {\n        \"m_SlotId\": 0,\n        \"m_NodeGUIDSerialized\": \"f3a12337-5b7a-4def-9481-9d8eb10c1ca5\"\n    }\n}"
-        },
-        {
-            "typeInfo": {
-                "fullName": "UnityEditor.Graphing.Edge"
-            },
             "JSONnodeData": "{\n    \"m_OutputSlot\": {\n        \"m_SlotId\": 2,\n        \"m_NodeGUIDSerialized\": \"9b54d458-4120-49c7-ac2d-559d0170d7f5\"\n    },\n    \"m_InputSlot\": {\n        \"m_SlotId\": 1,\n        \"m_NodeGUIDSerialized\": \"2df096ae-1f27-4bd3-b3fc-51b29fd0ee4a\"\n    }\n}"
         },
         {
@@ -172,6 +166,12 @@
                 "fullName": "UnityEditor.Graphing.Edge"
             },
             "JSONnodeData": "{\n    \"m_OutputSlot\": {\n        \"m_SlotId\": 2,\n        \"m_NodeGUIDSerialized\": \"f3a12337-5b7a-4def-9481-9d8eb10c1ca5\"\n    },\n    \"m_InputSlot\": {\n        \"m_SlotId\": 1,\n        \"m_NodeGUIDSerialized\": \"5e9aa95b-9569-4418-b28a-b45a656ada15\"\n    }\n}"
+        },
+        {
+            "typeInfo": {
+                "fullName": "UnityEditor.Graphing.Edge"
+            },
+            "JSONnodeData": "{\n    \"m_OutputSlot\": {\n        \"m_SlotId\": 0,\n        \"m_NodeGUIDSerialized\": \"99f10643-b877-4fd7-b4cf-f03a6c644ea4\"\n    },\n    \"m_InputSlot\": {\n        \"m_SlotId\": 0,\n        \"m_NodeGUIDSerialized\": \"f3a12337-5b7a-4def-9481-9d8eb10c1ca5\"\n    }\n}"
         }
     ],
     "m_PreviewData": {

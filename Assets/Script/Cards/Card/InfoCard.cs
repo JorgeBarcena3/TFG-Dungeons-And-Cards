@@ -1,19 +1,4 @@
-﻿
-/// <summary>
-/// Tipo de ataque posibles
-/// </summary>
-public enum ATTACKTYPE
-{
-    ATTACKACTION = 0,
-    ATTACKANDMOVEMENT = 1,
-    GIVENMANA = 2,
-    MOVEMENT = 3,
-    TELEPORT = 4,
-    TEMPLATE
-}
-
-
-/// <summary>
+﻿/// <summary>
 /// Modelo de datos de las cartas
 /// </summary>
 public class InfoCard 
