@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeckCollection
 {
-    public List<DeckCardsPackage> deckCollection;
+    public List<DeckCardsPackage> deckCollection = new List<DeckCardsPackage>();
     public DeckCardsPackage new_deck(string name) 
     {
         DeckCardsPackage my_deck = new DeckCardsPackage(name);

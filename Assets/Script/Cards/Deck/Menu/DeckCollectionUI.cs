@@ -16,7 +16,7 @@ public class DeckCollectionUI : MonoBehaviour
 
     private void Start()
     {
-        if (deck_collection != null) 
+        if (deck_collection != null)
         {
             for (int i = 0; i < deck_collection.deckCollection.Count; i++)
             {
@@ -25,6 +25,10 @@ public class DeckCollectionUI : MonoBehaviour
                 deck.transform.SetParent(gameObject.transform.parent);
             }
         }
+        else 
+        {
+            deck_collection = new DeckCollection();
+        }
        
     }
 
@@ -32,7 +36,7 @@ public class DeckCollectionUI : MonoBehaviour
     public void  open_panel_name_deck() 
     {
         panel_name.SetActive(true);
-        panel_name.GetComponentInChildren<Text>().text = "Enter name...";
+        panel_name.transform.Find("name").transform.Find("Text").gameObject.GetComponent<Text>().text = "";
     }
     public void close_panel_name_deck()
     {
@@ -42,7 +46,7 @@ public class DeckCollectionUI : MonoBehaviour
     public void add_deck() 
     {
         panel_cards.SetActive(true);
-        DeckCardsPackage my_deck = deck_collection.new_deck(panel_name.GetComponentInChildren<Text>().text);
+        DeckCardsPackage my_deck = deck_collection.new_deck(panel_name.transform.Find("name").transform.Find("Text").gameObject.GetComponent<Text>().text);
         panel_cards.transform.Find("title").gameObject.GetComponent<Text>().text = my_deck.get_name();
         List<InfoCard> all_cards = parser.getCardsInfo();
         for (int i = 0; i < all_cards.Count; i++) 
