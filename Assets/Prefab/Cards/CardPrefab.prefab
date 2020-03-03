@@ -399,6 +399,7 @@ MonoBehaviour:
   namelbl: {fileID: 430632927749607861}
   descriptionlbl: {fileID: 2188293237658028635}
   costlbl: {fileID: 4255659292103202298}
+  imagelbl: {fileID: 2794458929186556849}
 --- !u!1 &8791155114248978878
 GameObject:
   m_ObjectHideFlags: 0

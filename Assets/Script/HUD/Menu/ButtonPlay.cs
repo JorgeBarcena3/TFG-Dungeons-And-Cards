@@ -17,6 +17,7 @@ public class ButtonPlay : MonoBehaviour
     public OPTIONS my_option;
     Vector3 initPosition;
     Vector3 centerPosition;
+    public GameObject deck_menu;
 
     // Start is called before the first frame update
     void Start()
@@ -100,7 +101,7 @@ public class ButtonPlay : MonoBehaviour
 
     void deck() 
     {
-
+        deck_menu.SetActive(true);
     }
     void settings() 
     {

@@ -11,19 +11,23 @@ public class DeckCollectionUI : MonoBehaviour
     public GameObject cardPrefab;
     public GameObject panel_name;
     public GameObject panel_cards;
+    public GameObject card_in_deck_prefab;
     public CSVReader parser;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        for (int i = 0; i < deck_collection.deckCollection.Count; i++) 
+        if (deck_collection != null) 
         {
-            GameObject deck = Instantiate(deckPrefab);
-            deck.GetComponent<DeckCardsPackageUI>().my_deck = deck_collection.deckCollection[i];
-            deck.transform.SetParent(gameObject.transform.parent);
+            for (int i = 0; i < deck_collection.deckCollection.Count; i++)
+            {
+                GameObject deck = Instantiate(deckPrefab);
+                deck.GetComponent<DeckCardsPackageUI>().my_deck = deck_collection.deckCollection[i];
+                deck.transform.SetParent(gameObject.transform.parent);
+            }
         }
-        
+       
     }
+
 
     public void  open_panel_name_deck() 
     {
@@ -39,19 +43,29 @@ public class DeckCollectionUI : MonoBehaviour
     {
         panel_cards.SetActive(true);
         DeckCardsPackage my_deck = deck_collection.new_deck(panel_name.GetComponentInChildren<Text>().text);
-        panel_cards.transform.FindChild("title").gameObject.GetComponent<Text>().text = my_deck.get_name();
+        panel_cards.transform.Find("title").gameObject.GetComponent<Text>().text = my_deck.get_name();
         List<InfoCard> all_cards = parser.getCardsInfo();
         for (int i = 0; i < all_cards.Count; i++) 
         {
             GameObject cardHud = Instantiate(cardPrefab);
-            cardHud.transform.SetParent(panel_cards.transform.FindChild("cardList"));
-            cardHud.transform.FindChild("title").gameObject.GetComponent<Text>().text = all_cards[i].Name;
-            cardHud.transform.FindChild("description").gameObject.GetComponent<Text>().text = all_cards[i].Description;
-            //cardHud.transform.FindChild("Button").gameObject.GetComponent<Button>().
-            //cardHud.GetComponent<Image>().sprite = Resources.Load<Sprite>("Assets/Art/Preview/Cards/Template/" + all_cards[i].Art);
+            cardHud.transform.SetParent(panel_cards.transform.Find("cardList"));
+            cardHud.GetComponentInChildren<HUDCard>().fillInfo(all_cards[i]);
+            cardHud.GetComponentInChildren<HUDCard>().set_collection(this);
+            
+           
             
         }
-        //panel_cards.transform.FindChild("cardList");
+    }
+    /// <summary>
+    /// Añade una carta al mazo que estamos creando
+    /// </summary>
+    /// <param name="info"></param>
+    public void add_card(InfoCard info) 
+    {
+        deck_collection.deckCollection[deck_collection.deckCollection.Count-1].add_card(info);
+        GameObject card = Instantiate(card_in_deck_prefab);
+        card.transform.SetParent(panel_cards.transform.Find("cradsInDeck"));
+        card.GetComponent<CardInDeckUI>().fillInfo(info);
     }
 
    
