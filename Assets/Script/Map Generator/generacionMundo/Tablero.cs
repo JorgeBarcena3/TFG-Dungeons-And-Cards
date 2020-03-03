@@ -75,11 +75,11 @@ public class Tablero
     /// </summary>
     public void CreateRandomWorld()
     {
-        for (int y = 0; y < this.worldCells.GetLength(0); ++y)
+        for (int x = 0; x < this.worldCells.GetLength(0); ++x)
         {
-            for (int x = 0; x < this.worldCells.GetLength(1); ++x)
+            for (int y = 0; y < this.worldCells.GetLength(1); ++y)
             {
-                this.worldCells[x,y] = new Cell(x,y, ChanceToLive);
+                this.worldCells[x, y] = new Cell(x, y, ChanceToLive);
             }
         }
 
@@ -93,11 +93,11 @@ public class Tablero
     private void SearchNeighbors()
     {
 
-        for (int y = 0; y < this.worldCells.GetLength(0); ++y)
+        for (int x = 0; x < this.worldCells.GetLength(0); ++x)
         {
-            for (int x = 0; x < this.worldCells.GetLength(1); ++x)
+            for (int y = 0; y < this.worldCells.GetLength(1); ++y)
             {
-                SetNeighbors(ref this.worldCells[x,y]);
+                SetNeighbors(ref this.worldCells[x, y]);
             }
         }
     }
@@ -143,12 +143,12 @@ public class Tablero
 
         Cell[,] next = new Cell[Width, Height];
 
-        for (int y = 0; y < this.worldCells.GetLength(0); ++y)
+        for (int x = 0; x < this.worldCells.GetLength(0); ++x)
         {
-            for (int x = 0; x < this.worldCells.GetLength(1); ++x)
+            for (int y = 0; y < this.worldCells.GetLength(1); ++y)
             {
-                Cell cell = new Cell(this.worldCells[x,y]);
-                next[x,y] = this.RuleManager.ApplyRules(cell);
+                Cell cell = new Cell(this.worldCells[x, y]);
+                next[x, y] = this.RuleManager.ApplyRules(cell);
 
             }
         }
@@ -166,11 +166,11 @@ public class Tablero
     private void CopyNewBoard(Cell[,] next)
     {
 
-        for (int y = 0; y < this.worldCells.GetLength(0); ++y)
+        for (int x = 0; x < this.worldCells.GetLength(0); ++x)
         {
-            for (int x = 0; x < this.worldCells.GetLength(1); ++x)
+            for (int y = 0; y < this.worldCells.GetLength(1); ++y)
             {
-                this.worldCells[ x,y] = new Cell(next[x, y]);
+                this.worldCells[x, y] = new Cell(next[x, y]);
 
             }
         }
@@ -189,14 +189,14 @@ public class Tablero
         {
             for (int x = 0; x < this.worldCells.GetLength(1); ++x)
             {
-                Cell cell = new Cell(this.worldCells[x,y]);
-                if (this.worldCells[x,y].CountNeighborsAlive == 8 && this.worldCells[x, y].Value == CELLSTYPE.DEAD)
+                Cell cell = new Cell(this.worldCells[x, y]);
+                if (this.worldCells[x, y].CountNeighborsAlive == 8 && this.worldCells[x, y].Value == CELLSTYPE.DEAD)
                     cell = new Cell(cell.CellInfo.x, cell.CellInfo.y, CELLSTYPE.ALIVE);
-                else if(this.worldCells[x, y].CountNeighborsAlive == 0 && this.worldCells[x, y].Value == CELLSTYPE.ALIVE)
+                else if (this.worldCells[x, y].CountNeighborsAlive == 0 && this.worldCells[x, y].Value == CELLSTYPE.ALIVE)
                     cell = new Cell(cell.CellInfo.x, cell.CellInfo.y, CELLSTYPE.DEAD);
 
 
-                next[x,y] = cell;
+                next[x, y] = cell;
 
             }
         }

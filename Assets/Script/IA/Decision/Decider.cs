@@ -33,7 +33,7 @@ public class Decider : MonoBehaviour
                 for (int i = 0; i <= fixedIndex; i++)
                 {
                     Vector3 newPosition = info.waypointsToPlayer[i].transform.position;
-                    enemy.transform.localPosition = new Vector3(enemy.transform.localPosition.x, enemy.transform.localPosition.y, -15);
+                    enemy.transform.localPosition = new Vector3(enemy.transform.localPosition.x, enemy.transform.localPosition.y, -(GameManager.Instance.worldGenerator.tamanioY + 1));
 
                     StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(agent.transform, newPosition, 1f));
 

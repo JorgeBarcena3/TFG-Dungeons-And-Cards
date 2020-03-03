@@ -53,7 +53,7 @@ public class Slider : MonoBehaviour
 
         boxCollider.size = new Vector2(sizeX, sizeY);
 
-        boxCollider.offset = new Vector2(spr.size.x * (mapSize.x / 2), -mapSize.y * spr.size.y * 23 / 40 / 2);
+        boxCollider.offset = new Vector2(spr.size.x * (mapSize.x / 2.5f) , -mapSize.y * spr.size.y * 23 / 40 / 2.3f);
 
     }
 

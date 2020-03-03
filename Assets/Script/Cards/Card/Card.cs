@@ -105,7 +105,7 @@ public class Card : MonoBehaviour
     /// <param name="cardGameobject"></param>
     private static void selectCardAction(GameObject cardGameobject)
     {
-        int random = UnityEngine.Random.Range(0, 25);
+        int random = UnityEngine.Random.Range(0, 27);
         Card card = cardGameobject.GetComponent<Card>();
 
 
@@ -182,7 +182,7 @@ public class Card : MonoBehaviour
                 );
 
         }
-        else
+        else if (random < 25)
         {
             cardGameobject.AddComponent<MovementAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.69f, 0.99f, 0.69f);
@@ -195,6 +195,23 @@ public class Card : MonoBehaviour
                 01,
                 "Movimiento",
                 "Cuando utilices esta carta podrás moverte a cualquier casilla que se encuentre en el rango de " + power + ". El coste de maná de esta carta sera de " + power + " puntos.",
+                power,
+                power
+                );
+        }
+        else
+        {
+            cardGameobject.AddComponent<DealCardsAction>();
+            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.5f, 0.79f, 1);
+            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.DEALCARDSACTION;
+            card.SetCardArt(card.deck.cardArt[(int)card.type]);
+
+            int power = 2;
+            cardGameobject.GetComponent<Card>().info = new InfoCard(
+                ATTACKTYPE.DEALCARDSACTION,
+                01,
+                "Repartir Cartas",
+                "Cuando utilices esta carta se te repartirán cartas hasta tener la mano completa. El coste de maná de esta carta sera de " + power + " puntos.",
                 power,
                 power
                 );

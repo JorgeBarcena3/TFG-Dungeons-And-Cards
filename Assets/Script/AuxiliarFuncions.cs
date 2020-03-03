@@ -66,7 +66,7 @@ public class AuxiliarFuncions : MonoBehaviour
         {
 
             Vector3 newPosition = tile.transform.position;
-            obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, -15);
+            obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, -(GameManager.Instance.worldGenerator.tamanioY + 1));
 
             GameManager.Instance.StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(obj.transform, newPosition, 1f) );
 

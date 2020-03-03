@@ -2,6 +2,20 @@
 using UnityEngine;
 
 /// <summary>
+/// Tipo de ataque posibles
+/// </summary>
+public enum ATTACKTYPE
+{
+    ATTACKACTION = 0,
+    ATTACKANDMOVEMENT = 1,
+    GIVENMANA = 2,
+    MOVEMENT = 3,
+    TELEPORT = 4,
+    DEALCARDSACTION = 5,
+    TEMPLATE
+}
+
+/// <summary>
 /// Se encarga de unificar la accion que se debe hacer
 /// </summary>
 public abstract class CardAction : MonoBehaviour

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Baraja del jugador
@@ -12,10 +13,11 @@ public class Deck : MonoBehaviour
 {
 
     [Header("Prefabs")]
+
     /// <summary>
-    /// Sprite que se asignará a la baraja
+    /// Material de la carta
     /// </summary>
-    public Sprite back;
+    public Material cardMaterial;
 
     /// <summary>
     /// Prefab de la carta a instanciar
@@ -85,11 +87,11 @@ public class Deck : MonoBehaviour
 
         deckCanvasInfo.getCanvasGameobject();
 
+        setCardBack();
+
         SetSizeOfDeck();
 
         SetCardsAnchor();
-
-        deckCanvasInfo.setDeckBack(cardPrefab.transform.GetChild(0).gameObject.GetComponent<Image>(), back, ref cardPrefab);
 
         InstantiateCards();
 
@@ -99,6 +101,18 @@ public class Deck : MonoBehaviour
 
         SwipeDetector.OnSwipe += onCardSwipe;
 
+    }
+
+
+    /// <summary>
+    /// Setea el valor del material
+    /// </summary>
+    private void setCardBack()
+    {
+        Material myMaterial = Instantiate(cardMaterial);
+        myMaterial.SetTexture("_MyTexture", GetComponent<Image>().sprite.texture);
+        myMaterial.SetFloat("_Speed", Random.Range(0.65f, 1.0f));
+        cardPrefab.transform.GetChild(0).GetComponent<Image>().material = myMaterial;
     }
 
     /// <summary>
@@ -241,6 +255,8 @@ public class Deck : MonoBehaviour
         //TODO: Chapuza
         StopAllCoroutines();
 
+        deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
+
         if (doAction)
             _gameObject.GetComponent<CardAction>().DoAction(GameManager.Instance.player.gameObject);
         else // Si la descartamos
@@ -252,9 +268,7 @@ public class Deck : MonoBehaviour
                 GameManager.Instance.turn = TURN.IA;
 
         }
-
-        deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
-
+        
         StartCoroutine(AuxiliarFuncions.SetLocalScaleProgresive(card.gameObject.transform, Card.ORIGINAL_SIZE));
         StartCoroutine(AuxiliarFuncions.FadeOut(infoBackground.GetComponent<Image>(), infoBackground, 1, true));
     }
