@@ -196,10 +196,10 @@ public class GameManager : Singelton<GameManager>
         /// <summary>
         /// Coloca la camara en el player
         /// </summary>
-        public void setCameraToPlayer()
+        public void setCameraToPlayer(float time = 10)
         {
             if (turn != TURN.IA)
-                cameraFunctions.moveCameraTo(player.transform.position);
+                cameraFunctions.moveCameraTo(player.transform.position, time);
         }
 
     

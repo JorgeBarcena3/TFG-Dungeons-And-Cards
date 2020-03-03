@@ -117,7 +117,7 @@ public class Card : MonoBehaviour
             card.type = ATTACKTYPE.GIVENMANA;
             card.SetCardArt(card.deck.cardArt[(int)card.type]);
 
-            int power = Random.Range(1, 4);
+            int power = Random.Range(2, 5);
             card.info = new InfoCard(
                 ATTACKTYPE.GIVENMANA,
                 01,
@@ -243,7 +243,9 @@ public class Card : MonoBehaviour
     /// </summary>
     public void SetCardArt(Sprite spr)
     {
-        front.GetComponent<Image>().sprite = spr;
+        Material myMaterial = Instantiate(front.GetComponent<Image>().material);
+        myMaterial.SetTexture("_MyTexture", spr.texture);
+        front.GetComponent<Image>().material = myMaterial;
     }
 
 

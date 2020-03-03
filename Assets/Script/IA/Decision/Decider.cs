@@ -19,16 +19,18 @@ public class Decider : MonoBehaviour
     /// <param name="info"></param>
     public IEnumerator takeDecision(IAAgent agent, IAInputInfo info)
     {
+        Enemy enemy = (agent as Enemy);
+        int index = enemy ? (agent as Enemy).getAvance() : 0;
+
         //REALIZAMOS LA ACCION
         if (info.waypointsToPlayer.Count > 1)
         {
-            Enemy enemy = (agent as Enemy);
-            int index = enemy ? (agent as Enemy).getAvance() : 0;
+            int fixedIndex = index > (info.waypointsToPlayer.Count - 1) ? info.waypointsToPlayer.Count - 1 : index;
 
-            if (info.waypointsToPlayer.Last().contain != CELLCONTAINER.ENEMY)
+            if (info.waypointsToPlayer[fixedIndex].contain != CELLCONTAINER.ENEMY)
             {
 
-                for (int i = 0; i <= index; i++)
+                for (int i = 0; i <= fixedIndex; i++)
                 {
                     Vector3 newPosition = info.waypointsToPlayer[i].transform.position;
                     enemy.transform.localPosition = new Vector3(enemy.transform.localPosition.x, enemy.transform.localPosition.y, -15);
@@ -41,16 +43,16 @@ public class Decider : MonoBehaviour
                         );
                 }
 
-                enemy.transform.localPosition = new Vector3(enemy.transform.localPosition.x, enemy.transform.localPosition.y, info.waypointsToPlayer[index].transform.localPosition.z) + enemy.zOffset;
+                enemy.transform.localPosition = new Vector3(enemy.transform.localPosition.x, enemy.transform.localPosition.y, info.waypointsToPlayer[fixedIndex].transform.localPosition.z) + enemy.zOffset;
 
-                if (info.waypointsToPlayer[index].contain == CELLCONTAINER.PLAYER)
+                if (info.waypointsToPlayer[fixedIndex].contain == CELLCONTAINER.PLAYER)
                 {
                     Debug.Log("Te han matado los enemigos");
                     GameManager.Instance.GoToMenu();
                 }
 
                 agent.currentCell.contain = CELLCONTAINER.EMPTY;
-                agent.currentCell = info.waypointsToPlayer[index];
+                agent.currentCell = info.waypointsToPlayer[fixedIndex];
                 agent.currentCell.contain = CELLCONTAINER.ENEMY;
             }
 
