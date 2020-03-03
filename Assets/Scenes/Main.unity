@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1347,16 +1347,22 @@ PrefabInstance:
       propertyPath: SizeMultiplier
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5093986053229863616, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
+        type: 3}
+      propertyPath: cardMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 3851eb46464af1c429146d535cd9701a, type: 2}
     - target: {fileID: 5093986053229863618, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
         type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: 3851eb46464af1c429146d535cd9701a, type: 2}
     - target: {fileID: 5093986053229863618, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: a93fd67ff3c1f4745b90d19526c06c75,
+        type: 3}
     - target: {fileID: 5093986053229863618, guid: c1f7b482bd6ceb445a3b5193e6217bfd,
         type: 3}
       propertyPath: m_Color.a
@@ -1697,12 +1703,12 @@ PrefabInstance:
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
       propertyPath: tamanioY
-      value: 12
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
       propertyPath: tamanioX
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
@@ -2204,6 +2210,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Colors.m_PressedColor.a
       value: 0.14117648
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865280817713513269, guid: 284a95e10c61f744b86061aa6cab3399,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865280817713513269, guid: 284a95e10c61f744b86061aa6cab3399,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1865280818154858616, guid: 284a95e10c61f744b86061aa6cab3399,
         type: 3}

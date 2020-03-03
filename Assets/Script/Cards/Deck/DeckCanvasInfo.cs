@@ -33,12 +33,4 @@ public class DeckCanvasInfo
         canvasGameObject = GameObject.FindGameObjectWithTag(tag);
     }
 
-    /// <summary>
-    /// Selecciona el sprite de la baraja
-    /// </summary>
-    public void setDeckBack(Image ImageComponent, Sprite back, ref GameObject cardPrefab)
-    {
-        ImageComponent.sprite = back;
-        cardPrefab.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = back;
-    }
 }

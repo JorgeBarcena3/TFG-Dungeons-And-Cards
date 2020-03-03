@@ -43,9 +43,9 @@ public class RoomsManager
 
         SetCellsOutOfRoom(_tablero);
 
-        for (int y = 0; y < _tablero.worldCells.GetLength(0); ++y)
+        for (int x = 0; x < _tablero.worldCells.GetLength(0); ++x)
         {
-            for (int x = 0; x < _tablero.worldCells.GetLength(1); ++x)
+            for (int y = 0; y < _tablero.worldCells.GetLength(1); ++y)
             {
                 if (_tablero[x, y].Value == CELLSTYPE.ALIVE && !_tablero[x, y].CellInfo.isInRoom)
                 {
@@ -76,9 +76,9 @@ public class RoomsManager
 
         this.rooms = new List<Room>();
 
-        for (int y = 0; y < _tablero.worldCells.GetLength(0); ++y)
+        for (int x = 0; x < _tablero.worldCells.GetLength(0); ++x)
         {
-            for (int x = 0; x < _tablero.worldCells.GetLength(1); ++x)
+            for (int y = 0; y < _tablero.worldCells.GetLength(1); ++y)
             {
                 _tablero[x, y].CellInfo.isInRoom = false;
                 _tablero[x, y].Color = Color.white;

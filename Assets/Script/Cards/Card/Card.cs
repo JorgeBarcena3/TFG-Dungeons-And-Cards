@@ -245,6 +245,7 @@ public class Card : MonoBehaviour
     {
         Material myMaterial = Instantiate(front.GetComponent<Image>().material);
         myMaterial.SetTexture("_MyTexture", spr.texture);
+        myMaterial.SetFloat("_Speed", Random.Range(0.65f, 1.0f));
         front.GetComponent<Image>().material = myMaterial;
     }
 

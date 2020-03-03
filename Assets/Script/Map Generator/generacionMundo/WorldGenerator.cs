@@ -9,17 +9,17 @@ public class WorldGenerator : MonoBehaviour
     /// <summary>
     /// Tamaño Y de la cueva
     /// </summary>
-    public int tamanioY = 50;
+    public int tamanioX = 50;
 
     /// <summary>
     /// Tamaño X de la cueva
     /// </summary>
-    public int tamanioX = 50;
+    public int tamanioY = 50;
 
     /// <summary>
     /// Tamaño del mapa
     /// </summary>
-    public Vector2 size { get { return new Vector2(tamanioX, tamanioY);  } }
+    public Vector2 size { get { return new Vector2(tamanioY, tamanioX);  } }
 
     /// <summary>
     /// Radio por el que se calcularan las casillas vecinas
@@ -125,7 +125,7 @@ public class WorldGenerator : MonoBehaviour
     void generateWorld()
     {
         //Creamos la matriz de las celdas
-        this.board = new Tablero(tamanioX, tamanioY, radioVecino, reglaDeGeneracion, probabilidadesDeSerSueloRnd, pasillosEstrechos);
+        this.board = new Tablero(tamanioY, tamanioX, radioVecino, reglaDeGeneracion, probabilidadesDeSerSueloRnd, pasillosEstrechos);
 
         //Creamos un tablero random
         this.board.CreateRandomWorld();
@@ -169,15 +169,15 @@ public class WorldGenerator : MonoBehaviour
 
         Vector3 size = prefabTiles[0].GetComponent<SpriteRenderer>().bounds.size;
 
-        for (int y = 0; y < this.board.worldCells.GetLength(0); y++)
+        for (int x = 0; x < this.board.worldCells.GetLength(0); x++)
         {
-            for (int x = 0; x < this.board.worldCells.GetLength(1); x++)
+            for (int y = 0; y < this.board.worldCells.GetLength(1); y++)
             {
                
-                Vector3 position = y % 2 == 0 ? this.transform.position + new Vector3(x * size.x - 1, -(y * size.y * 23 / 40), -(y)) :
-                                                this.transform.position + new Vector3(x * size.x - 1 + size.x / 2, -(y * size.y * 23 / 40), -(y));
+                Vector3 position = x % 2 == 0 ? this.transform.position + new Vector3(y * size.x - 1, -(x * size.y * 23 / 40), -(x)) :
+                                                this.transform.position + new Vector3(y * size.x - 1 + size.x / 2, -(x * size.y * 23 / 40), -(x));
 
-                if (this.board.worldCells[x, y].Value == CELLSTYPE.DEAD)
+                if (this.board.worldCells[x,y].Value == CELLSTYPE.DEAD)
                 {
                     SpriteBoard.Add(Instantiate(prefabTiles[0], position, Quaternion.identity, this.transform));
 
