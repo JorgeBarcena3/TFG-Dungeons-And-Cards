@@ -88,7 +88,7 @@ public class TurnManager : MonoBehaviour
         GameManager GM = GameManager.Instance;
 
         return ( GM.player.playerInfo.currentManaPoints <= 0 ||
-                GM.deck.deckCanvasInfo.anchorToCards.Where(m => !m.state).Count() == GM.deck.deckCanvasInfo.anchorToCards.Count - 1);
+                GM.deck.deckCanvasInfo.anchorToCards.Where(m => !m.state).Count() == GM.deck.deckCanvasInfo.anchorToCards.Count);
     }
 
     /// <summary>
