@@ -25,7 +25,7 @@ public class Decider : MonoBehaviour
             Enemy enemy = (agent as Enemy);
             int index = enemy ? (agent as Enemy).getAvance() : 0;
 
-            if (info.waypointsToPlayer[index].contain != CELLCONTAINER.ENEMY)
+            if (info.waypointsToPlayer.Last().contain != CELLCONTAINER.ENEMY)
             {
 
                 for (int i = 0; i <= index; i++)

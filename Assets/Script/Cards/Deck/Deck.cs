@@ -424,5 +424,13 @@ public class Deck : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Cuando se destruye el objeto
+    /// </summary>
+    private void OnDestroy()
+    {
+        SwipeDetector.OnSwipe -= onCardSwipe;
+    }
+
 
 }

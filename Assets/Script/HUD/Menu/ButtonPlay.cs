@@ -3,26 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class butonPlay : MonoBehaviour
+public enum OPTIONS
 {
-    public enum Options 
-    {
-        PLAY,
-        DECK,
-        SETTINGS,
-        EXIT
-    };
-    public Options my_option;
-    public butonPlay [] others; 
+    PLAY,
+    DECK,
+    SETTINGS,
+    EXIT
+};
+
+public class ButtonPlay : MonoBehaviour
+{
+
+    public OPTIONS my_option;
     Vector3 initPosition;
     Vector3 centerPosition;
-    [HideInInspector]
-    public bool pressed;
+
     // Start is called before the first frame update
     void Start()
     {
         SwipeDetector.OnSwipe += action;
-        pressed = false;
         initPosition = gameObject.transform.position;
         centerPosition = new Vector3(0,0,gameObject.transform.position.z);
         
@@ -59,7 +58,6 @@ public class butonPlay : MonoBehaviour
             {
                 @switch();
             }
-            pressed = false;
         }
         
        
@@ -96,11 +94,10 @@ public class butonPlay : MonoBehaviour
 
     void play() 
     {
-
         Initiate.Fade("Main", Color.black, 2.0f);
-        //SceneManager.LoadScene("Main");
-        
     }
+
+
     void deck() 
     {
 
@@ -117,16 +114,13 @@ public class butonPlay : MonoBehaviour
     private void OnMouseDown() 
     {
         ShowInfo();
-        pressed = true;
-        for (int i = 0; i < others.Length; i++) 
-        {
-            others[i].pressed = false;
-            others[i].HideInfo();
-        }
+    
     }
-    private void OnMouseUp()
+
+
+    private void OnDestroy()
     {
-        pressed = false;
+        SwipeDetector.OnSwipe -= action;
     }
-   
+
 }
