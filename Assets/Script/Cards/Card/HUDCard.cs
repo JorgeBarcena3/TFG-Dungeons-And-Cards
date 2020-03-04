@@ -44,7 +44,8 @@ public class HUDCard : MonoBehaviour
     /// <param name="info"></param>
     public void fillInfo(InfoCard info)
     {
-        this.gameObject.GetComponent<CardAction>().setRadio();
+        if(gameObject.GetComponent<CardAction>())
+            gameObject.GetComponent<CardAction>().setRadio();
 
         costlbl.text = info.Cost.ToString();
         descriptionlbl.text = info.Description.ToString();

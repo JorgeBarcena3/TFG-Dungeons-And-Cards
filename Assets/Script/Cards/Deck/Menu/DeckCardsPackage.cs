@@ -16,11 +16,12 @@ public class DeckCardsPackage
     /// </summary>
     string name;
 
-    public DeckCardsPackage() {}
+    public DeckCardsPackage() { cards = new List<InfoCard>(); }
 
     public DeckCardsPackage(string name)
     {
-        this.name = name; 
+        this.name = name;
+        cards = new List<InfoCard>();
     }
     
     public void add_card(InfoCard card) 
