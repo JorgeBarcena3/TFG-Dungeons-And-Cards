@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 /// <summary>
 /// Rellena la informacion de la carta
@@ -50,8 +51,7 @@ public class HUDCard : MonoBehaviour
         costlbl.text = info.Cost.ToString();
         descriptionlbl.text = info.Description.ToString();
         namelbl.text = info.Name.ToString();
-        imagelbl.sprite = Resources.Load<Sprite>("Assets/Art/Preview/Cards/Template/" + info.Art);
-
+        SetCardArt(Resources.Load<Sprite>(info.Art.ToString())!= null ? Resources.Load<Sprite>(info.Art.ToString()) : Resources.Load<Sprite>("TEMPLATE"));
         this.info = info;
 
     }
@@ -63,6 +63,16 @@ public class HUDCard : MonoBehaviour
     public void on_button() 
     {
         deck_collection.add_card(info);
+    }
+
+    /// <summary>
+    /// Seleccionamos un arte de una carta
+    /// </summary>
+    public void SetCardArt(Sprite spr)
+    {
+        Material myMaterial = Instantiate(imagelbl.material);
+        myMaterial.SetTexture("_MyTexture", spr.texture);
+        imagelbl.material = myMaterial;
     }
 
 }

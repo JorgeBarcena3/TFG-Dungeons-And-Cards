@@ -1,5 +1,5 @@
 ﻿tipe;id;name;description;cost;power;turn;distance;art;posesion
-0;0;Ataque y movimiento;"Cuando utilices esta carta podrás matar cualquier enemigo (moviéndote a su casilla) que se encuentre en el rango de "" + power + "" casillas de distancia. El coste de maná de esta carta sera de "" + power + "" puntos.""";1;1;1;1;ATTACKATION;1
+0;0;Ataque y movimiento;"Cuando utilices esta carta podrás matar cualquier enemigo (moviéndote a su casilla) que se encuentre en el rango de "" + power + "" casillas de distancia. El coste de maná de esta carta sera de "" + power + "" puntos.""";1;1;1;1;ATTACKACTION;1
 4;1;Teleportación;"Cuando utilices esta carta podrás moverte a cualquier casilla que se encuentre en el rango de "" + power + "". El coste de maná de esta carta sera de "" + power + "" puntos.""";2;1;1;5;TELEPORT;1
 3;2;Movimiento;"Cuando utilices esta carta podrás moverte a cualquier casilla que se encuentre en el rango de "" + power + "". El coste de maná de esta carta sera de "" + power + "" puntos.";1;1;1;2;MOVEMENT;1
 2;3;Recuperación de Maná;"Cuando utilices esta carta se te recuperaran "" + power + "" puntos de maná que podras utilizar durante este turno";1;2;1;1;GIVENMANA;1
