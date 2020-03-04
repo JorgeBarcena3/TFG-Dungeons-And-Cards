@@ -14,8 +14,13 @@ public class DeckCardsPackageUI : MonoBehaviour
     void Start()
     {
         texUI = GetComponent<Text>();
-        texUI.text = my_deck.get_name();
+       
         
+    }
+    public void InitDeck(DeckCardsPackage deck) 
+    {
+        my_deck = deck;
+        texUI.text = my_deck.get_name();
     }
     public void open_deck() 
     {

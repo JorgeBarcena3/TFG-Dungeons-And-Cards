@@ -7,6 +7,7 @@ using UnityEditor;
 public class DeckCollectionUI : MonoBehaviour
 {
     DeckCollection deck_collection;
+    public GameObject panelDecks;
     public GameObject deckPrefab;
     public GameObject cardPrefab;
     public GameObject panel_name;
@@ -16,20 +17,9 @@ public class DeckCollectionUI : MonoBehaviour
 
     private void Start()
     {
-        if (deck_collection != null)
-        {
-            for (int i = 0; i < deck_collection.deckCollection.Count; i++)
-            {
-                GameObject deck = Instantiate(deckPrefab);
-                deck.GetComponent<DeckCardsPackageUI>().my_deck = deck_collection.deckCollection[i];
-                deck.transform.SetParent(gameObject.transform.parent);
-            }
-        }
-        else 
-        {
-            deck_collection = new DeckCollection();
-        }
-       
+        print_deck_list();
+
+
     }
 
 
@@ -72,6 +62,35 @@ public class DeckCollectionUI : MonoBehaviour
         GameObject card = Instantiate(card_in_deck_prefab,default,default, panel_cards.transform.Find("cradsInDeck"));
         card.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
         card.GetComponent<CardInDeckUI>().fillInfo(info);
+    }
+
+    public void save_deck() 
+    {
+        panel_cards.SetActive(false);
+        print_deck_list();
+    }
+    public void cancel_deck() 
+    {
+        deck_collection.delete_deck(deck_collection.deckCollection[deck_collection.deckCollection.Count-1]);
+        panel_cards.SetActive(false);
+        print_deck_list();
+    }
+
+    private void print_deck_list() 
+    {
+        if (deck_collection != null)
+        {
+            for (int i = 0; i < deck_collection.deckCollection.Count; i++)
+            {
+                GameObject deck = Instantiate(deckPrefab,default,default,panelDecks.transform);
+                deck.GetComponent<DeckCardsPackageUI>().InitDeck(deck_collection.deckCollection[i]);
+                deck.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
+            }
+        }
+        else
+        {
+            deck_collection = new DeckCollection();
+        }
     }
 
    
