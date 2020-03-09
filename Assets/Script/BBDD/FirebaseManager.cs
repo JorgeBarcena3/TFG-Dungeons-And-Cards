@@ -93,4 +93,13 @@ public class FirebaseManager : Singelton<FirebaseManager>
         _FirebaseDatabase.addOrUpdate<KeyExampleDto>("Test", "test_01", example);
     }
 
+    /// <summary>
+    /// Nos logueamos el el servicio de google
+    /// </summary>
+    public void LogIn()
+    {
+        _FirebaseAuth.LogIn();
+    }
+    
+
 }
