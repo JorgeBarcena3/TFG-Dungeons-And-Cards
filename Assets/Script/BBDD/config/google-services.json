@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "567779329301",
+    "firebase_url": "https://dungeons-and-cards.firebaseio.com",
+    "project_id": "dungeons-and-cards",
+    "storage_bucket": "dungeons-and-cards.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567779329301:android:7f90fb28155f214b33951c",
+        "android_client_info": {
+          "package_name": "com.major.TFGDungeonsAndCards"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "567779329301-uk1p2d0cn6qp6manijj33mktb5i861v3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOcXQ_z_78Gy-WuH1vasjKIeIl4MqYukI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "567779329301-uk1p2d0cn6qp6manijj33mktb5i861v3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
