@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menu.unity
     guid: c835ae82f7b943c4b82e4a3668f0be7f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Main.unity
     guid: c5c20784b07eeb947abd006f06979902
+  - enabled: 1
+    path: Assets/Scenes/Modules/Firebase.unity
+    guid: 5a97efb86dafdb0489bb94700933802a
   m_configObjects: {}
