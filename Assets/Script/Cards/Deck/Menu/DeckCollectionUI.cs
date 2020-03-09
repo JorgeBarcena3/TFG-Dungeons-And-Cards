@@ -46,8 +46,8 @@ public class DeckCollectionUI : MonoBehaviour
             GameObject cardHud = panel.add_item();
             cardHud.GetComponentInChildren<HUDCard>().fillInfo(all_cards[i]);
             cardHud.GetComponentInChildren<HUDCard>().set_collection(this);
-            //cardHud.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
         }
+        panel.sincList();
     }
     /// <summary>
     /// Añade una carta al mazo que estamos creando

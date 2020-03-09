@@ -29,7 +29,7 @@ public class PanelList : MonoBehaviour
     public GameObject add_item() 
     { 
         list.Add(prefab);
-        sincList();
+        //sincList();
         return list[list.Count - 1];
     }
     /// <summary>
@@ -76,7 +76,7 @@ public class PanelList : MonoBehaviour
     /// <summary>
     /// Sincroniza la lista visual con la list
     /// </summary>
-    private void sincList()
+    public void sincList()
     {
         
         {
@@ -94,7 +94,7 @@ public class PanelList : MonoBehaviour
         }
         for (int i = 0; i < list.Count; i++) 
         {
-            Instantiate(list[i], Vector3.zero, default, gameObject.transform)
+            var go = Instantiate(list[i], Vector3.zero, default, gameObject.transform)
             .GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
         }
 
