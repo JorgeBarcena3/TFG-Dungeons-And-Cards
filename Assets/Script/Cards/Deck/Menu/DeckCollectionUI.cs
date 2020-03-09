@@ -8,11 +8,8 @@ public class DeckCollectionUI : MonoBehaviour
 {
     DeckCollection deck_collection;
     public PanelList panelDecks;
-    public GameObject deckPrefab;
-    public GameObject cardPrefab;
     public GameObject panel_name;
     public GameObject panel_cards;
-    public GameObject card_in_deck_prefab;
     public CSVReader parser;
 
     private void Start()
@@ -84,9 +81,9 @@ public class DeckCollectionUI : MonoBehaviour
             for (int i = 0; i < deck_collection.deckCollection.Count; i++)
             {
                 
-                GameObject deck = Instantiate(deckPrefab,default,default,panelDecks.transform);
-                deck.GetComponent<DeckCardsPackageUI>().InitDeck(deck_collection.deckCollection[i]);
-                deck.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
+                //GameObject deck = Instantiate(deckPrefab,default,default,panelDecks.transform);
+                //deck.GetComponent<DeckCardsPackageUI>().InitDeck(deck_collection.deckCollection[i]);
+                //deck.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
             }
         }
         else
