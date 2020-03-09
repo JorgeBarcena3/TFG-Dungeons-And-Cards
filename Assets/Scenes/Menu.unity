@@ -631,7 +631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0220f496780b24140b7ac49dbd802825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelDecks: {fileID: 1880791990}
+  panelDecks: {fileID: 1880791995}
   deckPrefab: {fileID: 957227579888660134, guid: c3571f5aa5b2e1c4a953846c05803fca,
     type: 3}
   cardPrefab: {fileID: 3867743381718159809, guid: 3b0d0315f4b94f047b9c90e8ebde6b9e,
@@ -1804,6 +1804,7 @@ GameObject:
   - component: {fileID: 1166485670}
   - component: {fileID: 1166485669}
   - component: {fileID: 1166485668}
+  - component: {fileID: 1166485671}
   m_Layer: 5
   m_Name: cradsInDeck
   m_TagString: Untagged
@@ -1891,6 +1892,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1166485666}
   m_CullTransparentMesh: 0
+--- !u!114 &1166485671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166485666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e385f29a35c9ed8429058dd2505ac397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  list: []
+  prefab: {fileID: 5512443214824616018, guid: d5f24fff44a90304b87d34933c1b816d, type: 3}
 --- !u!1 &1217668722
 GameObject:
   m_ObjectHideFlags: 0
@@ -2311,7 +2326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8235295, g: 0.63529414, b: 0.3529412, a: 1}
+  m_Color: {r: 0.764151, g: 0.58392674, b: 0.3135903, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2350,6 +2365,7 @@ GameObject:
   - component: {fileID: 1880791994}
   - component: {fileID: 1880791993}
   - component: {fileID: 1880791992}
+  - component: {fileID: 1880791995}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -2437,6 +2453,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1880791990}
   m_CullTransparentMesh: 0
+--- !u!114 &1880791995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880791990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e385f29a35c9ed8429058dd2505ac397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  list: []
+  prefab: {fileID: 957227579888660134, guid: c3571f5aa5b2e1c4a953846c05803fca, type: 3}
 --- !u!1 &1898166718
 GameObject:
   m_ObjectHideFlags: 0
@@ -2540,6 +2570,7 @@ GameObject:
   - component: {fileID: 1959072179}
   - component: {fileID: 1959072178}
   - component: {fileID: 1959072177}
+  - component: {fileID: 1959072180}
   m_Layer: 5
   m_Name: cardList
   m_TagString: Untagged
@@ -2627,6 +2658,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959072175}
   m_CullTransparentMesh: 0
+--- !u!114 &1959072180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959072175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e385f29a35c9ed8429058dd2505ac397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  list: []
+  prefab: {fileID: 3867743381718159809, guid: 3b0d0315f4b94f047b9c90e8ebde6b9e, type: 3}
 --- !u!1001 &3364576189478470508
 PrefabInstance:
   m_ObjectHideFlags: 0

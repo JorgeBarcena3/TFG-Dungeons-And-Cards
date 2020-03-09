@@ -75,4 +75,5 @@ public class HUDCard : MonoBehaviour
         imagelbl.material = myMaterial;
     }
 
+   
 }
