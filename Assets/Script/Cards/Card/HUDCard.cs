@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
-
+using Assets.Script.Tools.Interfaces;
 /// <summary>
 /// Rellena la informacion de la carta
 /// </summary>
-public class HUDCard : MonoBehaviour
+public class HUDCard : IInfoUIElement<InfoCard>
 {
     /// <summary>
     /// Almacena la informacion de la carta
@@ -39,22 +39,8 @@ public class HUDCard : MonoBehaviour
     /// </summary>
     private DeckCollectionUI deck_collection;
 
-    /// <summary>
-    /// Rellena la informacion de la carta
-    /// </summary>
-    /// <param name="info"></param>
-    public void fillInfo(InfoCard info)
-    {
-        if(gameObject.GetComponent<CardAction>())
-            gameObject.GetComponent<CardAction>().setRadio();
-
-        costlbl.text = info.Cost.ToString();
-        descriptionlbl.text = info.Description.ToString();
-        namelbl.text = info.Name.ToString();
-        SetCardArt(Resources.Load<Sprite>(info.Art.ToString())!= null ? Resources.Load<Sprite>(info.Art.ToString()) : Resources.Load<Sprite>("TEMPLATE"));
-        this.info = info;
-
-    }
+    
+ 
     public void set_collection(DeckCollectionUI collection) 
     {
         deck_collection = collection;
@@ -74,6 +60,19 @@ public class HUDCard : MonoBehaviour
         myMaterial.SetTexture("_MyTexture", spr.texture);
         imagelbl.material = myMaterial;
     }
+    /// <summary>
+    /// Rellena la informacion de la carta
+    /// </summary>
+    /// <param name="info"></param>
+    public override void fillInfo(InfoCard info)
+    {
+        if (gameObject.GetComponent<CardAction>())
+            gameObject.GetComponent<CardAction>().setRadio();
 
-   
+        costlbl.text = info.Cost.ToString();
+        descriptionlbl.text = info.Description.ToString();
+        namelbl.text = info.Name.ToString();
+        SetCardArt(Resources.Load<Sprite>(info.Art.ToString()) != null ? Resources.Load<Sprite>(info.Art.ToString()) : Resources.Load<Sprite>("TEMPLATE"));
+        this.info = info;
+    }
 }

@@ -2,14 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using Assets.Script.Tools.Interfaces;
 
-public class PanelList : MonoBehaviour
+public class PanelList<T> : MonoBehaviour
 {
     /// <summary>
     /// Lista de gameobjects;
     /// </summary>
     [HideInInspector]
-    public List<GameObject> list;
+    public List<T> list;
     /// <summary>
     /// Prefab con la que se forma la lista
     /// </summary>
@@ -18,7 +20,7 @@ public class PanelList : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        list = new List<GameObject>();
+        list = new List<T>();
     }
 
     // Update is called once per frame
@@ -26,17 +28,16 @@ public class PanelList : MonoBehaviour
     /// añade un item a la lista
     /// </summary>
     /// <param name="item"></param>
-    public GameObject add_item() 
+    public void add_item(T item) 
     { 
-        list.Add(prefab);
+        list.Add(item);
         //sincList();
-        return list[list.Count - 1];
     }
     /// <summary>
     /// Retorna la lista de gameobjects
     /// </summary>
     /// <returns></returns>
-    public List<GameObject> get_list() 
+    public List<T> get_list() 
     {
         return list;
     }
@@ -45,7 +46,7 @@ public class PanelList : MonoBehaviour
     /// </summary>
     /// <param name="i"></param>
     /// <returns></returns>
-    public GameObject get_item(int i) 
+    public T get_item(int i) 
     {
         if (i > list.Count)
             return list[list.Count - 1];
@@ -57,7 +58,7 @@ public class PanelList : MonoBehaviour
     /// <param name="item"></param>
     public void delete_item(GameObject item) 
     {
-        list.Remove(item);
+        //list.Remove(item);
         sincList();
     }
     public void delete_last() 
@@ -94,8 +95,9 @@ public class PanelList : MonoBehaviour
         }
         for (int i = 0; i < list.Count; i++) 
         {
-            var go = Instantiate(list[i], Vector3.zero, default, gameObject.transform)
-            .GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
+            GameObject item = Instantiate(prefab, Vector3.zero, default, gameObject.transform);
+            item.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
+            item.GetComponent<IInfoUIElement<T>>().fillInfo(list[i]);
         }
 
         

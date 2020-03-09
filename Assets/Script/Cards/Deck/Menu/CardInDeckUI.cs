@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Script.Tools.Interfaces;
 
 
-public class CardInDeckUI : MonoBehaviour
+public class CardInDeckUI : IInfoUIElement<InfoCard>
 {
     public Text title;
     public Text cost;
     public Image background;
 
-    public void fillInfo(InfoCard info)
+    public override void fillInfo(InfoCard info)
     {
         cost.text = info.Cost.ToString();
         title.text = info.Name.ToString();
