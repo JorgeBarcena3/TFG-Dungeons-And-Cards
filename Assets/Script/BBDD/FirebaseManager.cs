@@ -101,5 +101,13 @@ public class FirebaseManager : Singelton<FirebaseManager>
         _FirebaseAuth.LogIn();
     }
 
+    /// <summary>
+    /// Nos logueamos el el servicio de google
+    /// </summary>
+    public void LogOut()
+    {
+        _FirebaseAuth.LogOut();
+    }
+
 
 }

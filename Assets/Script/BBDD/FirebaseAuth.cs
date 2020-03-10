@@ -21,16 +21,21 @@ public class FirebaseAuth : Singelton<FirebaseAuth>
     public static Firebase.Auth.FirebaseAuth auth;
 
     /// <summary>
+    /// Current User
+    /// </summary>
+    Firebase.Auth.FirebaseUser User;
+
+    /// <summary>
     /// Inicializamos la autorizacion
     /// </summary>
     public void init()
     {
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
-    .RequestServerAuthCode(false /* Don't force refresh */)
-    .RequestIdToken()
-    .Build();
+            .RequestServerAuthCode(false /* Don't force refresh */)
+            .RequestIdToken()
+        .Build();
 
-        PlayGamesPlatform.DebugLogEnabled = true;
+        PlayGamesPlatform.DebugLogEnabled = false;
 
         PlayGamesPlatform.InitializeInstance(config);
         PlayGamesPlatform.Activate();
@@ -42,15 +47,9 @@ public class FirebaseAuth : Singelton<FirebaseAuth>
     /// </summary>
     public void LogIn()
     {
-        var aa = (((PlayGamesLocalUser)Social.localUser).getClient());
-       
-        print("logueando...");
 
         Social.localUser.Authenticate((bool success, string msg) =>
         {
-            print("Autenticacion hecha con un resultado de: " + success);
-            print("Mensaje de: " + msg);
-            print(PlayGamesPlatform.Instance);
 
             if (success)
             {
@@ -60,24 +59,27 @@ public class FirebaseAuth : Singelton<FirebaseAuth>
                 Firebase.Auth.Credential credential = Firebase.Auth.PlayGamesAuthProvider.GetCredential(authCode);
                 auth.SignInWithCredentialAsync(credential).ContinueWith(task =>
                 {
-                    if (task.IsCanceled)
+                    if (task.IsCanceled || task.IsFaulted)
                     {
-                        Debug.LogError("SignInWithCredentialAsync was canceled.");
-                        return;
-                    }
-                    if (task.IsFaulted)
-                    {
-                        Debug.LogError("SignInWithCredentialAsync encountered an error: " + task.Exception);
+                        Debug.LogError("SignInWithCredentialAsync was canceled. " + msg);
                         return;
                     }
 
-                    Firebase.Auth.FirebaseUser newUser = task.Result;
-                    Debug.LogFormat("User signed in successfully: {0} ({1})",
-                        newUser.DisplayName, newUser.UserId);
+                    User = task.Result;
+
                 });
             }
         });
 
+    }
+
+    /// <summary>
+    /// Salimos de los servicios de google play
+    /// </summary>
+    public void LogOut()
+    {
+        PlayGamesPlatform.Instance.SignOut();
+        User = null;
     }
 
 
