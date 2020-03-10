@@ -260,7 +260,7 @@ public class Card : MonoBehaviour
     /// </summary>
     public void SetCardArt(Sprite spr)
     {
-        Material myMaterial = Instantiate(front.GetComponent<Image>().material);
+        Material myMaterial = Instantiate(front .GetComponent<Image>().material);
         myMaterial.SetTexture("_MyTexture", spr.texture);
         front.GetComponent<Image>().material = myMaterial;
     }
