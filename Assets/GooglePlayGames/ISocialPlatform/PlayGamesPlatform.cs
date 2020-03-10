@@ -658,6 +658,14 @@ namespace GooglePlayGames
         }
 
         /// <summary>
+        /// User is created
+        /// </summary>
+        /// <returns></returns>
+        public IPlayGamesClient getUser()
+        {
+            return mClient;
+        }
+        /// <summary>
         /// Gets the user's email.
         /// </summary>
         public string GetUserEmail()

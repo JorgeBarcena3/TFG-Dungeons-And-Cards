@@ -71,7 +71,7 @@ public class FirebaseManager : Singelton<FirebaseManager>
         }
         catch (Exception ex)
         {
-            Debug.LogError("Firebase error: " + ex.ToString() );
+            Debug.LogError("Firebase error: " + ex.ToString());
         }
 
     }
@@ -100,6 +100,45 @@ public class FirebaseManager : Singelton<FirebaseManager>
     {
         _FirebaseAuth.LogIn();
     }
-    
+
+    /// <summary>
+    /// Do action
+    /// </summary>
+    public void doAction()
+    {
+        if (GooglePlayServicesSocialManager.Instance.user == null)
+        {
+            LogIn();
+        }
+        else
+        {
+            showLogros();
+        }
+    }
+
+    /// <summary>
+    /// Nos logueamos el el servicio de google
+    /// </summary>
+    public void LogOut()
+    {
+        _FirebaseAuth.LogOut();
+    }
+
+    /// <summary>
+    /// Se muestran los logros
+    /// </summary>
+    public void showLogros()
+    {
+        GooglePlayServicesSocialManager.Instance.ShowAchievementsUI();
+    }
+
+    /// <summary>
+    /// Se muestran los score
+    /// </summary>
+    public void showScore()
+    {
+        GooglePlayServicesSocialManager.Instance.ShowLeaderboardUI();
+    }
+
 
 }

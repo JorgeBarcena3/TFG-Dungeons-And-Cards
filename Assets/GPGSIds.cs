@@ -24,7 +24,8 @@
 
 public static class GPGSIds
 {
-        public const string achievement_test_our_app = "CgkI9bfdmNYHEAIQAg"; // <GPGSID>
+        public const string achievement_entra_100_veces_en_la_aplicacin = "CgkIyKTln68WEAIQAw"; // <GPGSID>
+        public const string achievement_logueate_con_google_play_services = "CgkIyKTln68WEAIQAg"; // <GPGSID>
 
 }
 

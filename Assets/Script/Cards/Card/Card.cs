@@ -115,7 +115,6 @@ public class Card : MonoBehaviour
             cardGameobject.AddComponent<GivenManaAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.68f, 0.93f, 0.98f);
             card.type = ATTACKTYPE.GIVENMANA;
-            card.SetCardArt(card.deck.cardArt[(int)card.type]);
 
             int power = Random.Range(2, 5);
             card.info = new InfoCard(
@@ -124,7 +123,11 @@ public class Card : MonoBehaviour
                 "Recuperación de Maná",
                 "Cuando utilices esta carta se te recuperaran " + power + " puntos de maná, ue podras utilizar durante este turno",
                 power,
-                power);
+                power,
+                0,
+                1,
+                ATTACKTYPE.GIVENMANA.ToString()
+                );
 
         }
         else if (random < 10)
@@ -132,7 +135,6 @@ public class Card : MonoBehaviour
             cardGameobject.AddComponent<AttackAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 0.82f, 0.82f);
             cardGameobject.GetComponent<Card>().type = ATTACKTYPE.ATTACKACTION;
-            card.SetCardArt(card.deck.cardArt[(int)card.type]);
 
             int power = Random.Range(1, 4);
             cardGameobject.GetComponent<Card>().info = new InfoCard(
@@ -141,7 +143,10 @@ public class Card : MonoBehaviour
                 "Ataque a distancia",
                 "Cuando utilices esta carta podrás matar cualquier enemigo (sin moverte de la casilla) que se encuentre en el rango de " + power + " casillas de distancia. El coste de maná de esta carta sera de " + power + " puntos.",
                 power,
-                power
+                power,
+                0,
+                1,
+                ATTACKTYPE.ATTACKACTION.ToString()
                 );
 
         }
@@ -151,16 +156,18 @@ public class Card : MonoBehaviour
             cardGameobject.AddComponent<AttackAndMovementAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 0.95f, 0.81f);
             cardGameobject.GetComponent<Card>().type = ATTACKTYPE.ATTACKANDMOVEMENT;
-            card.SetCardArt(card.deck.cardArt[(int)card.type]);
 
             int power = Random.Range(1, 4);
             cardGameobject.GetComponent<Card>().info = new InfoCard(
-                ATTACKTYPE.ATTACKACTION,
+                ATTACKTYPE.ATTACKANDMOVEMENT,
                 01,
                 "Ataque y movimiento",
                 "Cuando utilices esta carta podrás matar cualquier enemigo (moviéndote a su casilla) que se encuentre en el rango de " + power + " casillas de distancia. El coste de maná de esta carta sera de " + power + " puntos.",
                 power,
-                power
+                power,
+                0,
+                1,
+                ATTACKTYPE.ATTACKANDMOVEMENT.ToString()
                 );
 
         }
@@ -169,16 +176,18 @@ public class Card : MonoBehaviour
             cardGameobject.AddComponent<TeleportAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.45f, 1, 0.70f);
             cardGameobject.GetComponent<Card>().type = ATTACKTYPE.TELEPORT;
-            card.SetCardArt(card.deck.cardArt[(int)card.type]);
 
             int power = Random.Range(2, 4);
             cardGameobject.GetComponent<Card>().info = new InfoCard(
-                ATTACKTYPE.ATTACKACTION,
+                ATTACKTYPE.TELEPORT,
                 01,
                 "Teleportación",
                 "Cuando utilices esta carta podrás moverte a cualquier casilla que se encuentre en el rango de " + power + ". El coste de maná de esta carta sera de " + power + " puntos.",
                 power,
-                power
+                power,
+                0,
+                1,
+                ATTACKTYPE.TELEPORT.ToString()
                 );
 
         }
@@ -187,7 +196,6 @@ public class Card : MonoBehaviour
             cardGameobject.AddComponent<MovementAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.69f, 0.99f, 0.69f);
             cardGameobject.GetComponent<Card>().type = ATTACKTYPE.MOVEMENT;
-            card.SetCardArt(card.deck.cardArt[(int)card.type]);
 
             int power = Random.Range(1, 4);
             cardGameobject.GetComponent<Card>().info = new InfoCard(
@@ -196,7 +204,10 @@ public class Card : MonoBehaviour
                 "Movimiento",
                 "Cuando utilices esta carta podrás moverte a cualquier casilla que se encuentre en el rango de " + power + ". El coste de maná de esta carta sera de " + power + " puntos.",
                 power,
-                power
+                power,
+                0,
+                1,
+                ATTACKTYPE.MOVEMENT.ToString()
                 );
         }
         else
@@ -204,7 +215,6 @@ public class Card : MonoBehaviour
             cardGameobject.AddComponent<DealCardsAction>();
             cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.5f, 0.79f, 1);
             cardGameobject.GetComponent<Card>().type = ATTACKTYPE.DEALCARDSACTION;
-            card.SetCardArt(card.deck.cardArt[(int)card.type]);
 
             int power = 2;
             cardGameobject.GetComponent<Card>().info = new InfoCard(
@@ -213,7 +223,10 @@ public class Card : MonoBehaviour
                 "Repartir Cartas",
                 "Cuando utilices esta carta se te repartirán cartas hasta tener la mano completa. El coste de maná de esta carta sera de " + power + " puntos.",
                 power,
-                power
+                power,
+                0,
+                1,
+                ATTACKTYPE.DEALCARDSACTION.ToString()
                 );
         }
 
@@ -255,6 +268,7 @@ public class Card : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     /// <summary>
     /// Seleccionamos un arte de una carta
     /// </summary>
@@ -264,6 +278,9 @@ public class Card : MonoBehaviour
         myMaterial.SetTexture("_MyTexture", spr.texture);
         front.GetComponent<Image>().material = myMaterial;
     }
+=======
+    
+>>>>>>> 08698544710645ec2113876400633e6b46e4fe20
 
 
 }

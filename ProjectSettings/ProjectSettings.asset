@@ -260,8 +260,8 @@ PlayerSettings:
   AndroidTargetArchitectures: 1
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{inproject}: keystore/test.keystore'
-  AndroidKeyaliasName: major
+  AndroidKeystoreName: '{inproject}: keystore/GPS.keystore'
+  AndroidKeyaliasName: releasekey
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1

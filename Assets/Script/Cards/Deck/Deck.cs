@@ -110,7 +110,7 @@ public class Deck : MonoBehaviour
     private void setCardBack()
     {
         Material myMaterial = Instantiate(cardMaterial);
-        myMaterial.SetTexture("_MyTexture", GetComponent<Image>().sprite.texture);
+        myMaterial.SetTexture("_text", GetComponent<Image>().sprite.texture);
         myMaterial.SetFloat("_Speed", Random.Range(0.65f, 1.0f));
         cardPrefab.transform.GetChild(0).GetComponent<Image>().material = myMaterial;
     }

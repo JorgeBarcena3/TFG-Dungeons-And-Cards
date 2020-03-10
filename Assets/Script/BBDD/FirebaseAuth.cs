@@ -3,6 +3,7 @@ using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
 using System.Threading.Tasks;
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// Autenticacion de firebase
@@ -20,16 +21,29 @@ public class FirebaseAuth : Singelton<FirebaseAuth>
     public static Firebase.Auth.FirebaseAuth auth;
 
     /// <summary>
+    /// Manager de los servicios de google
+    /// </summary>
+    public GooglePlayServicesSocialManager _GetGooglePlayServicesSocialManager;
+
+
+    /// <summary>
     /// Inicializamos la autorizacion
     /// </summary>
     public void init()
     {
+        _GetGooglePlayServicesSocialManager = this.gameObject.AddComponent<GooglePlayServicesSocialManager>();
+
+
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
-    .RequestServerAuthCode(false /* Don't force refresh */)
-    .Build();
+            .RequestServerAuthCode(false /* Don't force refresh */)
+            .RequestIdToken()
+        .Build();
+
+        PlayGamesPlatform.DebugLogEnabled = false;
 
         PlayGamesPlatform.InitializeInstance(config);
         PlayGamesPlatform.Activate();
+
 
 
     }
@@ -39,36 +53,42 @@ public class FirebaseAuth : Singelton<FirebaseAuth>
     /// </summary>
     public void LogIn()
     {
-
-        Social.localUser.Authenticate((bool success) =>
-        {
-            print("Autenticacion hecha con un resultado de: " + success);
-            if (success)
+        if (_GetGooglePlayServicesSocialManager.user == null)
+            Social.localUser.Authenticate((bool success, string msg) =>
             {
-                authCode = PlayGamesPlatform.Instance.GetServerAuthCode();
 
-                auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
-                Firebase.Auth.Credential credential = Firebase.Auth.PlayGamesAuthProvider.GetCredential(authCode);
-                auth.SignInWithCredentialAsync(credential).ContinueWith(task =>
+                if (success)
                 {
-                    if (task.IsCanceled)
-                    {
-                        Debug.LogError("SignInWithCredentialAsync was canceled.");
-                        return;
-                    }
-                    if (task.IsFaulted)
-                    {
-                        Debug.LogError("SignInWithCredentialAsync encountered an error: " + task.Exception);
-                        return;
-                    }
+                    authCode = PlayGamesPlatform.Instance.GetServerAuthCode();
 
-                    Firebase.Auth.FirebaseUser newUser = task.Result;
-                    Debug.LogFormat("User signed in successfully: {0} ({1})",
-                        newUser.DisplayName, newUser.UserId);
-                });
-            }
-        });
+                    auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
+                    Firebase.Auth.Credential credential = Firebase.Auth.PlayGamesAuthProvider.GetCredential(authCode);
+                    auth.SignInWithCredentialAsync(credential).ContinueWith(task =>
+                    {
+                        if (task.IsCanceled || task.IsFaulted)
+                        {
+                            Debug.LogError("SignInWithCredentialAsync was canceled. " + msg);
+                            return;
+                        }
 
+                        _GetGooglePlayServicesSocialManager.init(task.Result);
+
+                        _GetGooglePlayServicesSocialManager.UnlockAchievement   ("CgkIyKTln68WEAIQAg", 100);
+
+
+                    });
+                }
+            });
+
+    }
+
+    /// <summary>
+    /// Salimos de los servicios de google play
+    /// </summary>
+    public void LogOut()
+    {
+        PlayGamesPlatform.Instance.SignOut();
+        _GetGooglePlayServicesSocialManager.user = null;
     }
 
 
