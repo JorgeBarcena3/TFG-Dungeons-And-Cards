@@ -102,11 +102,42 @@ public class FirebaseManager : Singelton<FirebaseManager>
     }
 
     /// <summary>
+    /// Do action
+    /// </summary>
+    public void doAction()
+    {
+        if (GooglePlayServicesSocialManager.Instance.user == null)
+        {
+            LogIn();
+        }
+        else
+        {
+            showLogros();
+        }
+    }
+
+    /// <summary>
     /// Nos logueamos el el servicio de google
     /// </summary>
     public void LogOut()
     {
         _FirebaseAuth.LogOut();
+    }
+
+    /// <summary>
+    /// Se muestran los logros
+    /// </summary>
+    public void showLogros()
+    {
+        GooglePlayServicesSocialManager.Instance.ShowAchievementsUI();
+    }
+
+    /// <summary>
+    /// Se muestran los score
+    /// </summary>
+    public void showScore()
+    {
+        GooglePlayServicesSocialManager.Instance.ShowLeaderboardUI();
     }
 
 

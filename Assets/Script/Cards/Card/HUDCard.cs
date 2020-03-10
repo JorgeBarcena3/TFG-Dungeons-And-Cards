@@ -57,7 +57,7 @@ public class HUDCard : IInfoUIElement<InfoCard>
     public void SetCardArt(Sprite spr)
     {
         Material myMaterial = Instantiate(imagelbl.material);
-        myMaterial.SetTexture("_MyTexture", spr.texture);
+        myMaterial.SetTexture("_text", spr.texture);
         imagelbl.material = myMaterial;
     }
     /// <summary>

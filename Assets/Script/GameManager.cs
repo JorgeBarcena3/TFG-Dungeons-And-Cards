@@ -81,9 +81,14 @@ public class GameManager : Singelton<GameManager>
     /// <summary>
     /// Turno de quien
     /// </summary>
-    public TURN turn { get { return turnManager.turn.GetValueOrDefault(); } set {
+    public TURN turn
+    {
+        get { return turnManager.turn.GetValueOrDefault(); }
+        set
+        {
             turnManager.turn = value;
-        } }
+        }
+    }
 
     /// <summary>
     /// Estado actual del juego
@@ -193,14 +198,22 @@ public class GameManager : Singelton<GameManager>
         }
     }
 
-        /// <summary>
-        /// Coloca la camara en el player
-        /// </summary>
-        public void setCameraToPlayer(float time = 10)
-        {
-            if (turn != TURN.IA)
-                cameraFunctions.moveCameraTo(player.transform.position, time);
-        }
+    /// <summary>
+    /// Coloca la camara en el player
+    /// </summary>
+    public void setCameraToPlayer(float time = 10)
+    {
+        if (turn != TURN.IA)
+            cameraFunctions.moveCameraTo(player.transform.position, time);
+    }
 
-    
+    /// <summary>
+    /// Nos logeamos en los google play services
+    /// </summary>
+    public void LogOnGPS()
+    {
+        FirebaseManager.Instance.doAction();
+    }
+
+
 }
