@@ -1,6 +1,10 @@
 <projectSettings>
   <projectSetting name="Google.IOSResolver.VerboseLoggingEnabled" value="False" />
+<<<<<<< HEAD
   <projectSetting name="Google.VersionHandler.VerboseLoggingEnabled" value="False" />
   <projectSetting name="GooglePlayServices.PromptBeforeAutoResolution" value="False" />
+=======
+  <projectSetting name="Google.VersionHandler.VerboseLoggingEnabled" value="True" />
+>>>>>>> 2fbbe7b915621f8bb5783bc65e134c28a04d1de8
   <projectSetting name="GooglePlayServices.UseJetifier" value="True" />
 </projectSettings>

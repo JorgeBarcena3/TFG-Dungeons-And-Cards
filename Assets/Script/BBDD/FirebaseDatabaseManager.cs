@@ -23,7 +23,7 @@ public class FirebaseDatabaseManager : Singelton<FirebaseDatabaseManager>
     /// </summary>
     public void init()
     {
-        FirebaseManager.app.SetEditorDatabaseUrl("https://dungeonsandcards-8330c.firebaseio.com");
+        FirebaseManager.app.SetEditorDatabaseUrl("https://dungeonsandcardsdb.firebaseio.com/");
 
         // Get the root reference location of the database.
         reference = FirebaseDatabase.DefaultInstance.RootReference;
