@@ -56,6 +56,7 @@ public class DeckCollectionUI : MonoBehaviour
 
         deck_collection.deckCollection[deck_collection.deckCollection.Count-1].add_card(info);
         panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListInfoCard>().add_item(info);
+        panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListInfoCard>().set_collection(this);
         //GameObject card = Instantiate(card_in_deck_prefab,default,default, panel_cards.transform.Find("cradsInDeck"));
         //card.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
         //card.GetComponent<CardInDeckUI>().fillInfo(info);

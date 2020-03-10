@@ -77,7 +77,7 @@ public class PanelList<T> : MonoBehaviour
     /// <summary>
     /// Sincroniza la lista visual con la list
     /// </summary>
-    public void sincList()
+    public virtual void sincList()
     {
         
         {
