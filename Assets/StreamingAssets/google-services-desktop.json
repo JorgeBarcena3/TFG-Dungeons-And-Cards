@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "263655480309",
-    "firebase_url": "https://dungeonsandcards-8330c.firebaseio.com",
-    "project_id": "dungeonsandcards-8330c",
-    "storage_bucket": "dungeonsandcards-8330c.appspot.com"
+    "project_number": "768597381704",
+    "firebase_url": "https://dungeonsandcardsdb.firebaseio.com",
+    "project_id": "dungeonsandcardsdb",
+    "storage_bucket": "dungeonsandcardsdb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:263655480309:android:b4641d3b2142766922debc",
+        "mobilesdk_app_id": "1:768597381704:android:a61d1564c0d0e899fbfe7d",
         "android_client_info": {
           "package_name": "com.major.TFGDungeonsAndCards"
         }
       },
       "oauth_client": [
         {
-          "client_id": "263655480309-4hr7uau827j4qoegclbt04sge2fgnvkm.apps.googleusercontent.com",
+          "client_id": "768597381704-4pkm4kaj7flrd4q16vogs408tm44er84.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.major.TFGDungeonsAndCards",
+            "certificate_hash": "240aba93dd03fc96d4fd5b01075a81fdab88298a"
+          }
+        },
+        {
+          "client_id": "768597381704-c5d1q0uvufndpcvmfrm40dqrovevbc0d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB2fk_0bet1gxjbJjkMHjugx4TcLzgmwhk"
+          "current_key": "AIzaSyArH7xOvRlQF0GcdtQvZvDz0Qb-zwJtxkI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "263655480309-4hr7uau827j4qoegclbt04sge2fgnvkm.apps.googleusercontent.com",
+              "client_id": "768597381704-tp6kkaglufqclkfaqbbqc3m2vvo5g267.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

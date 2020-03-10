@@ -102,6 +102,15 @@ namespace GooglePlayGames
         }
 
         /// <summary>
+        /// Return the client
+        /// </summary>
+        /// <returns></returns>
+        public IPlayGamesClient getClient()
+        {
+            return mPlatform.getUser();
+        }
+
+        /// <summary>
         /// Returns whether or not the local user is authenticated to Google Play Games.
         /// </summary>
         /// <returns>

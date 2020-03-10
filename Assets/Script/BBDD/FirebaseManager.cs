@@ -71,7 +71,7 @@ public class FirebaseManager : Singelton<FirebaseManager>
         }
         catch (Exception ex)
         {
-            Debug.LogError("Firebase error: " + ex.ToString() );
+            Debug.LogError("Firebase error: " + ex.ToString());
         }
 
     }
@@ -100,6 +100,6 @@ public class FirebaseManager : Singelton<FirebaseManager>
     {
         _FirebaseAuth.LogIn();
     }
-    
+
 
 }

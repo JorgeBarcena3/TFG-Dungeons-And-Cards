@@ -3,6 +3,7 @@ using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
 using System.Threading.Tasks;
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// Autenticacion de firebase
@@ -26,11 +27,13 @@ public class FirebaseAuth : Singelton<FirebaseAuth>
     {
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
     .RequestServerAuthCode(false /* Don't force refresh */)
+    .RequestIdToken()
     .Build();
+
+        PlayGamesPlatform.DebugLogEnabled = true;
 
         PlayGamesPlatform.InitializeInstance(config);
         PlayGamesPlatform.Activate();
-
 
     }
 
@@ -39,10 +42,16 @@ public class FirebaseAuth : Singelton<FirebaseAuth>
     /// </summary>
     public void LogIn()
     {
+        var aa = (((PlayGamesLocalUser)Social.localUser).getClient());
+       
+        print("logueando...");
 
-        Social.localUser.Authenticate((bool success) =>
+        Social.localUser.Authenticate((bool success, string msg) =>
         {
             print("Autenticacion hecha con un resultado de: " + success);
+            print("Mensaje de: " + msg);
+            print(PlayGamesPlatform.Instance);
+
             if (success)
             {
                 authCode = PlayGamesPlatform.Instance.GetServerAuthCode();
