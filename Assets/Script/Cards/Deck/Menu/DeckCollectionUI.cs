@@ -70,11 +70,13 @@ public class DeckCollectionUI : MonoBehaviour
         panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().Reset();
         deck_selected = -1;
 
+
     }
     public void cancel_deck()
     {
         panelDecks.GetComponent<PanelListDeckCollection>().delete_last();
-        deck_collection.delete_deck(deck_collection.deckCollection[deck_collection.deckCollection.Count-1]);
+        panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().Reset();
+        deck_collection.delete_deck(deck_collection.deckCollection[deck_selected]);
         panel_cards.SetActive(false);
         deck_selected = -1;
     }

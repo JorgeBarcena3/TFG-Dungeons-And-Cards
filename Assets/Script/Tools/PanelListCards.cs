@@ -34,6 +34,13 @@ namespace Assets.Script.Tools
                 item.GetComponentInChildren<HUDCard>().set_collection(collection);
 
             }
+            if (gameObject.transform.GetChildCount() > (int)list.Count)
+            {
+                for (int i = list.Count; i < gameObject.transform.GetChildCount(); i++)
+                {
+                    Destroy(gameObject.transform.GetChild(i).gameObject);
+                }
+            }
 
 
         }
