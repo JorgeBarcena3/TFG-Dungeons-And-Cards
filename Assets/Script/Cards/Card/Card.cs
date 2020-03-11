@@ -268,7 +268,6 @@ public class Card : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
     /// <summary>
     /// Seleccionamos un arte de una carta
     /// </summary>
@@ -278,9 +277,6 @@ public class Card : MonoBehaviour
         myMaterial.SetTexture("_MyTexture", spr.texture);
         front.GetComponent<Image>().material = myMaterial;
     }
-=======
-    
->>>>>>> 08698544710645ec2113876400633e6b46e4fe20
 
 
 }
