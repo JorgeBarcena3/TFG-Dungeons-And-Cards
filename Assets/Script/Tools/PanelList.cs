@@ -89,17 +89,18 @@ public class PanelList<T> : MonoBehaviour
         {
             GameObject item;
             IInfoUIElement<T> InfoElement;
-            if (i == list.Count - 1)
+            if (i >= gameObject.transform.childCount)
             {
                 item = Instantiate(prefab, Vector3.zero, default, gameObject.transform);
-              
+                item.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
+
             }
             else 
             {
                 item = gameObject.transform.GetChild(i).gameObject;
             }
 
-            item.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
+            
             if (item.TryGetComponent<IInfoUIElement<T>>(out InfoElement))
             {
                 InfoElement.fillInfo(list[i]);
@@ -110,9 +111,9 @@ public class PanelList<T> : MonoBehaviour
             }
 
         }
-        if (gameObject.transform.GetChildCount() > (int)list.Count)
+        if (gameObject.transform.childCount > (int)list.Count)
         {
-            for (int i = list.Count;i < gameObject.transform.GetChildCount();i++)
+            for (int i = list.Count;i < gameObject.transform.childCount;i++)
             {
                 Destroy(gameObject.transform.GetChild(i).gameObject);
             }

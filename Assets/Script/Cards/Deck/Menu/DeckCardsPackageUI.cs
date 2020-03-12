@@ -12,12 +12,7 @@ public class DeckCardsPackageUI : IInfoUIElement<DeckCardsPackage>
     public DeckCardsPackage my_deck;
     public Text texUI;
     // Start is called before the first frame update
-    void Start()
-    {
-        texUI = GetComponent<Text>();
-       
-        
-    }
+    
     public void open_deck() 
     {
         //abrir menu de cartas 
@@ -26,6 +21,9 @@ public class DeckCardsPackageUI : IInfoUIElement<DeckCardsPackage>
     public override void fillInfo(DeckCardsPackage info)
     {
         my_deck = info;
+        if (texUI == null)
+            texUI = GetComponent<Text>();
+
         texUI.text = my_deck.get_name().ToString();
     }
 }

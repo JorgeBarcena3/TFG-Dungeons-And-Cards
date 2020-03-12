@@ -73,6 +73,7 @@ public class DeckCollectionUI : MonoBehaviour
         panel_cards.SetActive(false);
         deck_collection.new_deck(my_deck as DeckCardsPackage);
         panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().Reset();
+        panel_cards.transform.Find("cardList").gameObject.GetComponent<PanelListCards>().Reset();
         deck_selected = -1;
 
 
@@ -81,6 +82,7 @@ public class DeckCollectionUI : MonoBehaviour
     {
         panelDecks.GetComponent<PanelListDeckCollection>().delete_last();
         panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().Reset();
+        panel_cards.transform.Find("cardList").gameObject.GetComponent<PanelListCards>().Reset();
         panel_cards.SetActive(false);
         deck_selected = -1;
     }

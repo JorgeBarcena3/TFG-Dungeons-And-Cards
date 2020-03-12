@@ -19,11 +19,10 @@ namespace Assets.Script.Tools
             {
 
                 GameObject item;
-                if (i == list.Count - 1)
+                if (i >= gameObject.transform.childCount)
                 {
                     item = Instantiate(prefab, Vector3.zero, default, gameObject.transform);
                     item.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
-
 
                 }
                 else 
@@ -34,9 +33,9 @@ namespace Assets.Script.Tools
                 item.GetComponentInChildren<HUDCard>().set_collection(collection);
 
             }
-            if (gameObject.transform.GetChildCount() > (int)list.Count)
+            if (gameObject.transform.childCount > (int)list.Count)
             {
-                for (int i = list.Count; i < gameObject.transform.GetChildCount(); i++)
+                for (int i = list.Count; i < gameObject.transform.childCount; i++)
                 {
                     Destroy(gameObject.transform.GetChild(i).gameObject);
                 }
