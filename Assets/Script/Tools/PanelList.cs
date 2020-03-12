@@ -29,9 +29,13 @@ public class PanelList<T> : MonoBehaviour
     /// </summary>
     /// <param name="item"></param>
     public void add_item(T item) 
-    { 
+    {
+        if (list == null)
+            list = new List<T>();
+
+
         list.Add(item);
-        //sincList();
+        sincList();
     }
     /// <summary>
     /// Retorna la lista de gameobjects
@@ -80,24 +84,38 @@ public class PanelList<T> : MonoBehaviour
     public virtual void sincList()
     {
         
-        {
-            int i = 0;
-            if(gameObject.transform.childCount > 0)
-            {
-                do
-                {
-                    Destroy(gameObject.transform.GetChild(i).gameObject);
-                    i++;
-                } while (gameObject.transform.childCount < i);
-
-            }
-           
-        }
+       
         for (int i = 0; i < list.Count; i++) 
         {
-            GameObject item = Instantiate(prefab, Vector3.zero, default, gameObject.transform);
+            GameObject item;
+            IInfoUIElement<T> InfoElement;
+            if (i == list.Count - 1)
+            {
+                item = Instantiate(prefab, Vector3.zero, default, gameObject.transform);
+              
+            }
+            else 
+            {
+                item = gameObject.transform.GetChild(i).gameObject;
+            }
+
             item.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
-            item.GetComponent<IInfoUIElement<T>>().fillInfo(list[i]);
+            if (item.TryGetComponent<IInfoUIElement<T>>(out InfoElement))
+            {
+                InfoElement.fillInfo(list[i]);
+            }
+            else
+            {
+                item.GetComponentInChildren<IInfoUIElement<T>>().fillInfo(list[i]);
+            }
+
+        }
+        if (gameObject.transform.GetChildCount() > (int)list.Count)
+        {
+            for (int i = list.Count;i < gameObject.transform.GetChildCount();i++)
+            {
+                Destroy(gameObject.transform.GetChild(i).gameObject);
+            }
         }
 
         

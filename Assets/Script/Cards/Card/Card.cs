@@ -268,7 +268,15 @@ public class Card : MonoBehaviour
         }
     }
 
-    
+    /// <summary>
+    /// Seleccionamos un arte de una carta
+    /// </summary>
+    public void SetCardArt(Sprite spr)
+    {
+        Material myMaterial = Instantiate(front .GetComponent<Image>().material);
+        myMaterial.SetTexture("_MyTexture", spr.texture);
+        front.GetComponent<Image>().material = myMaterial;
+    }
 
 
 }
