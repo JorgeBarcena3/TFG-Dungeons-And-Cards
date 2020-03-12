@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -405,6 +405,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9097542980132090906, guid: 9997df6b1c2be2e4a98218ebeaf68f9b,
+        type: 3}
+      propertyPath: activate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9997df6b1c2be2e4a98218ebeaf68f9b, type: 3}
 --- !u!1 &658229128
@@ -527,6 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e54dcee7bd2e041a9d0cdb9913fb07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnNumber: 0
 --- !u!114 &1074213258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2490,6 +2496,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559221991721208326, guid: 284a95e10c61f744b86061aa6cab3399,
+        type: 3}
+      propertyPath: timeModificator.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559221991721208326, guid: 284a95e10c61f744b86061aa6cab3399,
+        type: 3}
+      propertyPath: timeModificator.Array.data[2]
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7916040307793378357, guid: 284a95e10c61f744b86061aa6cab3399,
         type: 3}

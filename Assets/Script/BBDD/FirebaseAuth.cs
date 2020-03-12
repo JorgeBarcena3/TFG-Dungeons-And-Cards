@@ -72,6 +72,8 @@ public class FirebaseAuth : Singelton<FirebaseAuth>
                         }
 
                         _GetGooglePlayServicesSocialManager.init(task.Result);
+                        FirebaseAnalyticsManager.Instance.setUser(task.Result.UserId);
+                        FirebaseAnalyticsManager.Instance.setUserLoginMethod("Google Play Services");
 
                         //_GetGooglePlayServicesSocialManager.UnlockAchievement   ("CgkIyKTln68WEAIQAg", 100);
 

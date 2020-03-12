@@ -31,6 +31,11 @@ public class FirebaseManager : Singelton<FirebaseManager>
     private FirebaseDatabaseManager _FirebaseDatabase;
 
     /// <summary>
+    /// Analytics system
+    /// </summary>
+    private FirebaseAnalyticsManager _FirebaseAnalytics;
+
+    /// <summary>
     /// The firebase connection is activated or not
     /// </summary>
     public bool activate;
@@ -74,6 +79,10 @@ public class FirebaseManager : Singelton<FirebaseManager>
     {
         try
         {
+
+            _FirebaseAnalytics = this.gameObject.AddComponent<FirebaseAnalyticsManager>();
+            _FirebaseAnalytics.init();
+
             _FirebaseAuth = this.gameObject.AddComponent<FirebaseAuth>();
             _FirebaseAuth.init();
 

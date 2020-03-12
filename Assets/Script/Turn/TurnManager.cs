@@ -27,7 +27,7 @@ public class TurnManager : MonoBehaviour
     /// <summary>
     /// Numero de turnos
     /// </summary>
-    private int turnNumber = 0;
+    public int turnNumber = 0;
 
     /// <summary>
     /// Update del GameManager
@@ -40,6 +40,7 @@ public class TurnManager : MonoBehaviour
         {
             if (turn == TURN.IA)
             {
+
                 //Tiempo de cortesia
                 yield return new WaitForSeconds(0.5f);
 
@@ -87,7 +88,7 @@ public class TurnManager : MonoBehaviour
     {
         GameManager GM = GameManager.Instance;
 
-        return ( GM.player.playerInfo.currentManaPoints <= 0 ||
+        return (GM.player.playerInfo.currentManaPoints <= 0 ||
                 GM.deck.deckCanvasInfo.anchorToCards.Where(m => !m.state).Count() == GM.deck.deckCanvasInfo.anchorToCards.Count);
     }
 
@@ -97,7 +98,10 @@ public class TurnManager : MonoBehaviour
     public void changeTurnToIA()
     {
         if (turn == TURN.PLAYER && !GameManager.Instance.deck.inCardAction)
+        {
             turn = TURN.IA;
+
+        }
     }
 
 

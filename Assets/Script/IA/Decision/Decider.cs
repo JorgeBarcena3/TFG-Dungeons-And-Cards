@@ -48,6 +48,7 @@ public class Decider : MonoBehaviour
                 if (info.waypointsToPlayer[fixedIndex].contain == CELLCONTAINER.PLAYER)
                 {
                     Debug.Log("Te han matado los enemigos");
+                    GameManager.Instance.sendInfoStatics(CURRENTSTATE.LOSER);
                     GameManager.Instance.GoToMenu();
                 }
 
@@ -60,6 +61,7 @@ public class Decider : MonoBehaviour
         else if (info.waypointsToPlayer.Count == 1)
         {
             Debug.Log("Te han matado los enemigos");
+            GameManager.Instance.sendInfoStatics(CURRENTSTATE.LOSER);
             GameManager.Instance.GoToMenu();
         }
 

@@ -41,6 +41,7 @@ public class SpeedController : MonoBehaviour
     {
         if (GameManager.Instance.state == States.INGAME)
         {
+           
             int i = timeModificator.IndexOf(currentSpeed);
 
             currentSpeed = timeModificator[(i + 1) >= timeModificator.Count ? 0 : (i + 1)];

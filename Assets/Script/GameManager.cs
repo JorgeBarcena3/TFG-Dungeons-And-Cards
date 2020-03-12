@@ -79,6 +79,12 @@ public class GameManager : Singelton<GameManager>
     public CameraFunctions cameraFunctions;
 
     /// <summary>
+    /// Informacion de la partida
+    /// </summary>
+    [HideInInspector]
+    public GameInfoDto GameInfo;
+
+    /// <summary>
     /// Turno de quien
     /// </summary>
     public TURN turn
@@ -129,7 +135,8 @@ public class GameManager : Singelton<GameManager>
         if (agents.Count == 0)
         {
             Debug.Log("Has matado a los enemigos");
-            resetScene();
+            sendInfoStatics(CURRENTSTATE.WINNER);
+            GoToMenu();
         }
     }
 
@@ -138,7 +145,20 @@ public class GameManager : Singelton<GameManager>
     /// </summary>
     public void resetScene()
     {
+        sendInfoStatics(CURRENTSTATE.UNFINISHED);
         Initiate.Fade(SceneManager.GetActiveScene().name, Color.black, 2.0f);
+    }
+
+    /// <summary>
+    /// Se envia la informacion de la partida
+    /// </summary>
+    /// <param name="State"></param>
+    public void sendInfoStatics(CURRENTSTATE State)
+    {
+        GameInfo.numeroTurnos = turnManager.turnNumber;
+        GameInfo.estado = State;
+        GameInfo.calculateDuration();
+        FirebaseAnalyticsManager.Instance.sendStatics(GameInfo);
     }
 
     /// <summary>
@@ -188,6 +208,9 @@ public class GameManager : Singelton<GameManager>
 
             StartCoroutine(deck.DealCards());
             yield return new WaitForSeconds(0.5f);
+
+            /// Inicializamos el GameInfo
+            GameInfo = new GameInfoDto(worldGenerator.seed, enemyGenerator.EnemiesNumber);
 
             state = States.INGAME;
             turn = TURN.PLAYER;
