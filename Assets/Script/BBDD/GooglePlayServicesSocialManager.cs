@@ -22,13 +22,21 @@ public class GooglePlayServicesSocialManager : Singelton<GooglePlayServicesSocia
     public void init(Firebase.Auth.FirebaseUser _User)
     {
         user = _User;
+
+        
+        // Primera vez que nos logeamos
+        StartCoroutine( UnlockAchievement("CgkIyKTln68WEAIQAg", 100, 2) );
+
     }
 
     /// <summary>
     /// Desbloquea un logro
     /// </summary>
-    public void UnlockAchievement(string id, float progress)
+    public IEnumerator UnlockAchievement(string id, float progress, float time = 1f)
     {
+
+        yield return new WaitForSeconds(time);
+
         if (user != null)
             Social.ReportProgress(id, progress, (bool success) =>
             {
@@ -39,8 +47,10 @@ public class GooglePlayServicesSocialManager : Singelton<GooglePlayServicesSocia
     /// <summary>
     /// Desbloquea un logro
     /// </summary>
-    public void IncrementAchievement(string id, int steps)
+    public IEnumerator IncrementAchievement(string id, int steps, float time = 1f)
     {
+        yield return new WaitForSeconds(time);
+
         if (user != null)
             PlayGamesPlatform.Instance.IncrementAchievement(id, steps, (bool success) =>
         {
@@ -51,8 +61,10 @@ public class GooglePlayServicesSocialManager : Singelton<GooglePlayServicesSocia
     /// <summary>
     /// Guarda una score
     /// </summary>
-    public void ReportScore(string id, int score)
+    public IEnumerator ReportScore(string id, int score, float time = 1f)
     {
+        yield return new WaitForSeconds(time);
+
         if (user != null)
             Social.ReportScore(score, id, (bool success) =>
             {
@@ -77,10 +89,5 @@ public class GooglePlayServicesSocialManager : Singelton<GooglePlayServicesSocia
         if (user != null)
             Social.ShowLeaderboardUI();
     }
-
-
-
-
-
-
+          
 }

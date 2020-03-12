@@ -108,7 +108,6 @@ public class Card : MonoBehaviour
         int random = UnityEngine.Random.Range(0, 27);
         Card card = cardGameobject.GetComponent<Card>();
 
-
         if (random < 5)
         {
 

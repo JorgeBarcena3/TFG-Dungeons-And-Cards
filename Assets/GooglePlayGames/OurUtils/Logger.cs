@@ -30,7 +30,7 @@ namespace GooglePlayGames.OurUtils
             set { debugLogEnabled = value; }
         }
 
-        private static bool warningLogEnabled = true;
+        private static bool warningLogEnabled = false;
 
         public static bool WarningLogEnabled
         {
