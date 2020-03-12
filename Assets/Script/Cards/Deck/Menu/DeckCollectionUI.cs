@@ -13,6 +13,7 @@ public class DeckCollectionUI : MonoBehaviour
     public GameObject panel_cards;
     public CSVReader parser;
     private int deck_selected;
+    DeckCardsPackage my_deck;
 
     private void Start()
     {
@@ -22,23 +23,25 @@ public class DeckCollectionUI : MonoBehaviour
     }
 
 
-    public void  open_panel_name_deck() 
+    public void open_panel_name_deck()
     {
         panel_name.SetActive(true);
-        panel_name.transform.Find("name").transform.Find("Text").gameObject.GetComponent<Text>().text = "";
+        panel_name.transform.Find("name").GetComponent<InputField>().text = "";
     }
     public void close_panel_name_deck()
     {
         panel_name.SetActive(false);
     }
-
+    /// <summary>
+    /// Se crea un mazo y se activa la ventana de seleccion de cartas
+    /// </summary>
     public void add_deck() 
     {
         panel_cards.SetActive(true);
-       
-        DeckCardsPackage my_deck = deck_collection.new_deck(panel_name.transform.Find("name").transform.Find("Text").gameObject.GetComponent<Text>().text);
-        deck_selected = deck_collection.deckCollection.Count - 1;
-        panelDecks.add_item(deck_collection.deckCollection[deck_selected]);
+
+        //my_deck = deck_collection.new_deck(panel_name.transform.Find("name").transform.Find("Text").gameObject.GetComponent<Text>().text);
+        my_deck = new DeckCardsPackage(panel_name.transform.Find("name").transform.Find("Text").gameObject.GetComponent<Text>().text); ///creo un nuevo mazo
+        panelDecks.add_item(my_deck); ///se añade a la vita
 
         panel_cards.transform.Find("title").gameObject.GetComponent<Text>().text = my_deck.get_name();
         List<InfoCard> all_cards = parser.getCardsInfo();
@@ -48,7 +51,8 @@ public class DeckCollectionUI : MonoBehaviour
         {
             panel.add_item(all_cards[i]);
         }
-        
+        panel_name.SetActive(false);
+
     }
     /// <summary>
     /// Añade una carta al mazo que estamos creando
@@ -57,7 +61,7 @@ public class DeckCollectionUI : MonoBehaviour
     public void add_card(InfoCard info) 
     {
 
-        deck_collection.deckCollection[deck_selected].add_card(info);
+        my_deck.add_card(info);
         panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().add_item(info);
         //GameObject card = Instantiate(card_in_deck_prefab,default,default, panel_cards.transform.Find("cradsInDeck"));
         //card.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
@@ -67,6 +71,7 @@ public class DeckCollectionUI : MonoBehaviour
     public void save_deck() 
     {
         panel_cards.SetActive(false);
+        deck_collection.new_deck(my_deck as DeckCardsPackage);
         panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().Reset();
         deck_selected = -1;
 
@@ -76,7 +81,6 @@ public class DeckCollectionUI : MonoBehaviour
     {
         panelDecks.GetComponent<PanelListDeckCollection>().delete_last();
         panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().Reset();
-        deck_collection.delete_deck(deck_collection.deckCollection[deck_selected]);
         panel_cards.SetActive(false);
         deck_selected = -1;
     }

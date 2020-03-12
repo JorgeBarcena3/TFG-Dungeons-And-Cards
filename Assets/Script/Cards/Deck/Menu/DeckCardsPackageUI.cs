@@ -26,6 +26,6 @@ public class DeckCardsPackageUI : IInfoUIElement<DeckCardsPackage>
     public override void fillInfo(DeckCardsPackage info)
     {
         my_deck = info;
-        texUI.text = my_deck.get_name();
+        texUI.text = my_deck.get_name().ToString();
     }
 }

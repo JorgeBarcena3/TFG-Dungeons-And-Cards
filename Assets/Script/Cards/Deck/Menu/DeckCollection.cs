@@ -11,6 +11,11 @@ public class DeckCollection
         deckCollection.Add(my_deck);
         return my_deck;
     }
+    public DeckCardsPackage new_deck(DeckCardsPackage deck)
+    {
+        deckCollection.Add(deck);
+        return deck;
+    }
     public void delete_deck(DeckCardsPackage my_deck) 
     {
         deckCollection.Remove(my_deck);
