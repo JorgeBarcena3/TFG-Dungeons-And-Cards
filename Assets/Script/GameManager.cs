@@ -115,6 +115,7 @@ public class GameManager : Singelton<GameManager>
     {
         state = States.LOADING;
         imageLoader = GetComponent<ImageLoader>();
+        Time.timeScale = 1.5f;
 
         yield return null;
         StartCoroutine(starting());

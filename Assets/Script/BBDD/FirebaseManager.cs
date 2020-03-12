@@ -30,26 +30,39 @@ public class FirebaseManager : Singelton<FirebaseManager>
     /// </summary>
     private FirebaseDatabaseManager _FirebaseDatabase;
 
+    /// <summary>
+    /// The firebase connection is activated or not
+    /// </summary>
+    public bool activate;
+
     // Start is called before the first frame update
     async void Start()
     {
-        DontDestroyOnLoad(this.gameObject);
 
-        Firebase.DependencyStatus status = await Firebase.FirebaseApp.CheckAndFixDependenciesAsync();
-
-        // Firebase OK
-        if (status == Firebase.DependencyStatus.Available)
+#if UNITY_ANDROID
+        activate = true;
+#endif
+        if (activate)
         {
-            FirebaseManager.app = Firebase.FirebaseApp.DefaultInstance;
-            FirebaseManager.created = true;
 
-            //Inicializamos los módulos
-            AddModulesToGameObject();
-        }
-        // Otro estado de firebase
-        else
-        {
-            Debug.LogError(status);
+            DontDestroyOnLoad(this.gameObject);
+
+            Firebase.DependencyStatus status = await Firebase.FirebaseApp.CheckAndFixDependenciesAsync();
+
+            // Firebase OK
+            if (status == Firebase.DependencyStatus.Available)
+            {
+                FirebaseManager.app = Firebase.FirebaseApp.DefaultInstance;
+                FirebaseManager.created = true;
+
+                //Inicializamos los módulos
+                AddModulesToGameObject();
+            }
+            // Otro estado de firebase
+            else
+            {
+                Debug.LogError(status);
+            }
         }
 
     }

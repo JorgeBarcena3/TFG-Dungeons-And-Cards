@@ -73,7 +73,7 @@ public class FirebaseAuth : Singelton<FirebaseAuth>
 
                         _GetGooglePlayServicesSocialManager.init(task.Result);
 
-                        _GetGooglePlayServicesSocialManager.UnlockAchievement   ("CgkIyKTln68WEAIQAg", 100);
+                        //_GetGooglePlayServicesSocialManager.UnlockAchievement   ("CgkIyKTln68WEAIQAg", 100);
 
 
                     });
