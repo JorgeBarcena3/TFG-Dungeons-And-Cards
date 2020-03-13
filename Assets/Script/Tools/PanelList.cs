@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using Assets.Script.Tools.Interfaces;
+using UnityEngine.UI;
 
 public class PanelList<T> : MonoBehaviour
 {
@@ -77,6 +78,8 @@ public class PanelList<T> : MonoBehaviour
     {
         list.Clear();
         sincList();
+        gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);
+
     }
     /// <summary>
     /// Sincroniza la lista visual con la list
@@ -93,6 +96,8 @@ public class PanelList<T> : MonoBehaviour
             {
                 item = Instantiate(prefab, Vector3.zero, default, gameObject.transform);
                 item.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
+                gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, gameObject.GetComponent<RectTransform>().sizeDelta.y + prefab.GetComponent<RectTransform>().sizeDelta.y + gameObject.GetComponent<VerticalLayoutGroup>().spacing);
+                //gameObject.GetComponent<VerticalLayoutGroup>().padding.top -=(int)prefab.GetComponent<RectTransform>().sizeDelta.y*2;
 
             }
             else 

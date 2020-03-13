@@ -66,9 +66,7 @@ public class DeckCollectionUI : MonoBehaviour
 
         my_deck.add_card(info);
         panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().add_item(info);
-        //GameObject card = Instantiate(card_in_deck_prefab,default,default, panel_cards.transform.Find("cradsInDeck"));
-        //card.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
-        //card.GetComponent<CardInDeckUI>().fillInfo(info);
+       
     }
 
     public void save_deck() 
@@ -90,23 +88,7 @@ public class DeckCollectionUI : MonoBehaviour
         deck_selected = -1;
     }
 
-    private void print_deck_list() 
-    {
-        if (deck_collection != null)
-        {
-            for (int i = 0; i < deck_collection.deckCollection.Count; i++)
-            {
-                
-                //GameObject deck = Instantiate(deckPrefab,default,default,panelDecks.transform);
-                //deck.GetComponent<DeckCardsPackageUI>().InitDeck(deck_collection.deckCollection[i]);
-                //deck.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
-            }
-        }
-        else
-        {
-            deck_collection = new DeckCollection();
-        }
-    }
+    
 
    
 }
