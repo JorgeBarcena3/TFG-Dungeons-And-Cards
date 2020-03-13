@@ -48,8 +48,13 @@ public class GameInfoDto : DtoFirebase
     /// <summary>
     /// Cartas utilizadas en la partida
     /// </summary>
-    public List<InfoCard> cartasUtilizadas { get; set; }
+    public List<InfoCard> cartasUtilizadas;
 
+    /// <summary>
+    /// Constructor de la informacion
+    /// </summary>
+    /// <param name="seed"></param>
+    /// <param name="enemiesNumber"></param>
     public GameInfoDto(int seed, int enemiesNumber)
     {
         this.seed = seed;

@@ -19,10 +19,12 @@ public class InfoCard
     /// Tipo de carta
     /// </summary>
     public ATTACKTYPE Card_kind { get; private set; }
+
     /// <summary>
     /// Precio de la carta
     /// </summary>
     public int Cost { get; private set; }
+
     /// <summary>
     /// Indica la fuerza de la carta, si es de daño indicaria cuanto daño, si es de defensa cuanta defensa, etc
     /// </summary>

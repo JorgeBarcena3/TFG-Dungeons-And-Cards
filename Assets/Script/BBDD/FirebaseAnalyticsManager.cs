@@ -68,7 +68,27 @@ public class FirebaseAnalyticsManager : Singelton<FirebaseAnalyticsManager>
          );
     }
 
+    /// <summary>
+    /// Envia la informacion de una carta
+    /// </summary>
+    /// <param name="card"></param>
+    public void sendCard(CardInfoDto card)
+    {
+        List<Parameter> parametros = new List<Parameter>();
 
+        PropertyInfo[] properties = typeof(CardInfoDto).GetProperties();
+        foreach (PropertyInfo p in properties)
+        {
+
+            parametros.Add(new Parameter(p.Name, p.GetValue(card).ToString().Substring(0, p.GetValue(card).ToString().Length > 100 ? 99 : p.GetValue(card).ToString().Length)));
+
+        }
+
+        FirebaseAnalytics.LogEvent(
+            card.EstadoDeCarta.ToString(),
+            parametros.ToArray()
+         );
+    }
 
     /// <summary>
     /// Enviamos el error en caso de que exista

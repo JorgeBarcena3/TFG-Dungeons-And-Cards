@@ -27,6 +27,7 @@ public class GivenManaAction : CardAction
         GameManager GM = GameManager.Instance;
         GM.deck.inCardAction = false;
         GM.GameInfo.cartasUtilizadas.Add(GetComponent<Card>().info);
+        FirebaseAnalyticsManager.Instance.sendCard(new CardInfoDto(FIREBASE_CARDSTATE.USED, GetComponent<Card>().info));
 
         if (GM.turnManager.isIATurn())
         {

@@ -261,6 +261,8 @@ public class Deck : MonoBehaviour
             _gameObject.GetComponent<CardAction>().DoAction(GameManager.Instance.player.gameObject);
         else // Si la descartamos
         {
+            FirebaseAnalyticsManager.Instance.sendCard(new CardInfoDto(FIREBASE_CARDSTATE.DISCARD, card.info));
+
             GameManager.Instance.player.playerInfo.addMana(1);
             GameManager.Instance.player.refreshPlayerData();
 

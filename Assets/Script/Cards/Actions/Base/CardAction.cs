@@ -61,6 +61,7 @@ public abstract class CardAction : MonoBehaviour
 
         GameManager GM = GameManager.Instance;
         GM.GameInfo.cartasUtilizadas.Add(GetComponent<Card>().info);
+        FirebaseAnalyticsManager.Instance.sendCard( new CardInfoDto(FIREBASE_CARDSTATE.USED, GetComponent<Card>().info) );
 
         GM.deck.inCardAction = false;
         GM.player.playerInfo.useMana(this.gameObject.GetComponent<Card>().info.Cost);

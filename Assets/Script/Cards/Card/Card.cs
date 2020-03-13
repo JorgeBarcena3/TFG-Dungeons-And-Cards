@@ -11,6 +11,7 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class Card : MonoBehaviour
 {
+
     /// <summary>
     /// Tipo de carta
     /// </summary>
