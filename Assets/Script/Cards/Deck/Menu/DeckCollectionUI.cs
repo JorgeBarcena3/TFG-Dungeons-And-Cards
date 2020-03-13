@@ -22,7 +22,10 @@ public class DeckCollectionUI : MonoBehaviour
 
     }
 
-
+    public void back_to_init_menu()
+    {
+        gameObject.transform.parent.gameObject.SetActive(false);
+    }
     public void open_panel_name_deck()
     {
         panel_name.SetActive(true);
