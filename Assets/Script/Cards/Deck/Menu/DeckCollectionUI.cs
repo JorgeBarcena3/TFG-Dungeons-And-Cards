@@ -55,6 +55,7 @@ public class DeckCollectionUI : MonoBehaviour
             panel.add_item(all_cards[i]);
         }
         panel_name.SetActive(false);
+        panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().set_collection(this);
 
     }
     /// <summary>
@@ -67,6 +68,15 @@ public class DeckCollectionUI : MonoBehaviour
         my_deck.add_card(info);
         panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().add_item(info);
        
+    }
+    /// <summary>
+    /// Elimina una carta del mazo
+    /// </summary>
+    /// <param name="info"></param>
+    public void remove_card(InfoCard info)
+    {
+        my_deck.delete_card(info);
+        panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().delete_item(info);
     }
 
     public void save_deck() 

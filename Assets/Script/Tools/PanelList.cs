@@ -61,9 +61,9 @@ public class PanelList<T> : MonoBehaviour
     /// Elimina un item de la lista
     /// </summary>
     /// <param name="item"></param>
-    public void delete_item(GameObject item) 
+    public void delete_item(T item) 
     {
-        //list.Remove(item);
+        list.Remove(item);
         sincList();
     }
     public void delete_last() 
@@ -97,7 +97,7 @@ public class PanelList<T> : MonoBehaviour
                 item = Instantiate(prefab, Vector3.zero, default, gameObject.transform);
                 item.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
                 gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, gameObject.GetComponent<RectTransform>().sizeDelta.y + prefab.GetComponent<RectTransform>().sizeDelta.y + gameObject.GetComponent<VerticalLayoutGroup>().spacing);
-                //gameObject.GetComponent<VerticalLayoutGroup>().padding.top -=(int)prefab.GetComponent<RectTransform>().sizeDelta.y*2;
+           
 
             }
             else 

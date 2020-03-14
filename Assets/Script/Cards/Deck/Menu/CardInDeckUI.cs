@@ -10,12 +10,25 @@ public class CardInDeckUI : IInfoUIElement<InfoCard>
     public Text title;
     public Text cost;
     public Image background;
+    private InfoCard my_info;
+
+    /// <summary>
+    /// Se usa en la creacción de mazo
+    /// </summary>
+    private DeckCollectionUI deck_collection;
+
+    public void set_collection(DeckCollectionUI collection)
+    {
+        deck_collection = collection;
+    }
 
     public override void fillInfo(InfoCard info)
     {
+        SwipeDetector.OnSwipe += discard_card;
         cost.text = info.Cost.ToString();
         title.text = info.Name.ToString();
         background.color = select_color(info.Art);
+        my_info = info;
     }
 
     private Color select_color(string color) 
@@ -47,6 +60,21 @@ public class CardInDeckUI : IInfoUIElement<InfoCard>
         else 
         {
             return Color.white;
+        }
+    }
+    private void discard_card(SwipeData data)
+    {
+        //if (RectTransformUtility.RectangleContainsScreenPoint(gameObject.GetComponent<RectTransform>(), ))
+        if (GameManager.Instance.state == States.INMENU)
+        {
+           
+                if (data.Direction == SwipeDirection.Left)
+                {
+                    deck_collection.remove_card(my_info);
+                }
+                
+            
+            
         }
     }
 }
