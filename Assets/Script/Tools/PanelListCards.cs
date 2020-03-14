@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using Assets.Script.Tools.Interfaces; 
+using Assets.Script.Tools.Interfaces;
+using UnityEngine.UI;
 namespace Assets.Script.Tools
 {
     public class PanelListCards : PanelList<InfoCard>
@@ -13,8 +14,6 @@ namespace Assets.Script.Tools
         public override void sincList()
         {
 
-            
-              
             for (int i = 0; i < list.Count; i++)
             {
 
@@ -23,6 +22,7 @@ namespace Assets.Script.Tools
                 {
                     item = Instantiate(prefab, Vector3.zero, default, gameObject.transform);
                     item.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
+                    gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, gameObject.GetComponent<RectTransform>().sizeDelta.y + prefab.GetComponent<RectTransform>().sizeDelta.y * 3 + gameObject.GetComponent<VerticalLayoutGroup>().spacing);
 
                 }
                 else 
@@ -38,6 +38,7 @@ namespace Assets.Script.Tools
                 for (int i = list.Count; i < gameObject.transform.childCount; i++)
                 {
                     Destroy(gameObject.transform.GetChild(i).gameObject);
+                    gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, gameObject.GetComponent<RectTransform>().sizeDelta.y - prefab.GetComponent<RectTransform>().sizeDelta.y * 3 - gameObject.GetComponent<VerticalLayoutGroup>().spacing);
                 }
             }
 

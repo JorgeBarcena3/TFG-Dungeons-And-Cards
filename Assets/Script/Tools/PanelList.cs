@@ -121,6 +121,8 @@ public class PanelList<T> : MonoBehaviour
             for (int i = list.Count;i < gameObject.transform.childCount;i++)
             {
                 Destroy(gameObject.transform.GetChild(i).gameObject);
+                gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, gameObject.GetComponent<RectTransform>().sizeDelta.y - prefab.GetComponent<RectTransform>().sizeDelta.y - gameObject.GetComponent<VerticalLayoutGroup>().spacing);
+
             }
         }
 

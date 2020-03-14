@@ -81,7 +81,7 @@ public class DeckCollectionUI : MonoBehaviour
     }
     public void cancel_deck()
     {
-        panelDecks.GetComponent<PanelListDeckCollection>().delete_last();
+        panelDecks.GetComponent<PanelListDeckCardsPackage>().delete_last();
         panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().Reset();
         panel_cards.transform.Find("cardList").gameObject.GetComponent<PanelListCards>().Reset();
         panel_cards.SetActive(false);
