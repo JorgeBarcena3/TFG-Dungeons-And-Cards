@@ -3130,6 +3130,11 @@ PrefabInstance:
       propertyPath: others.Array.data[2]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3364576188385077270, guid: 0464c5f68eacaff4f83a828fb92dc859,
+        type: 3}
+      propertyPath: deck_menu
+      value: 
+      objectReference: {fileID: 540708463}
     - target: {fileID: 3364576188385077274, guid: 0464c5f68eacaff4f83a828fb92dc859,
         type: 3}
       propertyPath: m_Name
@@ -3400,6 +3405,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 547043597}
     m_Modifications:
+    - target: {fileID: 6777546804788293751, guid: 839839c16e107da43bc03120da89c52a,
+        type: 3}
+      propertyPath: deck_menu
+      value: 
+      objectReference: {fileID: 540708463}
     - target: {fileID: 6777546804788293754, guid: 839839c16e107da43bc03120da89c52a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3629,6 +3639,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2209115379908912428, guid: bfa1d46a472874e4989fdd5e99acd0f4,
+        type: 3}
+      propertyPath: deck_menu
+      value: 
+      objectReference: {fileID: 540708463}
     - target: {fileID: 2209115379908912430, guid: bfa1d46a472874e4989fdd5e99acd0f4,
         type: 3}
       propertyPath: m_Color.r

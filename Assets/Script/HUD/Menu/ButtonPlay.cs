@@ -114,7 +114,8 @@ public class ButtonPlay : MonoBehaviour
 
     private void OnMouseDown() 
     {
-        ShowInfo();
+        if(!deck_menu.active)
+            ShowInfo();
     
     }
 
