@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 8153334509140932703}
   - component: {fileID: 7513371015079277167}
   - component: {fileID: 595609674572488214}
+  - component: {fileID: -7176633006876386539}
   m_Layer: 5
   m_Name: CardInDeck
   m_TagString: Untagged
@@ -246,6 +247,32 @@ MonoBehaviour:
   title: {fileID: 7476712108533914925}
   cost: {fileID: 3661093372375826653}
   background: {fileID: 49323152852382996}
+--- !u!61 &-7176633006876386539
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5512443214824616018}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.1058502, y: -0.104255676}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 446.7969, y: 123.6131}
+  m_EdgeRadius: 0
 --- !u!1 &5917292754615521820
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class CardInDeckUI : IInfoUIElement<InfoCard>
     public Text cost;
     public Image background;
     private InfoCard my_info;
+    private bool selected;
 
     /// <summary>
     /// Se usa en la creacción de mazo
@@ -29,6 +30,7 @@ public class CardInDeckUI : IInfoUIElement<InfoCard>
         title.text = info.Name.ToString();
         background.color = select_color(info.Art);
         my_info = info;
+        selected = false;
     }
 
     private Color select_color(string color) 
@@ -67,14 +69,24 @@ public class CardInDeckUI : IInfoUIElement<InfoCard>
         //if (RectTransformUtility.RectangleContainsScreenPoint(gameObject.GetComponent<RectTransform>(), ))
         if (GameManager.Instance.state == States.INMENU)
         {
-           
+            if (selected)
+            {
                 if (data.Direction == SwipeDirection.Left)
                 {
                     deck_collection.remove_card(my_info);
                 }
-                
-            
+                else
+                {
+                    selected = false;
+                }
+            }
             
         }
     }
+    void OnMouseDown()
+    {
+        selected = true;
+        
+    }
+
 }

@@ -40,12 +40,17 @@ public class HUDCard : IInfoUIElement<InfoCard>
     private DeckCollectionUI deck_collection;
 
     
- 
+    /// <summary>
+    /// en la creación de mazo recibe la referencia a la collección
+    /// </summary>
+    /// <param name="collection"></param>
     public void set_collection(DeckCollectionUI collection) 
     {
         deck_collection = collection;
     }
-
+    /// <summary>
+    /// En la creación de mazo se añade la carta a un mazo
+    /// </summary>
     public void on_button() 
     {
         deck_collection.add_card(info);
