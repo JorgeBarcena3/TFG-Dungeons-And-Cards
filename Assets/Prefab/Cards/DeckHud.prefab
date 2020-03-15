@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 957227579888660129}
   - component: {fileID: 957227579888660128}
   - component: {fileID: 3770531191370761521}
+  - component: {fileID: 3813925227806980207}
   m_Layer: 5
   m_Name: DeckHud
   m_TagString: Untagged
@@ -166,6 +167,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   texUI: {fileID: 8647480994890441508}
+--- !u!61 &3813925227806980207
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957227579888660134}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 320.93222, y: 0.012451172}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1034.9338, y: 560.4559}
+  m_EdgeRadius: 0
 --- !u!1 &3221293364340007662
 GameObject:
   m_ObjectHideFlags: 0

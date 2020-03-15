@@ -39,6 +39,15 @@ public class PanelList<T> : MonoBehaviour
         sincList();
     }
     /// <summary>
+    /// Sobrescribe los datos actuales y los sustitulle por una lista diferente
+    /// </summary>
+    /// <param name="item">lista de datos</param>
+    public void add_list(List<T> item)
+    {
+        list = new List<T>(item);
+        sincList();
+    }
+    /// <summary>
     /// Retorna la lista de gameobjects
     /// </summary>
     /// <returns></returns>

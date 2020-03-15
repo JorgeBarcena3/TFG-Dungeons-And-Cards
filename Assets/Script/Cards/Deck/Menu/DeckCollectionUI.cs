@@ -41,10 +41,10 @@ public class DeckCollectionUI : MonoBehaviour
     public void add_deck() 
     {
         panel_cards.SetActive(true);
-
-        //my_deck = deck_collection.new_deck(panel_name.transform.Find("name").transform.Find("Text").gameObject.GetComponent<Text>().text);
         my_deck = new DeckCardsPackage(panel_name.transform.Find("name").transform.Find("Text").gameObject.GetComponent<Text>().text); ///creo un nuevo mazo
+        panelDecks.set_collection(this);
         panelDecks.add_item(my_deck); ///se añade a la vita
+       
 
         panel_cards.transform.Find("title").gameObject.GetComponent<Text>().text = my_deck.get_name();
         List<InfoCard> all_cards = parser.getCardsInfo();
@@ -56,6 +56,26 @@ public class DeckCollectionUI : MonoBehaviour
         }
         panel_name.SetActive(false);
         panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().set_collection(this);
+        panelDecks.gameObject.SetActive(false);
+
+    }
+    /// <summary>
+    /// Enseña las cartas de contiene un mazo y permite edotarlo
+    /// </summary>
+    /// <param name="deck">mazo</param>
+    public void edit_deck(DeckCardsPackage deck)
+    {
+        panel_cards.SetActive(true);
+        my_deck = deck;
+        panel_cards.transform.Find("title").gameObject.GetComponent<Text>().text = my_deck.get_name();
+        List<InfoCard> all_cards = parser.getCardsInfo();
+        PanelListCards panel = panel_cards.transform.Find("cardList").gameObject.GetComponent<PanelListCards>();
+        panel.set_collection(this);
+        panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().set_collection(this);
+        panel.add_list(all_cards);
+        panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().add_list(my_deck.get_cards());
+        panelDecks.gameObject.SetActive(false);
+
 
     }
     /// <summary>
@@ -86,6 +106,7 @@ public class DeckCollectionUI : MonoBehaviour
         panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().Reset();
         panel_cards.transform.Find("cardList").gameObject.GetComponent<PanelListCards>().Reset();
         deck_selected = -1;
+        panelDecks.gameObject.SetActive(true);
 
 
     }
@@ -96,6 +117,7 @@ public class DeckCollectionUI : MonoBehaviour
         panel_cards.transform.Find("cardList").gameObject.GetComponent<PanelListCards>().Reset();
         panel_cards.SetActive(false);
         deck_selected = -1;
+        panelDecks.gameObject.SetActive(true);
     }
 
     
