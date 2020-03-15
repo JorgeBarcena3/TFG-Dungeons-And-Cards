@@ -38,6 +38,14 @@ public class HUDCard : IInfoUIElement<InfoCard>
     /// Se usa en la creacción de mazo
     /// </summary>
     private DeckCollectionUI deck_collection;
+    /// <summary>
+    /// true si pulsas encima de la carta
+    /// </summary>
+    private bool selected;
+    /// <summary>
+    /// Evita que por error añadas la carta mas de una vez en una sola acción
+    /// </summary>
+    private bool do_once;
 
     
     /// <summary>
@@ -47,13 +55,9 @@ public class HUDCard : IInfoUIElement<InfoCard>
     public void set_collection(DeckCollectionUI collection) 
     {
         deck_collection = collection;
-    }
-    /// <summary>
-    /// En la creación de mazo se añade la carta a un mazo
-    /// </summary>
-    public void on_button() 
-    {
-        deck_collection.add_card(info);
+        selected = false;
+        do_once = false;
+        SwipeDetector.OnSwipe += add_card_in_deck;
     }
 
     /// <summary>
@@ -79,5 +83,37 @@ public class HUDCard : IInfoUIElement<InfoCard>
         namelbl.text = info.Name.ToString();
         SetCardArt(Resources.Load<Sprite>(info.Art.ToString()) != null ? Resources.Load<Sprite>(info.Art.ToString()) : Resources.Load<Sprite>("TEMPLATE"));
         this.info = info;
+    }
+    /// <summary>
+    /// En la creación de mazo se añade la carta a un mazo
+    /// </summary>
+    private void add_card_in_deck(SwipeData data)
+    {
+        if (GameManager.Instance.state == States.INMENU)
+        {
+            if (selected)
+            {
+                if (data.Direction == SwipeDirection.Right)
+                {
+                    if (do_once)
+                    {
+                        deck_collection.add_card(info);
+                        do_once = false;                    
+                    }
+                    
+                }
+                else
+                {
+                    selected = false;
+                }
+            }
+
+        }
+    }
+
+    void OnMouseDown()
+    {
+        selected = true;
+        do_once = true;
     }
 }

@@ -39,6 +39,10 @@ namespace Assets.Script.Tools
                 {
                     Destroy(gameObject.transform.GetChild(i).gameObject);
                     gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, gameObject.GetComponent<RectTransform>().sizeDelta.y - prefab.GetComponent<RectTransform>().sizeDelta.y * 3 - gameObject.GetComponent<VerticalLayoutGroup>().spacing);
+                    if (gameObject.GetComponent<RectTransform>().sizeDelta.y < 0)
+                    {
+                        gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);
+                    }
                 }
             }
 
