@@ -73,9 +73,12 @@ public class DeckCardsPackageUI : IInfoUIElement<DeckCardsPackage>
 
         }
     }
-
     void OnMouseDown()
     {
         selected = true;
+    }
+    private void OnDestroy()
+    {
+        SwipeDetector.OnSwipe -= open_deck;
     }
 }

@@ -88,5 +88,9 @@ public class CardInDeckUI : IInfoUIElement<InfoCard>
         selected = true;
         
     }
+    private void OnDestroy()
+    {
+        SwipeDetector.OnSwipe -= discard_card;
+    }
 
 }

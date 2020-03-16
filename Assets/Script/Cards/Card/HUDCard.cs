@@ -116,4 +116,8 @@ public class HUDCard : IInfoUIElement<InfoCard>
         selected = true;
         do_once = true;
     }
+    private void OnDestroy()
+    {
+        SwipeDetector.OnSwipe -= add_card_in_deck;
+    }
 }
