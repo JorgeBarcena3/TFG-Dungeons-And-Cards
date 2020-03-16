@@ -23,16 +23,16 @@ public class CSVReader : MonoBehaviour
     {
         string[,] grid = SplitCsvGrid(csvFile.text);
 
-        for (int i = 1; i < grid.GetUpperBound(1); i++) 
+        for (int i = 1; i < grid.GetUpperBound(1); i++)
         {
-            if (grid[0, i] != null) 
+            if (grid[0, i] != null)
             {
                 string info = grid[0, i];
                 string[] parametres = info.Split(';');
-                cardsInfo.Add(new InfoCard((ATTACKTYPE)int.Parse(parametres[0]), int.Parse(parametres[1]), parametres[2], 
-                    parametres[3], int.Parse(parametres[4]), int.Parse(parametres[5]), int.Parse(parametres[6]),int.Parse(parametres[7]), parametres[8],parametres[9]=="1"?true:false));
+                cardsInfo.Add(new InfoCard((ATTACKTYPE)int.Parse(parametres[0]), int.Parse(parametres[1]), parametres[2],
+                    parametres[3], int.Parse(parametres[4]), int.Parse(parametres[5]), int.Parse(parametres[6]), int.Parse(parametres[7]), parametres[8], parametres[9] == "1" ? true : false));
             }
-            
+
         }
 
     }

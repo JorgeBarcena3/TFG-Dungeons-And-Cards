@@ -79,6 +79,14 @@ public class DeckCollectionUI : MonoBehaviour
 
     }
     /// <summary>
+    /// Selecciona el mazo con el que se va a jugar
+    /// </summary>
+    /// <param name="deck">mazo</param>
+    public void select_deck(DeckCardsPackage deck)
+    {
+        panelDecks.select_deck(deck_collection.select_deck(deck));
+    }
+    /// <summary>
     /// Añade una carta al mazo que estamos creando
     /// </summary>
     /// <param name="info"></param>

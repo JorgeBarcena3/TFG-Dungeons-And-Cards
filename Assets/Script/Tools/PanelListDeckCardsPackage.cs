@@ -7,6 +7,13 @@ namespace Assets.Script.Tools
     public class PanelListDeckCardsPackage : PanelList<DeckCardsPackage>
     {
         private DeckCollectionUI collection;
+        private int selected_deck=0;
+        public void select_deck(int i)
+        {
+            selected_deck = i;
+            sincList();
+        }
+
         public void set_collection(DeckCollectionUI collection)
         {
             this.collection = collection;
@@ -35,6 +42,12 @@ namespace Assets.Script.Tools
                 }
                 item.GetComponentInChildren<DeckCardsPackageUI>().fillInfo(list[i]);
                 item.GetComponentInChildren<DeckCardsPackageUI>().set_collection(collection);
+                if (i == selected_deck)
+                    item.GetComponentInChildren<DeckCardsPackageUI>().select_deck_to_play();
+                else
+                {
+                    item.GetComponentInChildren<DeckCardsPackageUI>().unselect_deck_to_play();
+                }
 
             }
             if (gameObject.transform.childCount > (int)list.Count)

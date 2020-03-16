@@ -36,6 +36,21 @@ public class DeckCardsPackageUI : IInfoUIElement<DeckCardsPackage>
         SwipeDetector.OnSwipe += open_deck;
     }
 
+    public void select_deck_to_play()
+    {
+        if (texUI == null)
+            texUI = GetComponent<Text>();
+
+        texUI.color = Color.green;
+    }
+    public void unselect_deck_to_play()
+    {
+        if (texUI == null)
+            texUI = GetComponent<Text>();
+
+        texUI.color = Color.white;
+    }
+
     public void open_deck(SwipeData data)
     {
         if (GameManager.Instance.state == States.INMENU /*&& !gameObject.transform.parent.gameObject.transform.parent.Find("add_deck").gameObject.active*/)
@@ -45,6 +60,10 @@ public class DeckCardsPackageUI : IInfoUIElement<DeckCardsPackage>
                 if (data.Direction == SwipeDirection.Right)
                 {
                     deck_collection.edit_deck(my_deck);
+                }
+                else if (data.Direction == SwipeDirection.Left)
+                {
+                    deck_collection.select_deck(my_deck);
                 }
                 else
                 {
