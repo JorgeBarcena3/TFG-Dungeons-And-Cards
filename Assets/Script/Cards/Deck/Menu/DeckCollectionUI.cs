@@ -48,14 +48,14 @@ public class DeckCollectionUI : MonoBehaviour
 
         panel_cards.transform.Find("title").gameObject.GetComponent<Text>().text = my_deck.get_name();
         List<InfoCard> all_cards = parser.getCardsInfo();
-        PanelListCards panel = panel_cards.transform.Find("cardList").gameObject.GetComponent<PanelListCards>();
+        PanelListCards panel = panel_cards.transform.Find("frameCardList").GetChild(0).gameObject.GetComponent<PanelListCards>();
         panel.set_collection(this);
         for (int i = 0; i < all_cards.Count; i++)
         {
             panel.add_item(all_cards[i]);
         }
         panel_name.SetActive(false);
-        panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().set_collection(this);
+        panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().set_collection(this);
         panelDecks.gameObject.SetActive(false);
 
     }
@@ -69,11 +69,11 @@ public class DeckCollectionUI : MonoBehaviour
         my_deck = deck;
         panel_cards.transform.Find("title").gameObject.GetComponent<Text>().text = my_deck.get_name();
         List<InfoCard> all_cards = parser.getCardsInfo();
-        PanelListCards panel = panel_cards.transform.Find("cardList").gameObject.GetComponent<PanelListCards>();
+        PanelListCards panel = panel_cards.transform.Find("frameCardList").GetChild(0).gameObject.GetComponent<PanelListCards>();
         panel.set_collection(this);
-        panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().set_collection(this);
+        panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().set_collection(this);
         panel.add_list(all_cards);
-        panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().add_list(my_deck.get_cards());
+        panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().add_list(my_deck.get_cards());
         panelDecks.gameObject.SetActive(false);
 
 
@@ -94,7 +94,7 @@ public class DeckCollectionUI : MonoBehaviour
     {
 
         my_deck.add_card(info);
-        panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().add_item(info);
+        panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().add_item(info);
        
     }
     /// <summary>
@@ -104,15 +104,15 @@ public class DeckCollectionUI : MonoBehaviour
     public void remove_card(InfoCard info)
     {
         my_deck.delete_card(info);
-        panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().delete_item(info);
+        panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().delete_item(info);
     }
 
     public void save_deck() 
     {
         panel_cards.SetActive(false);
         deck_collection.new_deck(my_deck as DeckCardsPackage);
-        panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().Reset();
-        panel_cards.transform.Find("cardList").gameObject.GetComponent<PanelListCards>().Reset();
+        panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().Reset();
+        panel_cards.transform.Find("frameCardList").GetChild(0).gameObject.GetComponent<PanelListCards>().Reset();
         deck_selected = -1;
         panelDecks.gameObject.SetActive(true);
 
@@ -121,8 +121,8 @@ public class DeckCollectionUI : MonoBehaviour
     public void cancel_deck()
     {
         panelDecks.GetComponent<PanelListDeckCardsPackage>().delete_last();
-        panel_cards.transform.Find("cradsInDeck").GetComponent<PanelListCardsInDeck>().Reset();
-        panel_cards.transform.Find("cardList").gameObject.GetComponent<PanelListCards>().Reset();
+        panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().Reset();
+        panel_cards.transform.Find("frameCardList").GetChild(0).gameObject.GetComponent<PanelListCards>().Reset();
         panel_cards.SetActive(false);
         deck_selected = -1;
         panelDecks.gameObject.SetActive(true);
