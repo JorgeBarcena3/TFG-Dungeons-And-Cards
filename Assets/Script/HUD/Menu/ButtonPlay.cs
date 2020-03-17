@@ -101,7 +101,8 @@ public class ButtonPlay : MonoBehaviour
 
     void deck() 
     {
-        deck_menu.SetActive(true);
+        StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(deck_menu.transform, new Vector2(0,1),1f));
+        
     }
     void settings() 
     {
@@ -114,7 +115,7 @@ public class ButtonPlay : MonoBehaviour
 
     private void OnMouseDown() 
     {
-        if(!deck_menu.active)
+        if(deck_menu.transform.position.y < -10f)
             ShowInfo();
     
     }

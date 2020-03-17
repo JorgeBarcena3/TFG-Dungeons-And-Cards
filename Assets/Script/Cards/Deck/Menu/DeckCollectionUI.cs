@@ -10,37 +10,44 @@ public class DeckCollectionUI : MonoBehaviour
     DeckCollection deck_collection;
     public PanelListDeckCardsPackage panelDecks;
     public GameObject panel_name;
+    private Vector2 panel_name_init_position;
     public GameObject panel_cards;
+    private Vector2 panel_cards_init_position;
     public CSVReader parser;
-    private int deck_selected;
     DeckCardsPackage my_deck;
+    private Vector2 init_position;
 
     private void Start()
     {
         //print_deck_list();
         deck_collection = new DeckCollection();
+        init_position = transform.parent.position;
+        panel_name_init_position = new Vector2(panel_name.transform.position.x,0);
+        panel_cards_init_position = new Vector2(panel_cards.transform.position.x,0);
 
     }
 
     public void back_to_init_menu()
     {
-        gameObject.transform.parent.gameObject.SetActive(false);
+        StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(transform.parent, init_position, 1f));
     }
     public void open_panel_name_deck()
     {
-        panel_name.SetActive(true);
+       
+        StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(panel_name.transform, new Vector2(-1, 0), 1f));
         panel_name.transform.Find("name").GetComponent<InputField>().text = "";
     }
     public void close_panel_name_deck()
     {
-        panel_name.SetActive(false);
+        StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(panel_name.transform, panel_name_init_position, 1f));
     }
     /// <summary>
     /// Se crea un mazo y se activa la ventana de seleccion de cartas
     /// </summary>
     public void add_deck() 
     {
-        panel_cards.SetActive(true);
+        StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(panel_cards.transform, new Vector2(-1, 0), 1f));
+        StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(panel_name.transform, panel_name_init_position, 1f));
         my_deck = new DeckCardsPackage(panel_name.transform.Find("name").transform.Find("Text").gameObject.GetComponent<Text>().text); ///creo un nuevo mazo
         panelDecks.set_collection(this);
         panelDecks.add_item(my_deck); ///se añade a la vita
@@ -54,7 +61,6 @@ public class DeckCollectionUI : MonoBehaviour
         {
             panel.add_item(all_cards[i]);
         }
-        panel_name.SetActive(false);
         panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().set_collection(this);
         panelDecks.gameObject.SetActive(false);
 
@@ -65,7 +71,7 @@ public class DeckCollectionUI : MonoBehaviour
     /// <param name="deck">mazo</param>
     public void edit_deck(DeckCardsPackage deck)
     {
-        panel_cards.SetActive(true);
+        StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(panel_cards.transform, new Vector2(-1, 0), 1f));
         my_deck = deck;
         panel_cards.transform.Find("title").gameObject.GetComponent<Text>().text = my_deck.get_name();
         List<InfoCard> all_cards = parser.getCardsInfo();
@@ -109,27 +115,22 @@ public class DeckCollectionUI : MonoBehaviour
 
     public void save_deck() 
     {
-        panel_cards.SetActive(false);
+        StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(panel_cards.transform, panel_cards_init_position, 1f));
         deck_collection.new_deck(my_deck as DeckCardsPackage);
         panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().Reset();
         panel_cards.transform.Find("frameCardList").GetChild(0).gameObject.GetComponent<PanelListCards>().Reset();
-        deck_selected = -1;
         panelDecks.gameObject.SetActive(true);
 
 
     }
     public void cancel_deck()
     {
+        StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(panel_cards.transform, panel_cards_init_position, 1f));
         panelDecks.GetComponent<PanelListDeckCardsPackage>().delete_last();
         panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().Reset();
         panel_cards.transform.Find("frameCardList").GetChild(0).gameObject.GetComponent<PanelListCards>().Reset();
-        panel_cards.SetActive(false);
-        deck_selected = -1;
         panelDecks.gameObject.SetActive(true);
     }
 
-    
-
-   
 }
  
