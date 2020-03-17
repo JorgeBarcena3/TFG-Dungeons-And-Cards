@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 using Assets.Script.Tools.Interfaces;
+
+
 /// <summary>
 /// Rellena la informacion de la carta
 /// </summary>
@@ -83,6 +85,9 @@ public class HUDCard : IInfoUIElement<InfoCard>
         namelbl.text = info.Name.ToString();
         SetCardArt(Resources.Load<Sprite>(info.Art.ToString()) != null ? Resources.Load<Sprite>(info.Art.ToString()) : Resources.Load<Sprite>("TEMPLATE"));
         this.info = info;
+
+        this.transform.GetChild(1).GetComponent<Image>().color = Card.CardsColor[info.Card_kind.ToString()] == null ? Card.CardsColor["TEMPLATE"] : Card.CardsColor[info.Card_kind.ToString()];
+
     }
     /// <summary>
     /// En la creación de mazo se añade la carta a un mazo

@@ -13,6 +13,21 @@ public class Card : MonoBehaviour
 {
 
     /// <summary>
+    /// Colores de las cartas
+    /// </summary>
+    public static Dictionary<string, Color> CardsColor = new Dictionary<string, Color>()
+        {
+            { "GIVENMANA",         new Color(0.68f, 0.93f, 0.98f) },
+            { "ATTACKACTION",      new Color(1, 0.82f, 0.82f) },
+            { "ATTACKANDMOVEMENT", new Color(1, 0.95f, 0.81f) },
+            { "TELEPORT",          new Color(0.45f, 1, 0.70f) },
+            { "MOVEMENT",          new Color(0.69f, 0.99f, 0.69f) },
+            { "DEALCARDSACTION",   new Color(0.5f, 0.79f, 1)},
+            { "TEMPLATE",          new Color(0,0,0) },
+        };
+
+
+    /// <summary>
     /// Tipo de carta
     /// </summary>
     public ATTACKTYPE type { get; private set; }
@@ -113,8 +128,6 @@ public class Card : MonoBehaviour
         {
 
             cardGameobject.AddComponent<GivenManaAction>();
-            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.68f, 0.93f, 0.98f);
-            card.type = ATTACKTYPE.GIVENMANA;
 
             int power = Random.Range(2, 5);
             card.info = new InfoCard(
@@ -133,8 +146,6 @@ public class Card : MonoBehaviour
         else if (random < 10)
         {
             cardGameobject.AddComponent<AttackAction>();
-            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 0.82f, 0.82f);
-            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.ATTACKACTION;
 
             int power = Random.Range(1, 4);
             cardGameobject.GetComponent<Card>().info = new InfoCard(
@@ -154,8 +165,6 @@ public class Card : MonoBehaviour
         {
 
             cardGameobject.AddComponent<AttackAndMovementAction>();
-            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(1, 0.95f, 0.81f);
-            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.ATTACKANDMOVEMENT;
 
             int power = Random.Range(1, 4);
             cardGameobject.GetComponent<Card>().info = new InfoCard(
@@ -174,8 +183,6 @@ public class Card : MonoBehaviour
         else if (random < 20)
         {
             cardGameobject.AddComponent<TeleportAction>();
-            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.45f, 1, 0.70f);
-            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.TELEPORT;
 
             int power = Random.Range(2, 4);
             cardGameobject.GetComponent<Card>().info = new InfoCard(
@@ -194,8 +201,6 @@ public class Card : MonoBehaviour
         else if (random < 25)
         {
             cardGameobject.AddComponent<MovementAction>();
-            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.69f, 0.99f, 0.69f);
-            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.MOVEMENT;
 
             int power = Random.Range(1, 4);
             cardGameobject.GetComponent<Card>().info = new InfoCard(
@@ -213,8 +218,6 @@ public class Card : MonoBehaviour
         else
         {
             cardGameobject.AddComponent<DealCardsAction>();
-            cardGameobject.transform.GetChild(1).GetComponent<Image>().color = new Color(0.5f, 0.79f, 1);
-            cardGameobject.GetComponent<Card>().type = ATTACKTYPE.DEALCARDSACTION;
 
             int power = 2;
             cardGameobject.GetComponent<Card>().info = new InfoCard(
