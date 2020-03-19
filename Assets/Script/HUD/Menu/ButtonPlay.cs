@@ -28,7 +28,7 @@ public class ButtonPlay : MonoBehaviour
         
     }
 
-    void action(SwipeData data)
+    public void action(SwipeData data)
     {
         if (GameManager.Instance.state == States.INMENU && isShowingInfo())
         {
@@ -102,7 +102,7 @@ public class ButtonPlay : MonoBehaviour
     void deck() 
     {
         StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(deck_menu.transform, new Vector2(0,1),1f));
-        
+    
     }
     void settings() 
     {

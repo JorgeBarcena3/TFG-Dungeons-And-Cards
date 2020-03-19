@@ -26,17 +26,47 @@ public class DeckCollectionUI : MonoBehaviour
         panel_cards_init_position = new Vector2(panel_cards.transform.position.x,0);
 
     }
-
+    /// <summary>
+    /// vuelve al menu de inicio
+    /// </summary>
     public void back_to_init_menu()
     {
         StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(transform.parent, init_position, 1f));
+
+        //Se vuelve a activar el menu de inicio y se vuelve a suscribir al delegado
+        transform.parent.parent.transform.Find("play").gameObject.SetActive(true);
+        transform.parent.parent.transform.Find("deck").gameObject.SetActive(true);
+        transform.parent.parent.transform.Find("settings").gameObject.SetActive(true);
+        transform.parent.parent.transform.Find("exit").gameObject.SetActive(true);
+
+        SwipeDetector.OnSwipe += transform.parent.parent.transform.Find("play").GetComponent<ButtonPlay>().action;
+        SwipeDetector.OnSwipe += transform.parent.parent.transform.Find("deck").GetComponent<ButtonPlay>().action;
+        SwipeDetector.OnSwipe += transform.parent.parent.transform.Find("settings").GetComponent<ButtonPlay>().action;
+        SwipeDetector.OnSwipe += transform.parent.parent.transform.Find("exit").GetComponent<ButtonPlay>().action;
     }
+    /// <summary>
+    /// abre el menu para crear un mazo nuevo (panel del nombre de mazo)
+    /// </summary>
     public void open_panel_name_deck()
     {
        
         StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(panel_name.transform, new Vector2(-1, 0), 1f));
         panel_name.transform.Find("name").GetComponent<InputField>().text = "";
+
+        //Cuando se entra en el menu de gestion de mazo se desactiba todo el menu inicial para que no interfiera
+        transform.parent.parent.transform.Find("play").gameObject.SetActive(false);
+        transform.parent.parent.transform.Find("deck").gameObject.SetActive(false);
+        transform.parent.parent.transform.Find("settings").gameObject.SetActive(false);
+        transform.parent.parent.transform.Find("exit").gameObject.SetActive(false);
+
+        SwipeDetector.OnSwipe -= transform.parent.parent.transform.Find("play").GetComponent<ButtonPlay>().action;
+        SwipeDetector.OnSwipe -= transform.parent.parent.transform.Find("deck").GetComponent<ButtonPlay>().action;
+        SwipeDetector.OnSwipe -= transform.parent.parent.transform.Find("settings").GetComponent<ButtonPlay>().action;
+        SwipeDetector.OnSwipe -= transform.parent.parent.transform.Find("exit").GetComponent<ButtonPlay>().action;
     }
+    /// <summary>
+    /// Cierra el panel del nombre
+    /// </summary>
     public void close_panel_name_deck()
     {
         StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(panel_name.transform, panel_name_init_position, 1f));
@@ -112,7 +142,9 @@ public class DeckCollectionUI : MonoBehaviour
         my_deck.delete_card(info);
         panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().delete_item(info);
     }
-
+    /// <summary>
+    /// Guarda los cambios realizados o el mazo nuevo
+    /// </summary>
     public void save_deck() 
     {
         StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(panel_cards.transform, panel_cards_init_position, 1f));
@@ -123,6 +155,9 @@ public class DeckCollectionUI : MonoBehaviour
 
 
     }
+    /// <summary>
+    /// cancela el mazo o elimina el mazo que se estubiese editando
+    /// </summary>
     public void cancel_deck()
     {
         StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(panel_cards.transform, panel_cards_init_position, 1f));
