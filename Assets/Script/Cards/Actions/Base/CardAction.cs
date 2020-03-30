@@ -22,6 +22,11 @@ public abstract class CardAction : MonoBehaviour
 {
 
     /// <summary>
+    /// Tipo de carta
+    /// </summary>
+    public ATTACKTYPE cardType;
+
+    /// <summary>
     /// Radio de vecinos
     /// </summary>
     [HideInInspector]
@@ -42,6 +47,13 @@ public abstract class CardAction : MonoBehaviour
     /// </summary>
     public abstract bool checkAction(GameObject player);
 
+    /// <summary>
+    /// Funcion de start
+    /// </summary>
+    public void Start()
+    {
+        setRadio();
+    }
 
     /// <summary>
     /// Determina el radio de accion de la carta

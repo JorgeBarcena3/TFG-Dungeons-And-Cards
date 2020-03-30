@@ -116,6 +116,32 @@ public class Card : MonoBehaviour
     }
 
     /// <summary>
+    /// Instanciamos una carta en la posicion X
+    /// </summary>
+    /// <param name="position">Posicion donde vamos a instanciar la carta</param>
+    public static GameObject instantiateCard(GameObject prefab, Transform position, Transform _parent, Deck _deck)
+    {
+
+
+        GameObject cardGameobject = Instantiate(prefab, position.position, Quaternion.identity, _parent);
+        Card cardComponent = cardGameobject.AddComponent<Card>();
+        cardComponent.deck = _deck;
+        cardComponent.HUDCard = cardGameobject.GetComponent<HUDCard>();
+
+        cardComponent.background= cardComponent.gameObject.transform.GetChild(0).gameObject;
+        ((RectTransform)cardComponent.background.transform).sizeDelta = new Vector2(0, 0);
+
+        cardComponent.front = cardComponent.gameObject.transform.GetChild(1).gameObject;
+        ((RectTransform)cardComponent.front.transform).sizeDelta = new Vector2(0, 0);
+
+
+        cardComponent.background.SetActive(false);
+        cardComponent.front.SetActive(false);
+
+        return cardGameobject;
+    }
+
+    /// <summary>
     /// Determina la accion que va a hacer una carta
     /// </summary>
     /// <param name="cardGameobject"></param>

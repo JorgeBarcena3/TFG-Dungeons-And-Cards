@@ -11,6 +11,23 @@ using Random = UnityEngine.Random;
 public class Decider : MonoBehaviour
 {
 
+    //BASIC MEDIUM  HARD
+//1	      0	     0	   0 / 1
+//2	      1	     0	   0 / 1
+//3	      1	     1	   3
+//4	      1	     1	   2
+//5	      1	     1	   2
+//>= 6	  1	     1	   2
+
+
+    public int [,] primaryDecisionOptions = new int[,]
+    { {1,0,0,1},
+      {2,1,0,1},
+      {3,1,1,3},
+      {4,1,1,2},
+      {5,1,1,2},
+      {6,1,1,2},
+    };
 
     /// <summary>
     /// Toma una decision en funcion de los parametros del input
@@ -21,6 +38,14 @@ public class Decider : MonoBehaviour
     {
         Enemy enemy = (agent as Enemy);
         int index = enemy ? (agent as Enemy).getAvance() : 0;
+
+
+        int actionIndex = primaryDecisionOptions[info.waypointsToPlayer.Count() - 1 >= primaryDecisionOptions.GetLength(0) ? primaryDecisionOptions.GetLength(0) - 1 : info.waypointsToPlayer.Count() - 1, (int)enemy.type + 1];
+
+        //Utilizamos un árbol de toma de decisiones
+
+        var card = enemy.cardsActives[actionIndex];
+        var action = card.gameObject.GetComponent<CardAction>();
 
         //REALIZAMOS LA ACCION
         if (info.waypointsToPlayer.Count > 1)

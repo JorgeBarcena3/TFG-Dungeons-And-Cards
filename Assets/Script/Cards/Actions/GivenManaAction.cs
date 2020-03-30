@@ -7,6 +7,16 @@ using UnityEngine;
 /// </summary>
 public class GivenManaAction : CardAction
 {
+
+    /// <summary>
+    /// Decide el tipo de carta ques es
+    /// </summary>
+    public new void Start()
+    {
+        cardType = ATTACKTYPE.GIVENMANA;
+        base.Start();
+    }
+
     public override bool checkAction(GameObject player)
     {
         return ( GameManager.Instance.player.playerInfo.currentManaPoints < GameManager.Instance.player.playerInfo.maxManaPoints );

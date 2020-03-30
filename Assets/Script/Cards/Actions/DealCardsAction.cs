@@ -8,6 +8,15 @@ using UnityEngine;
 /// </summary>
 public class DealCardsAction : CardAction
 {
+    /// <summary>
+    /// Decide el tipo de carta ques es
+    /// </summary>
+    public new void Start()
+    {
+        cardType = ATTACKTYPE.DEALCARDSACTION;
+        base.Start();
+    }
+
 
     /// <summary>
     /// Comprobamos si la accion es posible o no

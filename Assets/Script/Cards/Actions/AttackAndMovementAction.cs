@@ -15,6 +15,15 @@ public class AttackAndMovementAction : CardAction
     private List<TileWalkable> neighbourTiles;
 
     /// <summary>
+    /// Decide el tipo de carta ques es
+    /// </summary>
+    public new void Start()
+    {
+        cardType = ATTACKTYPE.ATTACKANDMOVEMENT;
+        base.Start();
+    }
+
+    /// <summary>
     /// Comprobamos que la accion es posible
     /// </summary>
     /// <param name="player"></param>

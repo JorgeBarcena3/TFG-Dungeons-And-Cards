@@ -1773,7 +1773,7 @@ PrefabInstance:
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
       propertyPath: useRandomSeed
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
@@ -1794,6 +1794,11 @@ PrefabInstance:
         type: 3}
       propertyPath: seed
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
+        type: 3}
+      propertyPath: desactivarControles
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6809962095224083633, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}

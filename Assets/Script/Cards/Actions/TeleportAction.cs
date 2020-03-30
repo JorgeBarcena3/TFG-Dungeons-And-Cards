@@ -14,6 +14,15 @@ public class TeleportAction : CardAction
     private List<TileWalkable> neighbourTiles;
 
     /// <summary>
+    /// Decide el tipo de carta ques es
+    /// </summary>
+    public new void Start()
+    {
+        cardType = ATTACKTYPE.TELEPORT;
+        base.Start();
+    }
+
+    /// <summary>
     /// Comprobamos si la accion es posible o no
     /// </summary>
     /// <param name="player"></param>
