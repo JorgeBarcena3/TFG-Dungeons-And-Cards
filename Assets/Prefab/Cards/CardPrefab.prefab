@@ -115,7 +115,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 78.5, y: 103.92957}
+  m_SizeDelta: {x: 78.32283, y: 103.695015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4797201791848603168
 CanvasRenderer:
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: e76734c384d613a47a251c374e4b7bf7, type: 2}
+  m_Material: {fileID: 2100000, guid: 3851eb46464af1c429146d535cd9701a, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -348,7 +348,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 48.188675, y: -67.677986}
-  m_SizeDelta: {x: 66.5, y: 88.04225}
+  m_SizeDelta: {x: 66.32283, y: 87.80769}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1151575918766432235
 CanvasRenderer:
@@ -382,7 +382,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 66.50001, y: 88.04227}
+  m_Size: {x: 66.32283, y: 87.80769}
   m_EdgeRadius: 0
 --- !u!114 &6609689868880291131
 MonoBehaviour:
