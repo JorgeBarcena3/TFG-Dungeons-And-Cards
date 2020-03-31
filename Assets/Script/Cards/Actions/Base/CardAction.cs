@@ -33,9 +33,20 @@ public abstract class CardAction : MonoBehaviour
     public int radioVecinos;
 
     /// <summary>
+    /// Actor que va a relizar la accion
+    /// </summary>
+    public GameObject actor;
+
+    /// <summary>
+    /// Devuelve la tile recomendada segun el tipo de carta
+    /// **SOLO SE DEBE LLAMAR SI SOMOS UN AGENTE CONTROLADO POR LA IA**
+    /// </summary>
+    public virtual Tile recommendTile() { return null;  } 
+
+    /// <summary>
     /// Realiza la accion 
     /// </summary>
-    public abstract void DoAction(GameObject player);
+    public abstract void DoAction();
 
     /// <summary>
     /// Determina si hemos hecho click o no en una tile
@@ -45,7 +56,7 @@ public abstract class CardAction : MonoBehaviour
     /// <summary>
     /// Determina si la accion se puede o no hacer
     /// </summary>
-    public abstract bool checkAction(GameObject player);
+    public abstract bool checkAction();
 
     /// <summary>
     /// Funcion de start
@@ -66,24 +77,39 @@ public abstract class CardAction : MonoBehaviour
     }
 
     /// <summary>
+    /// Determina que actor va a realizar la accion
+    /// </summary>
+    /// <param name="actor"></param>
+    public void setActor(GameObject _actor)
+    {
+        actor = _actor;
+        setRadio();
+    }
+
+    /// <summary>
     /// Finalizamos el turno
     /// </summary>
     protected virtual void finishTurn()
     {
-
         GameManager GM = GameManager.Instance;
-        GM.GameInfo.cartasUtilizadas.Add(GetComponent<Card>().info);
-        FirebaseAnalyticsManager.Instance.sendCard( new CardInfoDto(FIREBASE_CARDSTATE.USED, GetComponent<Card>().info) );
 
-        GM.deck.inCardAction = false;
-        GM.player.playerInfo.useMana(this.gameObject.GetComponent<Card>().info.Cost);
-
-        if ( GM.turnManager.isIATurn() )
+        if (GM.turn == TURN.PLAYER)
         {
-            GM.turn = TURN.IA;
-        }
 
-        GM.player.refreshPlayerData();
+            GM.GameInfo.cartasUtilizadas.Add(GetComponent<Card>().info);
+            FirebaseAnalyticsManager.Instance.sendCard(new CardInfoDto(FIREBASE_CARDSTATE.USED, GetComponent<Card>().info));
+
+            GM.deck.inCardAction = false;
+            GM.player.playerInfo.useMana(this.gameObject.GetComponent<Card>().info.Cost);
+
+            if (GM.turnManager.isIATurn())
+            {
+                GM.turn = TURN.IA;
+            }
+
+            GM.player.refreshPlayerData();
+
+        }
 
     }
 }

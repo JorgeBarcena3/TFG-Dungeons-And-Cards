@@ -134,9 +134,7 @@ public class Card : MonoBehaviour
         cardComponent.front = cardComponent.gameObject.transform.GetChild(1).gameObject;
         ((RectTransform)cardComponent.front.transform).sizeDelta = new Vector2(0, 0);
 
-
-        cardComponent.background.SetActive(false);
-        cardComponent.front.SetActive(false);
+        cardGameobject.transform.localScale = Vector3.zero;
 
         return cardGameobject;
     }
@@ -258,6 +256,8 @@ public class Card : MonoBehaviour
                 ATTACKTYPE.DEALCARDSACTION.ToString()
                 );
         }
+
+        cardGameobject.GetComponent<CardAction>().setActor(GameManager.Instance.player.gameObject);
 
         card.HUDCard.fillInfo(cardGameobject.GetComponent<Card>().info);
 

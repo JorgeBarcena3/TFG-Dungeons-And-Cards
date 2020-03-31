@@ -66,9 +66,9 @@ public class AuxiliarFuncions : MonoBehaviour
         {
 
             Vector3 newPosition = tile.transform.position;
-            obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, -(GameManager.Instance.worldGenerator.tamanioY + 1));
+            obj.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, -(GameManager.Instance.worldGenerator.tamanioY + 1));
 
-            GameManager.Instance.StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(obj.transform, newPosition, 1f) );
+            GameManager.Instance.StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(obj.transform, newPosition, 1f));
 
             yield return new WaitUntil(() =>
                 obj.transform.position.x == newPosition.x &&
@@ -76,7 +76,7 @@ public class AuxiliarFuncions : MonoBehaviour
                 );
 
 
-            obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, tile.transform.localPosition.z) + GameManager.Instance.player.zOffset;
+            obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, tile.transform.localPosition.z) + (GameManager.Instance.player != null ? GameManager.Instance.player.zOffset : Vector3.zero ) ;
             
 
         }

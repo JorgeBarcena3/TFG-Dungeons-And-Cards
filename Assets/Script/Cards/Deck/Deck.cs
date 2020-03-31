@@ -208,7 +208,7 @@ public class Deck : MonoBehaviour
         else if (_gameObject != null && deckInfo.infoCard == _gameObject.GetComponent<Card>())
         {
 
-            if (_gameObject.GetComponent<CardAction>().checkAction(GameManager.Instance.player.gameObject))
+            if (_gameObject.GetComponent<CardAction>().checkAction())
             {
                 matarCartas(_gameObject);
             }
@@ -258,7 +258,7 @@ public class Deck : MonoBehaviour
         deckInfo.goToCementery(_gameObject, ref deckCanvasInfo.anchorToCards);
 
         if (doAction)
-            _gameObject.GetComponent<CardAction>().DoAction(GameManager.Instance.player.gameObject);
+            _gameObject.GetComponent<CardAction>().DoAction();
         else // Si la descartamos
         {
             FirebaseAnalyticsManager.Instance.sendCard(new CardInfoDto(FIREBASE_CARDSTATE.DISCARD, card.info));

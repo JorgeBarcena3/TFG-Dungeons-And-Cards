@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -19,7 +20,7 @@ public class TeleportAction : CardAction
     public new void Start()
     {
         cardType = ATTACKTYPE.TELEPORT;
-        base.Start();
+        setRadio();
     }
 
     /// <summary>
@@ -27,13 +28,13 @@ public class TeleportAction : CardAction
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
-    public override bool checkAction(GameObject player)
+    public override bool checkAction()
     {
-        if (GameManager.Instance.player.playerInfo.canUseMana(this.gameObject.GetComponent<Card>().info.Cost))
+        if (GameManager.Instance.turn == TURN.IA || GameManager.Instance.player.playerInfo.canUseMana(this.gameObject.GetComponent<Card>().info.Cost))
         {
-            Vector2 position = player.GetComponent<Player>().currentCell.CellInfo.mapPosition;
+            Vector2 position = actor.GetComponent<MapActor>().currentCell.CellInfo.mapPosition;
 
-            neighbourTiles = GetWalkableNeighbours(position, player);
+            neighbourTiles = GetWalkableNeighbours(position);
 
             if (neighbourTiles.Count > 0)
                 return true;
@@ -44,15 +45,37 @@ public class TeleportAction : CardAction
     }
 
     /// <summary>
+    /// Devuelve la tile recomendada segun el tipo de carta
+    /// **SOLO SE DEBE LLAMAR SI SOMOS UN AGENTE CONTROLADO POR LA IA**
+    /// </summary>
+    public override Tile recommendTile()
+    {
+        float currentDistance = float.MaxValue;
+        Tile recommendedTile = null;
+
+        foreach (var tile in neighbourTiles)
+        {
+            float d = Vector2.Distance(tile.transform.position, GameManager.Instance.player.transform.position);
+
+            if (d < currentDistance)
+            {
+                currentDistance = d;
+                recommendedTile = tile;
+            }
+        }
+        return recommendedTile;
+    }
+
+    /// <summary>
     /// Determina si hemos hecho click o no en una tile
     /// </summary>
     public override void clickOnTile(Tile tile)
     {
-        StartCoroutine(GameManager.Instance.player.TeleportPlayerTo(tile.transform.position));
+        StartCoroutine(actor.GetComponent<MapActor>().TeleportActorTo(tile.transform.position));
 
-        GameManager.Instance.player.currentCell.contain = CELLCONTAINER.EMPTY;
-        GameManager.Instance.player.currentCell = tile;
-        GameManager.Instance.player.currentCell.contain = CELLCONTAINER.PLAYER;
+        actor.GetComponent<MapActor>().currentCell.contain = CELLCONTAINER.EMPTY;
+        actor.GetComponent<MapActor>().currentCell = tile;
+        actor.GetComponent<MapActor>().currentCell.contain = actor.GetComponent<MapActor>().actorType;
 
         foreach (TileWalkable tl in neighbourTiles)
         {
@@ -68,7 +91,7 @@ public class TeleportAction : CardAction
     /// <summary>
     /// Realiza la accion de moverse a una casilla
     /// </summary>
-    public override void DoAction(GameObject player)
+    public override void DoAction()
     {
 
         foreach (TileWalkable tile in neighbourTiles)
@@ -87,7 +110,7 @@ public class TeleportAction : CardAction
     /// Obtiene los vecinos walkables a la celda donde esta el jugador
     /// </summary>
     /// <returns></returns>
-    private List<TileWalkable> GetWalkableNeighbours(Vector2 position, GameObject player)
+    private List<TileWalkable> GetWalkableNeighbours(Vector2 position)
     {
 
         Tablero board2D = GameManager.Instance.worldGenerator.board;
@@ -128,7 +151,7 @@ public class TeleportAction : CardAction
                 )
             {
 
-                float distance = Vector2.Distance(player.transform.position, tile.transform.position);
+                float distance = Vector2.Distance(actor.transform.position, tile.transform.position);
                 if (distance < 1 + ((radioVecinos - 1) * 0.5f))
                     tilesWalkables.Add(tile as TileWalkable);
             }

@@ -11,22 +11,26 @@ using Random = UnityEngine.Random;
 public class Decider : MonoBehaviour
 {
 
-    //BASIC MEDIUM  HARD
-//1	      0	     0	   0 / 1
-//2	      1	     0	   0 / 1
-//3	      1	     1	   3
-//4	      1	     1	   2
-//5	      1	     1	   2
-//>= 6	  1	     1	   2
+    //WAYPOINTS      BASIC MEDIUM  HARD    -- TIPO DE ENEMIGO
+    //        1	      0	     0	   0 / 1 
+    //        2	      1	     0	   0 / 1
+    //        3	      1	     1	   3
+    //        4	      1	     1	   2
+    //        5	      1	     1	   2
+    //        >= 6	  1	     1	   2
 
 
     public int [,] primaryDecisionOptions = new int[,]
-    { {1,0,0,1},
-      {2,1,0,1},
-      {3,1,1,3},
-      {4,1,1,2},
-      {5,1,1,2},
-      {6,1,1,2},
+    { {  1,  0,0,0},
+      {  2,  1,0,0},
+      {  3,  1,1,0},
+      {  4,  1,1,1},
+      {  5,  2,2,1},
+      {  6,  2,2,1},
+      {  7,  2,2,1},
+      {  8,  2,2,1},
+      {  9,  2,2,2},
+      { 10,  3,2,2},
     };
 
     /// <summary>
@@ -37,8 +41,6 @@ public class Decider : MonoBehaviour
     public IEnumerator takeDecision(IAAgent agent, IAInputInfo info)
     {
         Enemy enemy = (agent as Enemy);
-        int index = enemy ? (agent as Enemy).getAvance() : 0;
-
 
         int actionIndex = primaryDecisionOptions[info.waypointsToPlayer.Count() - 1 >= primaryDecisionOptions.GetLength(0) ? primaryDecisionOptions.GetLength(0) - 1 : info.waypointsToPlayer.Count() - 1, (int)enemy.type + 1];
 
@@ -46,49 +48,19 @@ public class Decider : MonoBehaviour
 
         var card = enemy.cardsActives[actionIndex];
         var action = card.gameObject.GetComponent<CardAction>();
+        action.setActor(enemy.gameObject);
 
-        //REALIZAMOS LA ACCION
-        if (info.waypointsToPlayer.Count > 1)
+        int index = info.waypointsToPlayer.Count > card.GetComponent<Card>().info.Power ? card.GetComponent<Card>().info.Power : info.waypointsToPlayer.Count;
+
+        if (action.checkAction())
         {
-            int fixedIndex = index > (info.waypointsToPlayer.Count - 1) ? info.waypointsToPlayer.Count - 1 : index;
 
-            if (info.waypointsToPlayer[fixedIndex].contain != CELLCONTAINER.ENEMY)
-            {
-
-                for (int i = 0; i <= fixedIndex; i++)
-                {
-                    Vector3 newPosition = info.waypointsToPlayer[i].transform.position;
-                    enemy.transform.localPosition = new Vector3(enemy.transform.localPosition.x, enemy.transform.localPosition.y, -(GameManager.Instance.worldGenerator.tamanioY + 1));
-
-                    StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(agent.transform, newPosition, 1f));
-
-                    yield return new WaitUntil(() =>
-                        agent.transform.position.x == newPosition.x &&
-                        agent.transform.position.y == newPosition.y
-                        );
-                }
-
-                enemy.transform.localPosition = new Vector3(enemy.transform.localPosition.x, enemy.transform.localPosition.y, info.waypointsToPlayer[fixedIndex].transform.localPosition.z) + enemy.zOffset;
-
-                if (info.waypointsToPlayer[fixedIndex].contain == CELLCONTAINER.PLAYER)
-                {
-                    Debug.Log("Te han matado los enemigos");
-                    GameManager.Instance.sendInfoStatics(CURRENTSTATE.LOSER);
-                    GameManager.Instance.GoToMenu();
-                }
-
-                agent.currentCell.contain = CELLCONTAINER.EMPTY;
-                agent.currentCell = info.waypointsToPlayer[fixedIndex];
-                agent.currentCell.contain = CELLCONTAINER.ENEMY;
-            }
-
+            var tilee = action.recommendTile(); //info.waypointsToPlayer[index - 1]
+            action.clickOnTile(tilee);
+            yield return new WaitForSeconds(1F);
         }
-        else if (info.waypointsToPlayer.Count == 1)
-        {
-            Debug.Log("Te han matado los enemigos");
-            GameManager.Instance.sendInfoStatics(CURRENTSTATE.LOSER);
-            GameManager.Instance.GoToMenu();
-        }
+
+        GameManager.Instance.checkEndGame();
 
         agent.actionDone = true;
 

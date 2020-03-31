@@ -137,6 +137,14 @@ public class GameManager : Singelton<GameManager>
             Debug.Log("Has matado a los enemigos");
             sendInfoStatics(CURRENTSTATE.WINNER);
             GoToMenu();
+
+        }
+        else if(player == null)
+        {
+            Debug.Log("Los enemigos te han asesinado");
+            sendInfoStatics(CURRENTSTATE.LOSER);
+            GoToMenu();
+
         }
     }
 
@@ -166,6 +174,7 @@ public class GameManager : Singelton<GameManager>
     /// </summary>
     public void GoToMenu()
     {
+        state = States.INMENU;
         Initiate.Fade("Menu", Color.black, 2.0f);
     }
 

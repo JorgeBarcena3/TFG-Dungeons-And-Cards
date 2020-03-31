@@ -9,9 +9,9 @@ using UnityEngine;
 /// </summary>
 public enum ENEMY_TYPE : int
 {
-    HARD   = 2,
+    HARD = 2,
     MEDIUM = 1,
-    BASIC  = 0
+    BASIC = 0
 }
 
 /// <summary>
@@ -47,6 +47,7 @@ public class Enemy : IAAgent
         setType(_type);
         transform.position = currentCell.transform.position + zOffset;
         createEnemyDeck();
+        setActorType(CELLCONTAINER.ENEMY);
 
     }
 
@@ -55,13 +56,14 @@ public class Enemy : IAAgent
     /// </summary>
     private void createEnemyDeck()
     {
-        int power = 1;
+        int power;
 
         switch (type)
-        {            
+        {
 
             case ENEMY_TYPE.BASIC:
 
+                power = 1;
 
                 cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab, this.transform, this.transform, null));
                 cardsActives.Last().GetComponent<Card>().info = new InfoCard(
@@ -75,8 +77,41 @@ public class Enemy : IAAgent
                 1,
                 ATTACKTYPE.ATTACKACTION.ToString()
                 );
-
                 cardsActives.Last().AddComponent<AttackAction>();
+
+                power = 1;
+
+                cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab, this.transform, this.transform, null));
+                cardsActives.Last().GetComponent<Card>().info = new InfoCard(
+                ATTACKTYPE.MOVEMENT,
+                01,
+                "Movimiento",
+                "Cuando utilices esta carta podrás moverte a cualquier casilla que se encuentre en el rango de " + power + ". El coste de maná de esta carta sera de " + power + " puntos.",
+                power,
+                power,
+                0,
+                1,
+                ATTACKTYPE.MOVEMENT.ToString()
+                );
+                cardsActives.Last().AddComponent<MovementAction>();
+
+                power = 2;
+
+                cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab, this.transform, this.transform, null));
+                cardsActives.Last().GetComponent<Card>().info = new InfoCard(
+                ATTACKTYPE.MOVEMENT,
+                01,
+                "Movimiento",
+                "Cuando utilices esta carta podrás moverte a cualquier casilla que se encuentre en el rango de " + power + ". El coste de maná de esta carta sera de " + power + " puntos.",
+                power,
+                power,
+                0,
+                1,
+                ATTACKTYPE.MOVEMENT.ToString()
+                );
+                cardsActives.Last().AddComponent<MovementAction>();
+
+                 power = 3;
 
                 cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab, this.transform, this.transform, null));
                 cardsActives.Last().GetComponent<Card>().info = new InfoCard(
@@ -97,8 +132,7 @@ public class Enemy : IAAgent
             case ENEMY_TYPE.MEDIUM:
 
 
-                power = 2;
-                
+                power = 3;
 
                 cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab, this.transform, this.transform, null));
                 cardsActives.Last().GetComponent<Card>().info = new InfoCard(
@@ -112,8 +146,9 @@ public class Enemy : IAAgent
                 1,
                 ATTACKTYPE.ATTACKANDMOVEMENT.ToString()
                 );
-
                 cardsActives.Last().AddComponent<AttackAndMovementAction>();
+
+                power = 3;
 
                 cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab, this.transform, this.transform, null));
                 cardsActives.Last().GetComponent<Card>().info = new InfoCard(
@@ -127,17 +162,33 @@ public class Enemy : IAAgent
                 1,
                 ATTACKTYPE.MOVEMENT.ToString()
                 );
+                cardsActives.Last().AddComponent<MovementAction>();
 
+                power = 4;
+
+                cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab, this.transform, this.transform, null));
+                cardsActives.Last().GetComponent<Card>().info = new InfoCard(
+                ATTACKTYPE.MOVEMENT,
+                01,
+                "Movimiento",
+                "Cuando utilices esta carta podrás moverte a cualquier casilla que se encuentre en el rango de " + power + ". El coste de maná de esta carta sera de " + power + " puntos.",
+                power,
+                power,
+                0,
+                1,
+                ATTACKTYPE.MOVEMENT.ToString()
+                );
                 cardsActives.Last().AddComponent<MovementAction>();
 
                 break;
 
             case ENEMY_TYPE.HARD:
-                
 
-                cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab,  this.transform, this.transform, null));
+                power = 4;
+
+                cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab, this.transform, this.transform, null));
                 cardsActives.Last().GetComponent<Card>().info = new InfoCard(
-                ATTACKTYPE.ATTACKANDMOVEMENT,
+                ATTACKTYPE.ATTACKACTION,
                 01,
                 "Ataque y movimiento",
                 "Cuando utilices esta carta podrás matar cualquier enemigo (moviéndote a su casilla) que se encuentre en el rango de " + power + " casillas de distancia. El coste de maná de esta carta sera de " + power + " puntos.",
@@ -145,12 +196,13 @@ public class Enemy : IAAgent
                 power,
                 0,
                 1,
-                ATTACKTYPE.ATTACKANDMOVEMENT.ToString()
+                ATTACKTYPE.ATTACKACTION.ToString()
                 );
+                cardsActives.Last().AddComponent<AttackAndMovementAction>();
 
-                cardsActives.Last().AddComponent<AttackAndMovementAction>();               
+                power = 2;
 
-                cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab,  this.transform, this.transform, null));
+                cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab, this.transform, this.transform, null));
                 cardsActives.Last().GetComponent<Card>().info = new InfoCard(
                 ATTACKTYPE.MOVEMENT,
                 01,
@@ -162,12 +214,11 @@ public class Enemy : IAAgent
                 1,
                 ATTACKTYPE.MOVEMENT.ToString()
                 );
-
                 cardsActives.Last().AddComponent<MovementAction>();
 
                 power = 3;
 
-                cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab,  this.transform, this.transform, null));
+                cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab, this.transform, this.transform, null));
                 cardsActives.Last().GetComponent<Card>().info = new InfoCard(
                 ATTACKTYPE.TELEPORT,
                 01,
@@ -179,23 +230,8 @@ public class Enemy : IAAgent
                 1,
                 ATTACKTYPE.TELEPORT.ToString()
                 );
-
                 cardsActives.Last().AddComponent<TeleportAction>();
 
-                cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab,  this.transform, this.transform, null));
-                cardsActives.Last().GetComponent<Card>().info = new InfoCard(
-                ATTACKTYPE.ATTACKACTION,
-                01,
-                "Ataque a distancia",
-                "Cuando utilices esta carta podrás matar cualquier enemigo (sin moverte de la casilla) que se encuentre en el rango de " + power + " casillas de distancia. El coste de maná de esta carta sera de " + power + " puntos.",
-                power,
-                power,
-                0,
-                1,
-                ATTACKTYPE.ATTACKACTION.ToString()
-                );
-
-                cardsActives.Last().AddComponent<AttackAction>();
 
 
                 break;

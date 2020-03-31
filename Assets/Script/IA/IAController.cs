@@ -57,7 +57,8 @@ public class IAController : MonoBehaviour
 
             //ELEGIMOS LA ACCION A HACER
 
-            StartCoroutine(decider.takeDecision(agent, new IAInputInfo(waypoints, 1, 8)));
+            if (GameManager.Instance.state == States.INGAME)
+                StartCoroutine(decider.takeDecision(agent, new IAInputInfo(waypoints, 1, 8)));
 
             yield return new WaitUntil(() => agent.actionDone);
 

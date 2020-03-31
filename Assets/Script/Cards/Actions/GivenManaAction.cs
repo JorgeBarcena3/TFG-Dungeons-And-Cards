@@ -14,15 +14,15 @@ public class GivenManaAction : CardAction
     public new void Start()
     {
         cardType = ATTACKTYPE.GIVENMANA;
-        base.Start();
+        setRadio();
     }
 
-    public override bool checkAction(GameObject player)
+    public override bool checkAction()
     {
         return ( GameManager.Instance.player.playerInfo.currentManaPoints < GameManager.Instance.player.playerInfo.maxManaPoints );
     }
 
-    public override void DoAction(GameObject player)
+    public override void DoAction()
     {
         GameManager.Instance.deck.inCardAction = true;
         GameManager.Instance.player.playerInfo.addMana(GetComponent<Card>().info.Power);

@@ -14,7 +14,7 @@ public class DealCardsAction : CardAction
     public new void Start()
     {
         cardType = ATTACKTYPE.DEALCARDSACTION;
-        base.Start();
+        setRadio();
     }
 
 
@@ -23,8 +23,12 @@ public class DealCardsAction : CardAction
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
-    public override bool checkAction(GameObject player)
+    public override bool checkAction()
     {
+
+        if (GameManager.Instance.player.playerInfo.canUseMana(this.gameObject.GetComponent<Card>().info.Cost))
+            return false;
+
         DeckCanvasInfo info = GameManager.Instance.deck.deckCanvasInfo;
 
         foreach (AnchorInfo position in info.anchorToCards)
@@ -41,7 +45,7 @@ public class DealCardsAction : CardAction
     /// <summary>
     /// Realiza la accion de moverse a una casilla
     /// </summary>
-    public override void DoAction(GameObject player)
+    public override void DoAction()
     {
         GameManager GM = GameManager.Instance;
 

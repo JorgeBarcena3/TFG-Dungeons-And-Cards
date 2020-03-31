@@ -1773,7 +1773,7 @@ PrefabInstance:
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
       propertyPath: useRandomSeed
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6809962095224083632, guid: c03444dccd598fb499e40644e7cc05fe,
         type: 3}
@@ -2591,6 +2591,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: IngameDebugConsole
       objectReference: {fileID: 0}
+    - target: {fileID: 6574830773142635701, guid: ab655f36afa2ad94fbe6702f99ddb5d2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000030517578
+      objectReference: {fileID: 0}
     - target: {fileID: 6574830773142692111, guid: ab655f36afa2ad94fbe6702f99ddb5d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2794,6 +2799,11 @@ PrefabInstance:
     - target: {fileID: 6574830773142731695, guid: ab655f36afa2ad94fbe6702f99ddb5d2,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574830773142731695, guid: ab655f36afa2ad94fbe6702f99ddb5d2,
+        type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6574830773142793233, guid: ab655f36afa2ad94fbe6702f99ddb5d2,

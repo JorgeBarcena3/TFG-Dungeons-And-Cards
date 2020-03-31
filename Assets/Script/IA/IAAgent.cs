@@ -6,13 +6,9 @@ using UnityEngine;
 /// <summary>
 /// Agentes controlables por la IA
 /// </summary>
-public class IAAgent : MonoBehaviour
+public class IAAgent : MapActor
 {
-    /// <summary>
-    /// Celda en la que se encuentra el enemigo
-    /// </summary>
-    public Tile currentCell;
-
+ 
     /// <summary>
     /// Objetivo del agente
     /// </summary>
@@ -28,7 +24,7 @@ public class IAAgent : MonoBehaviour
     /// </summary>
     /// <param name="image">Imagen a la que se le aplicara el efecto</param>
     /// <returns></returns>
-    public IEnumerator DestroyEnemy(float time = 1)
+    public override IEnumerator destroyActor(float time = 1)
     {
         float t = 0;
 
