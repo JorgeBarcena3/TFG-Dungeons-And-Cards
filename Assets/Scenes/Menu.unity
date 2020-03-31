@@ -668,6 +668,7 @@ GameObject:
   m_Component:
   - component: {fileID: 448500534}
   - component: {fileID: 448500535}
+  - component: {fileID: 448500536}
   m_Layer: 5
   m_Name: ControllerDeckBuild
   m_TagString: Untagged
@@ -710,6 +711,19 @@ MonoBehaviour:
   panel_name: {fileID: 858141061}
   panel_cards: {fileID: 1156509500}
   parser: {fileID: 1217668726}
+--- !u!114 &448500536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448500533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b1dbd698494ef47b3e7ed44007d02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activate: 1
 --- !u!1001 &503646871
 PrefabInstance:
   m_ObjectHideFlags: 0

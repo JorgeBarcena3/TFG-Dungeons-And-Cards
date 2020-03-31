@@ -18,6 +18,12 @@ public class DeckCardsPackage
 
     public DeckCardsPackage() { cards = new List<InfoCard>(); }
 
+    public DeckCardsPackage(string name, List<InfoCard> card_list)
+    {
+        cards = card_list;
+        this.name = name;
+    }
+
     public DeckCardsPackage(string name)
     {
         this.name = name;

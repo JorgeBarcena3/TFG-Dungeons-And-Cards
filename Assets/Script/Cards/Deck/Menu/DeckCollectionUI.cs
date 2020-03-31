@@ -151,6 +151,7 @@ public class DeckCollectionUI : MonoBehaviour
         deck_collection.new_deck(my_deck as DeckCardsPackage);
         panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().Reset();
         panel_cards.transform.Find("frameCardList").GetChild(0).gameObject.GetComponent<PanelListCards>().Reset();
+        deck_collection.save_decks();
         panelDecks.gameObject.SetActive(true);
 
 
