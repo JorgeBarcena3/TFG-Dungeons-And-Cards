@@ -24,6 +24,8 @@ public class DeckCollectionUI : MonoBehaviour
         init_position = transform.parent.position;
         panel_name_init_position = new Vector2(panel_name.transform.position.x,0);
         panel_cards_init_position = new Vector2(panel_cards.transform.position.x,0);
+        deck_collection.load_decks(parser, this);
+        
 
     }
     /// <summary>
@@ -162,10 +164,17 @@ public class DeckCollectionUI : MonoBehaviour
     public void cancel_deck()
     {
         StartCoroutine(AuxiliarFuncions.MoveObjectTo2D(panel_cards.transform, panel_cards_init_position, 1f));
-        panelDecks.GetComponent<PanelListDeckCardsPackage>().delete_last();
+        panelDecks.GetComponent<PanelListDeckCardsPackage>().delete_item(my_deck);
+        deck_collection.delete_deck(my_deck);
         panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().Reset();
         panel_cards.transform.Find("frameCardList").GetChild(0).gameObject.GetComponent<PanelListCards>().Reset();
         panelDecks.gameObject.SetActive(true);
+    }
+
+    public void load_deck()
+    {
+        panelDecks.set_collection(this);
+        panelDecks.add_list(deck_collection.deckCollection);
     }
 
 }

@@ -14,6 +14,9 @@ public class DeckCollection
     /// indica el mazo seleccionado para la partida
     /// </summary>
     public int deck_selected;
+    /// <summary>
+    /// referencia firebase
+    /// </summary>
     private FirebaseDatabaseManager _FirebaseDatabase;
     /// <summary>
     /// Crea un mazo nuevo
@@ -33,7 +36,15 @@ public class DeckCollection
     /// <returns>mazo</returns>
     public DeckCardsPackage new_deck(DeckCardsPackage deck)
     {
-        deckCollection.Add(deck);
+        if (deckCollection.Any(i => i.get_name() == deck.get_name()))
+        {
+            deckCollection[deckCollection.FindIndex(i => i.get_name() == deck.get_name())] = deck;
+        }
+        else
+        {
+            deckCollection.Add(deck);
+        }
+        
         return deck;
     }
     /// <summary>
@@ -78,7 +89,7 @@ public class DeckCollection
             List<InfoCard> deck = deckCollection[i].get_cards();
             for (int x = 0; x < deck.Count(); x++)
             {
-                ids_deck.Add(deck[i].Id);
+                ids_deck.Add(deck[x].Id);
                 
             }
             decks.deckCollection.Add(ids_deck);
@@ -94,7 +105,7 @@ public class DeckCollection
     /// Carga los mazos guardados
     /// </summary>
     /// <param name="parser"></param>
-    public async void load_decks(CSVReader parser)
+    public async void load_decks(CSVReader parser, DeckCollectionUI collection_ui)
     {
         DecksSerialized decks;
         /// si se puede conectar a la base de datos
@@ -129,12 +140,15 @@ public class DeckCollection
             List<InfoCard> deck = new List<InfoCard>();
             for (int x = 0; x < ids.Count(); x++)
             {
-                deck.Add(all_cards.Where(z=>z.Id == ids[x]).First());
+                //deck.Add(all_cards.Where(z=>z.Id == ids[x]).First());
+                deck.Add(all_cards.First(z => z.Id == ids[x]));
             }
             DeckCardsPackage cards_package = new DeckCardsPackage(decks.names[i], deck);
             deckCollection.Add(cards_package);
         }
         deck_selected = decks.deck_selected;
+        collection_ui.load_deck();
+        
     }
    
 }

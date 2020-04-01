@@ -58,8 +58,7 @@ public class InfoCard
     public InfoCard(ATTACKTYPE _card_kind, int _id, string _name, string _description, int _cost = 0, int _power = 1, int _turn = 0, int _distance = 1, string _art = "",  bool _posesion = false)
     {
         Card_kind = _card_kind;
-        //los primeros numeros del id indican el tipo de carta, los ultimos 5 numeros indican las variables de esta
-        Id = ((_id * 10 + _cost) * 10 + _power)  * 10 + _turn;
+        Id = _id;
         Name = _name;
         Description = _description;
         Cost = _cost;
