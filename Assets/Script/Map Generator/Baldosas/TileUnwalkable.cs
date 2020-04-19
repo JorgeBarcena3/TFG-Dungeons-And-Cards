@@ -24,6 +24,7 @@ public class TileUnwalkable : Tile
     {
         contain = CELLCONTAINER.WALL;
         tileRender.sprite = GameArtTheme.Instance.currentTheme.wall;
+
     }
 
 }

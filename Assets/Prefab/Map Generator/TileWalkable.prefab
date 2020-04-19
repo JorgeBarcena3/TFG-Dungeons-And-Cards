@@ -50,7 +50,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d15e801f60ff1b64f851742dc6eb50c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,14 +95,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55f1ea29d17ac924887d7eaa6555bea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  contain: 0
   tileRender: {fileID: 7971222319964830171}
   tileTransform: {fileID: 0}
-  sprites:
-  - {fileID: -5794294892483854606, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
-  - {fileID: -4145478937913619456, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
-  - {fileID: -6553988695760081367, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
-  - {fileID: 8523114309572013152, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
-  - {fileID: -5344474384539509907, guid: d6b1103f0a3541844a0223130dd70045, type: 3}
+  assignedAction: {fileID: 0}
   tileType: 0
 --- !u!58 &5234668708396034902
 CircleCollider2D:
