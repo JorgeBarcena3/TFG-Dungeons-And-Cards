@@ -128,8 +128,13 @@ public class Tile : MonoBehaviour
         if (contain == CELLCONTAINER.WALL)
             Elevate();
 
+<<<<<<< HEAD
         tileRender.material.SetTexture("_texture", tileRender.sprite.texture);
         tileRender.material.SetFloat("_noise_efect", UnityEngine.Random.Range(30, 100));
+=======
+        GetComponent<SpriteRenderer>().material.SetTexture("_texture", GetComponent<SpriteRenderer>().sprite.texture);
+        GetComponent<SpriteRenderer>().material.SetFloat("_noise_efect", UnityEngine.Random.Range(30, 100));
+>>>>>>> e18c59e... generacion de mapa visual
 
     }
     public Vector2 GetPosition()
