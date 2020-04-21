@@ -97,7 +97,7 @@ public class Card : MonoBehaviour
     /// Instanciamos una carta en la posicion X
     /// </summary>
     /// <param name="position">Posicion donde vamos a instanciar la carta</param>
-    public static GameObject instantiateCard(GameObject prefab, RectTransform position, Transform _parent, Deck _deck)
+    public static GameObject instantiateCard(GameObject prefab, RectTransform position, Transform _parent, Deck _deck, InfoCard info = null)
     {
         GameObject cardGameobject = Instantiate(prefab, position.position, Quaternion.identity, _parent);
         Card cardComponent = cardGameobject.AddComponent<Card>();
@@ -110,10 +110,65 @@ public class Card : MonoBehaviour
         cardComponent.front = cardComponent.gameObject.transform.GetChild(1).gameObject;
         ((RectTransform)cardComponent.front.transform).sizeDelta = new Vector2(0, 0);
 
-        selectCardAction(cardGameobject);
+        if (info == null)
+        { 
+            selectCardAction(cardGameobject);
+        }
+        else
+        {
+            setCardAction(cardGameobject, info);
+        }
 
         return cardGameobject;
     }
+
+    /// <summary>
+    /// Determina la accion de la carta
+    /// </summary>
+    /// <param name="cardGameobject"></param>
+    /// <param name="info"></param>
+    private static void setCardAction(GameObject cardGameobject, InfoCard info)
+    {
+        Card card = cardGameobject.GetComponent<Card>();
+
+
+        switch (info.Card_kind)
+        {
+            case ATTACKTYPE.ATTACKACTION:
+                cardGameobject.AddComponent<AttackAction>();
+
+                break;
+            case ATTACKTYPE.ATTACKANDMOVEMENT:
+                cardGameobject.AddComponent<AttackAndMovementAction>();
+
+                break;
+            case ATTACKTYPE.GIVENMANA:
+                cardGameobject.AddComponent<GivenManaAction>();
+
+                break;
+            case ATTACKTYPE.MOVEMENT:
+                cardGameobject.AddComponent<MovementAction>();
+
+                break;
+            case ATTACKTYPE.TELEPORT:
+                cardGameobject.AddComponent<TeleportAction>();
+
+                break;
+            case ATTACKTYPE.DEALCARDSACTION:
+                cardGameobject.AddComponent<DealCardsAction>();
+
+                break;
+        }
+
+        card.info = info;
+
+        cardGameobject.GetComponent<CardAction>().setActor(GameManager.Instance.player.gameObject);
+
+        card.HUDCard.fillInfo(cardGameobject.GetComponent<Card>().info);
+
+    }
+
+
 
     /// <summary>
     /// Instanciamos una carta en la posicion X
@@ -128,7 +183,7 @@ public class Card : MonoBehaviour
         cardComponent.deck = _deck;
         cardComponent.HUDCard = cardGameobject.GetComponent<HUDCard>();
 
-        cardComponent.background= cardComponent.gameObject.transform.GetChild(0).gameObject;
+        cardComponent.background = cardComponent.gameObject.transform.GetChild(0).gameObject;
         ((RectTransform)cardComponent.background.transform).sizeDelta = new Vector2(0, 0);
 
         cardComponent.front = cardComponent.gameObject.transform.GetChild(1).gameObject;
@@ -302,7 +357,7 @@ public class Card : MonoBehaviour
     /// </summary>
     public void SetCardArt(Sprite spr)
     {
-        Material myMaterial = Instantiate(front .GetComponent<Image>().material);
+        Material myMaterial = Instantiate(front.GetComponent<Image>().material);
         myMaterial.SetTexture("_MyTexture", spr.texture);
         front.GetComponent<Image>().material = myMaterial;
     }

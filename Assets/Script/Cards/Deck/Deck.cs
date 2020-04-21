@@ -79,6 +79,7 @@ public class Deck : MonoBehaviour
     /// </summary>
     public void init()
     {
+
         deckInfo = this.gameObject.AddComponent<DeckInfo>();
 
         deckInfo.init(cardsInHand, cardsInDeck);
@@ -348,13 +349,37 @@ public class Deck : MonoBehaviour
     /// </summary>
     private void InstantiateCards()
     {
+
+        var cardPackage = DeckCollection.currentDeck;
         RectTransform rectTransformComponent = GetComponent<RectTransform>();
 
-        for (int i = 0; i < cardsInDeck; ++i)
+        if (cardPackage != null)
         {
-            deckInfo.cardsGameObject.Add(Card.instantiateCard(cardPrefab, rectTransformComponent, deckCanvasInfo.canvasGameObject.transform, this));
 
-            deckInfo.activeCards.Add(deckInfo.cardsGameObject.Last());
+            int i = 0;
+
+            for (i = 0; i < cardPackage.get_cards().Count; i++)
+            {
+                deckInfo.cardsGameObject.Add(Card.instantiateCard(cardPrefab, rectTransformComponent, deckCanvasInfo.canvasGameObject.transform, this, cardPackage.get_cards()[i]));
+                deckInfo.activeCards.Add(deckInfo.cardsGameObject.Last());
+            }
+
+            for (; i < cardsInDeck; i++)
+            {
+                deckInfo.cardsGameObject.Add(Card.instantiateCard(cardPrefab, rectTransformComponent, deckCanvasInfo.canvasGameObject.transform, this));
+
+                deckInfo.activeCards.Add(deckInfo.cardsGameObject.Last());
+            }
+
+        }
+        else
+        {
+            for (int i = 0; i < cardsInDeck; i++)
+            {
+                deckInfo.cardsGameObject.Add(Card.instantiateCard(cardPrefab, rectTransformComponent, deckCanvasInfo.canvasGameObject.transform, this));
+
+                deckInfo.activeCards.Add(deckInfo.cardsGameObject.Last());
+            }
         }
 
     }

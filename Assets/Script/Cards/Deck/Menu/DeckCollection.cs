@@ -10,6 +10,12 @@ public class DeckCollection
     /// Almacena todos los mazos creados
     /// </summary>
     public List<DeckCardsPackage> deckCollection = new List<DeckCardsPackage>();
+
+    /// <summary>
+    /// Baraja que tenemos seleccionada para jugar
+    /// </summary>
+    public static DeckCardsPackage currentDeck;
+
     /// <summary>
     /// indica el mazo seleccionado para la partida
     /// </summary>
@@ -61,6 +67,7 @@ public class DeckCollection
     /// <returns></returns>
     public DeckCardsPackage get_deck_selected()
     {
+        currentDeck = deckCollection[deck_selected];
         return deckCollection[deck_selected] as DeckCardsPackage;
     }
 
@@ -74,6 +81,7 @@ public class DeckCollection
                 break;
             }
         }
+        currentDeck = deckCollection[deck_selected];
         return deck_selected;
     }
 
@@ -96,6 +104,7 @@ public class DeckCollection
             decks.names.Add(deckCollection[i].get_name());
         }
         decks.deck_selected = deck_selected;
+        currentDeck = deckCollection[deck_selected];
         decks.date = System.DateTime.Now.ToString();
         string json = JsonConvert.SerializeObject(decks);
         PlayerPrefs.SetString("decks_collection", json);
@@ -147,6 +156,7 @@ public class DeckCollection
             deckCollection.Add(cards_package);
         }
         deck_selected = decks.deck_selected;
+        currentDeck = deckCollection[deck_selected];
         collection_ui.load_deck();
         
     }
