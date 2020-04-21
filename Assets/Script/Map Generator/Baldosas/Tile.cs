@@ -128,9 +128,6 @@ public class Tile : MonoBehaviour
         if (contain == CELLCONTAINER.WALL)
             Elevate();
 
-        GetComponent<SpriteRenderer>().material.SetTexture("_texture", GetComponent<SpriteRenderer>().sprite.texture);
-        GetComponent<SpriteRenderer>().material.SetFloat("_noise_efect", UnityEngine.Random.Range(30, 100));
-
     }
     public Vector2 GetPosition()
     {
