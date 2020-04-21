@@ -36,7 +36,7 @@ public class AttackAndMovementAction : CardAction
 
             neighbourTiles = GetWalkableNeighbours(position);
 
-            if (neighbourTiles.Count > 0)
+            if (neighbourTiles.Count > 0 && actor.GetComponent<MapActor>().lifeManager.isUltimateHit(-this.gameObject.GetComponent<Card>().info.Power))
                 return true;
 
         }

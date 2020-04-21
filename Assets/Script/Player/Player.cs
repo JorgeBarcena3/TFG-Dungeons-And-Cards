@@ -52,6 +52,7 @@ public class Player : MapActor
         refreshPlayerData();
 
         setActorType(CELLCONTAINER.PLAYER);
+        lifeManager.resetMaxLife(10);
 
     }
 

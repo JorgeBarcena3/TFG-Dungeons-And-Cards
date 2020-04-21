@@ -57,9 +57,15 @@ public class AttackAction : CardAction
     public override void clickOnTile(Tile tile)
     {
         MapActor actorToDestroy = MapActor.instances.Where(m => m.currentCell == tile).First();
-        StartCoroutine(actorToDestroy.destroyActor());
 
-        tile.contain = CELLCONTAINER.EMPTY;
+        if (!actorToDestroy.GetComponent<MapActor>().lifeManager.changeLife(-this.gameObject.GetComponent<Card>().info.Power))
+        {
+
+            StartCoroutine(actorToDestroy.destroyActor());
+            tile.contain = CELLCONTAINER.EMPTY;
+
+
+        }
 
         foreach (TileWalkable tl in neighbourTiles)
         {

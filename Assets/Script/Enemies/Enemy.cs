@@ -69,6 +69,8 @@ public class Enemy : IAAgent
 
             case ENEMY_TYPE.BASIC:
 
+                lifeManager.resetMaxLife(3);
+
                 power = 1;
 
                 cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab, this.transform, this.transform, null));
@@ -137,6 +139,7 @@ public class Enemy : IAAgent
 
             case ENEMY_TYPE.MEDIUM:
 
+                lifeManager.resetMaxLife(5);
 
                 power = 3;
 
@@ -189,6 +192,8 @@ public class Enemy : IAAgent
                 break;
 
             case ENEMY_TYPE.HARD:
+
+                lifeManager.resetMaxLife(7);
 
                 power = 4;
 
@@ -270,7 +275,7 @@ public class Enemy : IAAgent
     {
         if (!currentCell.assignedAction)
         { 
-            if (!InfoBackground.IS_TRANSITION)
+            if (!InfoBackground.IS_TRANSITION && GameManager.Instance.turn == TURN.PLAYER)
             { 
                 GameManager.Instance.hud.enemyHUDManager.showInfo(this);
             }

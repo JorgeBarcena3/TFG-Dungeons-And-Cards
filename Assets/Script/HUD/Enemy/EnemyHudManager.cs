@@ -84,7 +84,7 @@ public class EnemyHudManager : MonoBehaviour
         var front = cardInstance.transform.GetChild(0);
         front.transform.Find("Namelbl").GetComponent<Text>().text = enemy.info.name;
         front.transform.Find("Descriptionlbl").GetComponent<Text>().text = enemy.info.description;
-        cardInstance.transform.Find("Vida").Find("lifelbl").GetComponent<Text>().text = "1";
+        cardInstance.transform.Find("Vida").Find("lifelbl").GetComponent<Text>().text = enemy.lifeManager.currentLife.ToString();
 
 
         GameManager.Instance.deck.infoBackground.transform.SetSiblingIndex(100);

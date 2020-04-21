@@ -16,12 +16,6 @@ public class ManaManager : MonoBehaviour
     private Text mana_lbl = null;
 
     /// <summary>
-    /// Imagen para rellenar la barra de vida
-    /// </summary>
-    [SerializeField]
-    private Image fillMana = null;
-
-    /// <summary>
     /// Setea el lbl del maná
     /// </summary>
     /// <param name="i"></param>
@@ -29,24 +23,7 @@ public class ManaManager : MonoBehaviour
     {
         mana_lbl.text = i.ToString();
     }
-
-    /// <summary>
-    /// Cambia la barra de porcentaje el porcentaje del mana
-    /// </summary>
-    /// <param name="percentage"> Valores entre 0 y 1 </param>
-    private IEnumerator setPercentajeBar(float percentage, float time)
-    {
-        float t = 0;
-
-        while (fillMana.fillAmount != percentage)
-        {
-            t += Time.deltaTime / time;
-            fillMana.fillAmount = Mathf.Lerp(fillMana.fillAmount, percentage, t);
-            yield return null;
-        }
-
-        fillMana.fillAmount = percentage;
-    }
+    
 
     /// <summary>
     /// Actializa la barra de mana
@@ -56,7 +33,6 @@ public class ManaManager : MonoBehaviour
     public void refreshMana(int i, float percentage)
     {
         setManaLbl(i);
-        StartCoroutine( setPercentajeBar(percentage, 0.5f) );
     }
 
 }

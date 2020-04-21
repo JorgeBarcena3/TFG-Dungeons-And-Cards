@@ -95,6 +95,8 @@ public abstract class CardAction : MonoBehaviour
 
         if (GM.turn == TURN.PLAYER)
         {
+            GM.StartCoroutine(GM.hud.setLifePercentajeBar(actor.GetComponent<MapActor>().lifeManager.lifePercentage, 0.5f));
+
 
             GM.GameInfo.cartasUtilizadas.Add(GetComponent<Card>().info);
             FirebaseAnalyticsManager.Instance.sendCard(new CardInfoDto(FIREBASE_CARDSTATE.USED, GetComponent<Card>().info));
@@ -108,6 +110,11 @@ public abstract class CardAction : MonoBehaviour
             }
 
             GM.player.refreshPlayerData();
+
+        }
+        else
+        {
+            GM.StartCoroutine(GM.hud.setLifePercentajeBar(GM.player.GetComponent<MapActor>().lifeManager.lifePercentage, 0.5f));
 
         }
 

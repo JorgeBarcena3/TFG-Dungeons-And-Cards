@@ -15,6 +15,11 @@ public class MapActor : MonoBehaviour
     public static List<MapActor> instances = new List<MapActor>();
 
     /// <summary>
+    /// Maneja la vida del actor, en caso de que tenga
+    /// </summary>
+    public LifeComponent lifeManager = new LifeComponent();
+
+    /// <summary>
     /// Tile en la que se encuentra el jugador
     /// </summary>
     [HideInInspector]
