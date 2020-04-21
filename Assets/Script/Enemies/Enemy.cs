@@ -14,11 +14,24 @@ public enum ENEMY_TYPE : int
     BASIC = 0
 }
 
+
+
 /// <summary>
 /// Clase de enemigo
 /// </summary>
 public class Enemy : IAAgent
 {
+
+    /// <summary>
+    /// Colores de las cartas
+    /// </summary>
+    public static Dictionary<string, Color> EnemiesColor = new Dictionary<string, Color>()
+        {
+            { "HARD",    new Color(1,0.3f,.7f) },
+            { "MEDIUM", new Color(.2f,.3f,1) },
+            { "BASIC",  new Color(.9f,.3f,.3f) }
+        };
+
     /// <summary>
     /// Profundidad de la Z
     /// </summary>
@@ -53,7 +66,19 @@ public class Enemy : IAAgent
         transform.position = currentCell.transform.position + zOffset;
         createEnemyDeck();
         setActorType(CELLCONTAINER.ENEMY);
-        info = new EnemyInfo();
+
+        switch (type)
+        {
+            case ENEMY_TYPE.BASIC:
+                info = new EnemyInfo("Corredor", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat elit mi, id ultrices ex aliquam in. Sed vel lorem in risus ultricies consectetur. Phasellus sed commodo sapien. Etiam est ligula, sodales at finibus quis, imperdiet at metus. Nunc erat ligula, feugiat in dignissim ac, hendrerit sit amet ex. ");
+                break;
+            case ENEMY_TYPE.HARD:
+                info = new EnemyInfo("Tanque", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat elit mi, id ultrices ex aliquam in. Sed vel lorem in risus ultricies consectetur. Phasellus sed commodo sapien. Etiam est ligula, sodales at finibus quis, imperdiet at metus. Nunc erat ligula, feugiat in dignissim ac, hendrerit sit amet ex. ");
+                break;
+            case ENEMY_TYPE.MEDIUM:
+                info = new EnemyInfo("Aviador", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat elit mi, id ultrices ex aliquam in. Sed vel lorem in risus ultricies consectetur. Phasellus sed commodo sapien. Etiam est ligula, sodales at finibus quis, imperdiet at metus. Nunc erat ligula, feugiat in dignissim ac, hendrerit sit amet ex. ");
+                break;
+        }
 
     }
 
@@ -274,12 +299,12 @@ public class Enemy : IAAgent
     private void OnMouseDown()
     {
         if (!currentCell.assignedAction)
-        { 
+        {
             if (!InfoBackground.IS_TRANSITION && GameManager.Instance.turn == TURN.PLAYER)
-            { 
+            {
                 GameManager.Instance.hud.enemyHUDManager.showInfo(this);
             }
-            
+
         }
         else
         {

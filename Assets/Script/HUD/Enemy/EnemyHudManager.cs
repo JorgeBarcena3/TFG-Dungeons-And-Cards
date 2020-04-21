@@ -82,6 +82,10 @@ public class EnemyHudManager : MonoBehaviour
         cardInstance.SetActive(active);
 
         var front = cardInstance.transform.GetChild(0);
+
+        front.GetComponent<Image>().color = Enemy.EnemiesColor[enemy.type.ToString()];
+
+
         front.transform.Find("Namelbl").GetComponent<Text>().text = enemy.info.name;
         front.transform.Find("Descriptionlbl").GetComponent<Text>().text = enemy.info.description;
         cardInstance.transform.Find("Vida").Find("lifelbl").GetComponent<Text>().text = enemy.lifeManager.currentLife.ToString();
