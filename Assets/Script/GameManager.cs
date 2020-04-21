@@ -190,14 +190,16 @@ public class GameManager : Singelton<GameManager>
         }
         else if (SceneManager.GetActiveScene().name == "Main")
         {
-            worldGenerator.init();
+            imageLoader.FadeOut();
             yield return null;
             deck.init();
             hud.enemyHUDManager.init();
             yield return null;
-            player.init();
+            initAnimationCamera();
             yield return null;
-            imageLoader.FadeOut();
+            worldGenerator.init();
+            yield return new WaitForSeconds(7.0f);
+            player.init();
             yield return null;
             setCameraToPlayer();
             yield return null;
@@ -237,8 +239,19 @@ public class GameManager : Singelton<GameManager>
     /// </summary>
     public void setCameraToPlayer(float time = 10)
     {
-        if (turn != TURN.IA)
+        if (turn != TURN.IA) 
+        {
             cameraFunctions.moveCameraTo(player.transform.position, time);
+            
+        }
+           
+    }
+
+    public void initAnimationCamera() 
+    {
+        cameraFunctions.setPositionCamera(new Vector2(-1.5f, 15.0f));
+        StartCoroutine(cameraFunctions.zoomOutAndInt(10,5,1,0.5f));
+
     }
 
     /// <summary>

@@ -152,21 +152,20 @@ public class Tile : MonoBehaviour
     public void InitVisualMap(Texture2D texture) 
     {
         tileRender.material.SetTexture("_texture", texture);
-        tileRender.material.SetFloat("_noise_efect", UnityEngine.Random.Range(30, 100));
-        StartCoroutine(AnimationGeneration(10));
+        tileRender.material.SetFloat("_noise_effect", UnityEngine.Random.Range(30, 100));
+        StartCoroutine(AnimationGeneration());
 
     }
-    public IEnumerator AnimationGeneration(float time_animation) 
+    public IEnumerator AnimationGeneration() 
     {
-        float value=0.0f;
-        tileRender.material.SetFloat("_time_animation", time_animation);
-        while (value < time_animation)
+        float value=-1.0f;
+        while (value < 2.0f)
         {
-            value += Time.deltaTime;
-            tileRender.material.SetFloat("_interpolate", value);
+            value +=  Time.deltaTime * 0.5f;
+            tileRender.material.SetFloat("_alpha", value);
             yield return null;
         }
-        tileRender.material.SetFloat("_interpolate", time_animation);
+        tileRender.material.SetFloat("_alpha", 2.0f);
         yield return null;
     }
 
