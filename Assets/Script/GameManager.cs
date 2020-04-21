@@ -139,7 +139,7 @@ public class GameManager : Singelton<GameManager>
             GoToMenu();
 
         }
-        else if(player == null)
+        else if (player == null)
         {
             Debug.Log("Los enemigos te han asesinado");
             sendInfoStatics(CURRENTSTATE.LOSER);
@@ -193,6 +193,7 @@ public class GameManager : Singelton<GameManager>
             worldGenerator.init();
             yield return null;
             deck.init();
+            hud.enemyHUDManager.init();
             yield return null;
             player.init();
             yield return null;

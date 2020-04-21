@@ -833,7 +833,7 @@ Transform:
   - {fileID: 4000012176920862}
   - {fileID: 4000010352911436}
   - {fileID: 4000013331051152}
-  m_Father: {fileID: 4000010355002302}
+  m_Father: {fileID: 6819083578073021813}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &1000012030513030
@@ -1563,7 +1563,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4000010355002302}
+  - component: {fileID: 6819083578073021813}
   - component: {fileID: 95000014247705796}
   m_Layer: 0
   m_Name: Rogue_03
@@ -1572,7 +1572,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000010355002302
+--- !u!4 &6819083578073021813
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

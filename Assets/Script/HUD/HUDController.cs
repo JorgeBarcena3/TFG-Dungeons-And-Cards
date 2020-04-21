@@ -20,4 +20,9 @@ public class HUDController : MonoBehaviour
     /// Manager del mana del jugador
     /// </summary>
     public ManaManager manaManager;
+
+    /// <summary>
+    /// Manager del HUD del enemigo
+    /// </summary>
+    public EnemyHudManager enemyHUDManager;
 }

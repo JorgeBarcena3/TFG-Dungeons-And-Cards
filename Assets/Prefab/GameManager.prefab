@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 8363137746124730765}
   - component: {fileID: 2270421911190868058}
   - component: {fileID: 6052001793645524022}
+  - component: {fileID: 1074213257}
+  - component: {fileID: 1074213258}
+  - component: {fileID: 1998514897780991493}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -49,13 +52,14 @@ MonoBehaviour:
   deck: {fileID: 0}
   hud: {fileID: 0}
   HUD: {fileID: 0}
-  imageLoader: {fileID: 0}
-  IA: {fileID: 0}
+  imageLoader: {fileID: 1074213258}
+  IA: {fileID: 2270421911190868058}
   enemyGenerator: {fileID: 8363137746124730765}
   worldGenerator: {fileID: 0}
   player: {fileID: 0}
   cameraFunctions: {fileID: 0}
   state: 0
+  turnManager: {fileID: 1074213257}
   agents: []
 --- !u!114 &8363137746124730765
 MonoBehaviour:
@@ -69,8 +73,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d39dd20ee261694a87fc4983942f226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemiesNumber: 5
-  enemiesPrefabs: []
+  EnemiesNumber: 6
+  enemiesPrefabs:
+  - {fileID: 4502892282812578173, guid: ca073214e9bfaf54bae945bc2c31bb45, type: 3}
+  - {fileID: 1733685937710707661, guid: 0e731335df5228444a58ef4eeabed58a, type: 3}
+  - {fileID: 8310318202955601204, guid: a7cfbe138b7a0d146acefe631d13d3d7, type: 3}
   enemies: []
 --- !u!114 &2270421911190868058
 MonoBehaviour:
@@ -98,5 +105,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5569c274d4e51324aaae8e6f20d08376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectSwipeOnlyAfterRelease: 1
-  minDistanceForSwipe: 20
+  detectSwipeOnlyAfterRelease: 0
+  useClick: 0
+  minDistanceForSwipe: 100
+--- !u!114 &1074213257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579095924439372252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e54dcee7bd2e041a9d0cdb9913fb07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnNumber: 0
+--- !u!114 &1074213258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579095924439372252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179f46f75b7a3494d8edde8949b84640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingImage: {fileID: 0}
+  HUDCanvas: {fileID: 0}
+--- !u!114 &1998514897780991493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579095924439372252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4d52302452a5ef40aa8578cc50f25d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infoPrefab: {fileID: 0}
+  canvas: {fileID: 0}
+  active: 0

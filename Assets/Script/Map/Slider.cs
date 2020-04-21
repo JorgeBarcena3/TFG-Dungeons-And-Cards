@@ -61,7 +61,7 @@ public class Slider : MonoBehaviour
     void Update()
     {
         if (GameManager.Instance.state == States.INGAME && GameManager.Instance.turn == TURN.PLAYER &&
-            GameManager.Instance.deck.deckInfo.infoCard == null)
+            GameManager.Instance.deck.deckInfo.infoCard == null && !GameManager.Instance.hud.enemyHUDManager.active)
         {
             /// Determina cuando se esta arrastrando el raton
             if (Input.GetMouseButtonDown(0) && boxCollider.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))

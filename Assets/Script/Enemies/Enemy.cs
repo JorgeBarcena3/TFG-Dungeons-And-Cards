@@ -37,6 +37,11 @@ public class Enemy : IAAgent
     public List<GameObject> cardsActives = new List<GameObject>();
 
     /// <summary>
+    /// Informacion del enemigo
+    /// </summary>
+    public EnemyInfo info;
+
+    /// <summary>
     /// Funcion de inicializacion de los enemigos
     /// </summary>
     /// <param name="_currentCell"></param>
@@ -48,6 +53,7 @@ public class Enemy : IAAgent
         transform.position = currentCell.transform.position + zOffset;
         createEnemyDeck();
         setActorType(CELLCONTAINER.ENEMY);
+        info = new EnemyInfo();
 
     }
 
@@ -111,7 +117,7 @@ public class Enemy : IAAgent
                 );
                 cardsActives.Last().AddComponent<MovementAction>();
 
-                 power = 3;
+                power = 3;
 
                 cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab, this.transform, this.transform, null));
                 cardsActives.Last().GetComponent<Card>().info = new InfoCard(
@@ -255,6 +261,27 @@ public class Enemy : IAAgent
     public int getAvance()
     {
         return (int)type;
+    }
+
+    /// <summary>
+    /// Realizamos chick encima del enemigo
+    /// </summary>
+    private void OnMouseDown()
+    {
+        if (!currentCell.assignedAction)
+        { 
+            if (!InfoBackground.IS_TRANSITION)
+            { 
+                GameManager.Instance.hud.enemyHUDManager.showInfo(this);
+            }
+            
+        }
+        else
+        {
+            currentCell.assignedAction.clickOnTile(currentCell);
+
+        }
+
     }
 
 
