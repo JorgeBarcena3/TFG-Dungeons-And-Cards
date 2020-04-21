@@ -78,8 +78,6 @@ public class EnemyHudManager : MonoBehaviour
     /// </summary>
     public void showInfo(Enemy enemy)
     {
-        active = true;
-        cardInstance.SetActive(active);
 
         var front = cardInstance.transform.GetChild(0);
 
@@ -96,7 +94,15 @@ public class EnemyHudManager : MonoBehaviour
 
         StartCoroutine(AuxiliarFuncions.FadeIn(GameManager.Instance.deck.infoBackground.GetComponent<Image>(), GameManager.Instance.deck.infoBackground, 65, 1, true));
         StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)cardInstance.transform, Vector3.zero));
+        StartCoroutine(changeActive(1));
 
+    }
+
+    IEnumerator changeActive(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        active = !active;
     }
 
     /// <summary>
@@ -105,11 +111,13 @@ public class EnemyHudManager : MonoBehaviour
     public void hideInfo()
     {
         var front = cardInstance.transform.GetChild(0);
-        active = false;
 
         StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)cardInstance.transform, Vector3.zero));
 
         StartCoroutine(AuxiliarFuncions.FadeOut(GameManager.Instance.deck.infoBackground.GetComponent<Image>(), GameManager.Instance.deck.infoBackground, 1, true));
         StartCoroutine(AuxiliarFuncions.MoveObjectToLocal((RectTransform)cardInstance.transform, rel_pos));
+        StartCoroutine(changeActive(1));
+
+
     }
 }
