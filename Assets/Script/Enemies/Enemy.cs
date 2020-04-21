@@ -170,7 +170,7 @@ public class Enemy : IAAgent
 
                 cardsActives.Add(Card.instantiateCard(GameManager.Instance.deck.cardPrefab, this.transform, this.transform, null));
                 cardsActives.Last().GetComponent<Card>().info = new InfoCard(
-                ATTACKTYPE.ATTACKANDMOVEMENT,
+                ATTACKTYPE.ATTACKACTION,
                 01,
                 "Ataque y movimiento",
                 "Cuando utilices esta carta podrás matar cualquier enemigo (moviéndote a su casilla) que se encuentre en el rango de " + power + " casillas de distancia. El coste de maná de esta carta sera de " + power + " puntos.",
@@ -178,9 +178,9 @@ public class Enemy : IAAgent
                 power,
                 0,
                 1,
-                ATTACKTYPE.ATTACKANDMOVEMENT.ToString()
+                ATTACKTYPE.ATTACKACTION.ToString()
                 );
-                cardsActives.Last().AddComponent<AttackAndMovementAction>();
+                cardsActives.Last().AddComponent<AttackAction>();
 
                 power = 3;
 
@@ -234,7 +234,7 @@ public class Enemy : IAAgent
                 1,
                 ATTACKTYPE.ATTACKACTION.ToString()
                 );
-                cardsActives.Last().AddComponent<AttackAndMovementAction>();
+                cardsActives.Last().AddComponent<AttackAction>();
 
                 power = 2;
 
