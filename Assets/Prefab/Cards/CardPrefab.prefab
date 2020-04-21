@@ -115,7 +115,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 70.885284, y: 93.848114}
+  m_SizeDelta: {x: 70.88572, y: 93.84869}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4797201791848603168
 CanvasRenderer:
@@ -348,7 +348,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 48.188675, y: -67.677986}
-  m_SizeDelta: {x: 58.885277, y: 77.96079}
+  m_SizeDelta: {x: 58.88571, y: 77.961365}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1151575918766432235
 CanvasRenderer:
@@ -382,7 +382,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 58.885277, y: 77.96079}
+  m_Size: {x: 58.88571, y: 77.961365}
   m_EdgeRadius: 0
 --- !u!114 &6609689868880291131
 MonoBehaviour:
