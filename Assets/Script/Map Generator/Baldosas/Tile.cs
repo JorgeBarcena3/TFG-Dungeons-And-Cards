@@ -127,15 +127,11 @@ public class Tile : MonoBehaviour
         Z = tileTransform.position.z;
         if (contain == CELLCONTAINER.WALL)
             Elevate();
-<<<<<<< HEAD
-=======
-
-
 
         tileRender.material.SetTexture("_texture", tileRender.sprite.texture);
         tileRender.material.SetFloat("_noise_efect", UnityEngine.Random.Range(30, 100));
 
->>>>>>> 4d576e3a1bd6b51baff097f73c12077fa2073481
+
     }
     public Vector2 GetPosition()
     {
