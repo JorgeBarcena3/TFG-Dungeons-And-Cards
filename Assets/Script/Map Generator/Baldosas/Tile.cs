@@ -127,10 +127,6 @@ public class Tile : MonoBehaviour
         Z = tileTransform.position.z;
         if (contain == CELLCONTAINER.WALL)
             Elevate();
-
-        tileRender.material.SetTexture("_texture", tileRender.sprite.texture);
-        tileRender.material.SetFloat("_noise_efect", UnityEngine.Random.Range(30, 100));
-
     }
     public Vector2 GetPosition()
     {
@@ -147,6 +143,26 @@ public class Tile : MonoBehaviour
         Vector3 size = GetComponent<SpriteRenderer>().bounds.size;
         tileTransform.position = new Vector3(X, Y + size.y * 9 / 40, Z-1);
 
+    }
+    public void InitVisualMap(Texture2D texture) 
+    {
+        tileRender.material.SetTexture("_texture", texture);
+        tileRender.material.SetFloat("_noise_efect", UnityEngine.Random.Range(30, 100));
+        StartCoroutine(AnimationGeneration(10));
+
+    }
+    public IEnumerator AnimationGeneration(float time_animation) 
+    {
+        float value=0.0f;
+        tileRender.material.SetFloat("_time_animation", time_animation);
+        while (value < time_animation)
+        {
+            value += Time.deltaTime;
+            tileRender.material.SetFloat("_interpolate", value);
+            yield return null;
+        }
+        tileRender.material.SetFloat("_interpolate", time_animation);
+        yield return null;
     }
 
     /// <summary>

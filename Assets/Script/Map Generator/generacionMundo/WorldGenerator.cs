@@ -189,7 +189,7 @@ public class WorldGenerator : MonoBehaviour
 
                 }
 
-                SpriteBoard.Last().GetComponent<Tile>().CellInfo = this.board.worldCells[x, y].CellInfo;
+                SpriteBoard.Last().GetComponent<Tile>().CellInfo = this.board.worldCells[x, y].CellInfo; 
 
             }
         }
