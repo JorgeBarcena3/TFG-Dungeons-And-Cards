@@ -40,7 +40,8 @@ public class TileWalkable : Tile
     {
         contain = CELLCONTAINER.EMPTY;
         tileRender.sprite = GameArtTheme.Instance.currentTheme.floor;
-    }  
+        InitVisualMap(GameArtTheme.Instance.currentTheme.floor.texture);
+    }
 
 }
 
