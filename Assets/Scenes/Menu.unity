@@ -1471,6 +1471,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 658515195}
   m_CullTransparentMesh: 0
+--- !u!114 &702886711 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8699181035167153004, guid: ab834c65383a4d44d8686ee017d5fd9d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6543470776112198063}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0881238ce7e16644ac269ac43b92f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &711273255 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2209115379908912428, guid: bfa1d46a472874e4989fdd5e99acd0f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 7375371983990464196}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0881238ce7e16644ac269ac43b92f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &786621492
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,6 +1800,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885276440}
   m_CullTransparentMesh: 0
+--- !u!114 &923196915 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6777546804788293751, guid: 839839c16e107da43bc03120da89c52a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6935173509527546245}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0881238ce7e16644ac269ac43b92f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &925786578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2830,6 +2866,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762398702}
   m_CullTransparentMesh: 0
+--- !u!114 &1780759589 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3364576188385077270, guid: 0464c5f68eacaff4f83a828fb92dc859,
+    type: 3}
+  m_PrefabInstance: {fileID: 3364576189478470508}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0881238ce7e16644ac269ac43b92f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1880791990
 GameObject:
   m_ObjectHideFlags: 0
@@ -3347,6 +3395,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3364576188385077270, guid: 0464c5f68eacaff4f83a828fb92dc859,
         type: 3}
+      propertyPath: cards_menu_options.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3364576188385077270, guid: 0464c5f68eacaff4f83a828fb92dc859,
+        type: 3}
       propertyPath: others.Array.data[0]
       value: 
       objectReference: {fileID: 0}
@@ -3365,6 +3418,21 @@ PrefabInstance:
       propertyPath: deck_menu
       value: 
       objectReference: {fileID: 540708463}
+    - target: {fileID: 3364576188385077270, guid: 0464c5f68eacaff4f83a828fb92dc859,
+        type: 3}
+      propertyPath: cards_menu_options.Array.data[0]
+      value: 
+      objectReference: {fileID: 702886711}
+    - target: {fileID: 3364576188385077270, guid: 0464c5f68eacaff4f83a828fb92dc859,
+        type: 3}
+      propertyPath: cards_menu_options.Array.data[1]
+      value: 
+      objectReference: {fileID: 711273255}
+    - target: {fileID: 3364576188385077270, guid: 0464c5f68eacaff4f83a828fb92dc859,
+        type: 3}
+      propertyPath: cards_menu_options.Array.data[2]
+      value: 
+      objectReference: {fileID: 923196915}
     - target: {fileID: 3364576188385077274, guid: 0464c5f68eacaff4f83a828fb92dc859,
         type: 3}
       propertyPath: m_Name
@@ -3617,9 +3685,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8699181035167153004, guid: ab834c65383a4d44d8686ee017d5fd9d,
         type: 3}
+      propertyPath: cards_menu_options.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8699181035167153004, guid: ab834c65383a4d44d8686ee017d5fd9d,
+        type: 3}
       propertyPath: deck_menu
       value: 
       objectReference: {fileID: 540708463}
+    - target: {fileID: 8699181035167153004, guid: ab834c65383a4d44d8686ee017d5fd9d,
+        type: 3}
+      propertyPath: cards_menu_options.Array.data[0]
+      value: 
+      objectReference: {fileID: 1780759589}
+    - target: {fileID: 8699181035167153004, guid: ab834c65383a4d44d8686ee017d5fd9d,
+        type: 3}
+      propertyPath: cards_menu_options.Array.data[1]
+      value: 
+      objectReference: {fileID: 711273255}
+    - target: {fileID: 8699181035167153004, guid: ab834c65383a4d44d8686ee017d5fd9d,
+        type: 3}
+      propertyPath: cards_menu_options.Array.data[2]
+      value: 
+      objectReference: {fileID: 923196915}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab834c65383a4d44d8686ee017d5fd9d, type: 3}
 --- !u!224 &6543470776112198064 stripped
@@ -3637,9 +3725,29 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6777546804788293751, guid: 839839c16e107da43bc03120da89c52a,
         type: 3}
+      propertyPath: cards_menu_options.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777546804788293751, guid: 839839c16e107da43bc03120da89c52a,
+        type: 3}
       propertyPath: deck_menu
       value: 
       objectReference: {fileID: 540708463}
+    - target: {fileID: 6777546804788293751, guid: 839839c16e107da43bc03120da89c52a,
+        type: 3}
+      propertyPath: cards_menu_options.Array.data[0]
+      value: 
+      objectReference: {fileID: 1780759589}
+    - target: {fileID: 6777546804788293751, guid: 839839c16e107da43bc03120da89c52a,
+        type: 3}
+      propertyPath: cards_menu_options.Array.data[1]
+      value: 
+      objectReference: {fileID: 702886711}
+    - target: {fileID: 6777546804788293751, guid: 839839c16e107da43bc03120da89c52a,
+        type: 3}
+      propertyPath: cards_menu_options.Array.data[2]
+      value: 
+      objectReference: {fileID: 711273255}
     - target: {fileID: 6777546804788293754, guid: 839839c16e107da43bc03120da89c52a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3871,9 +3979,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2209115379908912428, guid: bfa1d46a472874e4989fdd5e99acd0f4,
         type: 3}
+      propertyPath: cards_menu_options.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209115379908912428, guid: bfa1d46a472874e4989fdd5e99acd0f4,
+        type: 3}
       propertyPath: deck_menu
       value: 
       objectReference: {fileID: 540708463}
+    - target: {fileID: 2209115379908912428, guid: bfa1d46a472874e4989fdd5e99acd0f4,
+        type: 3}
+      propertyPath: cards_menu_options.Array.data[0]
+      value: 
+      objectReference: {fileID: 1780759589}
+    - target: {fileID: 2209115379908912428, guid: bfa1d46a472874e4989fdd5e99acd0f4,
+        type: 3}
+      propertyPath: cards_menu_options.Array.data[1]
+      value: 
+      objectReference: {fileID: 702886711}
+    - target: {fileID: 2209115379908912428, guid: bfa1d46a472874e4989fdd5e99acd0f4,
+        type: 3}
+      propertyPath: cards_menu_options.Array.data[2]
+      value: 
+      objectReference: {fileID: 923196915}
     - target: {fileID: 2209115379908912430, guid: bfa1d46a472874e4989fdd5e99acd0f4,
         type: 3}
       propertyPath: m_Color.r
