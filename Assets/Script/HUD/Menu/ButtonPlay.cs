@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Linq;
 
 public enum OPTIONS
 {
@@ -19,7 +18,6 @@ public class ButtonPlay : MonoBehaviour
     Vector3 initPosition;
     Vector3 centerPosition;
     public GameObject deck_menu;
-    public List<ButtonPlay> card_options_menu;
 
     // Start is called before the first frame update
     void Start()
@@ -66,16 +64,13 @@ public class ButtonPlay : MonoBehaviour
        
     }
 
-   public bool isShowingInfo()
+    bool isShowingInfo()
     {
         return gameObject.transform.position.x != initPosition.x &&
                gameObject.transform.position.y != initPosition.y;
     }
     void ShowInfo() 
     {
-        if(card_options_menu.Any(m => m.isShowingInfo() == true))
-            card_options_menu[card_options_menu.FindIndex(m => m.isShowingInfo() == true)].HideInfo();
-        
         if (!isShowingInfo())
         {
             StartCoroutine(AuxiliarFuncions.MoveObjectTo(gameObject.transform, centerPosition));
