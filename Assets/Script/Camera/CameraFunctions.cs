@@ -17,12 +17,13 @@ public class CameraFunctions : MonoBehaviour
     {
         StartCoroutine( AuxiliarFuncions.MoveObjectTo(this.transform, position, time) );
     }
-    /// <summary>
-    /// Realiza un zoom 
-    /// </summary>
-    /// <param name="zoom">contra mas pequeño, mas cerca</param>
-    /// <returns></returns>
-    public IEnumerator zoomIntOut(float zoom, float time) 
+   /// <summary>
+   /// Realiza un zoomin o un zoomaout
+   /// </summary>
+   /// <param name="zoom">en que size va a acabar la camara</param>
+   /// <param name="time">tiempo en alcanzar el size</param>
+   /// <returns></returns>
+    public IEnumerator zoomInOut(float zoom, float time) 
     {
         Camera camera = GetComponent<Camera>();
         float size = camera.orthographicSize;
@@ -50,7 +51,15 @@ public class CameraFunctions : MonoBehaviour
         camera.orthographicSize = zoom;
         yield return null;
     }
-    public IEnumerator zoomOutAndInt(float zoomOut, float zoomInt, float timeOut, float timeInt)
+    /// <summary>
+    /// Realiza un zoomout y despues un zoomin, esto se hace al inicio de la partida
+    /// </summary>
+    /// <param name="zoomOut">que size de zoom out alcanza</param>
+    /// <param name="zoomInt">que size de zoom in alcanza</param>
+    /// <param name="timeOut">tiempo que dedica en el zoom out</param>
+    /// <param name="timeInt">tiempo que dedica en el zoom in></param>
+    /// <returns></returns>
+    public IEnumerator zoomOutAndIn(float zoomOut, float zoomInt, float timeOut, float timeInt)
     {
         Camera camera = GetComponent<Camera>();
         float size = camera.orthographicSize;

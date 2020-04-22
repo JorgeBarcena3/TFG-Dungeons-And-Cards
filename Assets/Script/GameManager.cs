@@ -246,11 +246,13 @@ public class GameManager : Singelton<GameManager>
         }
            
     }
-
+    /// <summary>
+    /// Animación inicial que realiza la camara
+    /// </summary>
     public void initAnimationCamera() 
     {
         cameraFunctions.setPositionCamera(new Vector2(-1.5f, 15.0f));
-        StartCoroutine(cameraFunctions.zoomOutAndInt(10,5,1,0.5f));
+        StartCoroutine(cameraFunctions.zoomOutAndIn(10,5,1,0.5f));
 
     }
 

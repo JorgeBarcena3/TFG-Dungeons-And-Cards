@@ -14,6 +14,10 @@ public class GameArtTheme : Singelton<GameArtTheme>
     /// Lista de temas creados
     /// </summary>
     public List<Theme> Themes;
+    /// <summary>
+    /// Mateial de los detalles
+    /// </summary>
+    public Material material;
 
     /// <summary>
     /// El indice del tema que se va a utilizar
@@ -46,7 +50,7 @@ public class GameArtTheme : Singelton<GameArtTheme>
 
             GameObject baseObj = new GameObject("DetailSprite");
             baseObj.AddComponent<SpriteRenderer>();
-
+            bool new_detail = false; 
             foreach (var item in spriteBoard)
             {
                 Tile tile = item.GetComponent<TileWalkable>();
@@ -59,6 +63,7 @@ public class GameArtTheme : Singelton<GameArtTheme>
                         GameObject detail = Instantiate(baseObj, item.transform.position + new Vector3(0, 0, -0.1f), Quaternion.identity, GameManager.Instance.worldGenerator.transform);
                         detail.GetComponent<SpriteRenderer>().sprite = currentTheme.floorDetails[Random.Range(0, currentTheme.floorDetails.Count)];
                         details.Add(detail);
+                        new_detail = true;
                     }
 
                 }
@@ -72,11 +77,40 @@ public class GameArtTheme : Singelton<GameArtTheme>
                         GameObject detail = Instantiate(baseObj, item.transform.position + new Vector3(0, 0.18f, -1.5f), Quaternion.identity, GameManager.Instance.worldGenerator.transform);
                         detail.GetComponent<SpriteRenderer>().sprite = currentTheme.wallDetails[Random.Range(0, currentTheme.wallDetails.Count)];
                         details.Add(detail);
+                        new_detail = true;
                     }
                 }
+                if (new_detail) 
+                {
+                    new_detail = false;
+                    SpriteRenderer sprite = details.Last().GetComponent<SpriteRenderer>();
+                    sprite.enabled = false;
+                    StartCoroutine(SetActiveDetail(sprite, 4));
+                   
+
+                }
+               
+
             }
 
         }
+    }
+    /// <summary>
+    /// Activa visualmente los detalles del mapa pasados un tiempo
+    /// </summary>
+    /// <param name="sprite">SpriteRender que se quiere activar</param>
+    /// <param name="time">Tiempo que tarda en activar el spriteRender</param>
+    /// <returns></returns>
+    private IEnumerator SetActiveDetail(SpriteRenderer sprite, float time) 
+    {
+        float delta = 0.0f;
+        while (delta < time) 
+        {
+            delta += Time.deltaTime;
+            yield return null;
+        }
+        sprite.enabled = true;
+        yield return null;
     }
 }
 
