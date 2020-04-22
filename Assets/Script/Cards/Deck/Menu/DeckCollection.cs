@@ -121,6 +121,12 @@ public class DeckCollection
     public async void load_decks(CSVReader parser, DeckCollectionUI collection_ui)
     {
         DecksSerialized decks;
+
+        //if (Application.internetReachability == NetworkReachability.NotReachable)
+        //{
+        //    Debug.Log("Error. Check internet connection!");
+        //}
+
         /// si se puede conectar a la base de datos
         try
         {
