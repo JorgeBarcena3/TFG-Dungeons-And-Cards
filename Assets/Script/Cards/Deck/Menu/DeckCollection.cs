@@ -21,6 +21,10 @@ public class DeckCollection
     /// </summary>
     public int deck_selected;
     /// <summary>
+    /// numeros de cartas a tener
+    /// </summary>
+    public int count_cards = 15;
+    /// <summary>
     /// referencia firebase
     /// </summary>
     private FirebaseDatabaseManager _FirebaseDatabase;
