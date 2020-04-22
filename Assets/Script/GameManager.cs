@@ -203,7 +203,7 @@ public class GameManager : Singelton<GameManager>
             setCameraToPlayer();
             yield return null;
             enemyGenerator.init(player);
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
             agents = new List<IAAgent>();
             enemyGenerator.enemies.ForEach(m => agents.Add(m.GetComponent<IAAgent>()));
             yield return null;

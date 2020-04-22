@@ -308,7 +308,6 @@ public class Deck : MonoBehaviour
         foreach (AnchorInfo info in orderAnchors)
         {
             GameObject cardobj = deckInfo.handCards.Where(m => m.GetComponent<Card>().indexPosition == info.position).FirstOrDefault();
-            cardobj.transform.position = info.transform.position;
 
             if (cardobj)
             {
