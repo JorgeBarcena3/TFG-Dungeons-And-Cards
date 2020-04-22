@@ -215,10 +215,7 @@ public class GameManager : Singelton<GameManager>
             }
 
             StartCoroutine(deck.DealCards());
-            yield return new WaitForSeconds(0.5f);
-
-            StartCoroutine(deck.DealCards());
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.7f);
 
             /// Inicializamos el GameInfo
             GameInfo = new GameInfoDto(worldGenerator.seed, enemyGenerator.EnemiesNumber);

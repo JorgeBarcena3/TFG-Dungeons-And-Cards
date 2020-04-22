@@ -40,7 +40,17 @@ public class FirebaseDatabaseManager : Singelton<FirebaseDatabaseManager>
          .GetReference(value)
          .GetValueAsync();
 
-        T result = dictionaryToType<T>(DataSnapshotToDictionary(data));
+        T result;
+
+        try
+        {
+            result = dictionaryToType<T>(DataSnapshotToDictionary(data));
+
+        }
+        catch
+        {
+            result = JsonConvert.DeserializeObject<T>(data.GetRawJsonValue());
+        }
 
         return result;
 

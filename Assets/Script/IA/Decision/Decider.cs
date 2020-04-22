@@ -20,7 +20,7 @@ public class Decider : MonoBehaviour
     //        >= 6	  1	     1	   2
 
 
-    public int [,] primaryDecisionOptions = new int[,]
+    public int[,] primaryDecisionOptions = new int[,]
     { {  1,  0,0,0},
       {  2,  1,0,0},
       {  3,  1,1,0},
@@ -32,6 +32,53 @@ public class Decider : MonoBehaviour
       {  9,  2,2,2},
       { 10,  3,2,2},
     };
+
+    /// <summary>
+    /// De descarga la acciones de firbase
+    /// </summary>
+    public async void getActionsFromFirebase()
+    {
+        try
+        {
+            DeciderInfoDto info = await FirebaseDatabaseManager.Instance.get<DeciderInfoDto>("IA/Decider");
+            primaryDecisionOptions = info.toArray();
+            print("Acciones de la IA from Firebase");
+        }
+        catch(Exception e)
+        {
+
+            
+            primaryDecisionOptions = new int[,]
+                    { {  1,  0,0,0},
+                      {  2,  1,0,0},
+                      {  3,  1,1,0},
+                      {  4,  1,1,1},
+                      {  5,  2,2,1},
+                      {  6,  2,2,1},
+                      {  7,  2,2,1},
+                      {  8,  2,2,1},
+                      {  9,  2,2,2},
+                      { 10,  3,2,2},
+                    };
+        }
+    }
+
+    /// <summary>
+    /// Sube las acciones a firebase
+    /// </summary>
+    public void setActionsFromFirebase()
+    {
+        try
+        {
+            var obj = new DeciderInfoDto(primaryDecisionOptions);
+            FirebaseDatabaseManager.Instance.addOrUpdate<DeciderInfoDto>("IA", "Decider", obj);
+
+        }
+        catch (Exception e)
+        {
+            print(e);
+        }
+    }
 
     /// <summary>
     /// Toma una decision en funcion de los parametros del input
