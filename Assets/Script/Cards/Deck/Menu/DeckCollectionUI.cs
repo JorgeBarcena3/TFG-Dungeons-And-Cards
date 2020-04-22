@@ -123,6 +123,7 @@ public class DeckCollectionUI : MonoBehaviour
     public void select_deck(DeckCardsPackage deck)
     {
         panelDecks.select_deck(deck_collection.select_deck(deck));
+        deck_collection.save_decks();
     }
     /// <summary>
     /// Añade una carta al mazo que estamos creando
