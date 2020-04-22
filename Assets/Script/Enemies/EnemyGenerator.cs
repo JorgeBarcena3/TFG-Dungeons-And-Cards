@@ -52,6 +52,8 @@ public class EnemyGenerator : MonoBehaviour
                 enemies.Add(Instantiate(enemiesPrefabs[type], tileobj.transform.position, Quaternion.identity, GameManager.Instance.worldGenerator.transform));
                 enemies.Last().AddComponent<Enemy>();
                 enemies.Last().GetComponent<Enemy>().init(tileobj.GetComponent<Tile>(), target, type);
+                enemies.Last().GetComponent<Enemy>().setOpacity(0);
+                StartCoroutine(enemies.Last().GetComponent<Enemy>().FadeInActor(8));
                 enemiesPlaced++;
             }
 

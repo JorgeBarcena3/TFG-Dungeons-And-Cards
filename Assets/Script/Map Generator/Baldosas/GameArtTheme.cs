@@ -43,31 +43,32 @@ public class GameArtTheme : Singelton<GameArtTheme>
     /// </summary>
     /// <param name="spriteBoard"></param>
     public void AddDecoration(List<GameObject> spriteBoard)
-    {      
+    {
 
-        if(currentTheme.floorDetails.Count + currentTheme.wallDetails.Count > 0)
+        if (currentTheme.floorDetails.Count + currentTheme.wallDetails.Count > 0)
         {
 
             GameObject baseObj = new GameObject("DetailSprite");
             baseObj.AddComponent<SpriteRenderer>();
-            bool new_detail = false; 
+            bool new_detail = false;
             foreach (var item in spriteBoard)
             {
                 Tile tile = item.GetComponent<TileWalkable>();
 
-                if(tile && currentTheme.floorDetails.Count > 0)
+                if (tile && currentTheme.floorDetails.Count > 0)
                 {
                     float random = Random.Range(0.0f, 1.0f);
                     if (random < currentTheme.percentajeDetails)
                     {
                         GameObject detail = Instantiate(baseObj, item.transform.position + new Vector3(0, 0, -0.1f), Quaternion.identity, GameManager.Instance.worldGenerator.transform);
                         detail.GetComponent<SpriteRenderer>().sprite = currentTheme.floorDetails[Random.Range(0, currentTheme.floorDetails.Count)];
+                        detail.GetComponent<SpriteRenderer>().color = new Color(1,1,1, 0);
                         details.Add(detail);
                         new_detail = true;
                     }
 
                 }
-                else if(!tile && currentTheme.wallDetails.Count > 0)
+                else if (!tile && currentTheme.wallDetails.Count > 0)
                 {
                     tile = item.GetComponent<TileUnwalkable>();
 
@@ -76,22 +77,26 @@ public class GameArtTheme : Singelton<GameArtTheme>
                     {
                         GameObject detail = Instantiate(baseObj, item.transform.position + new Vector3(0, 0.18f, -1.5f), Quaternion.identity, GameManager.Instance.worldGenerator.transform);
                         detail.GetComponent<SpriteRenderer>().sprite = currentTheme.wallDetails[Random.Range(0, currentTheme.wallDetails.Count)];
+                        detail.GetComponent<SpriteRenderer>().color = new Color(1,1,1, 0);
+
                         details.Add(detail);
                         new_detail = true;
                     }
                 }
-                if (new_detail) 
+
+                if (new_detail)
                 {
                     new_detail = false;
                     SpriteRenderer sprite = details.Last().GetComponent<SpriteRenderer>();
                     sprite.enabled = false;
                     StartCoroutine(SetActiveDetail(sprite, 4));
-                   
+
 
                 }
-               
+
 
             }
+
 
         }
     }
@@ -101,16 +106,19 @@ public class GameArtTheme : Singelton<GameArtTheme>
     /// <param name="sprite">SpriteRender que se quiere activar</param>
     /// <param name="time">Tiempo que tarda en activar el spriteRender</param>
     /// <returns></returns>
-    private IEnumerator SetActiveDetail(SpriteRenderer sprite, float time) 
+    private IEnumerator SetActiveDetail(SpriteRenderer sprite, float time)
     {
         float delta = 0.0f;
-        while (delta < time) 
+        while (delta < time)
         {
             delta += Time.deltaTime;
             yield return null;
         }
         sprite.enabled = true;
         yield return null;
+
+        GameManager.Instance.StartCoroutine(AuxiliarFuncions.FadeIn(sprite, time));
+
     }
 }
 
@@ -118,7 +126,7 @@ public class GameArtTheme : Singelton<GameArtTheme>
 /// Tema que vamos a utilizar
 /// </summary>
 [System.Serializable]
-public class Theme 
+public class Theme
 {
     /// <summary>
     /// Nombre del tema

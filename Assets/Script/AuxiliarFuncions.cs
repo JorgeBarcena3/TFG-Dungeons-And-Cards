@@ -206,6 +206,27 @@ public class AuxiliarFuncions : MonoBehaviour
 
     }
 
-    
+    /// <summary>
+    /// Efecto de FadeOut
+    /// </summary>
+    /// <param name="image">Imagen a la que se le aplicara el efecto</param>
+    /// <returns></returns>
+    public static IEnumerator FadeIn(SpriteRenderer image, float time = 1)
+    {
+
+        float t = 0;
+
+        while (image.color.a < 1)
+        {
+            t += Time.deltaTime / time;
+            image.color = Color.Lerp(image.color, new Color(image.color.r, image.color.g, image.color.b, 1), t);
+            yield return null;
+        }
+
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 1);
+
+    }
+
+
 
 }

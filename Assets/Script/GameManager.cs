@@ -153,7 +153,6 @@ public class GameManager : Singelton<GameManager>
     /// </summary>
     public void resetScene()
     {
-        sendInfoStatics(CURRENTSTATE.UNFINISHED);
         Initiate.Fade(SceneManager.GetActiveScene().name, Color.black, 2.0f);
     }
 

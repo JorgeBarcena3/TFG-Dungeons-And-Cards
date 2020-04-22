@@ -35,7 +35,7 @@ public class MapActor : MonoBehaviour
     /// </summary>
     /// <param name="time"></param>
     /// <returns></returns>
-    public virtual IEnumerator destroyActor(float time = 1) { yield return null;  }
+    public virtual IEnumerator destroyActor(float time = 1) { yield return null; }
 
     /// <summary>
     /// Instancia del start
@@ -128,6 +128,24 @@ public class MapActor : MonoBehaviour
             yield return null;
 
         }
+    }
+
+    /// <summary>
+    /// Determina la opacidad del actor
+    /// </summary>
+    /// <param name="op"></param>
+    public void setOpacity(float op)
+    {
+
+
+        List<SpriteRenderer> images = new List<SpriteRenderer>(this.GetComponentsInChildren<SpriteRenderer>());
+
+
+        foreach (SpriteRenderer bodyPart in images)
+        {
+            bodyPart.color = new Color(bodyPart.color.r, bodyPart.color.g, bodyPart.color.b, op);
+        }
+
     }
 
 }

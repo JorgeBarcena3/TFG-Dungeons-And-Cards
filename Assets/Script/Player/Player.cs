@@ -54,6 +54,9 @@ public class Player : MapActor
         setActorType(CELLCONTAINER.PLAYER);
         lifeManager.resetMaxLife(10);
 
+        setOpacity(0);
+        StartCoroutine(FadeInActor(8));
+
     }
 
     /// <summary>
