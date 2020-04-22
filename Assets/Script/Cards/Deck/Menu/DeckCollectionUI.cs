@@ -15,6 +15,7 @@ public class DeckCollectionUI : MonoBehaviour
     private Vector2 panel_cards_init_position;
     public CSVReader parser;
     DeckCardsPackage my_deck;
+    public Signal_card_count counter_card_in_deck;
     private Vector2 init_position;
 
     private void Start()
@@ -25,6 +26,7 @@ public class DeckCollectionUI : MonoBehaviour
         panel_name_init_position = new Vector2(panel_name.transform.position.x,0);
         panel_cards_init_position = new Vector2(panel_cards.transform.position.x,0);
         deck_collection.load_decks(parser, this);
+        counter_card_in_deck.SetDeckCollection(deck_collection);
         
 
     }
@@ -113,6 +115,8 @@ public class DeckCollectionUI : MonoBehaviour
         panel.add_list(all_cards);
         panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().add_list(my_deck.get_cards());
         panelDecks.gameObject.SetActive(false);
+        ///Contador, indica cunatas cartas hay y advierte de que quedan cartas por añadir al mazo
+        counter_card_in_deck.updateSignal(panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().get_list().Count);
 
 
     }
@@ -134,7 +138,11 @@ public class DeckCollectionUI : MonoBehaviour
 
         my_deck.add_card(info);
         panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().add_item(info);
-       
+
+        ///Contador, indica cunatas cartas hay y advierte de que quedan cartas por añadir al mazo
+        counter_card_in_deck.updateSignal(panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().get_list().Count);
+
+
     }
     /// <summary>
     /// Elimina una carta del mazo
@@ -144,6 +152,8 @@ public class DeckCollectionUI : MonoBehaviour
     {
         my_deck.delete_card(info);
         panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().delete_item(info);
+        ///Contador, indica cunatas cartas hay y advierte de que quedan cartas por añadir al mazo
+        counter_card_in_deck.updateSignal(panel_cards.transform.Find("frameCardInDeck").GetChild(0).GetComponent<PanelListCardsInDeck>().get_list().Count);
     }
     /// <summary>
     /// Guarda los cambios realizados o el mazo nuevo

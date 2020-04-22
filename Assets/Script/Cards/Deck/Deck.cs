@@ -43,7 +43,7 @@ public class Deck : MonoBehaviour
     /// <summary>
     /// Numero de cartas que habrá en la baraja
     /// </summary>
-    public int cardsInDeck = 30;
+    public int cardsInDeck = 15;
 
     /// <summary>
     /// Arte de las cartas que vamos a meter en la baraja
