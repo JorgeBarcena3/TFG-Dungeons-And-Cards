@@ -215,10 +215,7 @@ public class GameManager : Singelton<GameManager>
             }
 
             StartCoroutine(deck.DealCards());
-            yield return new WaitForSeconds(0.5f);
-
-            StartCoroutine(deck.DealCards());
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.7f);
 
             /// Inicializamos el GameInfo
             GameInfo = new GameInfoDto(worldGenerator.seed, enemyGenerator.EnemiesNumber);
@@ -238,20 +235,20 @@ public class GameManager : Singelton<GameManager>
     /// </summary>
     public void setCameraToPlayer(float time = 10)
     {
-        if (turn != TURN.IA) 
+        if (turn != TURN.IA)
         {
             cameraFunctions.moveCameraTo(player.transform.position, time);
-            
+
         }
-           
+
     }
     /// <summary>
     /// Animación inicial que realiza la camara
     /// </summary>
-    public void initAnimationCamera() 
+    public void initAnimationCamera()
     {
         cameraFunctions.setPositionCamera(new Vector2(-1.5f, 15.0f));
-        StartCoroutine(cameraFunctions.zoomOutAndIn(10,5,1,0.5f));
+        StartCoroutine(cameraFunctions.zoomOutAndIn(10, 5, 20,7));
 
     }
 

@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class CameraFunctions : MonoBehaviour
 {
+
+    /// <summary>
+    /// Curva que va a seguir la animacion
+    /// </summary>
+    public AnimationCurve animation_curve;
+
     public void setPositionCamera(Vector2 position) 
     {
         GetComponent<Transform>().position = position;
@@ -55,32 +61,37 @@ public class CameraFunctions : MonoBehaviour
     /// Realiza un zoomout y despues un zoomin, esto se hace al inicio de la partida
     /// </summary>
     /// <param name="zoomOut">que size de zoom out alcanza</param>
-    /// <param name="zoomInt">que size de zoom in alcanza</param>
+    /// <param name="zoomIn">que size de zoom in alcanza</param>
     /// <param name="timeOut">tiempo que dedica en el zoom out</param>
-    /// <param name="timeInt">tiempo que dedica en el zoom in></param>
+    /// <param name="timeIn">tiempo que dedica en el zoom in></param>
     /// <returns></returns>
-    public IEnumerator zoomOutAndIn(float zoomOut, float zoomInt, float timeOut, float timeInt)
+    public IEnumerator zoomOutAndIn(float zoomOut, float zoomIn, float timeOut, float timeIn)
     {
         Camera camera = GetComponent<Camera>();
-        float size = camera.orthographicSize;
-       
- 
-        while (size < zoomOut)
+        float t = 0;
+
+        while (camera.orthographicSize < zoomOut)
         {
-            size += Time.deltaTime / timeOut;
-            camera.orthographicSize = size;
+            t +=  Time.deltaTime;
+            float s = t / timeOut;
+            camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, zoomOut, animation_curve.Evaluate(s));
             yield return null;
         }
 
-        while (size > zoomInt)
+        camera.orthographicSize = zoomOut;
+
+        t = 0;
+
+        while (camera.orthographicSize > zoomIn)
         {
-            size -= Time.deltaTime / timeInt;
-            camera.orthographicSize = size;
+            t += Time.deltaTime / timeIn;
+            float s = t / timeIn;
+            camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, zoomIn, animation_curve.Evaluate(s));
             yield return null;
         }
 
        
-        camera.orthographicSize = zoomInt;
+        camera.orthographicSize = zoomIn;
         yield return null;
     }
 

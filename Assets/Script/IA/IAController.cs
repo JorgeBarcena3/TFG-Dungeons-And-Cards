@@ -27,6 +27,8 @@ public class IAController : MonoBehaviour
     public void init()
     {
         decider = this.gameObject.AddComponent<Decider>();
+        //decider.setActionsFromFirebase();
+        decider.getActionsFromFirebase();
     }
 
     /// <summary>

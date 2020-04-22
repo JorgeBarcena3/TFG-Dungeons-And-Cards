@@ -110,6 +110,27 @@ public class AuxiliarFuncions : MonoBehaviour
     /// <param name="obj">Objeto a desplazar</param>
     /// <param name="goal">Posicion meta</param>
     /// <param name="time">Tiempo de desplazamiento</param>
+    public static IEnumerator MoveObjectTo(Transform obj, Vector3 goal, AnimationCurve curve, float time = 1f)
+    {
+        float t = 0;
+
+        while (Vector3.Distance(obj.transform.position, goal) > 0.01f)
+        {
+            t += Time.deltaTime / time;
+            obj.position = Vector3.Lerp(obj.position, goal, curve.Evaluate(t));
+            yield return null;
+        }
+
+        obj.position = goal;
+
+    }
+
+    /// <summary>
+    /// Mueve un objeto a una posicion en un tiempo determinada
+    /// </summary>
+    /// <param name="obj">Objeto a desplazar</param>
+    /// <param name="goal">Posicion meta</param>
+    /// <param name="time">Tiempo de desplazamiento</param>
     public static IEnumerator MoveObjectTo2D(Transform obj, Vector2 goal, float time = 1f)
     {
         float t = 0;

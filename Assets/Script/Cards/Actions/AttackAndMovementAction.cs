@@ -36,7 +36,7 @@ public class AttackAndMovementAction : CardAction
 
             neighbourTiles = GetWalkableNeighbours(position);
 
-            if (neighbourTiles.Count > 0 && actor.GetComponent<MapActor>().lifeManager.isUltimateHit(-this.gameObject.GetComponent<Card>().info.Power))
+            if (neighbourTiles.Count > 0)
                 return true;
 
         }
@@ -146,7 +146,15 @@ public class AttackAndMovementAction : CardAction
                 List<Tile> points = PathFindingHexagonal.calcularRuta(actor.GetComponent<MapActor>().currentCell, tile, 100);
 
                 if (points.Count > 0 && points.Count <= radioVecinos)
-                    tilesWalkables.Add(tile as TileWalkable);
+                {
+                    MapActor actorToDestroy = MapActor.instances.Where(m => m.currentCell == tile).First();
+
+                    if (actorToDestroy.GetComponent<MapActor>().lifeManager.isUltimateHit(-this.gameObject.GetComponent<Card>().info.Power))
+                    {
+                        tilesWalkables.Add(tile as TileWalkable);
+                    }
+
+                }
             }
         }
 

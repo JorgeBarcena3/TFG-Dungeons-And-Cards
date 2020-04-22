@@ -71,7 +71,7 @@ public class MovementAction : CardAction
     /// </summary>
     public override void clickOnTile(Tile tile)
     {
-        List<Tile> waypoints = PathFindingHexagonal.calcularRuta(actor.GetComponent<MapActor>().currentCell, tile);
+        List<Tile> waypoints = PathFindingHexagonal.calcularRuta(actor.GetComponent<MapActor>().currentCell, tile, 100);
         
         StartCoroutine(AuxiliarFuncions.moveWithWaypoints(actor.transform, waypoints, 0.5f));
 

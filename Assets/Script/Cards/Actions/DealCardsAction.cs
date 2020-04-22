@@ -26,7 +26,7 @@ public class DealCardsAction : CardAction
     public override bool checkAction()
     {
 
-        if (GameManager.Instance.player.playerInfo.canUseMana(this.gameObject.GetComponent<Card>().info.Cost))
+        if (!GameManager.Instance.player.playerInfo.canUseMana(this.gameObject.GetComponent<Card>().info.Cost))
             return false;
 
         DeckCanvasInfo info = GameManager.Instance.deck.deckCanvasInfo;
