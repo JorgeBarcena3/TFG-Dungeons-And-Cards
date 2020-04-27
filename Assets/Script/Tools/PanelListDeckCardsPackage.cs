@@ -61,7 +61,8 @@ namespace Assets.Script.Tools
                         gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);
                     }
                 }
-            }            
+            }
+            rect.verticalNormalizedPosition = 1.0f;
         }
     }
 }

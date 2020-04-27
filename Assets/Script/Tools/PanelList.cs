@@ -17,11 +17,15 @@ public class PanelList<T> : MonoBehaviour
     /// Prefab con la que se forma la lista
     /// </summary>
     public GameObject prefab;
+    protected ScrollRect rect;
 
     // Start is called before the first frame update
     void Start()
     {
         list = new List<T>();
+        rect = GetComponent<ScrollRect>();
+        rect.verticalNormalizedPosition = 0.0f;
+       
     }
 
     // Update is called once per frame
@@ -33,7 +37,6 @@ public class PanelList<T> : MonoBehaviour
     {
         if (list == null)
             list = new List<T>();
-
 
         list.Add(item);
         sincList();
@@ -138,6 +141,7 @@ public class PanelList<T> : MonoBehaviour
             }
         }
 
-        
+
+        rect.verticalNormalizedPosition = 1.0f;
     }
 }

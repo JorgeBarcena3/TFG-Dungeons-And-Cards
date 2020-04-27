@@ -46,7 +46,7 @@ namespace Assets.Script.Tools
                 }
             }
 
-
+            rect.verticalNormalizedPosition = 1.0f;
         }
     }
 }
