@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Newtonsoft.Json;
+using UnityEditor.Rendering.LWRP;
 
 public class DeckCollection
 {
@@ -88,7 +90,9 @@ public class DeckCollection
         currentDeck = deckCollection[deck_selected];
         return deck_selected;
     }
-
+    /// <summary>
+    /// Guarda el mazo en local y en la nuve si se puede
+    /// </summary>
     public void save_decks()
     {
         _FirebaseDatabase = FirebaseDatabaseManager.Instance;
@@ -121,37 +125,36 @@ public class DeckCollection
     public async void load_decks(CSVReader parser, DeckCollectionUI collection_ui)
     {
         DecksSerialized decks;
-
-        //if (Application.internetReachability == NetworkReachability.NotReachable)
-        //{
-        //    Debug.Log("Error. Check internet connection!");
-        //}
-
+        string json;
         /// si se puede conectar a la base de datos
         try
         {
             _FirebaseDatabase = FirebaseDatabaseManager.Instance;
             decks = await _FirebaseDatabase.get<DecksSerialized>("decks_collection/decks");
+            json = PlayerPrefs.GetString("decks_collection");
+            //System.DateTime date = System.DateTime.Parse(decks.date);
+            /////Si la info de la base de datos es mas antigua que la local
+            //if (System.DateTime.Parse(decks.date) < System.DateTime.Parse(JsonConvert.DeserializeObject<DecksSerialized>(json).date))
+            //{
+            //    json = PlayerPrefs.GetString("decks_collection");
+            //    decks = JsonConvert.DeserializeObject<DecksSerialized>(json);
+            //    _FirebaseDatabase.addOrUpdate<DecksSerialized>("decks_collection", "decks", decks);
+            //}
 
-            string json = PlayerPrefs.GetString("decks_collection");
-            System.DateTime date = System.DateTime.Parse(decks.date);
 
-            ///Si la info de la base de datos es mas antigua que la local
-            if (System.DateTime.Parse(decks.date) < System.DateTime.Parse(JsonConvert.DeserializeObject<DecksSerialized>(json).date))
-            {
-                json = PlayerPrefs.GetString("decks_collection");
-                decks = JsonConvert.DeserializeObject<DecksSerialized>(json);
-                _FirebaseDatabase.addOrUpdate<DecksSerialized>("decks_collection", "decks", decks);
-            }
+
+
 
         }
-        ///Si la base de datos no esta disponible
-        catch
+        catch (Exception e)
         {
-            string json = PlayerPrefs.GetString("decks_collection");
+            
+            json = PlayerPrefs.GetString("decks_collection");
             decks = JsonConvert.DeserializeObject<DecksSerialized>(json);
 
         }
+
+       
         List<InfoCard> all_cards = parser.getCardsInfo();
         for (int i = 0; i < decks.deckCollection.Count(); i++)
         {

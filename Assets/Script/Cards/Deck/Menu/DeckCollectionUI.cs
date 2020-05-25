@@ -7,15 +7,45 @@ using Assets.Script.Tools;
 
 public class DeckCollectionUI : MonoBehaviour
 {
+    /// <summary>
+    /// variable en la que se guardan los mazos
+    /// </summary>
     DeckCollection deck_collection;
+    /// <summary>
+    /// Gestiona el panel de barajas
+    /// </summary>
     public PanelListDeckCardsPackage panelDecks;
+    /// <summary>
+    /// referencia del panel en el que se indica el nombre del mazo nuevo
+    /// </summary>
     public GameObject panel_name;
+    /// <summary>
+    /// Guarda la posición inicial del panel del nombre
+    /// </summary>
     private Vector2 panel_name_init_position;
+    /// <summary>
+    /// Referencia del panel en el que se ven las cartas y se añaden a un mazo
+    /// </summary>
     public GameObject panel_cards;
+    /// <summary>
+    /// guarda la posición inicial del panel de cartas
+    /// </summary>
     private Vector2 panel_cards_init_position;
+    /// <summary>
+    /// encargado de leer las cartas iniciales del json
+    /// </summary>
     public CSVReader parser;
+    /// <summary>
+    /// Referencia de un mazo
+    /// </summary>
     DeckCardsPackage my_deck;
+    /// <summary>
+    /// referencia de la señal que indica que un mazo no está terminado
+    /// </summary>
     public Signal_card_count counter_card_in_deck;
+    /// <summary>
+    /// posicion inicial del panel principal
+    /// </summary>
     private Vector2 init_position;
 
     private void Start()
@@ -181,7 +211,9 @@ public class DeckCollectionUI : MonoBehaviour
         panel_cards.transform.Find("frameCardList").GetChild(0).gameObject.GetComponent<PanelListCards>().Reset();
         panelDecks.gameObject.SetActive(true);
     }
-
+    /// <summary>
+    /// despliega un mazo para ver las cartas que contiene
+    /// </summary>
     public void load_deck()
     {
         panelDecks.set_collection(this);

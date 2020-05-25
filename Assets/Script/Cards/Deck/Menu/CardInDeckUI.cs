@@ -22,7 +22,10 @@ public class CardInDeckUI : IInfoUIElement<InfoCard>
     {
         deck_collection = collection;
     }
-
+    /// <summary>
+    /// rellena la lista con una carta mas
+    /// </summary>
+    /// <param name="info">carta</param>
     public override void fillInfo(InfoCard info)
     {
         SwipeDetector.OnSwipe += discard_card;
@@ -32,7 +35,11 @@ public class CardInDeckUI : IInfoUIElement<InfoCard>
         my_info = info;
         selected = false;
     }
-
+    /// <summary>
+    /// determina el color de la carta dependiendo del tipo de carta
+    /// </summary>
+    /// <param name="color">tipo de carta</param>
+    /// <returns></returns>
     private Color select_color(string color) 
     {
         if (color == "ATTACKACTION")
@@ -64,6 +71,10 @@ public class CardInDeckUI : IInfoUIElement<InfoCard>
             return Color.white;
         }
     }
+    /// <summary>
+    /// descarta una carta
+    /// </summary>
+    /// <param name="data">gesto del dedo en la pantalla</param>
     private void discard_card(SwipeData data)
     {
         //if (RectTransformUtility.RectangleContainsScreenPoint(gameObject.GetComponent<RectTransform>(), ))

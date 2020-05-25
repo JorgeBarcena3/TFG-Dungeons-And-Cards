@@ -24,7 +24,10 @@ public class DeckCardsPackageUI : IInfoUIElement<DeckCardsPackage>
     }
 
 
-
+    /// <summary>
+    /// rellena la lista 
+    /// </summary>
+    /// <param name="info">nuevo dato para la lista</param>
     public override void fillInfo(DeckCardsPackage info)
      {
         my_deck = info;
@@ -35,7 +38,9 @@ public class DeckCardsPackageUI : IInfoUIElement<DeckCardsPackage>
         selected = false;
         SwipeDetector.OnSwipe += open_deck;
     }
-
+    /// <summary>
+    /// selecciona el mazo con el que vamos a jugar
+    /// </summary>
     public void select_deck_to_play()
     {
         if (texUI == null)
@@ -43,6 +48,9 @@ public class DeckCardsPackageUI : IInfoUIElement<DeckCardsPackage>
 
         texUI.color = Color.green;
     }
+    /// <summary>
+    /// desselecciona el mazo 
+    /// </summary>
     public void unselect_deck_to_play()
     {
         if (texUI == null)
@@ -50,7 +58,10 @@ public class DeckCardsPackageUI : IInfoUIElement<DeckCardsPackage>
 
         texUI.color = Color.white;
     }
-
+    /// <summary>
+    /// se encarga de determinar la accion que vamos a realizar en el menu con el mazo
+    /// </summary>
+    /// <param name="data"></param>
     public void open_deck(SwipeData data)
     {
         if (GameManager.Instance.state == States.INMENU /*&& !gameObject.transform.parent.gameObject.transform.parent.Find("add_deck").gameObject.active*/)
