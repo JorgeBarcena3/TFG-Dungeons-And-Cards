@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Posiciona un objeto en relacion a la main camera
+/// </summary>
 public class FollowCamera : MonoBehaviour
 {
     private Transform tr;

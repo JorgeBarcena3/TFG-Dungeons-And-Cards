@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Lleva un conteo de las cantidad da cartas que hay en cada baraja
+/// </summary>
 public class Signal_card_count : MonoBehaviour
 {
     DeckCollection collection;

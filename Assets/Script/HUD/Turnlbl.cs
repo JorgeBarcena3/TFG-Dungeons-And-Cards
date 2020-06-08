@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Informacion de la UI de quien es el turno
+/// </summary>
 public class Turnlbl : MonoBehaviour
 {
 

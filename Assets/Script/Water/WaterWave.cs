@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// Generador del fondo animado
+/// </summary>
 public class WaterWave : MonoBehaviour
 {
     public float size = 1;

@@ -1,16 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using Assets.Script.Tools.Interfaces;
 
 
+/// <summary>
+/// Informacion de la carta mostrada en la UI
+/// </summary>
 public class CardInDeckUI : IInfoUIElement<InfoCard>
 {
+    /// <summary>
+    /// Campo del titulo
+    /// </summary>
     public Text title;
+
+    /// <summary>
+    /// Campo del coste
+    /// </summary>
     public Text cost;
+
+    /// <summary>
+    /// Background de la imagen
+    /// </summary>
     public Image background;
+
+    /// <summary>
+    /// INformacion de la carta
+    /// </summary>
     private InfoCard my_info;
+
+    /// <summary>
+    /// Si esta seleccionada o no
+    /// </summary>
     private bool selected;
 
     /// <summary>

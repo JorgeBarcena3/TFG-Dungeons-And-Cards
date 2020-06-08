@@ -98,23 +98,7 @@ public class FirebaseManager : Singelton<FirebaseManager>
 
     }
 
-    /// <summary>
-    /// Devuelve una coleccion
-    /// </summary>
-    public async void getCollection()
-    {
-
-        KeyExampleDto example = await _FirebaseDatabase.get<KeyExampleDto>("Test/test_01");
-        Debug.Log("OLD: " + JsonConvert.SerializeObject(example));
-
-        example.Attr1 = DateTime.Now.ToLongTimeString();
-        example.Attr2 = DateTime.Now.DayOfWeek.ToString();
-        Debug.Log("NEW: " + JsonConvert.SerializeObject(example));
-
-
-        _FirebaseDatabase.addOrUpdate<KeyExampleDto>("Test", "test_01", example);
-    }
-
+    
     /// <summary>
     /// Nos logueamos el el servicio de google
     /// </summary>

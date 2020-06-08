@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Gestiona un panel negro para mostrar las cartas
+/// </summary>
 public class InfoBackground : MonoBehaviour
 {
     /// <summary>

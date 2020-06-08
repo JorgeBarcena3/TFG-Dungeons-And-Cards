@@ -15,7 +15,7 @@ public enum CELLCONTAINER
 }
 
 /// <summary>
-/// 
+/// Componente del mapa
 /// </summary>
 public class Tile : MonoBehaviour
 {

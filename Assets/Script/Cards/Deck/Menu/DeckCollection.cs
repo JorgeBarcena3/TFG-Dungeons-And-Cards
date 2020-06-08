@@ -4,6 +4,9 @@ using UnityEngine;
 using System.Linq;
 using Newtonsoft.Json;
 
+/// <summary>
+/// Coleccion de barajas de cartas
+/// </summary>
 public class DeckCollection
 {
     /// <summary>

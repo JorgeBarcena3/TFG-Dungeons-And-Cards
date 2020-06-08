@@ -2,7 +2,9 @@
 using System.Linq;
 using UnityEngine;
 
-
+/// <summary>
+/// Generador del mapa
+/// </summary>
 public class WorldGenerator : MonoBehaviour
 {
     [Header("Datos del mapa")]

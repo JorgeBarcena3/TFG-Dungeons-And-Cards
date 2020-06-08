@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Funciones de la camara
+/// </summary>
 public class CameraFunctions : MonoBehaviour
 {
 
@@ -11,10 +14,15 @@ public class CameraFunctions : MonoBehaviour
     /// </summary>
     public AnimationCurve animation_curve;
 
+    /// <summary>
+    /// Determina la posicion de la camara
+    /// </summary>
+    /// <param name="position"></param>
     public void setPositionCamera(Vector2 position) 
     {
         GetComponent<Transform>().position = position;
     }
+
     /// <summary>
     /// Mueve la camara a una posicion determinada
     /// </summary>

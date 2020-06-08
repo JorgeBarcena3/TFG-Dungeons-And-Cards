@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Maneja el player principal de la aplicacion
+/// </summary>
 public class Player : MapActor
 {
 

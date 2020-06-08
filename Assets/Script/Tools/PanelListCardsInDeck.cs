@@ -6,56 +6,67 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Script.Tools
+
+/// <summary>
+/// Cartas dentro de la baraja a mostrar
+/// </summary>
+public class PanelListCardsInDeck : PanelList<InfoCard>
 {
-    public class PanelListCardsInDeck : PanelList<InfoCard> 
+    /// <summary>
+    /// Coleccion de cartas a mostrar
+    /// </summary>
+    private DeckCollectionUI collection;
+
+    /// <summary>
+    /// Determina la coleccion atachada a ese panel
+    /// </summary>
+    /// <param name="collection"></param>
+    public void set_collection(DeckCollectionUI collection)
     {
-        private DeckCollectionUI collection;
-        public void set_collection(DeckCollectionUI collection)
-        {
-            this.collection = collection;
-        }
-        /// <summary>
-        /// Sincroniza la lista visual con la list
-        /// </summary>
-        public override void sincList()
-        {
+        this.collection = collection;
+    }
+
+    /// <summary>
+    /// Sincroniza la lista visual con la list
+    /// </summary>
+    public override void sincList()
+    {
 
 
-            for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < list.Count; i++)
+        {
+
+            GameObject item;
+            if (i >= gameObject.transform.childCount)
             {
-
-                GameObject item;
-                if (i >= gameObject.transform.childCount)
-                {
-                    item = Instantiate(prefab, Vector3.zero, default, gameObject.transform);
-                    item.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
-                    gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, gameObject.GetComponent<RectTransform>().sizeDelta.y + prefab.GetComponent<RectTransform>().sizeDelta.y + gameObject.GetComponent<VerticalLayoutGroup>().spacing);
-
-                }
-                else
-                {
-                    item = gameObject.transform.GetChild(i).gameObject;
-                }
-                item.GetComponentInChildren<CardInDeckUI>().fillInfo(list[i]);
-                item.GetComponentInChildren<CardInDeckUI>().set_collection(collection);
+                item = Instantiate(prefab, Vector3.zero, default, gameObject.transform);
+                item.GetComponent<RectTransform>().transform.localPosition = Vector3.zero;
+                gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, gameObject.GetComponent<RectTransform>().sizeDelta.y + prefab.GetComponent<RectTransform>().sizeDelta.y + gameObject.GetComponent<VerticalLayoutGroup>().spacing);
 
             }
-            if (gameObject.transform.childCount > (int)list.Count)
+            else
             {
-                for (int i = list.Count; i < gameObject.transform.childCount; i++)
-                {
-                    Destroy(gameObject.transform.GetChild(i).gameObject);
-                    gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, gameObject.GetComponent<RectTransform>().sizeDelta.y - prefab.GetComponent<RectTransform>().sizeDelta.y - gameObject.GetComponent<VerticalLayoutGroup>().spacing);
-                    if (gameObject.GetComponent<RectTransform>().sizeDelta.y < 0)
-                    {
-                        gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);
-                    }
-                }
+                item = gameObject.transform.GetChild(i).gameObject;
             }
-
-            rect.verticalNormalizedPosition = 1.0f;
+            item.GetComponentInChildren<CardInDeckUI>().fillInfo(list[i]);
+            item.GetComponentInChildren<CardInDeckUI>().set_collection(collection);
 
         }
+        if (gameObject.transform.childCount > (int)list.Count)
+        {
+            for (int i = list.Count; i < gameObject.transform.childCount; i++)
+            {
+                Destroy(gameObject.transform.GetChild(i).gameObject);
+                gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, gameObject.GetComponent<RectTransform>().sizeDelta.y - prefab.GetComponent<RectTransform>().sizeDelta.y - gameObject.GetComponent<VerticalLayoutGroup>().spacing);
+                if (gameObject.GetComponent<RectTransform>().sizeDelta.y < 0)
+                {
+                    gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);
+                }
+            }
+        }
+
+        rect.verticalNormalizedPosition = 1.0f;
+
     }
 }
+

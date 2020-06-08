@@ -15,6 +15,9 @@ using UnityEngine;
 using System.Collections;
 using System.Linq;
 
+/// <summary>
+/// CSV Reader
+/// </summary>
 public class CSVReader : MonoBehaviour
 {
     private List<InfoCard> cardsInfo = new List<InfoCard>();

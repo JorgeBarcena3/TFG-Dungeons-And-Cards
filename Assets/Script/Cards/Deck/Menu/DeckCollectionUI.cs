@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
-using Assets.Script.Tools;
 
+/// <summary>
+/// Muestra la informacion de la baraja por el UI
+/// </summary>
 public class DeckCollectionUI : MonoBehaviour
 {
     /// <summary>

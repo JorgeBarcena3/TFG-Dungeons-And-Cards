@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+///  Hay un warning de que faltan cartas por completar una baraja
+/// </summary>
 public class warming_missing_cards_in_deck_selected : MonoBehaviour
 {
     private Image image;

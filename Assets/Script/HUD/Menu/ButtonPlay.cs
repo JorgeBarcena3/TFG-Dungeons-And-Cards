@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
+/// <summary>
+/// Posibles opciones de botones
+/// </summary>
 public enum OPTIONS
 {
     PLAY,
@@ -12,6 +15,9 @@ public enum OPTIONS
     EXIT
 };
 
+/// <summary>
+/// Boton de playy
+/// </summary>
 public class ButtonPlay : MonoBehaviour
 {
 

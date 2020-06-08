@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using Assets.Script.Tools.Interfaces;
 
 /// <summary>
 /// Se encarga de mostrar en el hud las barajas

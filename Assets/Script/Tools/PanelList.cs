@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
-using Assets.Script.Tools.Interfaces;
 using UnityEngine.UI;
 
+/// <summary>
+/// Lista en forma de panel 
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public class PanelList<T> : MonoBehaviour
 {
     /// <summary>
@@ -17,6 +17,10 @@ public class PanelList<T> : MonoBehaviour
     /// Prefab con la que se forma la lista
     /// </summary>
     public GameObject prefab;
+
+    /// <summary>
+    /// ScriollRect componente de unity
+    /// </summary>
     protected ScrollRect rect;
 
     // Start is called before the first frame update

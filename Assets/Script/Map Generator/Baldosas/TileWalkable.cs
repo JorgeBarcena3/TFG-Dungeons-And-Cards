@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 
+/// Posblies tiles walkables
 /// </summary>
 public enum TileWalkableType
 {
@@ -15,7 +15,7 @@ public enum TileWalkableType
 }
 
 /// <summary>
-/// 
+/// Componente del mapa que se puede pisar
 /// </summary>
 public class TileWalkable : Tile
 {

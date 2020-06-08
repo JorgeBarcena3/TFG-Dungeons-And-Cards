@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Lista de cartas serializadas
+/// </summary>
 public class DecksSerialized : DtoFirebase
 {
     /// <summary>

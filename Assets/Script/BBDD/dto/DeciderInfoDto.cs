@@ -3,18 +3,31 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Modelo de datos de las decisiones de la IA
+/// </summary>
 [Serializable]
 public class DeciderInfoDto : DtoFirebase
 {
-
+    /// <summary>
+    /// Lista de acciones
+    /// </summary>
     [SerializeField]
     public List<List<int>> actions { get; set; } = new List<List<int>>();
 
+
+    /// <summary>
+    /// Constructor por defecto
+    /// </summary>
     public DeciderInfoDto()
     {
 
     }
 
+    /// <summary>
+    /// Creacion de un decider Info
+    /// </summary>
+    /// <param name="data"></param>
     public DeciderInfoDto(int[,] data)
     {
 

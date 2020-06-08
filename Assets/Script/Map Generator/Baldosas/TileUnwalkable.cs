@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 
+/// Posblies tiles unwalkables
 /// </summary>
 public enum TileUnwalkableType
 {
@@ -12,7 +12,7 @@ public enum TileUnwalkableType
 }
 
 /// <summary>
-/// 
+/// Componente del mapa que no se  puede atravesar
 /// </summary>
 public class TileUnwalkable : Tile
 {
