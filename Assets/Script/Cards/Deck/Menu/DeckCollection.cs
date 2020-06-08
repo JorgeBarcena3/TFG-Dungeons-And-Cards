@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Newtonsoft.Json;
-using UnityEditor.Rendering.LWRP;
 
 public class DeckCollection
 {
